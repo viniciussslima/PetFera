@@ -11,14 +11,14 @@
 
 ## Instruções
 
-Para compilar:
+### Para compilar:
 
 	make
 
-Para limpar os arquivos auxiliares:
+### Para limpar os arquivos auxiliares:
 
     make clean
 
-Para limpar os arquivos auxiliares e execultaveis:
+### Para limpar os arquivos auxiliares e execultaveis:
 
     make cleanall
