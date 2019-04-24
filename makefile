@@ -3,15 +3,22 @@
 ## João Vitor Kobata
 ## Vinicius Santos Silva de Lima
 
+INCLUDEDIR = include/
+SRCDIR = src/
+BUILDDIR = build/
+BINDIR = bin/
 PROG = PetFera
 CC = g++
-CPPFLAGS = -Wall -std=c++11
+LDFLAGS = -L/lib
+CPPFLAGS = -Wall -std=c++11 -I$(INCLUDEDIR)
 OBJS = main.o
 $(PROG) : $(OBJS)
 	$(CC) $(LDFLAGS) -o $(PROG) $(OBJS)
+	mv $(PROG) $(BINDIR)
+	mv $(OBJS) $(BUILDDIR)
 main.o :
-	$(CC) $(CPPFLAGS) -c main.cpp
+	$(CC) $(CPPFLAGS) -c $(SRCDIR)main.cpp
 clean:
-	rm -f core $(OBJS)
+	cd $(BUILDDIR) && rm -f core $(OBJS)
 cleanall: clean
-	rm -f core $(PROG)
+	cd $(SRCDIR) && rm -f core $(PROG)
