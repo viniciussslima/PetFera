@@ -9,7 +9,7 @@
 
 	O objetivo deste trabalho é implementar um programa de cadastro de animais para a loja de animais silvestres Pet Fera.
 
-## Instruções
+## Instruções:
 
 ### Para compilar:
 
