@@ -17,9 +17,10 @@ class Funcionario
 		char m_fator_rh;
 		string m_especialidade;
 	public:
-		Funcionario(int new_id, string new_nome, string new_cpf,
-			short new_idade, short new_tipo_sanguineo, char new_fator_rh,
-			string new_especialidade);
+		Funcionario();
+		Funcionario(int, string, string,
+			short, short, char ,
+			string);
 		~Funcionario();
 	
 };
