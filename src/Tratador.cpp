@@ -3,12 +3,16 @@
 
 using namespace std;
 
-class Tratador : public Funcionario
+Tratador::Tratador(){}
+
+Tratador::Tratador(int new_id, string new_nome, string new_cpf,
+	short new_idade, short new_tipo_sanguineo, char new_fator_rh,
+	string new_especialidade, int new_nivel_de_seguranca):
+	Funcionario(new_id, new_nome, new_cpf,
+		new_idade, new_tipo_sanguineo, new_fator_rh,
+		new_especialidade)
 {
-	private:
-		int m_nivel_de_seguranca;
-	public:
-		Tratador();
-		~Tratador();
-	
-};
+	m_nivel_de_seguranca = new_nivel_de_seguranca;
+}
+
+Tratador::~Tratador(){}
