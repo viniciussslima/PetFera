@@ -3,12 +3,15 @@
 
 using namespace std;
 
-class Veterinario : public Funcionario
+Veterinario::Veterinario(){}
+
+Veterinario::Veterinario(int new_id, string new_nome, string new_cpf,
+	short new_idade, short new_tipo_sanguineo, char new_fator_rh,
+	string new_especialidade, int new_cmv):
+	Funcionario(new_id, new_nome, new_cpf,
+		new_idade, new_tipo_sanguineo, new_fator_rh, m_especialidade)
 {
-	private:
-		string m_cmv;
-	public:
-		Veterinario();
-		~Veterinario();
-	
-};
+	m_cmv = new_cmv;
+}
+
+Veterinario::~Veterinario(){}
