@@ -9,6 +9,9 @@ class Veterinario : public Funcionario
 		string m_cmv;
 	public:
 		Veterinario();
+		Veterinario(int, string, string,
+			short, short, char, string,
+			int);
 		~Veterinario();
 	
 };
