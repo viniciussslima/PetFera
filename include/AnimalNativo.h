@@ -12,6 +12,7 @@ protected:
 	string m_autorizacao;
 public:
 	AnimalNativo();
+	AnimalNativo(string);
 	~AnimalNativo();
 	
 };

@@ -11,6 +11,7 @@ private:
 	string m_pais_origem;
 public:
 	AnimalExotico();
+	AnimalExotico(string);
 	~AnimalExotico();
 	
 };
