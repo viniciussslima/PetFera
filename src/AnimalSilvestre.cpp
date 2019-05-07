@@ -1,5 +1,4 @@
-#ifndef _H_ANIMAL_SILVESTRE_H_
-#define _H_ANIMAL_SILVESTRE_H_
+#include "AnimalSilvestre.h"
 
 AnimalSilvestre::AnimalSilvestre(string new_autorizacao_ibama)
 {
@@ -9,5 +8,3 @@ AnimalSilvestre::AnimalSilvestre(string new_autorizacao_ibama)
 AnimalSilvestre::AnimalSilvestre(){}
 
 AnimalSilvestre::~AnimalSilvestre(){}
-
-#endif
