@@ -1,6 +1,6 @@
 #include "Animal.h"
 
-using namespace std,
+using namespace std;
 
 Animal::Animal(){}
 
