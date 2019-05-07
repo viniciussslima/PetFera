@@ -1,6 +1,8 @@
 #ifndef  _H_ANIMAL_H_
 #define _H_ANIMAL_H_
 
+#include <string>
+
 #include "Veterinario.h"
 #include "Tratador.h"
 
