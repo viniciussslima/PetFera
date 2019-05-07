@@ -21,4 +21,4 @@ Animal::Animal(int new_id, string new_classe,
 	m_nome_batismo = new_nome_batismo;
 }
 	
-Animal::~Animal();
+Animal::~Animal(){}
