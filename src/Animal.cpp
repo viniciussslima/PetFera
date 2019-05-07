@@ -22,5 +22,3 @@ Animal::Animal(int new_id, string new_classe,
 }
 	
 Animal::~Animal();
-
-#endif
