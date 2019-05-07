@@ -2,6 +2,13 @@
 
 using namespace std;
 
+void Cadastro_animal(){}
+void Remocao_animal(){}
+void Cadastro_funcionario(){}
+void Remocao_funcionario(){}
+void Consultar_animal(){}
+void Consultar_funcionario(){}
+
 int main(void)
 {
 	char escolha;
@@ -41,7 +48,7 @@ int main(void)
 				break;
 			case '7':
 				loop = false;
-				break
+				break;
 			default:
 				cout << "Opção invalida" << endl;
 				break;
