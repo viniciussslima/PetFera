@@ -1,5 +1,5 @@
-#ifndef _H_ANFIBIONATIVO_H
-#define _H_ANFIBIONATIVO_H
+#ifndef _H_ANFIBIONATIVO_H_
+#define _H_ANFIBIONATIVO_H_
 
 using namespace std;
 

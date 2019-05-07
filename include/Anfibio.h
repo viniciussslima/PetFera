@@ -1,7 +1,9 @@
-#ifdef ANFIBIO_H
-#define ANFIBIO_H
+#ifndef _H_ANFIBIO_H_
+#define _H_ANFIBIO_H_
+
 #include "date.h"
 #include "Animal.h" 
+
 using namespace std;
 
 class Anfibio: public Animal
@@ -15,4 +17,4 @@ public:
 	~Anfibio();
 
 }
-#ifdef
+#endif

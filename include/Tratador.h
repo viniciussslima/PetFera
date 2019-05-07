@@ -1,5 +1,5 @@
-#ifndef _H_TRATADOR_H
-#define _H_TRATADOR_H
+#ifndef _H_TRATADOR_H_
+#define _H_TRATADOR_H_
 
 using namespace std;
 

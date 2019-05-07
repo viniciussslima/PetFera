@@ -1,5 +1,6 @@
-#ifdef AVE_H
-#define AVE_H
+#ifndef _H_AVE_H
+#define _H_AVE_H
+
 #include "Animal.h"
 using namespace std;
 
@@ -13,4 +14,4 @@ public:
 	Ave();
 	~Ave();
 }
-#ifdef
+#endif

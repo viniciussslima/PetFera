@@ -1,5 +1,5 @@
-#ifndef _H_REPTILNATIVO_H
-#define _H_REPTILNATIVO_H
+#ifndef _H_REPTILNATIVO_H_
+#define _H_REPTILNATIVO_H_
 
 using namespace std;
 

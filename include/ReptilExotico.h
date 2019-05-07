@@ -1,5 +1,5 @@
-#ifndef _H_REPTILEXOTICO_H
-#define _H_REPTILEXOTICO_H
+#ifndef _H_REPTILEXOTICO_H_
+#define _H_REPTILEXOTICO_H_
 
 using namespace std;
 

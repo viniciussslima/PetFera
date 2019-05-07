@@ -1,5 +1,5 @@
-#ifndef _H_VETERINARIO_H
-#define _H_VETERINARIO_H
+#ifndef _H_VETERINARIO_H_
+#define _H_VETERINARIO_H_
 
 using namespace std;
 

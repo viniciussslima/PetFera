@@ -1,7 +1,9 @@
-#ifdef MAMIFERO_H
-#define MAMIFERO_H
+#ifndef _H_MAMIFERO_H
+#define _H_MAMIFERO_H
+
 #include "Animal.h"
 #include <string>
+
 using namespace std;
 
 class Mamifero: public Animal
@@ -19,4 +21,4 @@ public:
 
 
 }
-#ifdef
+#endif
