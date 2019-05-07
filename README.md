@@ -5,7 +5,7 @@
 	João Vitor Kobata
 	Vinicius Santos Silva de Lima
 
-## Obejetivo:
+## Objetivo:
 
 	O objetivo deste trabalho é implementar um programa de cadastro de animais para a loja de animais silvestres Pet Fera.
 
