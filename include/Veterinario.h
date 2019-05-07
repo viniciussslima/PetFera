@@ -1,6 +1,10 @@
 #ifndef _H_VETERINARIO_H_
 #define _H_VETERINARIO_H_
 
+#include <string>
+
+#include "Funcionario.h"
+
 using namespace std;
 
 class Veterinario : public Funcionario
