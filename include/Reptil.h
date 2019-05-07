@@ -15,11 +15,6 @@ protected:
 public:
 	Reptil();
 	~Reptil();
+};
 
-
-
-
-
-
-}
 #endif

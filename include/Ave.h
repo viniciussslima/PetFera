@@ -13,5 +13,6 @@ protected:
 public:
 	Ave();
 	~Ave();
-}
+};
+
 #endif
