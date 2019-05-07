@@ -19,6 +19,6 @@
 
     make clean
 
-### Para limpar os arquivos auxiliares e execultaveis:
+### Para limpar os arquivos auxiliares e executáveis:
 
     make cleanall
