@@ -2,6 +2,8 @@
 
 using namespace std;
 
+Funcionario::Funcionario(){}
+
 Funcionario::Funcionario(int new_id, string new_nome, string new_cpf,
 	short new_idade, short new_tipo_sanguineo, char new_fator_rh,
 	string new_especialidade)
