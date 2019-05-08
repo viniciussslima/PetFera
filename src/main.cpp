@@ -1,13 +1,13 @@
 #include <iostream>
 
-using namespace std;
+#include "Cadastro_animal.h" 
+#include "Remocao_animal.h" 
+#include "Cadastro_funcionario.h" 
+#include "Remocao_funcionario.h" 
+#include "Consultar_animal.h" 
+#include "Consultar_funcionario.h"
 
-void Cadastro_animal(){}
-void Remocao_animal(){}
-void Cadastro_funcionario(){}
-void Remocao_funcionario(){}
-void Consultar_animal(){}
-void Consultar_funcionario(){}
+using namespace std;
 
 int main(void)
 {
