@@ -18,7 +18,10 @@ Anfibio.o AnfibioNativo.o AnfibioExotico.o \
 Mamifero.o MamiferoNativo.o MamiferoExotico.o \
 Reptil.o ReptilNativo.o ReptilExotico.o \
 Ave.o AveNativo.o AveExotico.o \
-AnimalSilvestre.o AnimalNativo.o AnimalExotico.o
+AnimalSilvestre.o AnimalNativo.o AnimalExotico.o \
+Cadastro_animal.o  Remocao_animal.o \
+Cadastro_funcionario.o Remocao_funcionario.o" \
+Consultar_animal.o Consultar_funcionario.o
 
 $(PROG) : $(OBJS)
 	$(CC) $(LDFLAGS) -o $(PROG) $(OBJS)
