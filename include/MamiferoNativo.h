@@ -2,10 +2,11 @@
 #define _H_MAMIFERONATIVO_H_
 
 #include "Mamifero.h"
+#include "AnimalNativo.h"
 
 using namespace std;
 
-class MamiferoNativo : public Mamifero
+class MamiferoNativo : public Mamifero, public AnimalNativo
 {
 	public:
 		MamiferoNativo();
