@@ -2,10 +2,11 @@
 #define _H_ANFIBIOEXOTICO_H_
 
 #include "Anfibio.h"
+#include "AnimalExotico.h"
 
 using namespace std;
 
-class AnfibioExotico : public Anfibio
+class AnfibioExotico : public Anfibio, public AnimalExotico
 {
 	public:
 		AnfibioExotico();
