@@ -50,7 +50,7 @@ int main(void)
 				loop = false;
 				break;
 			default:
-				cout << "Opção invalida" << endl;
+				cout << "Opção invalida\n" << endl;
 				break;
 		}
 	}
