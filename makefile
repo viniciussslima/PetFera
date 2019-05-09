@@ -20,7 +20,7 @@ Reptil.o ReptilNativo.o ReptilExotico.o \
 Ave.o AveNativo.o AveExotico.o \
 AnimalSilvestre.o AnimalNativo.o AnimalExotico.o \
 Cadastro_animal.o  Remocao_animal.o \
-Cadastro_funcionario.o Remocao_funcionario.o" \
+Cadastro_funcionario.o Remocao_funcionario.o \
 Consultar_animal.o Consultar_funcionario.o
 
 $(PROG) : $(OBJS)
@@ -69,6 +69,18 @@ AnimalNativo.o : $(INCLUDEDIR)AnimalNativo.h
 	$(CC) $(CPPFLAGS) -c $(SRCDIR)AnimalNativo.cpp
 AnimalExotico.o : $(INCLUDEDIR)AnimalExotico.h
 	$(CC) $(CPPFLAGS) -c $(SRCDIR)AnimalExotico.cpp
+Cadastro_animal.o : $(INCLUDEDIR)Cadastro_animal.h
+	$(CC) $(CPPFLAGS) -c $(SRCDIR)Cadastro_animal.cpp
+Remocao_animal.o  : $(INCLUDEDIR)Remocao_animal.h
+	$(CC) $(CPPFLAGS) -c $(SRCDIR)Remocao_animal.cpp
+Cadastro_funcionario.o : $(INCLUDEDIR)Cadastro_funcionario.h
+	$(CC) $(CPPFLAGS) -c $(SRCDIR)Cadastro_funcionario.cpp
+Remocao_funcionario.o : $(INCLUDEDIR)Remocao_funcionario.h
+	$(CC) $(CPPFLAGS) -c $(SRCDIR)Remocao_funcionario.cpp
+Consultar_animal.o : $(INCLUDEDIR)Consultar_animal.h
+	$(CC) $(CPPFLAGS) -c $(SRCDIR)Consultar_animal.cpp
+Consultar_funcionario.o : $(INCLUDEDIR)Consultar_funcionario.h
+	$(CC) $(CPPFLAGS) -c $(SRCDIR)Consultar_funcionario.cpp
 clean:
 	rm -f core $(OBJS)
 	cd $(BUILDDIR) && rm -f core $(OBJS)
