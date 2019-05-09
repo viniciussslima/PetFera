@@ -85,4 +85,4 @@ clean:
 	rm -f core $(OBJS)
 	cd $(BUILDDIR) && rm -f core $(OBJS)
 cleanall: clean
-	cd $(SRCDIR) && rm -f core $(PROG)
+	cd $(BINDIR) && rm -f core $(PROG)
