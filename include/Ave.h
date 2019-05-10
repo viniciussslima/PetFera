@@ -14,6 +14,9 @@ class Ave : public Animal
 
 	public:
 		Ave();
+		Ave(int , string, string, char,	double, string,
+			Veterinario, Tratador, string, int, date);
+		
 		~Ave();
 };
 
