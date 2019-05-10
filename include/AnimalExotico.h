@@ -7,13 +7,12 @@ using namespace std;
 
 class AnimalExotico : public AnimalSilvestre
 {
-private:
-	string m_pais_origem;
-public:
-	AnimalExotico();
-	AnimalExotico(string);
-	~AnimalExotico();
-	
+	protected:
+		string m_pais_origem;
+	public:
+		AnimalExotico();
+		AnimalExotico(string, string);
+		~AnimalExotico();
 };
 
 #endif
