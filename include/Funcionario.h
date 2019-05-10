@@ -22,6 +22,7 @@ class Funcionario
 			short, short, char ,
 			string);
 		~Funcionario();
+		string getNome();
 	
 };
 

@@ -17,7 +17,9 @@ Funcionario::Funcionario(int new_id, string new_nome, string new_cpf,
 	m_especialidade = new_especialidade;
 }
 
-Funcionario::~Funcionario()
-{
+Funcionario::~Funcionario(){}
 
+string Funcionario::getNome()
+{
+	return m_nome;
 }
