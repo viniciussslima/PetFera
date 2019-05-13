@@ -13,7 +13,7 @@ class Tratador : public Funcionario
 		int m_nivel_de_seguranca;
 	public:
 		Tratador(int, string, string,
-	short, short, char,	string, int);
+	short, string, char,	string, int);
 		Tratador();
 		~Tratador();
 	

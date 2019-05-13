@@ -14,7 +14,7 @@ class Veterinario : public Funcionario
 	public:
 		Veterinario();
 		Veterinario(int, string, string,
-			short, short, char, string,
+			short, string, char, string,
 			int);
 		~Veterinario();
 	
