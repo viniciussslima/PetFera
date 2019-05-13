@@ -1,5 +1,7 @@
 #include "AveExotico.h"
 
+using namespace std;
+
 AveExotico::AveExotico(){}
 
 AveExotico::AveExotico(int new_id, string new_classe,
@@ -22,18 +24,27 @@ AveExotico::~AveExotico(){}
 
 ostream& operator<<(ostream &o, AveExotico A)
 {
-	o << A.m_id
-	<< A.m_classe
-	<< A.m_nome_cientifico
-	<< A.m_sexo
-	<< A.m_tamanho
-	<< A.m_dieta
-	<< A.m_veterinario.getNome()
-	<< A.m_tratador.getNome()
-	<< A.m_nome_batismo
-	<< A.m_total_de_mudas
-	<< A.m_ultima_muda
-	<< A.m_autorizacao_ibama
-	<< A.m_pais_origem;
+	o << A.m_id << endl
+		<< A.m_classe << endl
+		<< A.m_nome_cientifico << endl
+		<< A.m_sexo << endl
+		<< A.m_tamanho << endl
+		<< A.m_dieta << endl;
+	
+	if (A.m_veterinario.getNome().compare("") != 0)
+	{
+		o << A.m_veterinario.getNome() << endl;
+	}
+
+	if (A.m_tratador.getNome().compare("") != 0)
+	{
+		o << A.m_tratador.getNome() << endl;
+	}
+
+	o << A.m_nome_batismo << endl
+		<< A.m_total_de_mudas << endl
+		<< A.m_ultima_muda << endl
+		<< A.m_autorizacao_ibama << endl
+		<< A.m_pais_origem << endl;
 	return o;
 }
