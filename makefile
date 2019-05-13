@@ -86,3 +86,5 @@ clean:
 	cd $(BUILDDIR) && rm -f core $(OBJS)
 cleanall: clean
 	cd $(BINDIR) && rm -f core $(PROG)
+run:
+	cd $(BINDIR) && ./$(PROG) && cd ..
