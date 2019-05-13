@@ -13,13 +13,13 @@ class Funcionario
 		string m_nome;
 		string m_cpf;
 		short m_idade;
-		short m_tipo_sanguineo;
+		string m_tipo_sanguineo;
 		char m_fator_rh;
 		string m_especialidade;
 	public:
 		Funcionario();
 		Funcionario(int, string, string,
-			short, short, char ,
+			short, string, char ,
 			string);
 		~Funcionario();
 		string getNome();
