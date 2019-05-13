@@ -143,7 +143,7 @@ inline long long_date(const date& d) {
 
 ostream& operator << (ostream& os, const date& d){
 	if (d.valid()) {
-	os <<  " " << long_date(d) << " " ; }
+	os << long_date(d) << " " ; }
 	else {
 	os <<  " invalid date "; };
 	return os;
