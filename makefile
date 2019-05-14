@@ -23,10 +23,23 @@ Cadastro_animal.o  Remocao_animal.o \
 Cadastro_funcionario.o Remocao_funcionario.o \
 Consultar_animal.o Consultar_funcionario.o
 
-$(PROG) : $(OBJS)
+$(PROG) : $(OBJS) folder
 	$(CC) $(LDFLAGS) -o $(PROG) $(OBJS)
 	mv $(PROG) $(BINDIR)
 	mv $(OBJS) $(BUILDDIR)
+folder :
+	mkdir -p $(BINDIR)
+	mkdir -p $(BUILDDIR)
+	mkdir -p Dados/Aves/Aves\ \Nativas
+	mkdir -p Dados/Aves/Aves\ \Exoticas
+	mkdir -p Dados/Anfibios/Anfibios\ \Nativos
+	mkdir -p Dados/Anfibios/Anfibios\ \Exoticos
+	mkdir -p Dados/Mamiferos/Mamiferos\ \Nativos
+	mkdir -p Dados/Mamiferos/Mamiferos\ \Exoticos
+	mkdir -p Dados/Répteis/Répteis\ \Nativos
+	mkdir -p Dados/Répteis/Répteis\ \Exoticos
+	mkdir -p Dados/Funcionarios/Tratadores
+	mkdir -p Dados/Funcionarios/Veterinarios
 main.o :
 	$(CC) $(CPPFLAGS) -c $(SRCDIR)main.cpp
 date.o : $(INCLUDEDIR)date.h
@@ -81,10 +94,10 @@ Consultar_animal.o : $(INCLUDEDIR)Consultar_animal.h
 	$(CC) $(CPPFLAGS) -c $(SRCDIR)Consultar_animal.cpp
 Consultar_funcionario.o : $(INCLUDEDIR)Consultar_funcionario.h
 	$(CC) $(CPPFLAGS) -c $(SRCDIR)Consultar_funcionario.cpp
-clean:
+clean :
 	rm -f core $(OBJS)
 	cd $(BUILDDIR) && rm -f core $(OBJS)
-cleanall: clean
+cleanall : clean
 	cd $(BINDIR) && rm -f core $(PROG)
-run:
+run :
 	cd $(BINDIR) && ./$(PROG) && cd ..
