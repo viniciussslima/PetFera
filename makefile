@@ -30,16 +30,7 @@ $(PROG) : $(OBJS) folder
 folder :
 	mkdir -p $(BINDIR)
 	mkdir -p $(BUILDDIR)
-	mkdir -p Dados/Aves/Aves\ \Nativas
-	mkdir -p Dados/Aves/Aves\ \Exoticas
-	mkdir -p Dados/Anfibios/Anfibios\ \Nativos
-	mkdir -p Dados/Anfibios/Anfibios\ \Exoticos
-	mkdir -p Dados/Mamiferos/Mamiferos\ \Nativos
-	mkdir -p Dados/Mamiferos/Mamiferos\ \Exoticos
-	mkdir -p Dados/Répteis/Répteis\ \Nativos
-	mkdir -p Dados/Répteis/Répteis\ \Exoticos
-	mkdir -p Dados/Funcionarios/Tratadores
-	mkdir -p Dados/Funcionarios/Veterinarios
+	mkdir -p Dados
 main.o :
 	$(CC) $(CPPFLAGS) -c $(SRCDIR)main.cpp
 date.o : $(INCLUDEDIR)date.h
