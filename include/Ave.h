@@ -9,13 +9,13 @@ using namespace std;
 class Ave : public Animal
 {
 	protected:
-		int m_total_de_mudas;
-		date m_ultima_muda;
+		double m_tamanho_do_bico;
+		double m_evergadura_das_asas;
 
 	public:
 		Ave();
 		Ave(int , string, string, char,	double, string,
-			Veterinario, Tratador, string, int, date);
+			Veterinario, Tratador, string, double, double);
 		
 		~Ave();
 };

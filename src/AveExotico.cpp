@@ -8,8 +8,8 @@ AveExotico::AveExotico(int new_id, string new_classe,
 	string new_nome_cientifico,	char new_sexo,
 	double new_tamanho,	string new_dieta,
 	Veterinario new_veterinario, Tratador new_tratador,
-	string new_nome_batismo, int new_total_de_mudas, 
-	date new_ultima_mulda, string new_autorizacao_ibama,
+	string new_nome_batismo, double new_tamanho_do_bico, 
+	double new_evergadura_das_asas, string new_autorizacao_ibama,
 	string new_pais_origem):
 		Ave(new_id, new_classe,
 			new_nome_cientifico, new_sexo,
@@ -33,8 +33,8 @@ ostream& operator<<(ostream &o, AveExotico A)
 		<< A.m_veterinario.getNome() << ";"
 		<< A.m_tratador.getNome() << ";"
 		<< A.m_nome_batismo << ";"
-		<< A.m_total_de_mudas << ";"
-		<< A.m_ultima_muda << ";"
+		<< A.m_tamanho_do_bico << ";"
+		<< A.m_evergadura_das_asas << ";"
 		<< A.m_autorizacao_ibama << ";"
 		<< A.m_pais_origem << ";";
 	return o;
