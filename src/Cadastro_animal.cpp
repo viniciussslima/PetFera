@@ -29,6 +29,7 @@ void Cadastro_animal()
 	int tratador_incluso;
 	string nome_batismo;
 	string nascionalidade;
+	ofstream outfile;
 
 	cout << "id: ";
 	cin >> id;
@@ -101,7 +102,8 @@ void Cadastro_animal()
 				nome_batismo, total_de_mudas, ultima_mulda,
 				autorizacao_ibama, nascionalidade);
 
-				cout << aveExotico << endl;
+				outfile.open("../Dados/Aves/Aves Exoticas/teste.csv", ios::app);
+				outfile << aveExotico << endl;
 			}
 
 			else if (veterinario_incluso == 0)
@@ -127,7 +129,7 @@ void Cadastro_animal()
 
 				AveExotico aveExotico(id, classe, nome_cientifico,
 				sexo, tamanho, dieta, veterinario, tratador,
-				nome_batismo, total_de_mudas, ultima,
+				nome_batismo, total_de_mudas, ultima_mulda,
 				autorizacao_ibama, nascionalidade);
 
 			}
