@@ -16,6 +16,16 @@
 #include "Tratador.h"
 
 using namespace std;
+
+/*verificao_funcionario(int id)
+{
+	ifstream infile.open("../Dados/funcionarios.csv");
+	while(infile, data)
+	{
+
+	}
+
+}*/
  
 void Cadastro_animal()
 {
@@ -72,17 +82,17 @@ void Cadastro_animal()
 	{
 		if (classe.compare("Aves") == 0)
 		{
-			int total_de_mudas;
-			date ultima_mulda;
+			double tamanho_do_bico;
+			double evergadura_das_asas;
 			string autorizacao_ibama;
-			string nome_veterinario;
-			string nome_tratador;
+			int id_veterinario;
+			int id_tratador;
 
 			cout << "total de mudas: ";
-			cin >> total_de_mudas;
+			cin >> tamanho_do_bico;
 
 			cout << "ultima mulda: ";
-			cin >> ultima_mulda;
+			cin >> evergadura_das_asas;
 
 			cout << "autorizacao ibama: ";
 			cin >> autorizacao_ibama;
@@ -90,19 +100,19 @@ void Cadastro_animal()
 			if (veterinario_incluso == 0 &&
 				tratador_incluso == 0)
 			{
-				cin >> nome_veterinario;
-				cin >> nome_tratador;
-				//verifica se existe
+				cin >> id_veterinario;
+				cin >> id_tratador;
+				//verificao_funcionario(id_veterinario);
 				Veterinario veterinario;
 				Tratador tratador(1,"João Alberto","007.404.200-98",45,"AB",'-',"Répteis e Aves",1);
 
 
 				AveExotico aveExotico(id, classe, nome_cientifico,
 				sexo, tamanho, dieta, veterinario, tratador,
-				nome_batismo, total_de_mudas, ultima_mulda,
+				nome_batismo, tamanho_do_bico, evergadura_das_asas,
 				autorizacao_ibama, nascionalidade);
 
-				outfile.open("../Dados/Aves/Aves Exoticas/teste.csv", ios::app);
+				outfile.open("../Dados/animais.csv", ios::app);
 				outfile << aveExotico << endl;
 			}
 
@@ -116,7 +126,7 @@ void Cadastro_animal()
 
 				AveExotico aveExotico(id, classe, nome_cientifico,
 				sexo, tamanho, dieta, veterinario, tratador,
-				nome_batismo, total_de_mudas, ultima_mulda,
+				nome_batismo, tamanho_do_bico, evergadura_das_asas,
 				autorizacao_ibama, nascionalidade);
 			}
 
@@ -129,7 +139,7 @@ void Cadastro_animal()
 
 				AveExotico aveExotico(id, classe, nome_cientifico,
 				sexo, tamanho, dieta, veterinario, tratador,
-				nome_batismo, total_de_mudas, ultima_mulda,
+				nome_batismo, tamanho_do_bico, evergadura_das_asas,
 				autorizacao_ibama, nascionalidade);
 
 			}
