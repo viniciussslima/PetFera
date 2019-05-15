@@ -10,6 +10,9 @@ class MamiferoNativo : public Mamifero, public AnimalNativo
 {
 	public:
 		MamiferoNativo();
+		MamiferoNativo(int, string, string, char,
+			double, string, Veterinario, Tratador,
+			string, string, string, string);
 		~MamiferoNativo();
 };
 

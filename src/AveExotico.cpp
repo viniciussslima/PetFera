@@ -15,8 +15,8 @@ AveExotico::AveExotico(int new_id, string new_classe,
 			new_nome_cientifico, new_sexo,
 			new_tamanho, new_dieta,
 			new_veterinario, new_tratador,
-			new_nome_batismo, new_total_de_mudas,
-			new_ultima_mulda),
+			new_nome_batismo, new_tamanho_do_bico,
+			new_evergadura_das_asas),
 		AnimalExotico(new_autorizacao_ibama,
 			new_pais_origem){}
 

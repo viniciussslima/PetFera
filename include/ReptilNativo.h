@@ -9,7 +9,9 @@ using namespace std;
 class ReptilNativo : public Reptil, public AnimalNativo
 {
 	public:
-		ReptilNativo();
+		ReptilNativo(int, string, string, char,
+			double, string, Veterinario, Tratador,
+			string, bool, string, string, string);
 		~ReptilNativo();
 };
 

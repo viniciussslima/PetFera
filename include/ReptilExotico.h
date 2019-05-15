@@ -10,6 +10,9 @@ class ReptilExotico : public Reptil, public AnimalExotico
 {
 	public:
 		ReptilExotico();
+		ReptilExotico(int, string, string, char,
+			double, string, Veterinario, Tratador,
+			string, bool, string, string, string);
 		~ReptilExotico();
 };
 

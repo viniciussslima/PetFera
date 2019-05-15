@@ -15,8 +15,8 @@ Ave::Ave(int new_id, string new_classe,
 			new_veterinario, new_tratador,
 			new_nome_batismo)
 {
-	m_total_de_mudas = new_total_de_mudas;
-	m_ultima_muda = new_ultima_muda;
+	m_tamanho_do_bico = new_tamanho_do_bico;
+	m_evergadura_das_asas = new_evergadura_das_asas;
 }
 
 Ave::~Ave(){}

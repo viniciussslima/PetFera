@@ -10,6 +10,7 @@ class AnfibioExotico : public Anfibio, public AnimalExotico
 {
 	public:
 		AnfibioExotico();
+		AnfibioExotico(int, date, string, string);
 		~AnfibioExotico();
 };
 

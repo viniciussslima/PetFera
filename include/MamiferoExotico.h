@@ -9,7 +9,9 @@ using namespace std;
 class MamiferoExotico : public Mamifero, public AnimalExotico
 {
 	public:
-		MamiferoExotico();
+		MamiferoExotico(int, string, string, char,
+			double, string, Veterinario, Tratador,
+			string, string, string, string);
 		~MamiferoExotico();
 };
 

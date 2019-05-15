@@ -14,6 +14,9 @@ protected:
 
 public:
 	Reptil();
+	Reptil(int, string, string, char,
+		double, string, Veterinario,
+		Tratador, string, bool, string);
 	~Reptil();
 };
 

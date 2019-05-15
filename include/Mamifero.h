@@ -13,13 +13,10 @@ protected:
 
 public:
 	Mamifero();
+	Mamifero(int, string, string, char,
+		double, string, Veterinario,
+		Tratador, string, string);
 	~Mamifero();
-
-
-
-
-
-
 };
 
 #endif

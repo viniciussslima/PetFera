@@ -14,6 +14,7 @@ protected:
 
 public:
 	Anfibio();
+	Anfibio(int, date);
 	~Anfibio();
 
 };
