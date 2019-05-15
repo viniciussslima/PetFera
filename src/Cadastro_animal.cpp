@@ -118,7 +118,7 @@ void Cadastro_animal()
 
 			else if (veterinario_incluso == 0)
 			{
-				cin >> nome_veterinario;
+				cin >> id_veterinario;
 				//verifica se existe
 				Veterinario veterinario;
 				Tratador tratador;
@@ -132,7 +132,7 @@ void Cadastro_animal()
 
 			else if (tratador_incluso == 0)
 			{	
-				cin >> nome_tratador;
+				cin >> id_tratador;
 				//verifica se existe
 				Veterinario veterinario;
 				Tratador tratador;
