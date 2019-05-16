@@ -14,7 +14,9 @@ protected:
 
 public:
 	Anfibio();
-	Anfibio(int, date);
+	Anfibio(int, string, string, char,
+			double, string, Veterinario,
+			Tratador, string, int, date);
 	~Anfibio();
 
 };

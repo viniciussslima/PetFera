@@ -14,3 +14,20 @@ MamiferoExotico::MamiferoExotico(int new_id, string new_classe,
 			new_pais_origem){}
 
 MamiferoExotico::~MamiferoExotico(){}
+
+ostream& operator<<(ostream &o, MamiferoExotico A)
+{
+	o << A.m_id << ";"
+		<< A.m_classe << ";"
+		<< A.m_nome_cientifico << ";"
+		<< A.m_sexo << ";"
+		<< A.m_tamanho << ";"
+		<< A.m_dieta << ";"
+		<< A.m_veterinario.getId() << ";"
+		<< A.m_tratador.getId() << ";"
+		<< A.m_nome_batismo << ";"
+		<< A.m_cor_pelo << ";"
+		<< A.m_autorizacao_ibama << ";"
+		<< A.m_pais_origem << ";";
+	return o;
+}

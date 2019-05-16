@@ -10,8 +10,12 @@ class AnfibioExotico : public Anfibio, public AnimalExotico
 {
 	public:
 		AnfibioExotico();
-		AnfibioExotico(int, date, string, string);
+		AnfibioExotico(int, string, string, char,
+			double, string, Veterinario,
+			Tratador, string, int,
+			date, string, string);
 		~AnfibioExotico();
+		friend ostream& operator<<(ostream &, AnfibioExotico);
 };
 
 #endif

@@ -13,6 +13,7 @@ class ReptilNativo : public Reptil, public AnimalNativo
 			double, string, Veterinario, Tratador,
 			string, bool, string, string, string);
 		~ReptilNativo();
+		friend ostream& operator<<(ostream &, ReptilNativo);
 };
 
 #endif

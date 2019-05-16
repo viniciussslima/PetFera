@@ -22,7 +22,7 @@ class Funcionario
 			short, string, char ,
 			string);
 		~Funcionario();
-		string getNome();
+		int getId();
 	
 };
 

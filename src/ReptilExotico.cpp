@@ -21,3 +21,21 @@ ReptilExotico::ReptilExotico(int new_id, string new_classe,
 }
 
 ReptilExotico::~ReptilExotico(){}
+
+ostream& operator<<(ostream &o, ReptilExotico A)
+{
+	o << A.m_id << ";"
+		<< A.m_classe << ";"
+		<< A.m_nome_cientifico << ";"
+		<< A.m_sexo << ";"
+		<< A.m_tamanho << ";"
+		<< A.m_dieta << ";"
+		<< A.m_veterinario.getId() << ";"
+		<< A.m_tratador.getId() << ";"
+		<< A.m_nome_batismo << ";"
+		<< A.m_venenoso << ";"
+		<< A.m_tipo_veneno << ";"
+		<< A.m_autorizacao_ibama << ";"
+		<< A.m_pais_origem << ";";
+	return o;
+}

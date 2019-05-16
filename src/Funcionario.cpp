@@ -19,7 +19,7 @@ Funcionario::Funcionario(int new_id, string new_nome, string new_cpf,
 
 Funcionario::~Funcionario(){}
 
-string Funcionario::getNome()
+int Funcionario::getId()
 {
-	return m_nome;
+	return m_id;
 }

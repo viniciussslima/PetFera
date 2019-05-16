@@ -16,3 +16,21 @@ ReptilNativo::ReptilNativo(int new_id, string new_classe,
 			new_uf_origem){}
 
 ReptilNativo::~ReptilNativo(){}
+
+ostream& operator<<(ostream &o, ReptilNativo A)
+{
+	o << A.m_id << ";"
+		<< A.m_classe << ";"
+		<< A.m_nome_cientifico << ";"
+		<< A.m_sexo << ";"
+		<< A.m_tamanho << ";"
+		<< A.m_dieta << ";"
+		<< A.m_veterinario.getId() << ";"
+		<< A.m_tratador.getId() << ";"
+		<< A.m_nome_batismo << ";"
+		<< A.m_venenoso << ";"
+		<< A.m_tipo_veneno << ";"
+		<< A.m_autorizacao_ibama << ";"
+		<< A.m_uf_origem << ";";
+	return o;
+}

@@ -16,3 +16,20 @@ MamiferoNativo::MamiferoNativo(int new_id, string new_classe,
 			new_uf_origem){}
 
 MamiferoNativo::~MamiferoNativo(){}
+
+ostream& operator<<(ostream &o, MamiferoNativo A)
+{
+	o << A.m_id << ";"
+		<< A.m_classe << ";"
+		<< A.m_nome_cientifico << ";"
+		<< A.m_sexo << ";"
+		<< A.m_tamanho << ";"
+		<< A.m_dieta << ";"
+		<< A.m_veterinario.getId() << ";"
+		<< A.m_tratador.getId() << ";"
+		<< A.m_nome_batismo << ";"
+		<< A.m_cor_pelo << ";"
+		<< A.m_autorizacao_ibama << ";"
+		<< A.m_uf_origem << ";";
+	return o;
+}
