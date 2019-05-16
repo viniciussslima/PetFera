@@ -35,43 +35,50 @@ void Cadastro_animal()
 	char sexo;
 	float tamanho;
 	string dieta;
-	int veterinario_incluso;
-	int tratador_incluso;
+	char veterinario_incluso;
+	char tratador_incluso;
 	string nome_batismo;
-	string nascionalidade;
+	string nacionalidade;
 	ofstream outfile;
 
-	cout << "id: ";
+	cout << "Id: ";
 	cin >> id;
 
-	cout << "classe: ";
+	cout << "Classe: ";
 	cin >> classe;
 
-	cout << "nome cientifico: ";
-	cin >> nome_cientifico;
+	cout << "Nome cientifico: ";
+	cin.ignore();
+	getline(cin, nome_cientifico);
 
-	cout << "sexo: ";
+	cout << "Sexo(M/F): ";
 	cin >> sexo;
+	sexo = toupper(sexo);
 
-	cout << "tamanho: ";
+	cout << "Tamanho(em centímetros): ";
 	cin >> tamanho;
 
-	cout << "dieta: ";
-	cin >> dieta;
+	cout << "Dieta: ";
+	cin.ignore();
+	getline(cin, dieta);
 
-	cout << "veterinario incluso: ";
+	cout << "Veterinario incluso(S/N): ";
 	cin >> veterinario_incluso;
+	veterinario_incluso = toupper(veterinario_incluso);
 
-	cout << "tratador incluso: ";
+	cout << "Tratador incluso(S/N): ";
 	cin >> tratador_incluso;
+	tratador_incluso = toupper(tratador_incluso);
 
-	cout << "nome batismo: ";
-	cin >> nome_batismo;
+	cout << "Nome batismo: ";
+	cin.ignore();
+	getline(cin, nome_batismo);
 
-	cout << "nascionalidade: ";
-	cin >> nascionalidade;
+	cout << "Nacionalidade: ";
+	cin.ignore();
+	getline(cin, nacionalidade);
 
-	if(nascionalidade.compare("Brasileiro") == 0)
+	if(nacionalidade.compare("Brasileiro") == 0)
 	{
 		if (classe.compare("Aves") == 0)
 		{
@@ -83,18 +90,18 @@ void Cadastro_animal()
 		if (classe.compare("Aves") == 0)
 		{
 			double tamanho_do_bico;
-			double evergadura_das_asas;
+			double envergadura_das_asas;
 			string autorizacao_ibama;
 			int id_veterinario;
 			int id_tratador;
 
-			cout << "total de mudas: ";
+			cout << "Tamanho do bico: ";
 			cin >> tamanho_do_bico;
 
-			cout << "ultima mulda: ";
-			cin >> evergadura_das_asas;
+			cout << "Envergadura das asas: ";
+			cin >> envergadura_das_asas;
 
-			cout << "autorizacao ibama: ";
+			cout << "Autorizacao ibama: ";
 			cin >> autorizacao_ibama;
 			
 			if (veterinario_incluso == 0 &&
@@ -109,8 +116,8 @@ void Cadastro_animal()
 
 				AveExotico aveExotico(id, classe, nome_cientifico,
 				sexo, tamanho, dieta, veterinario, tratador,
-				nome_batismo, tamanho_do_bico, evergadura_das_asas,
-				autorizacao_ibama, nascionalidade);
+				nome_batismo, tamanho_do_bico, envergadura_das_asas,
+				autorizacao_ibama, nacionalidade);
 
 				outfile.open("../Dados/animais.csv", ios::app);
 				outfile << aveExotico << endl;
@@ -126,8 +133,8 @@ void Cadastro_animal()
 
 				AveExotico aveExotico(id, classe, nome_cientifico,
 				sexo, tamanho, dieta, veterinario, tratador,
-				nome_batismo, tamanho_do_bico, evergadura_das_asas,
-				autorizacao_ibama, nascionalidade);
+				nome_batismo, tamanho_do_bico, envergadura_das_asas,
+				autorizacao_ibama, nacionalidade);
 			}
 
 			else if (tratador_incluso == 0)
@@ -139,8 +146,8 @@ void Cadastro_animal()
 
 				AveExotico aveExotico(id, classe, nome_cientifico,
 				sexo, tamanho, dieta, veterinario, tratador,
-				nome_batismo, tamanho_do_bico, evergadura_das_asas,
-				autorizacao_ibama, nascionalidade);
+				nome_batismo, tamanho_do_bico, envergadura_das_asas,
+				autorizacao_ibama, nacionalidade);
 
 			}
 			
