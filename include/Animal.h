@@ -26,6 +26,7 @@ class Animal
 			double, string, Veterinario,
 			Tratador, string);
 		~Animal();
+		int getId();
 };
 
 #endif

@@ -22,3 +22,8 @@ Animal::Animal(int new_id, string new_classe,
 }
 	
 Animal::~Animal(){}
+
+int Animal::getId()
+{
+	return m_id;
+}
