@@ -1,4 +1,5 @@
 #include "JanelaPrincipal.h"
+#include "JanelaCadastroFuncionario.h"
 
 using namespace Gtk;
 using namespace std;
@@ -50,8 +51,14 @@ JanelaPrincipal::~JanelaPrincipal()
 	delete box_botoes;
 }
 
-void JanelaPrincipal::run()
+void JanelaPrincipal::Run()
 {
 	window->show_all();
 	Main::run(*window);
+}
+
+void JanelaPrincipal::CadastrarFuncionario()
+{
+	JanelaCadastroFuncionario temp;
+	temp.Run();
 }

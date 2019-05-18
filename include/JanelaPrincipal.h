@@ -1,5 +1,5 @@
-#ifndef _MAIN_WINDOW_H_
-#define _MAIN_WINDOW_H_
+#ifndef _JANELA_PRINCIPAL_H_
+#define _JANELA_PRINCIPAL_H_
 
 #include <iostream>
 #include <gtkmm.h>
@@ -25,8 +25,8 @@ class JanelaPrincipal
 		JanelaPrincipal();
 		~JanelaPrincipal();
 
-		void run();
-		void addMesaWindow();
+		void Run();
+		void CadastrarFuncionario();
 };
 
 #endif
