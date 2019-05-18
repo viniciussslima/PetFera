@@ -5,29 +5,16 @@
 #include <string>
 #include <vector>
 #include <fstream>
-#include "AnfibioNativo.h" 
-#include "AnfibioExotico.h" 
-#include "MamiferoNativo.h" 
-#include "MamiferoExotico.h" 
-#include "ReptilNativo.h" 
-#include "ReptilExotico.h" 
-#include "AveNativo.h" 
-#include "AveExotico.h" 
+
+#include "Animal.h"
+#include "Funcionario.h"
 #include "Veterinario.h"
 #include "Tratador.h"
-#include "separador.h"
+#include "separador_csv.h"
 
 using namespace std;
 
-void carregar (vector<AnfibioExotico> &AnfibiosExoticos&,
-	vector<AnfibioNativo> &AnfibiosNativos, 
-	vector<AveExotico> &AvesExoticos,
-	vector<AveNativo> &AvesNativos,
-	vector<MamiferoExotico> &MamiferosExoticos,
-	vector<MamiferoNativo> &MamiferosNativos,
-	vector<ReptilExotico> &RepteisExoticos,
-	vector<ReptilNativo> &RepteislNativos, 
-	vector<Tratador> &Tratadores,
-	vector<Veterinario> &Veterinarios);
+void carregar (vector<Animal> &Animais, 
+	vector<Funcionario> &Funcionario);
 
 #endif
