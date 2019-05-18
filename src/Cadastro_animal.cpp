@@ -1,35 +1,41 @@
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <vector>
-
 #include "Cadastro_animal.h"
-#include "AnfibioNativo.h" 
-#include "AnfibioExotico.h" 
-#include "MamiferoNativo.h" 
-#include "MamiferoExotico.h" 
-#include "ReptilNativo.h" 
-#include "ReptilExotico.h" 
-#include "AveNativo.h" 
-#include "AveExotico.h" 
-#include "Veterinario.h"
-#include "Tratador.h"
 
 using namespace std;
 
-/*verificao_funcionario(int id)
+bool verificao_id (int id, vector<Animal> &Animais)
 {
-	ifstream infile.open("../Dados/funcionarios.csv");
-	while(infile, data)
+	for (auto it : Animais)
 	{
+		if (it.getId() == id)
+		{
+			return false;
+		}
+	}
+	return true;
+}
 
+int verificao_funcionario(int id, vector<Funcionario> &Funcionarios)
+{
+	if (id == 0)
+	{
+		return -1;
 	}
 
-}*/
+	for (unsigned int i = 0; i < Funcionarios.size(); ++i)
+	{
+		if (Funcionarios[i].getId() == id)
+		{
+			return i;
+		}
+	}
+	return -1;
+}
  
-void Cadastro_animal()
+void Cadastro_animal(vector<Animal> &Animais, 
+	vector<Funcionario> &Funcionarios)
 {
 	int id;
+	bool teste_id;
 	string classe;
 	string nome_cientifico;
 	char sexo;
@@ -41,8 +47,15 @@ void Cadastro_animal()
 	string nacionalidade;
 	ofstream outfile;
 
-	cout << "Id: ";
-	cin >> id;
+	do{
+		cout << "Id: ";
+		cin >> id;
+		teste_id = verificao_id(id, Animais);
+		if (!teste_id)
+		{
+			cout << "Id já em uso" << endl;
+		}
+	}while(!teste_id);
 
 	cout << "Classe: ";
 	cin >> classe;
@@ -92,8 +105,10 @@ void Cadastro_animal()
 			double tamanho_do_bico;
 			double envergadura_das_asas;
 			string autorizacao_ibama;
-			int id_veterinario;
-			int id_tratador;
+			int id_veterinario = 0;
+			int pos_veterinario;
+			int id_tratador = 0;
+			int pos_tratador;
 
 			cout << "Tamanho do bico: ";
 			cin >> tamanho_do_bico;
@@ -104,53 +119,85 @@ void Cadastro_animal()
 			cout << "Autorizacao ibama: ";
 			cin >> autorizacao_ibama;
 			
-			if (veterinario_incluso == 0 &&
-				tratador_incluso == 0)
+			if (veterinario_incluso == 'S' &&
+				tratador_incluso == 'S')
 			{
+				cout << "Id do veterinario: ";
 				cin >> id_veterinario;
+				cout << "Id do tratador: ";
 				cin >> id_tratador;
-				//verificao_funcionario(id_veterinario);
-				Veterinario veterinario;
-				Tratador tratador(1,"João Alberto","007.404.200-98",45,"AB",'-',"Répteis e Aves",1);
 
-
-				AveExotico aveExotico(id, classe, nome_cientifico,
-				sexo, tamanho, dieta, veterinario, tratador,
-				nome_batismo, tamanho_do_bico, envergadura_das_asas,
-				autorizacao_ibama, nacionalidade);
-
-				outfile.open("../Dados/animais.csv", ios::app);
-				outfile << aveExotico << endl;
+				pos_veterinario = verificao_funcionario(id_veterinario, Funcionarios);
+				pos_tratador = verificao_funcionario(id_tratador, Funcionarios);
+				if (pos_veterinario == -1 || pos_tratador == -1)
+				{
+					cout << "id do veterinario e/ou tratador invalido"
+						<< endl;
+				}
 			}
 
-			else if (veterinario_incluso == 0)
+			else if (veterinario_incluso == 'S')
 			{
+				cout << "Id do veterinario: ";
 				cin >> id_veterinario;
-				//verifica se existe
-				Veterinario veterinario;
-				Tratador tratador;
-
-
-				AveExotico aveExotico(id, classe, nome_cientifico,
-				sexo, tamanho, dieta, veterinario, tratador,
-				nome_batismo, tamanho_do_bico, envergadura_das_asas,
-				autorizacao_ibama, nacionalidade);
+				pos_veterinario = verificao_funcionario(id_veterinario, Funcionarios);
+				if (pos_veterinario == -1)
+				{
+					cout << "id do veterinario invalido"
+						<< endl;
+				}
 			}
 
-			else if (tratador_incluso == 0)
+			else if (tratador_incluso == 'S')
 			{	
+				cout << "Id do tratador: ";
 				cin >> id_tratador;
-				//verifica se existe
-				Veterinario veterinario;
-				Tratador tratador;
+				pos_tratador = verificao_funcionario(id_tratador, Funcionarios);
+				if (pos_tratador == -1)
+				{
+					cout << "id do tratador invalido"
+						<< endl;
+				}
+			}
 
-				AveExotico aveExotico(id, classe, nome_cientifico,
-				sexo, tamanho, dieta, veterinario, tratador,
-				nome_batismo, tamanho_do_bico, envergadura_das_asas,
-				autorizacao_ibama, nacionalidade);
-
+			ifstream arq_funcionarios;
+			string linha;
+			arq_funcionarios.open("../Dados/funcionarios.csv");
+			int contador_linhas = 0;
+			vector<string> dados_veterinario;
+			vector<string> dados_tratador;
+			while(getline(arq_funcionarios, linha))
+			{
+				if (contador_linhas == pos_veterinario)
+				{
+					separador(linha, dados_veterinario);
+				}
+				else if (contador_linhas == pos_tratador)
+				{
+					separador(linha, dados_tratador);	
+				}
+				contador_linhas++;
 			}
 			
+			arq_funcionarios.close();
+
+			Veterinario veterinario(stoi(dados_veterinario[0]),dados_veterinario[1],dados_veterinario[2],
+				stoi(dados_veterinario[3]),dados_veterinario[4],dados_veterinario[5][0],
+				dados_veterinario[6],stoi(dados_veterinario[7]));
+
+			Tratador tratador(stoi(dados_tratador[0]),dados_tratador[1],dados_tratador[2],
+				stoi(dados_tratador[3]),dados_tratador[4],dados_tratador[5][0],
+				dados_tratador[6],stoi(dados_tratador[7]));
+
+			AveExotico aveExotico(id, classe, nome_cientifico,
+				sexo, tamanho, dieta, veterinario, tratador,
+				nome_batismo, tamanho_do_bico, envergadura_das_asas,
+				autorizacao_ibama, nacionalidade);
+
+			outfile.open("../Dados/animais.csv", ios::app);
+			outfile << aveExotico << endl;
+
+			Animais.push_back(aveExotico);
 		}
 	}
 }
@@ -160,17 +207,4 @@ Amphibia (anfíbio),
 Reptilia (réptil), 
 Aves (ave),
 Mammalia (mamífero)
-*/
-
-/*
-Nome do funcionário
-CPF do funcionário
-Idade do funcionário
-Tipo sanguíneo
-Fator RH
-Tipo de dado
-Inteiro
-
-1,Tratador,João Alberto,007.404.200-98,45,AB,-,Répteis e Aves,1
-2,Veterinario,Daniel Oscar,123.456.789-10,30,O,+,Felinos,CRMV-GO 0406,,
 */
