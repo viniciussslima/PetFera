@@ -183,7 +183,7 @@ void Cadastro_animal(vector<Animal> &Animais,
 
 			Veterinario veterinario(stoi(dados_veterinario[0]),dados_veterinario[1],dados_veterinario[2],
 				stoi(dados_veterinario[3]),dados_veterinario[4],dados_veterinario[5][0],
-				dados_veterinario[6],stoi(dados_veterinario[7]));
+				dados_veterinario[6], dados_veterinario[7]);
 
 			Tratador tratador(stoi(dados_tratador[0]),dados_tratador[1],dados_tratador[2],
 				stoi(dados_tratador[3]),dados_tratador[4],dados_tratador[5][0],
