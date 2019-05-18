@@ -21,7 +21,8 @@ Ave.o AveNativo.o AveExotico.o \
 AnimalSilvestre.o AnimalNativo.o AnimalExotico.o \
 Cadastro_animal.o  Remocao_animal.o \
 Cadastro_funcionario.o Remocao_funcionario.o \
-Consultar_animal.o Consultar_funcionario.o
+Consultar_animal.o Consultar_funcionario.o \
+Carregar.o separador_csv.o
 
 $(PROG) : $(OBJS) folder
 	$(CC) $(LDFLAGS) -o $(PROG) $(OBJS)
@@ -85,6 +86,10 @@ Consultar_animal.o : $(INCLUDEDIR)Consultar_animal.h
 	$(CC) $(CPPFLAGS) -c $(SRCDIR)Consultar_animal.cpp
 Consultar_funcionario.o : $(INCLUDEDIR)Consultar_funcionario.h
 	$(CC) $(CPPFLAGS) -c $(SRCDIR)Consultar_funcionario.cpp
+Carregar.o : $(INCLUDEDIR)Carregar.h
+	$(CC) $(CPPFLAGS) -c $(SRCDIR)Carregar.cpp
+separador_csv.o : $(INCLUDEDIR)Carregar.h
+	$(CC) $(CPPFLAGS) -c $(SRCDIR)separador_csv.cpp
 clean :
 	rm -f core $(OBJS)
 	cd $(BUILDDIR) && rm -f core $(OBJS)
