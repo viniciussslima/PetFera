@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 #include "Cadastro_animal.h" 
 #include "Remocao_animal.h" 
@@ -6,6 +7,7 @@
 #include "Remocao_funcionario.h" 
 #include "Consultar_animal.h" 
 #include "Consultar_funcionario.h"
+#include "Carregar.h"
 
 using namespace std;
 
@@ -13,6 +15,9 @@ int main(void)
 {
 	char escolha;
 	bool loop = true;
+	vector<Animal> Animais;
+	vector<Funcionario> Funcionarios;
+	carregar(Animais, Funcionarios);
 
 	while(loop)
 	{
@@ -29,7 +34,7 @@ int main(void)
 		switch(escolha)
 		{
 			case '1':
-				Cadastro_animal();
+				Cadastro_animal(Animais, Funcionarios);
 				break;
 			case '2':
 				Remocao_animal();
