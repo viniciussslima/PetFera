@@ -5,6 +5,7 @@ using namespace std;
 
 void separador(string data, vector<string> &dados)
 {
+	dados.clear();
 	int i = 0;
 	string palavras = "";
 	for (string::iterator it = data.begin(); it != data.end(); it++)
