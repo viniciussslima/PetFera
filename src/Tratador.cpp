@@ -16,3 +16,16 @@ Tratador::Tratador(int new_id, string new_nome, string new_cpf,
 }
 
 Tratador::~Tratador(){}
+
+ostream& operator<<(ostream &o, Tratador A)
+{
+	o << A.m_id << ";"
+		<< A.m_nome << ";"
+		<< A.m_cpf << ";"
+		<< A.m_idade << ";"
+		<< A.m_tipo_sanguineo << ";"
+		<< A.m_fator_rh << ";"
+		<< A.m_especialidade << ";"
+		<< A.m_nivel_de_seguranca << ";";
+	return o;
+}

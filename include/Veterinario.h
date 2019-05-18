@@ -15,8 +15,9 @@ class Veterinario : public Funcionario
 		Veterinario();
 		Veterinario(int, string, string,
 			short, string, char, string,
-			int);
+			string);
 		~Veterinario();
+		friend ostream& operator<<(ostream &, Veterinario);
 	
 };
 
