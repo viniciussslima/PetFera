@@ -14,13 +14,13 @@ void Cadastro_funcionario()
 	int id;
 	string funcao;
 	string nome_do_funcionario;
-	string CPF;
-	int idade;
-	string tipo_sanguineo
-	char RH;
+	string cpf;
+	short idade;
+	string tipo_sanguineo;
+	char rh;
 	string especialidade;
-	string CRMV;
-	int nivel_de_segurança;
+	string crmv;
+	int nivel_de_seguranca;
 	ofstream outfile;
 
 	cout << "Id: ";
@@ -28,14 +28,15 @@ void Cadastro_funcionario()
 
 	cout << "Função: ";
 	cin >> funcao;
-	funcao = toupper(funcao);
+	for (unsigned int i = 0; i < funcao.length(); i++) 
+		funcao[i] = toupper(funcao[i]);
 
 	cout << "Nome: ";
 	cin.ignore();
 	getline(cin, nome_do_funcionario);
 
-	cout << "CPF: ";
-	cin >> CPF;
+	cout << "cpf: ";
+	cin >> cpf;
 
 	cout << "Idade: ";
 	cin >> idade;
@@ -43,28 +44,28 @@ void Cadastro_funcionario()
 	cout << "Tipo Sanguineo: ";
 	cin >> tipo_sanguineo;
 
-	cout << "RH: ";
-	cin >> RH;
+	cout << "rh: ";
+	cin >> rh;
 
 	cout << "Especialidade: ";
 	cin.ignore();
 	getline(cin, especialidade);
 
-	if(funcao == "TRATADOR")
+	if(funcao.compare("TRATADOR") == 0)
 	{
 		cout << "Nivel de Segurança: ";
-		cin >> nivel_de_segurança;
+		cin >> nivel_de_seguranca;
 
-		Tratador tratador(id, nome_do_funcionario, CPF, idade, tipo_sanguineo, RH, especialidade, nivel_de_segurança);
+		Tratador tratador(id, nome_do_funcionario, cpf, idade, tipo_sanguineo, rh, especialidade, nivel_de_seguranca);
 		outfile.open("../Dados/funcionarios.csv", ios::app);
 		outfile << tratador << endl;
 	}
-	if(funcao == "VETERINÁRIO")
+	if(funcao.compare("VETERINARIO") == 0)
 	{
-		cout << "CRMV: ";
-		cin >> CRMV;
+		cout << "crmv: ";
+		cin >> crmv;
 
-		Veterinario veterinario(id, nome, CPF, idade, tipo_sanguineo, RH, especialidade, CRMV);
+		Veterinario veterinario(id, nome_do_funcionario, cpf, idade, tipo_sanguineo, rh, especialidade, crmv);
 		outfile.open("../Dados/funcionarios.csv", ios::app);
 		outfile << veterinario << endl;
 	}
