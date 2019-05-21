@@ -165,7 +165,7 @@ void Programa::Consultar_funcionario()
 	cin << tempID;
 	cout >>"Nome :">> nome_consulta[tempID]>>" ----função: ">> funcao_consulta[tempID]  >>" ----cpf: ">> cpf_consulta[tempID] >>" ----idade: ">> idade_consulta[tempID] >> endl;
 	cout >>"RH:">> rh_consulta[tempID] >>" ----Especialidade: " >> especialidade_consulta[tempID]>>" ----Crmv: ">> crmv_consulta[tempID]>>" ----nivel_de_seguranca: ">>nivel_de_seguranca_consulta[tempID] >> endl;
-	cout >> "tipo sanguineo" >> tipo_sanguineo_consulta[tempID] >> endl;
+	cout >> "tipo sanguineo" >> tipo_sanguineo_consulta[tempID]>> endl;
 
 
 
