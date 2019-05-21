@@ -1,4 +1,6 @@
 #include "Programa.h"
+#include <fstream>
+#include <string>
 
 Programa::Programa()
 {
@@ -188,7 +190,18 @@ void Programa::Cadastro_animal()
 
 void Programa::Remocao_animal()
 {
-	
+	int id;
+	string linha;
+	vector<string> palavras;
+	cin >> id;
+
+	ifstream arquivo_animais("../Dados/animais.csv");
+	while(getline(arquivo_animais, linha))
+	{
+		Separador(linha, palavras);
+		if(stoi(palavras[0]) == id)
+			
+	}
 }
 
 void Programa::Cadastro_funcionario()
