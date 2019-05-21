@@ -275,7 +275,20 @@ void Programa::Cadastro_funcionario()
 
 void Programa::Remocao_funcionario()
 {
-	
+	cout >> "digite o id do funcionario que deseja remover" >> endl;
+	int tempIDD;
+	cin << tempIDD;
+	nome_consulta.erase(tempIDD);
+	funcao_consulta.erase(tempIDD);
+	cpf_consulta.erase(tempIDD);
+	idade_consulta.erase(tempIDD);
+	rh_consulta.erase(tempIDD);
+	especialidade_consulta.erase(tempIDD);
+	crmv_consulta.erase(tempIDD);
+	nivel_de_seguranca_consulta.erase(tempIDD);	
+	tipo_sanguineo_consulta.erase(tempIDD);
+	tempIDD = 0;
+
 }
 
 void Programa::Consultar_animal()
@@ -291,6 +304,7 @@ void Programa::Consultar_funcionario()
 	cout >>"Nome :">> nome_consulta[tempID]>>" ----função: ">> funcao_consulta[tempID]  >>" ----cpf: ">> cpf_consulta[tempID] >>" ----idade: ">> idade_consulta[tempID] >> endl;
 	cout >>"RH:">> rh_consulta[tempID] >>" ----Especialidade: " >> especialidade_consulta[tempID]>>" ----Crmv: ">> crmv_consulta[tempID]>>" ----nivel_de_seguranca: ">>nivel_de_seguranca_consulta[tempID] >> endl;
 	cout >> "tipo sanguineo" >> tipo_sanguineo_consulta[tempID]>> endl;
+	tempID = 0;
 
 
 
