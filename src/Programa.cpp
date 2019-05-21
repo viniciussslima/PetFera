@@ -63,7 +63,9 @@ void Programa::Cadastro_animal()
 
 void Programa::Remocao_animal()
 {
-	
+	int id;
+	cin >> id;
+
 }
 
 void Programa::Cadastro_funcionario()
@@ -141,4 +143,24 @@ void Programa::Consultar_animal()
 void Programa::Consultar_funcionario()
 {
 	
+}
+
+void Programa::Separador(string data, vector<string> &dados)
+{
+	dados.clear();
+	int i = 0;
+	string palavras = "";
+	for (string::iterator it = data.begin(); it != data.end(); it++)
+	{
+		if (*it != ';')
+		{
+			palavras += *it;
+		}
+		else
+		{
+			i++;
+			dados.push_back(palavras);
+			palavras = "";
+		}
+	}
 }

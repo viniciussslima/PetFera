@@ -49,7 +49,7 @@ class Programa:
 		void Remocao_funcionario();
 		void Consultar_animal();
 		void Consultar_funcionario();
-
+		void Separador(string, vector<string>&);
 };
 
 #endif
