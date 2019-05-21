@@ -111,7 +111,7 @@ void Programa::Carregar()
 	string origem;
 
 	int total_de_mudas;
-	date ultima_muda;
+	//date ultima_muda;
 
 	double tamanho_do_bico;
 	double evergadura_das_asas;
@@ -131,7 +131,7 @@ void Programa::Carregar()
 		infile.open("../Dados/" + files[i] + ".csv");
 		while(getline(infile, linha))
 		{
-			Separador(linha, dados);
+			Separador(linha, ';', dados);
 
 			if (files[i].compare("funcionarios") == 0 && !dados.empty())
 			{
@@ -204,22 +204,26 @@ void Programa::Carregar()
 
 				nome_batismo = dados[8];
 
+				map<int, Veterinario>::iterator it_veterinario;
+				map<int, Tratador>::iterator it_tratador
+
 				if(veterinario_incluso)
 				{
-					auto it_veterinario = veterinarios.find(veterinario_id);
+					it_veterinario = veterinarios.find(veterinario_id);
 				}
 				
 				if (tratador_incluso)
 				{
-					auto it_tratador = tratadores.find(tratador_id);
+					it_tratador = tratadores.find(tratador_id);
 				}
 
 				if (classe.compare("Anfibio") == 0)
 				{
 					total_de_mudas = stoi(dados[9]);
-					ultima_muda = dados [10];
 					autorizacao_ibama = dados[11];
 					origem = dados[12];
+					Separador(dados[10], ' ', dados);
+					date ultima_muda(dados[0], dados[1], dados[2]);
 					if (origem.length() == 2)
 					{
 						AnfibioNativo anfibioNativo(id, classe, nome_cientifico,
@@ -408,11 +412,11 @@ void Programa::Cadastro_animal()
 			{
 				if (contador_linhas == pos_veterinario)
 				{
-					separador(linha, dados_veterinario);
+					separador(linha, ';', dados_veterinario);
 				}
 				else if (contador_linhas == pos_tratador)
 				{
-					separador(linha, dados_tratador);	
+					separador(linha, ';', dados_tratador);	
 				}
 				contador_linhas++;
 			}
@@ -452,7 +456,7 @@ void Programa::Remocao_animal()
 	cin >> id;
     while (getline(arquivo_animais, linha))
     {
-    	Separador(linha, palavras);
+    	Separador(linha, ';', palavras);
         if (stoi(palavras[0]) != id)
             temp << linha << endl;
     }
@@ -511,7 +515,7 @@ void Programa::Remocao_animal()
 	    	auto it = find(repteis_exoticos.begin(), repteis_exoticos.end(), id);
 	    	repteis_exoticos.erase(it);
 	    }
-    }
+    }*/
 }
 
 void Programa::Cadastro_funcionario()
@@ -634,8 +638,24 @@ void Programa::Consultar_funcionario()
 		<< " ----nivel_de_seguranca: " << nivel_de_seguranca_consulta[tempID] << endl
 		<< "tipo sanguineo" >> tipo_sanguineo_consulta[tempID] << endl;
 	tempID = 0;*/
+}
 
-
-
-
+void Programa::Separador(string data, char separador, vector<string> &dados)
+{
+    dados.clear();
+    int i = 0;
+    string palavras = "";
+    for (string::iterator it = data.begin(); it != data.end(); it++)
+    {
+        if (*it != separador)
+        {
+            palavras += *it;
+        }
+        else
+        {
+            i++;
+            dados.push_back(palavras);
+            palavras = "";
+        }
+    }
 }
