@@ -1,6 +1,6 @@
 #include "Programa.h"
-#include <fstream>
-#include <string>
+
+using namespace std;
 
 Programa::Programa()
 {
@@ -56,13 +56,15 @@ void Programa::Run()
 void Programa::Carregar()
 {
 	int id;
+	string funcao;
 	string nome;
 	string cpf;
 	short idade;
 	string tipo_sanguineo;
 	char fator_rh;
 	string especialidade;
-	int nivel_de_seguranca
+	int nivel_de_seguranca;
+	string crmv;
 	string classe;
 	string nome_cientifico;
 	char sexo;
@@ -84,7 +86,7 @@ void Programa::Carregar()
 		infile.open("../Dados/" + files[i] + ".csv");
 		while(getline(infile, linha))
 		{
-			separador(linha, dados);
+			Separador(linha, dados);
 
 			if (files[i].compare("funcionarios") == 0 && !dados.empty())
 			{
@@ -244,7 +246,7 @@ void Programa::Cadastro_funcionario()
 	cout << "Nome: ";
 	cin.ignore();
 	getline(cin, nome_do_funcionario);
-	funcionarioCF[id] = nome_do_funcionario;
+	nome_consulta[id] = nome_do_funcionario;
 	funcao_consulta[id] = funcao;
 
 	cout << "cpf: ";
@@ -257,7 +259,7 @@ void Programa::Cadastro_funcionario()
 
 	cout << "Tipo Sanguineo: ";
 	cin >> tipo_sanguineo;
-	tipo_sanguineo_consulta[id] tipo_sanguineo;
+	tipo_sanguineo_consulta[id] = tipo_sanguineo;
 
 	cout << "rh: ";
 	cin >> rh;
