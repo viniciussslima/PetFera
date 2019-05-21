@@ -194,7 +194,7 @@ void Programa::Remocao_animal()
 {
 	int id;
 	string linha;
-	string linha_para_deletar;
+	string animal_para_excluir;
 	vector<string> palavras;
 	ifstream arquivo_animais("../Dados/animais.csv");
 	ofstream temp("../Dados/temp.txt");
