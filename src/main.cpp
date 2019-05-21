@@ -7,5 +7,5 @@ using namespace std;
 int main(void)
 {
 	Programa p;
-	p.Run;
+	p.Run();
 }
