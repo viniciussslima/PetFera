@@ -1,8 +1,12 @@
 #ifndef _H_PROGRAMA_H_
 #define _H_PROGRAMA_H_
 
-using namespace std;
+#include <iostream>
+#include <string>
 #include <map>
+#include <vector>
+#include <fstream>
+
 #include "Veterinario.h"
 #include "Tratador.h"
 
@@ -18,8 +22,9 @@ using namespace std;
 #include "ReptilExotico.h"
 #include "ReptilNativo.h"
 
+using namespace std;
 
-class Programa:
+class Programa
 {
 	private:
 		map<int, Veterinario> veterinarios;
