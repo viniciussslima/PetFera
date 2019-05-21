@@ -192,16 +192,22 @@ void Programa::Remocao_animal()
 {
 	int id;
 	string linha;
+	string linha_para_deletar;
 	vector<string> palavras;
-	cin >> id;
-
 	ifstream arquivo_animais("../Dados/animais.csv");
-	while(getline(arquivo_animais, linha))
-	{
-		Separador(linha, palavras);
-		if(stoi(palavras[0]) == id)
-			
-	}
+	ofstream temp("../Dados/temp.txt");
+
+	cin >> id;
+    while (getline(arquivo_animais, linha))
+    {
+    	Separador(linha, palavras);
+        if (stoi(palavras[0]) != id)
+            temp << linha << endl;
+    }
+    temp.close();
+    arquivo_animais.close();
+    remove("../Dados/animais.csv");
+    rename("../Dados/temp.txt","../Dados/animais.csv");
 }
 
 void Programa::Cadastro_funcionario()
