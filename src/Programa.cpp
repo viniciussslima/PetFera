@@ -210,6 +210,58 @@ void Programa::Remocao_animal()
     arquivo_animais.close();
     remove("../Dados/animais.csv");
     rename("../Dados/temp.txt","../Dados/animais.csv");
+    if(animal_para_excluir[1].compare("Anfibio") == 0)
+    {
+		if(animal_para_excluir[animal_para_excluir.size() - 1].length() == 2)
+	    {
+	    	auto it = find(anfibios_nativos.begin(), anfibios_nativos.end(), id);
+	    	anfibios_nativos.erase(it);
+	    }
+	    else
+	    {
+	    	auto it = find(anfibios_exoticos.begin(), anfibios_exoticos.end(), id);
+	    	anfibios_exoticos.erase(it);
+	    }
+    }
+    if(animal_para_excluir[1].compare("Ave") == 0)
+    {
+		if(animal_para_excluir[animal_para_excluir.size() - 1].length() == 2)
+	    {
+	    	auto it = find(aves_nativos.begin(), aves_nativos.end(), id);
+	    	aves_nativos.erase(it);
+	    }
+	    else
+	    {
+	    	auto it = find(aves_exoticos.begin(), aves_exoticos.end(), id);
+	    	aves_exoticos.erase(it);
+	    }
+    }
+    if(animal_para_excluir[1].compare("Mamifero") == 0)
+    {
+		if(animal_para_excluir[animal_para_excluir.size() - 1].length() == 2)
+	    {
+	    	auto it = find(mamiferos_nativos.begin(), mamiferos_nativos.end(), id);
+	    	mamiferos_nativos.erase(it);
+	    }
+	    else
+	    {
+	    	auto it = find(mamiferos_exoticos.begin(), mamiferos_exoticos.end(), id);
+	    	mamiferos_exoticos.erase(it);
+	    }
+    }
+    if(animal_para_excluir[1].compare("Reptil") == 0)
+    {
+		if(animal_para_excluir[animal_para_excluir.size() - 1].length() == 2)
+	    {
+	    	auto it = find(repteis_nativos.begin(), repteis_nativos.end(), id);
+	    	repteis_nativos.erase(it);
+	    }
+	    else
+	    {
+	    	auto it = find(repteis_exoticos.begin(), repteis_exoticos.end(), id);
+	    	repteis_exoticos.erase(it);
+	    }
+    }
 }
 
 void Programa::Cadastro_funcionario()
