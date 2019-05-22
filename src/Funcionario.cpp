@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Funcionario::Funcionario(){}
+Funcionario::Funcionario():m_id(-1){}
 
 Funcionario::Funcionario(int new_id, string new_nome, string new_cpf,
 	short new_idade, string new_tipo_sanguineo, char new_fator_rh,
