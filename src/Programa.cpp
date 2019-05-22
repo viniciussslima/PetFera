@@ -668,8 +668,10 @@ void Programa::Remocao_animal()
 	vector<string> animal_para_excluir;
 	ifstream arquivo_animais("../Dados/animais.csv");
 	ofstream temp("../Dados/temp.txt");
+	
+	cout << "digite o id do animal que quer remover" << endl;
 
-	cin >> id;
+ 	cin >> id;
     while (getline(arquivo_animais, linha))
     {
     	Separador_csv(linha, palavras);
@@ -800,6 +802,9 @@ void Programa::Cadastro_funcionario()
 
 void Programa::Remocao_funcionario()
 {
+int id;
+
+
 
 }
 void Programa::Consultar_animal()
