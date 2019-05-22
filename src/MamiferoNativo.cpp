@@ -24,10 +24,10 @@ ostream& operator<<(ostream &o, MamiferoNativo A)
 		<< A.m_nome_cientifico << ";"
 		<< A.m_sexo << ";"
 		<< A.m_tamanho << ";"
-		<< A.m_dieta << ";"
-		<< A.m_veterinario.getId() << ";"
-		<< A.m_tratador.getId() << ";"
-		<< A.m_nome_batismo << ";"
+		<< A.m_dieta << ";";
+	A.m_veterinario.getId() != -1 ? o << A.m_veterinario.getId() << ";" : o << ";";
+	A.m_tratador.getId() != -1 ? o << A.m_tratador.getId() << ";" : o << ";";
+	o << A.m_nome_batismo << ";"
 		<< A.m_cor_pelo << ";"
 		<< A.m_autorizacao_ibama << ";"
 		<< A.m_uf_origem << ";";

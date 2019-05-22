@@ -26,10 +26,10 @@ ostream& operator<<(ostream &o, AnfibioExotico A)
 		<< A.m_nome_cientifico << ";"
 		<< A.m_sexo << ";"
 		<< A.m_tamanho << ";"
-		<< A.m_dieta << ";"
-		<< A.m_veterinario.getId() << ";"
-		<< A.m_tratador.getId() << ";"
-		<< A.m_nome_batismo << ";"
+		<< A.m_dieta << ";";
+	A.m_veterinario.getId() != -1 ? o << A.m_veterinario.getId() << ";" : o << ";";
+	A.m_tratador.getId() != -1 ? o << A.m_tratador.getId() << ";" : o << ";";
+	o << A.m_nome_batismo << ";"
 		<< A.m_total_de_mudas << ";"
 		<< A.m_ultima_muda << ";"
 		<< A.m_autorizacao_ibama << ";"
