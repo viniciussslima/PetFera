@@ -22,6 +22,8 @@
 #include "ReptilExotico.h"
 #include "ReptilNativo.h"
 
+#include "date.h"
+
 using namespace std;
 
 class Programa
@@ -54,7 +56,8 @@ class Programa
 		void Remocao_funcionario();
 		void Consultar_animal();
 		void Consultar_funcionario();
-		void Separador(string, char,vector<string>&);
+		void Separador_csv(string, vector<string>&);
+		void Separador_data(string, vector<string> &);
 };
 
 #endif
