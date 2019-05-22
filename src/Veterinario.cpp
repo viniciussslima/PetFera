@@ -20,7 +20,7 @@ Veterinario::~Veterinario(){}
 ostream& operator<<(ostream &o, Veterinario A)
 {
 	o << A.m_id << ";"
-		<< "Veterinário" << ";"
+		<< "VETERINARIO" << ";"
 		<< A.m_nome << ";"
 		<< A.m_cpf << ";"
 		<< A.m_idade << ";"
