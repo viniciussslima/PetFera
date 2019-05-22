@@ -118,9 +118,9 @@ void Programa::Carregar()
 	//date ultima_muda;
 
 	double tamanho_do_bico;
-	double evergadura_das_asas;
+	double envergadura_das_asas;
 
-	string m_cor_pelo;
+	string cor_pelo;
 
 	bool venenoso; 
 	string tipo_veneno;
@@ -221,7 +221,7 @@ void Programa::Carregar()
 					it_tratador = tratadores.find(tratador_id);
 				}
 
-				if (classe.compare("Anfibio") == 0)
+				if (classe.compare("AMPHIBIA") == 0)
 				{
 					total_de_mudas = stoi(dados[9]);
 					autorizacao_ibama = dados[11];
@@ -246,10 +246,84 @@ void Programa::Carregar()
 						anfibios_exoticos.insert(pair<int, AnfibioExotico>(id, anfibioExotico));
 					}
 				}
+				else if (classe.compare("AVES") == 0)
+				{
+					tamanho_do_bico = stod(dados[9]);
+					envergadura_das_asas = stod(dados[10]);
+					autorizacao_ibama = dados[11];
+					origem = dados[12];
+					if (origem.length() == 2)
+					{
+						AveNativo aveNativo(id, classe, nome_cientifico,
+							sexo, tamanho, dieta, it_veterinario->second,
+							it_tratador->second, nome_batismo, tamanho_do_bico,
+							envergadura_das_asas, autorizacao_ibama, origem);
+						aves_nativas.insert(pair<int, AveNativo>(id, aveNativo));
+
+					}
+					else
+					{
+						AveExotico aveExotico(id, classe, nome_cientifico,
+							sexo, tamanho, dieta, it_veterinario->second,
+							it_tratador->second, nome_batismo, tamanho_do_bico,
+							envergadura_das_asas, autorizacao_ibama, origem);
+						aves_exoticas.insert(pair<int, AveExotico>(id, aveExotico));
+					}
+				}
+				else if (classe.compare("MAMMALIA") == 0)
+				{
+					cor_pelo = dados[9];
+					autorizacao_ibama = dados[10];
+					origem = dados[11];
+					if (origem.length() == 2)
+					{
+						MamiferoNativo mamiferoNativo(id, classe, nome_cientifico,
+							sexo, tamanho, dieta, it_veterinario->second,
+							it_tratador->second, nome_batismo,
+							cor_pelo, autorizacao_ibama, origem);
+						mamiferos_nativos.insert(pair<int, MamiferoNativo>(id, mamiferoNativo));
+
+					}
+					else
+					{
+						MamiferoExotico mamiferoExotico(id, classe, nome_cientifico,
+							sexo, tamanho, dieta, it_veterinario->second,
+							it_tratador->second, nome_batismo,
+							cor_pelo, autorizacao_ibama, origem);
+						mamiferos_exoticos.insert(pair<int, MamiferoExotico>(id, mamiferoExotico));
+					}
+				}
+				else if (classe.compare("REPTILIA") == 0)
+				{
+					venenoso = stoi(dados[9]);
+					tipo_veneno = dados[10];
+					autorizacao_ibama = dados[11];
+					origem = dados[12];
+					if (origem.length() == 2)
+					{
+						ReptilNativo reptilNativo(id, classe, nome_cientifico,
+							sexo, tamanho, dieta, it_veterinario->second,
+							it_tratador->second, nome_batismo, venenoso,
+							tipo_veneno, autorizacao_ibama, origem);
+						repteis_nativos.insert(pair<int, ReptilNativo>(id, reptilNativo));
+
+					}
+					else
+					{
+						ReptilExotico reptilExotico(id, classe, nome_cientifico,
+							sexo, tamanho, dieta, it_veterinario->second,
+							it_tratador->second, nome_batismo, venenoso,
+							tipo_veneno, autorizacao_ibama, origem);
+						repteis_exoticos.insert(pair<int, ReptilExotico>(id, reptilExotico));
+					}
+				}
 			}
 		}
 		infile.close();
 	}
+	/*
+	Amphibia (anfíbio), REPTILIA (réptil), Aves (ave),
+Mammalia (mamífero)*/
 }
 
 void Programa::Cadastro_animal()
