@@ -87,7 +87,7 @@ void Programa::Run()
 
 void Programa::Carregar()
 {
-	/*
+	
 	int id;
 	string funcao;
 	string nome;
@@ -209,7 +209,7 @@ void Programa::Carregar()
 				nome_batismo = dados[8];
 
 				map<int, Veterinario>::iterator it_veterinario;
-				map<int, Tratador>::iterator it_tratador
+				map<int, Tratador>::iterator it_tratador;
 
 				if(veterinario_incluso)
 				{
@@ -227,12 +227,12 @@ void Programa::Carregar()
 					autorizacao_ibama = dados[11];
 					origem = dados[12];
 					Separador(dados[10], ' ', dados);
-					date ultima_muda(dados[0], dados[1], dados[2]);
+					date ultima_muda(stoi(dados[0]), stoi(dados[1]), stoi(dados[2]));
 					if (origem.length() == 2)
 					{
 						AnfibioNativo anfibioNativo(id, classe, nome_cientifico,
-							sexo, tamanho, dieta, it_veterinario,
-							tratador, nome_batismo, total_de_mudas,
+							sexo, tamanho, dieta, it_veterinario->second,
+							it_tratador->second, nome_batismo, total_de_mudas,
 							ultima_muda, autorizacao_ibama, origem);
 						anfibios_nativos.insert(pair<int, AnfibioNativo>(id, anfibioNativo));
 
@@ -240,40 +240,16 @@ void Programa::Carregar()
 					else
 					{
 						AnfibioExotico anfibioExotico(id, classe, nome_cientifico,
-							sexo, tamanho, dieta, it_veterinario,
-							tratador, nome_batismo, total_de_mudas,
+							sexo, tamanho, dieta, it_veterinario->second,
+							it_tratador->second, nome_batismo, total_de_mudas,
 							ultima_muda, autorizacao_ibama, origem);
-						anfibios_exotico.insert(pair<int, AnfibioExotico>(id, anfibioExotico));
+						anfibios_exoticos.insert(pair<int, AnfibioExotico>(id, anfibioExotico));
 					}
 				}
-
-				Animal animal(id, classe, nome_cientifico,
-					sexo, tamanho, dieta, it_veterinario,
-					tratador, nome_batismo);
-				Animais.insert(pair<int, Animal>(id, animal));
-
-				string classe;
-				string nome_cientifico;
-				char sexo;
-				float tamanho;
-				string dieta;
-				int veterinario_id;
-				bool veterinario_incluso = false;
-				int tratador_id;
-				bool tratador_incluso = false;
-				string nome_batismo;
-				string autorizacao_ibama;
-
-				string pais_origem;
-				string uf_origem;
-
-				int total_de_mudas;
-				date ultima_muda;
 			}
 		}
 		infile.close();
 	}
-	*/
 }
 
 void Programa::Cadastro_animal()
@@ -447,7 +423,7 @@ void Programa::Cadastro_animal()
 }
 
 void Programa::Remocao_animal()
-{
+{/*
 	int id;
 	string linha;
 	vector<string> palavras;
@@ -519,7 +495,7 @@ void Programa::Remocao_animal()
 	    	auto it = find(repteis_exoticos.begin(), repteis_exoticos.end(), id);
 	    	repteis_exoticos.erase(it);
 	    }
-    }
+    }*/
 }
 
 void Programa::Cadastro_funcionario()
