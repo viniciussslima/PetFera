@@ -179,10 +179,18 @@ void Programa::Carregar()
 				{
 					it_veterinario = veterinarios.find(veterinario_id);
 				}
+				else
+				{
+					it_veterinario = veterinarios.find(-1);
+				}
 				
 				if (tratador_incluso)
 				{
 					it_tratador = tratadores.find(tratador_id);
+				}
+				else
+				{
+					it_tratador = tratadores.find(-1);
 				}
 
 				if (classe.compare("AMPHIBIA") == 0)
@@ -730,37 +738,37 @@ void Programa::Consultar_animal()
 		else if(it2 != anfibios_nativos.end())
 		{
 			teste_id = true;
-			cout << it1->second << endl;
+			cout << it2->second << endl;
 		}
 		else if(it3 != aves_exoticas.end())
 		{
 			teste_id = true;
-			cout << it1->second << endl;
+			cout << it3->second << endl;
 		}
 		else if(it4 != aves_nativas.end())
 		{
 			teste_id = true;
-			cout << it1->second << endl;
+			cout << it4->second << endl;
 		}
 		else if(it5 != mamiferos_exoticos.end())
 		{
 			teste_id = true;
-			cout << it1->second << endl;
+			cout << it5->second << endl;
 		}
 		else if(it6 != mamiferos_nativos.end())
 		{
 			teste_id = true;
-			cout << it1->second << endl;
+			cout << it6->second << endl;
 		}
 		else if(it7 != repteis_exoticos.end())
 		{
 			teste_id = true;
-			cout << it1->second << endl;
+			cout << it7->second << endl;
 		}
 		else if(it8 != repteis_nativos.end())
 		{
 			teste_id = true;
-			cout << it1->second << endl;
+			cout << it8->second << endl;
 		}
 		else
 		{
