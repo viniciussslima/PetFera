@@ -485,13 +485,13 @@ void Programa::Remocao_animal()
     {
 		if(animal_para_excluir[animal_para_excluir.size() - 1].length() == 2)
 	    {
-	    	map<int, AveNativo>::iterator it = aves_nativos.find(id);
-	    	aves_nativos.erase(it);
+	    	map<int, AveNativo>::iterator it = aves_nativas.find(id);
+	    	aves_nativas.erase(it);
 	    }
 	    else
 	    {
-	    	map<int, AveExotico>::iterator it = aves_exoticos.find(id);
-	    	aves_exoticos.erase(it);
+	    	map<int, AveExotico>::iterator it = aves_exoticas.find(id);
+	    	aves_exoticas.erase(it);
 	    }
     }
     if(animal_para_excluir[1].compare("Mamifero") == 0)
