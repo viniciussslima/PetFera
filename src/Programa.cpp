@@ -376,14 +376,6 @@ void Programa::Cadastro_animal()
 		dieta[i] = toupper(dieta[i]);
 	}
 
-	cout << "Veterinario incluso(S/N): ";
-	cin >> veterinario_incluso;
-	veterinario_incluso = toupper(veterinario_incluso);
-
-	cout << "Tratador incluso(S/N): ";
-	cin >> tratador_incluso;
-	tratador_incluso = toupper(tratador_incluso);
-
 	cout << "Nome batismo: ";
 	cin.ignore();
 	getline(cin, nome_batismo);
@@ -392,20 +384,16 @@ void Programa::Cadastro_animal()
 		nome_batismo[i] = toupper(nome_batismo[i]);
 	}
 
-	cout << "Nacionalidade: ";
-	cin.ignore();
-	getline(cin, nacionalidade);
-	for (unsigned int i = 0; i < nacionalidade.length(); i++)
-	{
-		nacionalidade[i] = toupper(nacionalidade[i]);
-	}
-
 	cout << "Autorizacao ibama: ";
 	cin >> autorizacao_ibama;
 	for (unsigned int i = 0; i < autorizacao_ibama.length(); i++)
 	{
 		autorizacao_ibama[i] = toupper(autorizacao_ibama[i]);
 	}
+
+	cout << "Veterinario incluso(S/N): ";
+	cin >> veterinario_incluso;
+	veterinario_incluso = toupper(veterinario_incluso);
 
 	if (veterinario_incluso == 'S')
 	{
@@ -424,6 +412,10 @@ void Programa::Cadastro_animal()
 		it_veterinario = veterinarios.find(-1);
 	}
 
+	cout << "Tratador incluso(S/N): ";
+	cin >> tratador_incluso;
+	tratador_incluso = toupper(tratador_incluso);
+
 	if (tratador_incluso == 'S')
 	{	
 		do{
@@ -441,11 +433,125 @@ void Programa::Cadastro_animal()
 		it_tratador = tratadores.find(-1);	
 	}
 
+	cout << "Nacionalidade: ";
+	cin.ignore();
+	getline(cin, nacionalidade);
+	for (unsigned int i = 0; i < nacionalidade.length(); i++)
+	{
+		nacionalidade[i] = toupper(nacionalidade[i]);
+	}
+
 	if(nacionalidade.compare("BRASILEIRO") == 0)
 	{
-		if (classe.compare("Aves") == 0)
+		string UF;
+		cout << "UF: ";
+		cin >> UF;
+		for (unsigned int i = 0; i < UF.length(); i++)
 		{
-			//AveNativo aveNativo();
+			UF[i] = toupper(UF[i]);
+		}
+
+
+		if (classe.compare("AMPHIBIA") == 0)
+		{
+			int total_de_mudas;
+			date ultima_muda;
+
+			cout << "Total de mudas: ";
+			cin >> total_de_mudas;
+
+			cout << "Data da ultima muda: ";
+			cin >> ultima_muda;
+
+			AnfibioNativo anfibioNativo(id, classe, nome_cientifico,
+				sexo, tamanho, dieta, it_veterinario->second, 
+				it_tratador->second, nome_batismo, total_de_mudas, 
+				ultima_muda, autorizacao_ibama, uf);
+
+			outfile.open("../Dados/animais.csv", ios::app);
+			outfile << anfibioNativo << endl;
+
+			anfibios_nativos.insert(pair<int, AnfibioNativo>(id, anfibioNativo));
+		}
+		else if (classe.compare("AVES") == 0)
+		{
+			double tamanho_do_bico;
+			double envergadura_das_asas;
+
+			cout << "Tamanho do bico: ";
+			cin >> tamanho_do_bico;
+
+			cout << "Envergadura das asas: ";
+			cin >> envergadura_das_asas;
+
+			AveNativo aveNativo(id, classe, nome_cientifico,
+				sexo, tamanho, dieta, it_veterinario->second, 
+				it_tratador->second, nome_batismo, tamanho_do_bico, 
+				envergadura_das_asas, autorizacao_ibama, uf);
+
+			outfile.open("../Dados/animais.csv", ios::app);
+			outfile << aveNativo << endl;
+
+			aves_nativas.insert(pair<int, AveNativo>(id, aveNativo));
+		}
+		else if (classe.compare("MAMMALIA") == 0)
+		{
+			string cor_pelo;
+
+			cout << "Cor do pelo: ";
+			cin.ignore();
+			getline(cin, cor_pelo);
+			for (unsigned int i = 0; i < cor_pelo.length(); i++)
+			{
+				cor_pelo[i] = toupper(cor_pelo[i]);
+			}
+
+
+			MamiferoNativo mamiferoNativo(id, classe, nome_cientifico,
+				sexo, tamanho, dieta, it_veterinario->second, 
+				it_tratador->second, nome_batismo, cor_pelo, 
+				autorizacao_ibama, uf);
+
+			outfile.open("../Dados/animais.csv", ios::app);
+			outfile << mamiferoNativo << endl;
+
+			mamiferos_nativos.insert(pair<int, MamiferoNativo>(id, mamiferoNativo));
+		}
+		else if (classe.compare("REPTILIA") == 0)
+		{
+			char venenoso_r;
+			bool venenoso;
+			string tipo_veneno = "";
+
+			cout << "venenoso(S/N): ";
+			cin >> venenoso_r;
+			venenoso_r = toupper(venenoso_r);
+			if (venenoso_r == 'S')
+			{
+				venenoso = true;
+				cout << "Tipo de veneno: ";
+				cin.ignore();
+				getline(cin, tipo_veneno);
+				for (unsigned int i = 0; i < tipo_veneno.length(); i++)
+				{
+					tipo_veneno[i] = toupper(tipo_veneno[i]);
+				}
+			}
+			else
+			{
+				venenoso = false;
+			}
+
+
+			ReptilNativo reptilNativo(id, classe, nome_cientifico,
+				sexo, tamanho, dieta, it_veterinario->second, 
+				it_tratador->second, nome_batismo, venenoso, 
+				tipo_veneno, autorizacao_ibama, uf);
+
+			outfile.open("../Dados/animais.csv", ios::app);
+			outfile << reptilNativo << endl;
+
+			repteis_nativos.insert(pair<int, ReptilNativo>(id, reptilNativo));
 		}
 	}
 	else
