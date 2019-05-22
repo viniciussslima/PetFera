@@ -903,7 +903,7 @@ void Programa::Consultar_funcionario()
 			cout <<"Erro no id" << endl;
 		}
 
-	}
+	}while(!id_test);
 
 }
 
