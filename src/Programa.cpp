@@ -800,47 +800,7 @@ void Programa::Cadastro_funcionario()
 
 void Programa::Remocao_funcionario()
 {
-	int ID_Do_Funcionario;
-	bool id_test;
 
-	do{	
-		cout <<"digite o id do funcionario" << enld;
-		cin >> ID_Do_Funcionario; 
-
-		map<int, Veterinario>::iterator iterator_V = Funcionario_veterinario.find(id);
-		map<int, Tratador>::iterator iterator_T = Funcionario_Tratador.find(id);
-
-		if(iterator_V != Funcionario_veterinario.end()){
-					id_teste = true;
-					cout << iterator_V->second << endl;
-		}
-
-		if(iterator_T != Funcionario_Tratador.end()){
-					id_teste = true;
-					cout << iterator_T->second << endl;
-		}
-
-		else{
-			id_teste = false;
-		}
-		if(!id_teste){
-			cout <<"Erro no id" << endl;
-		}
-
-	}
-	/*cout << "digite o id do funcionario que voĉe deseja consultar" << endl;
-	int tempID;
-	cin >> tempID;
-	cout << "Nome :" << nome_consulta[tempID] << endl
-		<< " ----função: " << funcao_consulta[tempID] << endl
-		<< " ----cpf: " << cpf_consulta[tempID] << endl
-		<< " ----idade: " << idade_consulta[tempID] << endl
-		<< "RH:" << rh_consulta[tempID] << endl
-		<< " ----Especialidade: " << especialidade_consulta[tempID] << endl
-		<< " ----Crmv: " << crmv_consulta[tempID] << endl
-		<< " ----nivel_de_seguranca: " << nivel_de_seguranca_consulta[tempID] << endl
-		<< "tipo sanguineo" >> tipo_sanguineo_consulta[tempID] << endl;
-	tempID = 0;*/
 }
 void Programa::Consultar_animal()
 {
@@ -916,19 +876,35 @@ void Programa::Consultar_animal()
 
 void Programa::Consultar_funcionario()
 {
-	/*cout << "digite o id do funcionario que voĉe deseja consultar" << endl;
-	int tempID;
-	cin >> tempID;
-	cout << "Nome :" << nome_consulta[tempID] << endl
-		<< " ----função: " << funcao_consulta[tempID] << endl
-		<< " ----cpf: " << cpf_consulta[tempID] << endl
-		<< " ----idade: " << idade_consulta[tempID] << endl
-		<< "RH:" << rh_consulta[tempID] << endl
-		<< " ----Especialidade: " << especialidade_consulta[tempID] << endl
-		<< " ----Crmv: " << crmv_consulta[tempID] << endl
-		<< " ----nivel_de_seguranca: " << nivel_de_seguranca_consulta[tempID] << endl
-		<< "tipo sanguineo" >> tipo_sanguineo_consulta[tempID] << endl;
-	tempID = 0;*/
+	int ID_Do_Funcionario;
+	bool id_test;
+
+	do{	
+		cout <<"digite o id do funcionario" << enld;
+		cin >> ID_Do_Funcionario; 
+
+		map<int, Veterinario>::iterator iterator_V = Funcionario_veterinario.find(id);
+		map<int, Tratador>::iterator iterator_T = Funcionario_Tratador.find(id);
+
+		if(iterator_V != Funcionario_veterinario.end()){
+					id_teste = true;
+					cout << iterator_V->second << endl;
+		}
+
+		if(iterator_T != Funcionario_Tratador.end()){
+					id_teste = true;
+					cout << iterator_T->second << endl;
+		}
+
+		else{
+			id_teste = false;
+		}
+		if(!id_teste){
+			cout <<"Erro no id" << endl;
+		}
+
+	}
+
 }
 
 void Programa::Separador_csv(string data, vector<string> &dados)
