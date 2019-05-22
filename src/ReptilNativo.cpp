@@ -1,5 +1,7 @@
 #include "ReptilNativo.h"
 
+ReptilNativo::ReptilNativo(){}
+
 ReptilNativo::ReptilNativo(int new_id, string new_classe,
 	string new_nome_cientifico,	char new_sexo,
 	double new_tamanho,	string new_dieta,
@@ -24,10 +26,10 @@ ostream& operator<<(ostream &o, ReptilNativo A)
 		<< A.m_nome_cientifico << ";"
 		<< A.m_sexo << ";"
 		<< A.m_tamanho << ";"
-		<< A.m_dieta << ";"
-		<< A.m_veterinario.getId() << ";"
-		<< A.m_tratador.getId() << ";"
-		<< A.m_nome_batismo << ";"
+		<< A.m_dieta << ";";
+	A.m_veterinario.getId() != -1 ? o << A.m_veterinario.getId() << ";" : o << ";";
+	A.m_tratador.getId() != -1 ? o << A.m_tratador.getId() << ";" : o << ";";
+	o << A.m_nome_batismo << ";"
 		<< A.m_venenoso << ";"
 		<< A.m_tipo_veneno << ";"
 		<< A.m_autorizacao_ibama << ";"
