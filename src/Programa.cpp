@@ -5,35 +5,6 @@
 
 using namespace std;
 
-bool verificao_id (int id, vector<Animal> &Animais)
-{
-	for (auto it : Animais)
-	{
-		if (it.getId() == id)
-		{
-			return false;
-		}
-	}
-	return true;
-}
-
-int verificao_funcionario(int id, vector<Funcionario> &Funcionarios)
-{
-	if (id == 0)
-	{
-		return -1;
-	}
-
-	for (unsigned int i = 0; i < Funcionarios.size(); ++i)
-	{
-		if (Funcionarios[i].getId() == id)
-		{
-			return i;
-		}
-	}
-	return -1;
-}
-
 Programa::Programa()
 {
 	loop = true;
@@ -128,6 +99,12 @@ void Programa::Carregar()
 	ifstream infile;
 	string linha;
 	vector <string> dados;
+
+	Veterinario veterinario0;
+	veterinarios.insert(pair<int, Veterinario>(-1, veterinario0));
+
+	Tratador tratador0;
+	tratadores.insert(pair<int, Tratador>(-1, tratador0));
 	
 	string files[] = {"funcionarios", "animais"};
 	for (int i = 0; i < 2; i++)
@@ -135,25 +112,20 @@ void Programa::Carregar()
 		infile.open("../Dados/" + files[i] + ".csv");
 		while(getline(infile, linha))
 		{
-			Separador(linha, ';', dados);
-
+			Separador_csv(linha, dados);
 			if (files[i].compare("funcionarios") == 0 && !dados.empty())
 			{
-				for (unsigned int i = 0; i < funcao.length(); i++)
-				{
-					funcao[i] = toupper(funcao[i]);
-				}		
+				id = stoi(dados[0]);
+				funcao = dados[1];
+				nome = dados[2];
+				cpf = dados[3];
+				idade = stoi(dados[4]);
+				tipo_sanguineo = dados[5];
+				fator_rh = dados[6][0];
+				especialidade = dados[7];	
 
 				if (funcao.compare("TRATADOR") == 0)
 				{
-					id = stoi(dados[0]);
-					funcao = dados[1];
-					nome = dados[2];
-					cpf = dados[3];
-					idade = stoi(dados[4]);
-					tipo_sanguineo = dados[5];
-					fator_rh = dados[6][0];
-					especialidade = dados[7];
 					nivel_de_seguranca = stoi(dados[8]);
 
 					Tratador tratador(id, nome, cpf,
@@ -164,14 +136,6 @@ void Programa::Carregar()
 
 				if (funcao.compare("VETERINARIO") == 0)
 				{
-					id = stoi(dados[0]);
-					funcao = dados[1];
-					nome = dados[2];
-					cpf = dados[3];
-					idade = stoi(dados[4]);
-					tipo_sanguineo = dados[5];
-					fator_rh = dados[6][0];
-					especialidade = dados[7];
 					crmv = dados[8];
 					Veterinario veterinario(id, nome, cpf,
 						idade, tipo_sanguineo, fator_rh,
@@ -226,7 +190,7 @@ void Programa::Carregar()
 					total_de_mudas = stoi(dados[9]);
 					autorizacao_ibama = dados[11];
 					origem = dados[12];
-					Separador(dados[10], ' ', dados);
+					Separador_data(dados[10], dados);
 					date ultima_muda(stoi(dados[0]), stoi(dados[1]), stoi(dados[2]));
 					if (origem.length() == 2)
 					{
@@ -321,14 +285,11 @@ void Programa::Carregar()
 		}
 		infile.close();
 	}
-	/*
-	Amphibia (anfíbio), REPTILIA (réptil), Aves (ave),
-Mammalia (mamífero)*/
 }
 
 void Programa::Cadastro_animal()
 {
-	/*int id;
+	int id;
 	bool teste_id;
 	string classe;
 	string nome_cientifico;
@@ -336,7 +297,12 @@ void Programa::Cadastro_animal()
 	float tamanho;
 	string dieta;
 	char veterinario_incluso;
+	int id_veterinario;
+	map<int, Veterinario>::iterator it_veterinario;
 	char tratador_incluso;
+	int id_tratador;
+	map<int, Tratador>::iterator it_tratador;
+	string autorizacao_ibama;
 	string nome_batismo;
 	string nacionalidade;
 	ofstream outfile;
@@ -344,19 +310,48 @@ void Programa::Cadastro_animal()
 	do{
 		cout << "Id: ";
 		cin >> id;
-		teste_id = verificao_id(id, Animais);
-		if (!teste_id)
+		
+		map<int, AnfibioExotico>::iterator it1 = anfibios_exoticos.find(id);
+		map<int, AnfibioNativo>::iterator it2 = anfibios_nativos.find(id);
+		
+		map<int, AveExotico>::iterator it3 = aves_exoticas.find(id);
+		map<int, AveNativo>::iterator it4 = aves_nativas.find(id);
+
+		map<int, MamiferoExotico>::iterator it5 = mamiferos_exoticos.find(id);
+		map<int, MamiferoNativo>::iterator it6 = mamiferos_nativos.find(id);
+
+		map<int, ReptilExotico>::iterator it7 = repteis_exoticos.find(id);
+		map<int, ReptilNativo>::iterator it8 = repteis_nativos.find(id);
+
+		it1 != anfibios_exoticos.end() ? teste_id = true : teste_id = false;
+		it2 != anfibios_nativos.end() || teste_id == true ? teste_id = true : teste_id = false;
+		it3 != aves_exoticas.end() || teste_id == true ? teste_id = true : teste_id = false;
+		it4 != aves_nativas.end() || teste_id == true ? teste_id = true : teste_id = false;
+		it5 != mamiferos_exoticos.end() || teste_id == true ? teste_id = true : teste_id = false;
+		it6 != mamiferos_nativos.end() || teste_id == true ? teste_id = true : teste_id = false;
+		it7 != repteis_exoticos.end() || teste_id == true ? teste_id = true : teste_id = false;
+		it8 != repteis_nativos.end() || teste_id == true ? teste_id = true : teste_id = false;
+
+		if (teste_id)
 		{
 			cout << "Id já em uso" << endl;
 		}
-	}while(!teste_id);
+	}while(teste_id);
 
 	cout << "Classe: ";
 	cin >> classe;
+	for (unsigned int i = 0; i < classe.length(); i++)
+	{
+		classe[i] = toupper(classe[i]);
+	}
 
 	cout << "Nome cientifico: ";
 	cin.ignore();
 	getline(cin, nome_cientifico);
+	for (unsigned int i = 0; i < nome_cientifico.length(); i++)
+	{
+		nome_cientifico[i] = toupper(nome_cientifico[i]);
+	}
 
 	cout << "Sexo(M/F): ";
 	cin >> sexo;
@@ -368,6 +363,10 @@ void Programa::Cadastro_animal()
 	cout << "Dieta: ";
 	cin.ignore();
 	getline(cin, dieta);
+	for (unsigned int i = 0; i < dieta.length(); i++)
+	{
+		dieta[i] = toupper(dieta[i]);
+	}
 
 	cout << "Veterinario incluso(S/N): ";
 	cin >> veterinario_incluso;
@@ -380,12 +379,61 @@ void Programa::Cadastro_animal()
 	cout << "Nome batismo: ";
 	cin.ignore();
 	getline(cin, nome_batismo);
+	for (unsigned int i = 0; i < nome_batismo.length(); i++)
+	{
+		nome_batismo[i] = toupper(nome_batismo[i]);
+	}
 
 	cout << "Nacionalidade: ";
 	cin.ignore();
 	getline(cin, nacionalidade);
+	for (unsigned int i = 0; i < nacionalidade.length(); i++)
+	{
+		nacionalidade[i] = toupper(nacionalidade[i]);
+	}
 
-	if(nacionalidade.compare("Brasileiro") == 0)
+	cout << "Autorizacao ibama: ";
+	cin >> autorizacao_ibama;
+	for (unsigned int i = 0; i < autorizacao_ibama.length(); i++)
+	{
+		autorizacao_ibama[i] = toupper(autorizacao_ibama[i]);
+	}
+
+	if (veterinario_incluso == 'S')
+	{
+		do{
+			cout << "Id do veterinario: ";
+			cin >> id_veterinario;
+			it_veterinario = veterinarios.find(id_veterinario);
+			if (it_veterinario == veterinarios.end())
+			{
+				cout << "Id invalido" << endl;
+			}
+		}while(it_veterinario == veterinarios.end());
+	}
+	else
+	{
+		it_veterinario = veterinarios.find(-1);
+	}
+
+	if (tratador_incluso == 'S')
+	{	
+		do{
+			cout << "Id do tratador: ";
+			cin >> id_tratador;
+			it_tratador = tratadores.find(id_tratador);
+			if (it_tratador == tratadores.end())
+			{
+				cout << "Id invalido" << endl;
+			}
+		}while(it_tratador == tratadores.end());
+	}
+	else
+	{
+		it_tratador = tratadores.find(-1);	
+	}
+
+	if(nacionalidade.compare("BRASILEIRO") == 0)
 	{
 		if (classe.compare("Aves") == 0)
 		{
@@ -394,15 +442,31 @@ void Programa::Cadastro_animal()
 	}
 	else
 	{
-		if (classe.compare("Aves") == 0)
+		if (classe.compare("AMPHIBIA") == 0)
+		{
+			int total_de_mudas;
+			date ultima_muda;
+
+			cout << "Total de mudas: ";
+			cin >> total_de_mudas;
+
+			cout << "Data da ultima muda: ";
+			cin >> ultima_muda;
+
+			AnfibioExotico anfibioExotico(id, classe, nome_cientifico,
+				sexo, tamanho, dieta, it_veterinario->second, 
+				it_tratador->second, nome_batismo, total_de_mudas, 
+				ultima_muda, autorizacao_ibama, nacionalidade);
+
+			outfile.open("../Dados/animais.csv", ios::app);
+			outfile << anfibioExotico << endl;
+
+			anfibios_exoticos.insert(pair<int, AnfibioExotico>(id, anfibioExotico));
+		}
+		else if (classe.compare("AVES") == 0)
 		{
 			double tamanho_do_bico;
 			double envergadura_das_asas;
-			string autorizacao_ibama;
-			int id_veterinario = 0;
-			int pos_veterinario;
-			int id_tratador = 0;
-			int pos_tratador;
 
 			cout << "Tamanho do bico: ";
 			cin >> tamanho_do_bico;
@@ -410,94 +474,80 @@ void Programa::Cadastro_animal()
 			cout << "Envergadura das asas: ";
 			cin >> envergadura_das_asas;
 
-			cout << "Autorizacao ibama: ";
-			cin >> autorizacao_ibama;
-			
-			if (veterinario_incluso == 'S' &&
-				tratador_incluso == 'S')
-			{
-				cout << "Id do veterinario: ";
-				cin >> id_veterinario;
-				cout << "Id do tratador: ";
-				cin >> id_tratador;
-
-				pos_veterinario = verificao_funcionario(id_veterinario, Funcionarios);
-				pos_tratador = verificao_funcionario(id_tratador, Funcionarios);
-				if (pos_veterinario == -1 || pos_tratador == -1)
-				{
-					cout << "id do veterinario e/ou tratador invalido"
-						<< endl;
-				}
-			}
-
-			else if (veterinario_incluso == 'S')
-			{
-				cout << "Id do veterinario: ";
-				cin >> id_veterinario;
-				pos_veterinario = verificao_funcionario(id_veterinario, Funcionarios);
-				if (pos_veterinario == -1)
-				{
-					cout << "id do veterinario invalido"
-						<< endl;
-				}
-			}
-
-			else if (tratador_incluso == 'S')
-			{	
-				cout << "Id do tratador: ";
-				cin >> id_tratador;
-				pos_tratador = verificao_funcionario(id_tratador, Funcionarios);
-				if (pos_tratador == -1)
-				{
-					cout << "id do tratador invalido"
-						<< endl;
-				}
-			}
-
-			ifstream arq_funcionarios;
-			string linha;
-			arq_funcionarios.open("../Dados/funcionarios.csv");
-			int contador_linhas = 0;
-			vector<string> dados_veterinario;
-			vector<string> dados_tratador;
-			while(getline(arq_funcionarios, linha))
-			{
-				if (contador_linhas == pos_veterinario)
-				{
-					separador(linha, ';', dados_veterinario);
-				}
-				else if (contador_linhas == pos_tratador)
-				{
-					separador(linha, ';', dados_tratador);	
-				}
-				contador_linhas++;
-			}
-			
-			arq_funcionarios.close();
-
-			Veterinario veterinario(stoi(dados_veterinario[0]),dados_veterinario[1],dados_veterinario[2],
-				stoi(dados_veterinario[3]),dados_veterinario[4],dados_veterinario[5][0],
-				dados_veterinario[6], dados_veterinario[7]);
-
-			Tratador tratador(stoi(dados_tratador[0]),dados_tratador[1],dados_tratador[2],
-				stoi(dados_tratador[3]),dados_tratador[4],dados_tratador[5][0],
-				dados_tratador[6],stoi(dados_tratador[7]));
-
 			AveExotico aveExotico(id, classe, nome_cientifico,
-				sexo, tamanho, dieta, veterinario, tratador,
-				nome_batismo, tamanho_do_bico, envergadura_das_asas,
-				autorizacao_ibama, nacionalidade);
+				sexo, tamanho, dieta, it_veterinario->second, 
+				it_tratador->second, nome_batismo, tamanho_do_bico, 
+				envergadura_das_asas, autorizacao_ibama, nacionalidade);
 
 			outfile.open("../Dados/animais.csv", ios::app);
 			outfile << aveExotico << endl;
 
-			Animais.push_back(aveExotico);
+			aves_exoticas.insert(pair<int, AveExotico>(id, aveExotico));
 		}
-	}*/
+		else if (classe.compare("MAMMALIA") == 0)
+		{
+			string cor_pelo;
+
+			cout << "Cor do pelo: ";
+			cin.ignore();
+			getline(cin, cor_pelo);
+			for (unsigned int i = 0; i < cor_pelo.length(); i++)
+			{
+				cor_pelo[i] = toupper(cor_pelo[i]);
+			}
+
+
+			MamiferoExotico mamiferoExotico(id, classe, nome_cientifico,
+				sexo, tamanho, dieta, it_veterinario->second, 
+				it_tratador->second, nome_batismo, cor_pelo, 
+				autorizacao_ibama, nacionalidade);
+
+			outfile.open("../Dados/animais.csv", ios::app);
+			outfile << mamiferoExotico << endl;
+
+			mamiferos_exoticos.insert(pair<int, MamiferoExotico>(id, mamiferoExotico));
+		}
+		else if (classe.compare("REPTILIA") == 0)
+		{
+			char venenoso_r;
+			bool venenoso;
+			string tipo_veneno = "";
+
+			cout << "venenoso(S/N): ";
+			cin >> venenoso_r;
+			venenoso_r = toupper(venenoso_r);
+			if (venenoso_r == 'S')
+			{
+				venenoso = true;
+				cout << "Tipo de veneno: ";
+				cin.ignore();
+				getline(cin, tipo_veneno);
+				for (unsigned int i = 0; i < tipo_veneno.length(); i++)
+				{
+					tipo_veneno[i] = toupper(tipo_veneno[i]);
+				}
+			}
+			else
+			{
+				venenoso = false;
+			}
+
+
+			ReptilExotico reptilExotico(id, classe, nome_cientifico,
+				sexo, tamanho, dieta, it_veterinario->second, 
+				it_tratador->second, nome_batismo, venenoso, 
+				tipo_veneno, autorizacao_ibama, nacionalidade);
+
+			outfile.open("../Dados/animais.csv", ios::app);
+			outfile << reptilExotico << endl;
+
+			repteis_exoticos.insert(pair<int, ReptilExotico>(id, reptilExotico));
+		}
+	}
 }
 
 void Programa::Remocao_animal()
-{/*
+{
 	int id;
 	string linha;
 	vector<string> palavras;
@@ -508,11 +558,11 @@ void Programa::Remocao_animal()
 	cin >> id;
     while (getline(arquivo_animais, linha))
     {
-    	Separador(linha, ';', palavras);
+    	Separador_csv(linha, palavras);
         if (stoi(palavras[0]) != id)
             temp << linha << endl;
         else
-        	Separador(linha, ';', animal_para_excluir);
+        	Separador_csv(linha, animal_para_excluir);
     }
     temp.close();
     arquivo_animais.close();
@@ -569,7 +619,7 @@ void Programa::Remocao_animal()
 	    	map<int, ReptilExotico>::iterator it = repteis_exoticos.find(id);
 	    	repteis_exoticos.erase(it);
 	    }
-    }*/
+    }
 }
 
 void Programa::Cadastro_funcionario()
@@ -674,14 +724,14 @@ void Programa::Consultar_funcionario()
 	tempID = 0;*/
 }
 
-void Programa::Separador(string data, char separador, vector<string> &dados)
+void Programa::Separador_csv(string data, vector<string> &dados)
 {
     dados.clear();
     int i = 0;
     string palavras = "";
     for (string::iterator it = data.begin(); it != data.end(); it++)
     {
-        if (*it != separador)
+        if (*it != ';')
         {
             palavras += *it;
         }
@@ -692,4 +742,25 @@ void Programa::Separador(string data, char separador, vector<string> &dados)
             palavras = "";
         }
     }
+}
+
+void Programa::Separador_data(string data, vector<string> &dados)
+{
+    dados.clear();
+    int i = 0;
+    string palavras = "";
+    for (string::iterator it = data.begin(); it != data.end(); it++)
+    {
+        if (*it != ' ')
+        {
+            palavras += *it;
+        }
+        else
+        {
+            i++;
+            dados.push_back(palavras);
+            palavras = "";
+        }
+    }
+    dados.push_back(palavras);
 }
