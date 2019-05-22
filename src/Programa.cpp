@@ -1,4 +1,7 @@
 #include "Programa.h"
+#include <string>
+#include <fstream>
+#include <algorithm>
 
 using namespace std;
 
@@ -84,6 +87,7 @@ void Programa::Run()
 
 void Programa::Carregar()
 {
+	/*
 	int id;
 	string funcao;
 	string nome;
@@ -243,12 +247,11 @@ void Programa::Carregar()
 					}
 				}
 
-				/*Animal animal(id, classe, nome_cientifico,
+				Animal animal(id, classe, nome_cientifico,
 					sexo, tamanho, dieta, it_veterinario,
 					tratador, nome_batismo);
-				Animais.insert(pair<int, Animal>(id, animal));*/
+				Animais.insert(pair<int, Animal>(id, animal));
 
-				/*
 				string classe;
 				string nome_cientifico;
 				char sexo;
@@ -266,12 +269,11 @@ void Programa::Carregar()
 
 				int total_de_mudas;
 				date ultima_muda;
-				*/
 			}
 		}
 		infile.close();
 	}
-	
+	*/
 }
 
 void Programa::Cadastro_animal()
@@ -446,10 +448,10 @@ void Programa::Cadastro_animal()
 
 void Programa::Remocao_animal()
 {
-	/*int id;
+	int id;
 	string linha;
-	string animal_para_excluir;
 	vector<string> palavras;
+	vector<string> animal_para_excluir;
 	ifstream arquivo_animais("../Dados/animais.csv");
 	ofstream temp("../Dados/temp.txt");
 
@@ -459,6 +461,8 @@ void Programa::Remocao_animal()
     	Separador(linha, ';', palavras);
         if (stoi(palavras[0]) != id)
             temp << linha << endl;
+        else
+        	Separador(linha, ';', animal_para_excluir);
     }
     temp.close();
     arquivo_animais.close();
@@ -515,7 +519,7 @@ void Programa::Remocao_animal()
 	    	auto it = find(repteis_exoticos.begin(), repteis_exoticos.end(), id);
 	    	repteis_exoticos.erase(it);
 	    }
-    }*/
+    }
 }
 
 void Programa::Cadastro_funcionario()
