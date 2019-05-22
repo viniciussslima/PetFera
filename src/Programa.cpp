@@ -574,7 +574,7 @@ void Programa::Remocao_animal()
 
 void Programa::Cadastro_funcionario()
 {
-	/*int id;
+	int id;
 	string funcao;
 	string nome_do_funcionario;
 	string cpf;
@@ -585,15 +585,6 @@ void Programa::Cadastro_funcionario()
 	string crmv;
 	int nivel_de_seguranca;
 	ofstream outfile;
-	map<int, string> nome_consulta;
-	map<int,string> funcao_consulta;
-	map<int,string> cpf_consulta;
-	map<int,short> idade_consulta;
-	map<int,char> rh_consulta;
-	map<int,string> especialidade_consulta;
-	map<int,string> crmv_consulta;
-	map<int,int> nivel_de_seguranca_consulta;
-	map<int,string> tipo_sanguineo_consulta;
 
 	cout << "Id: ";
 	cin >> id;
@@ -606,35 +597,27 @@ void Programa::Cadastro_funcionario()
 	cout << "Nome: ";
 	cin.ignore();
 	getline(cin, nome_do_funcionario);
-	nome_consulta[id] = nome_do_funcionario;
-	funcao_consulta[id] = funcao;
 
 	cout << "cpf: ";
 	cin >> cpf;
-	cpf_consulta[id] = cpf;
 
 	cout << "Idade: ";
 	cin >> idade;
-	idade_consulta[id] = idade;
 
 	cout << "Tipo Sanguineo: ";
 	cin >> tipo_sanguineo;
-	tipo_sanguineo_consulta[id] = tipo_sanguineo;
 
 	cout << "rh: ";
 	cin >> rh;
-	rh_consulta[id] = rh; 
 
 	cout << "Especialidade: ";
 	cin.ignore();
 	getline(cin, especialidade);
-	especialidade_consulta[id] = especialidade;
 
 	if(funcao.compare("TRATADOR") == 0)
 	{
 		cout << "Nivel de Segurança: ";
 		cin >> nivel_de_seguranca;
-		nivel_de_seguranca_consulta[id] = nivel_de_seguranca;
 
 		Tratador tratador(id, nome_do_funcionario, cpf, idade, tipo_sanguineo, rh, especialidade, nivel_de_seguranca);
 		outfile.open("../Dados/funcionarios.csv", ios::app);
@@ -644,14 +627,11 @@ void Programa::Cadastro_funcionario()
 	{
 		cout << "crmv: ";
 		cin >> crmv;
-		crmv_consulta[id] = crmv;
-
 
 		Veterinario veterinario(id, nome_do_funcionario, cpf, idade, tipo_sanguineo, rh, especialidade, crmv);
 		outfile.open("../Dados/funcionarios.csv", ios::app);
 		outfile << veterinario << endl;
-	}*/
-	
+	}
 }
 
 void Programa::Remocao_funcionario()
