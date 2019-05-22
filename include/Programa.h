@@ -33,8 +33,8 @@ class Programa
 		map<int, AnfibioExotico> anfibios_exoticos;
 		map<int, AnfibioNativo> anfibios_nativos;
 
-		map<int, AveExotico> aves_exoticos;
-		map<int, AveNativo> aves_nativos;
+		map<int, AveExotico> aves_exoticas;
+		map<int, AveNativo> aves_nativas;
 
 		map<int, MamiferoExotico> mamiferos_exoticos;
 		map<int, MamiferoNativo> mamiferos_nativos;

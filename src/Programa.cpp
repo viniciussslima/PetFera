@@ -448,12 +448,12 @@ void Programa::Remocao_animal()
     {
 		if(animal_para_excluir[animal_para_excluir.size() - 1].length() == 2)
 	    {
-	    	auto it = find(anfibios_nativos.begin(), anfibios_nativos.end(), id);
+	    	map<int, AnfibioNativo>::iterator it = anfibios_nativos.find(id);
 	    	anfibios_nativos.erase(it);
 	    }
 	    else
 	    {
-	    	auto it = find(anfibios_exoticos.begin(), anfibios_exoticos.end(), id);
+	    	map<int, AnfibioExotico>::iterator it = anfibios_exoticos.find(id);
 	    	anfibios_exoticos.erase(it);
 	    }
     }
@@ -461,25 +461,25 @@ void Programa::Remocao_animal()
     {
 		if(animal_para_excluir[animal_para_excluir.size() - 1].length() == 2)
 	    {
-	    	auto it = find(aves_nativos.begin(), aves_nativos.end(), id);
-	    	aves_nativos.erase(it);
+	    	map<int, AveNativo>::iterator it = aves_nativas.find(id);
+	    	aves_nativas.erase(it);
 	    }
 	    else
 	    {
-	    	auto it = find(aves_exoticos.begin(), aves_exoticos.end(), id);
-	    	aves_exoticos.erase(it);
+	    	map<int, AveExotico>::iterator it = aves_exoticas.find(id);
+	    	aves_exoticas.erase(it);
 	    }
     }
     if(animal_para_excluir[1].compare("Mamifero") == 0)
     {
 		if(animal_para_excluir[animal_para_excluir.size() - 1].length() == 2)
 	    {
-	    	auto it = find(mamiferos_nativos.begin(), mamiferos_nativos.end(), id);
+	    	map<int, MamiferoNativo>::iterator it = mamiferos_nativos.find(id);
 	    	mamiferos_nativos.erase(it);
 	    }
 	    else
 	    {
-	    	auto it = find(mamiferos_exoticos.begin(), mamiferos_exoticos.end(), id);
+	    	map<int, MamiferoExotico>::iterator it = mamiferos_exoticos.find(id);
 	    	mamiferos_exoticos.erase(it);
 	    }
     }
@@ -487,12 +487,12 @@ void Programa::Remocao_animal()
     {
 		if(animal_para_excluir[animal_para_excluir.size() - 1].length() == 2)
 	    {
-	    	auto it = find(repteis_nativos.begin(), repteis_nativos.end(), id);
+	    	map<int, ReptilNativo>::iterator it = repteis_nativos.find(id);
 	    	repteis_nativos.erase(it);
 	    }
 	    else
 	    {
-	    	auto it = find(repteis_exoticos.begin(), repteis_exoticos.end(), id);
+	    	map<int, ReptilExotico>::iterator it = repteis_exoticos.find(id);
 	    	repteis_exoticos.erase(it);
 	    }
     }*/
