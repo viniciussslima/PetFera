@@ -10,7 +10,7 @@ class Ave : public Animal
 {
 	protected:
 		double m_tamanho_do_bico;
-		double m_evergadura_das_asas;
+		double m_envergadura_das_asas;
 
 	public:
 		Ave();
