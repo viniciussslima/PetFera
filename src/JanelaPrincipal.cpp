@@ -35,7 +35,7 @@ JanelaPrincipal::JanelaPrincipal()
 	box_botoes->add(*button_consulta_funcionario);
 
 	//Conexão
-	//addTableButton->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::addMesaWindow));
+	button_cadastro_funcionario->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::CadastrarFuncionario));
 }
 
 JanelaPrincipal::~JanelaPrincipal()
@@ -62,3 +62,15 @@ void JanelaPrincipal::CadastrarFuncionario()
 	JanelaCadastroFuncionario temp;
 	temp.Run();
 }
+
+/*  int id;
+	string funcao;
+	string nome_do_funcionario;
+	string cpf;
+	short idade;
+	string tipo_sanguineo;
+	char rh;
+	string especialidade;
+	string crmv;
+	int nivel_de_seguranca;
+	*/

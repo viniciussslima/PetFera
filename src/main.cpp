@@ -11,5 +11,5 @@ int main(int argc, char* argv[])
 	Main kit(argc, argv);
 
 	JanelaPrincipal janelaPrincipal;
-	janelaPrincipal.run();
+	janelaPrincipal.Run();
 }
