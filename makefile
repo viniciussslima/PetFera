@@ -7,6 +7,7 @@ PROG = main
 CPPFLAGS = `pkg-config --cflags gtkmm-3.0` -Wall -std=c++11 -I$(INCLUDEDIR)
 LDFLAGS = `pkg-config --libs gtkmm-3.0` -L/lib
 OBJS = main.o JanelaPrincipal.o JanelaCadastroFuncionario.o \
+JanelaCadastroAnimal.o \
 date.o \
 Funcionario.o Veterinario.o Tratador.o \
 Animal.o \
@@ -30,6 +31,8 @@ JanelaPrincipal.o: $(INCLUDEDIR)JanelaPrincipal.h
 	$(CC) $(CPPFLAGS) -c $(SRCDIR)JanelaPrincipal.cpp
 JanelaCadastroFuncionario.o: $(INCLUDEDIR)JanelaCadastroFuncionario.h
 	$(CC) $(CPPFLAGS) -c $(SRCDIR)JanelaCadastroFuncionario.cpp
+JanelaCadastroAnimal.o: $(INCLUDEDIR)JanelaCadastroAnimal.h
+	$(CC) $(CPPFLAGS) -c $(SRCDIR)JanelaCadastroAnimal.cpp
 date.o : $(INCLUDEDIR)date.h
 	$(CC) $(CPPFLAGS) -c $(SRCDIR)date.cpp
 Funcionario.o : $(INCLUDEDIR)Funcionario.h
