@@ -319,7 +319,7 @@ void Programa::Cadastro_animal(int id)
 	ofstream outfile;
 
 	do{
-		if (id == 0)
+		if (id == 0 || teste_id)
 		{
 			cout << "Id: ";
 			cin >> id;
@@ -674,9 +674,11 @@ void Programa::Remocao_animal(int id)
 	ifstream arquivo_animais("../Dados/animais.csv");
 	ofstream temp("../Dados/temp.txt");
 
-	cout << "Digite o id do animal que quer remover" << endl;
 	if (id == 0)
+	{
+		cout << "Digite o id do animal que quer remover" << endl;
 	 	cin >> id;
+	}
     while (getline(arquivo_animais, linha))
     {
     	Separador_csv(linha, palavras);
@@ -689,7 +691,7 @@ void Programa::Remocao_animal(int id)
     arquivo_animais.close();
     remove("../Dados/animais.csv");
     rename("../Dados/temp.txt","../Dados/animais.csv");
-    if(animal_para_excluir[1].compare("Anfibio") == 0)
+    if(animal_para_excluir[1].compare("AMPHIBIA") == 0)
     {
 		if(animal_para_excluir[animal_para_excluir.size() - 1].length() == 2)
 	    {
@@ -702,7 +704,7 @@ void Programa::Remocao_animal(int id)
 	    	anfibios_exoticos.erase(it);
 	    }
     }
-    if(animal_para_excluir[1].compare("Ave") == 0)
+    if(animal_para_excluir[1].compare("AVES") == 0)
     {
 		if(animal_para_excluir[animal_para_excluir.size() - 1].length() == 2)
 	    {
@@ -715,7 +717,7 @@ void Programa::Remocao_animal(int id)
 	    	aves_exoticas.erase(it);
 	    }
     }
-    if(animal_para_excluir[1].compare("Mamifero") == 0)
+    if(animal_para_excluir[1].compare("MAMMALIA") == 0)
     {
 		if(animal_para_excluir[animal_para_excluir.size() - 1].length() == 2)
 	    {
@@ -728,7 +730,7 @@ void Programa::Remocao_animal(int id)
 	    	mamiferos_exoticos.erase(it);
 	    }
     }
-    if(animal_para_excluir[1].compare("Reptil") == 0)
+    if(animal_para_excluir[1].compare("REPTILIA") == 0)
     {
 		if(animal_para_excluir[animal_para_excluir.size() - 1].length() == 2)
 	    {
