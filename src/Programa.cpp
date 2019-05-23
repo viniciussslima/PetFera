@@ -934,6 +934,7 @@ void Programa::Consultar_funcionario()
 				if(iterator_V != veterinarios.end()){
 							id_test = true;
 							cout << iterator_V->second << endl;
+							break;
 				}
 				if(iterator_T != tratadores.end()){
 							id_test = true;
