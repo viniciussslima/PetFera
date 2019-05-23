@@ -23,7 +23,8 @@ void Programa::Run()
 			<< "[4] Remoção de um funcionario" << endl //Kobata
 			<< "[5] Consulta de dados de um animal" << endl //Vinicius
 			<< "[6] Consulta de dados de funcionario" << endl //Kobata
-			<< "[7] Sair" << endl;
+			<< "[7] Modificar dados" << endl
+			<< "[8] Sair" << endl;
 		cin >> escolha;
 	
 		switch(escolha)
@@ -47,6 +48,9 @@ void Programa::Run()
 				Consultar_funcionario();
 				break;
 			case '7':
+				Modificar_informacoes();
+				break;
+			case '8':
 				loop = false;
 				break;
 			default:
@@ -295,9 +299,8 @@ void Programa::Carregar()
 	}
 }
 
-void Programa::Cadastro_animal()
+void Programa::Cadastro_animal(int id)
 {
-	int id;
 	bool teste_id;
 	string classe;
 	string nome_cientifico;
@@ -316,9 +319,12 @@ void Programa::Cadastro_animal()
 	ofstream outfile;
 
 	do{
-		cout << "Id: ";
-		cin >> id;
-		
+		if (id == 0)
+		{
+			cout << "Id: ";
+			cin >> id;
+		}
+
 		map<int, AnfibioExotico>::iterator it1 = anfibios_exoticos.find(id);
 		map<int, AnfibioNativo>::iterator it2 = anfibios_nativos.find(id);
 		
@@ -660,9 +666,8 @@ void Programa::Cadastro_animal()
 	}
 }
 
-void Programa::Remocao_animal()
+void Programa::Remocao_animal(int id)
 {
-	int id;
 	string linha;
 	vector<string> palavras;
 	vector<string> animal_para_excluir;
@@ -670,8 +675,8 @@ void Programa::Remocao_animal()
 	ofstream temp("../Dados/temp.txt");
 
 	cout << "Digite o id do animal que quer remover" << endl;
-
- 	cin >> id;
+	if (id == 0)
+	 	cin >> id;
     while (getline(arquivo_animais, linha))
     {
     	Separador_csv(linha, palavras);
@@ -961,6 +966,79 @@ void Programa::Consultar_funcionario()
 
 	}*/
 
+}
+
+void Programa::Modificar_informacoes()
+{
+	string tipo;
+	int id;
+	bool teste_id;
+	cout << "Qual deseja alterar(Animal/funcionario): " << endl;
+	cin >> tipo;
+	for (unsigned int i = 0; i < tipo.length(); ++i)
+		tipo[i] = toupper(tipo[i]);
+	if (tipo.compare("ANIMAL") == 0)
+	{
+		do{
+			cin >> id;
+			map<int, AnfibioExotico>::iterator it1 = anfibios_exoticos.find(id);
+			map<int, AnfibioNativo>::iterator it2 = anfibios_nativos.find(id);
+			
+			map<int, AveExotico>::iterator it3 = aves_exoticas.find(id);
+			map<int, AveNativo>::iterator it4 = aves_nativas.find(id);
+
+			map<int, MamiferoExotico>::iterator it5 = mamiferos_exoticos.find(id);
+			map<int, MamiferoNativo>::iterator it6 = mamiferos_nativos.find(id);
+
+			map<int, ReptilExotico>::iterator it7 = repteis_exoticos.find(id);
+			map<int, ReptilNativo>::iterator it8 = repteis_nativos.find(id);
+
+			if(it1 != anfibios_exoticos.end())
+			{
+				teste_id = true;
+				Remocao_animal(id);
+				Cadastro_animal(id);
+			}
+			else if(it2 != anfibios_nativos.end())
+			{
+				teste_id = true;
+			}
+			else if(it3 != aves_exoticas.end())
+			{
+				teste_id = true;
+			}
+			else if(it4 != aves_nativas.end())
+			{
+				teste_id = true;
+			}
+			else if(it5 != mamiferos_exoticos.end())
+			{
+				teste_id = true;
+			}
+			else if(it6 != mamiferos_nativos.end())
+			{
+				teste_id = true;
+			}
+			else if(it7 != repteis_exoticos.end())
+			{
+				teste_id = true;
+			}
+			else if(it8 != repteis_nativos.end())
+			{
+				teste_id = true;
+			}
+			else
+			{
+				teste_id = false;
+			}
+
+			if (!teste_id)
+			{
+				cout << "Id invalido" << endl;
+			}
+		}while(!teste_id); 
+
+	}
 }
 
 
