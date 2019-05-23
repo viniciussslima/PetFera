@@ -855,37 +855,37 @@ void Programa::Consultar_animal()
 		else if(it2 != anfibios_nativos.end())
 		{
 			teste_id = true;
-			cout << it2->second << endl;
+			it2->second.Exibir_informacoes();
 		}
 		else if(it3 != aves_exoticas.end())
 		{
 			teste_id = true;
-			cout << it3->second << endl;
+			it3->second.Exibir_informacoes();
 		}
 		else if(it4 != aves_nativas.end())
 		{
 			teste_id = true;
-			cout << it4->second << endl;
+			it4->second.Exibir_informacoes();
 		}
 		else if(it5 != mamiferos_exoticos.end())
 		{
 			teste_id = true;
-			cout << it5->second << endl;
+			it5->second.Exibir_informacoes();
 		}
 		else if(it6 != mamiferos_nativos.end())
 		{
 			teste_id = true;
-			cout << it6->second << endl;
+			it6->second.Exibir_informacoes();
 		}
 		else if(it7 != repteis_exoticos.end())
 		{
 			teste_id = true;
-			cout << it7->second << endl;
+			it7->second.Exibir_informacoes();
 		}
 		else if(it8 != repteis_nativos.end())
 		{
 			teste_id = true;
-			cout << it8->second << endl;
+			it8->second.Exibir_informacoes();
 		}
 		else
 		{
