@@ -1,5 +1,7 @@
 #include "AveNativo.h"
 
+AveNativo::AveNativo(){}
+
 AveNativo::AveNativo(int new_id, string new_classe,
 	string new_nome_cientifico,	char new_sexo,
 	double new_tamanho,	string new_dieta,
