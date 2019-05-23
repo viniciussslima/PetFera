@@ -466,7 +466,7 @@ void Programa::Cadastro_animal()
 			AnfibioNativo anfibioNativo(id, classe, nome_cientifico,
 				sexo, tamanho, dieta, it_veterinario->second, 
 				it_tratador->second, nome_batismo, total_de_mudas, 
-				ultima_muda, autorizacao_ibama, uf);
+				ultima_muda, autorizacao_ibama, UF);
 
 			outfile.open("../Dados/animais.csv", ios::app);
 			outfile << anfibioNativo << endl;
@@ -487,7 +487,7 @@ void Programa::Cadastro_animal()
 			AveNativo aveNativo(id, classe, nome_cientifico,
 				sexo, tamanho, dieta, it_veterinario->second, 
 				it_tratador->second, nome_batismo, tamanho_do_bico, 
-				envergadura_das_asas, autorizacao_ibama, uf);
+				envergadura_das_asas, autorizacao_ibama, UF);
 
 			outfile.open("../Dados/animais.csv", ios::app);
 			outfile << aveNativo << endl;
@@ -510,7 +510,7 @@ void Programa::Cadastro_animal()
 			MamiferoNativo mamiferoNativo(id, classe, nome_cientifico,
 				sexo, tamanho, dieta, it_veterinario->second, 
 				it_tratador->second, nome_batismo, cor_pelo, 
-				autorizacao_ibama, uf);
+				autorizacao_ibama, UF);
 
 			outfile.open("../Dados/animais.csv", ios::app);
 			outfile << mamiferoNativo << endl;
@@ -546,7 +546,7 @@ void Programa::Cadastro_animal()
 			ReptilNativo reptilNativo(id, classe, nome_cientifico,
 				sexo, tamanho, dieta, it_veterinario->second, 
 				it_tratador->second, nome_batismo, venenoso, 
-				tipo_veneno, autorizacao_ibama, uf);
+				tipo_veneno, autorizacao_ibama, UF);
 
 			outfile.open("../Dados/animais.csv", ios::app);
 			outfile << reptilNativo << endl;
@@ -788,6 +788,7 @@ void Programa::Cadastro_funcionario()
 		Tratador tratador(id, nome_do_funcionario, cpf, idade, tipo_sanguineo, rh, especialidade, nivel_de_seguranca);
 		outfile.open("../Dados/funcionarios.csv", ios::app);
 		outfile << tratador << endl;
+		tratadores.insert(pair<int, Tratador>(id, tratador));
 	}
 	if(funcao.compare("VETERINARIO") == 0)
 	{
@@ -797,6 +798,7 @@ void Programa::Cadastro_funcionario()
 		Veterinario veterinario(id, nome_do_funcionario, cpf, idade, tipo_sanguineo, rh, especialidade, crmv);
 		outfile.open("../Dados/funcionarios.csv", ios::app);
 		outfile << veterinario << endl;
+		veterinarios.insert(pair<int, Veterinario>(id, veterinario));
 	}
 }
 
@@ -899,7 +901,7 @@ void Programa::Consultar_animal()
 
 void Programa::Consultar_funcionario()
 {
-	int ID_Do_Funcionario;
+	/*int ID_Do_Funcionario;
 	bool id_test;
 	int i;
 	string linha;
@@ -957,7 +959,7 @@ void Programa::Consultar_funcionario()
 
 
 
-	}
+	}*/
 
 }
 
