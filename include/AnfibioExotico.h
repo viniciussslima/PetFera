@@ -15,6 +15,7 @@ class AnfibioExotico : public Anfibio, public AnimalExotico
 			Tratador, string, int,
 			date, string, string);
 		~AnfibioExotico();
+		void Exibir_informacoes();
 		friend ostream& operator<<(ostream &, AnfibioExotico);
 };
 

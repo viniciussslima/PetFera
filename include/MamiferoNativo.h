@@ -14,6 +14,7 @@ class MamiferoNativo : public Mamifero, public AnimalNativo
 			double, string, Veterinario, Tratador,
 			string, string, string, string);
 		~MamiferoNativo();
+		void Exibir_informacoes();
 		friend ostream& operator<<(ostream &, MamiferoNativo);
 };
 

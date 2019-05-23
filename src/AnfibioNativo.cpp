@@ -20,6 +20,27 @@ AnfibioNativo::AnfibioNativo(int new_id, string new_classe,
 
 AnfibioNativo::~AnfibioNativo(){}
 
+void AnfibioNativo::Exibir_informacoes()
+{
+	cout << endl
+		<< "Id: " << m_id << endl
+		<< "Classe: " << m_classe << endl
+		<< "Nome cientifico: " << m_nome_cientifico << endl
+		<< "Sexo: " << m_sexo << endl
+		<< "Tamanho: " << m_tamanho << endl
+		<< "Dieta: " << m_dieta << endl;
+		if (m_veterinario.getId() != 0)
+			cout << "Id do veterinario" << m_veterinario.getId() << endl;
+		if (m_tratador.getId() != 0)
+			cout << "Id do tratador" << m_tratador.getId() << endl;
+	cout << "Nome batismo: " << m_nome_batismo << endl
+		<< "Total de mudas: " << m_total_de_mudas << endl
+		<< "Data da ultima muda: " << m_ultima_muda << endl
+		<< "Autorizacao ibama: " << m_autorizacao_ibama << endl
+		<< "UF de origem: " << m_uf_origem << endl
+		<< endl;
+}
+
 ostream& operator<<(ostream &o, AnfibioNativo A)
 {
 	o << A.m_id << ";"
@@ -27,10 +48,10 @@ ostream& operator<<(ostream &o, AnfibioNativo A)
 		<< A.m_nome_cientifico << ";"
 		<< A.m_sexo << ";"
 		<< A.m_tamanho << ";"
-		<< A.m_dieta << ";";
-	A.m_veterinario.getId() != -1 ? o << A.m_veterinario.getId() << ";" : o << ";";
-	A.m_tratador.getId() != -1 ? o << A.m_tratador.getId() << ";" : o << ";";
-	o << A.m_nome_batismo << ";"
+		<< A.m_dieta << ";"
+		<< A.m_veterinario.getId() << ";"
+		<< A.m_tratador.getId() << ";"
+		<< A.m_nome_batismo << ";"
 		<< A.m_total_de_mudas << ";"
 		<< A.m_ultima_muda << ";"
 		<< A.m_autorizacao_ibama << ";"

@@ -17,6 +17,25 @@ MamiferoExotico::MamiferoExotico(int new_id, string new_classe,
 
 MamiferoExotico::~MamiferoExotico(){}
 
+void MamiferoExotico::Exibir_informacoes()
+{
+	cout << endl
+		<< "Id: " << m_id << endl
+		<< "Classe: " << m_classe << endl
+		<< "Nome cientifico: " << m_nome_cientifico << endl
+		<< "Sexo: " << m_sexo << endl
+		<< "Tamanho: " << m_tamanho << endl
+		<< "Dieta: " << m_dieta << endl;
+		if (m_veterinario.getId() != 0)
+			cout << "Id do veterinario" << m_veterinario.getId() << endl;
+		if (m_tratador.getId() != 0)
+			cout << "Id do tratador" << m_tratador.getId() << endl;
+	cout << "Nome batismo: " << m_nome_batismo << endl
+		<< "Cor do pelo: " << m_cor_pelo << endl
+		<< "Pais de origem: " << m_pais_origem << endl
+		<< endl;
+}
+
 ostream& operator<<(ostream &o, MamiferoExotico A)
 {
 	o << A.m_id << ";"
@@ -24,10 +43,10 @@ ostream& operator<<(ostream &o, MamiferoExotico A)
 		<< A.m_nome_cientifico << ";"
 		<< A.m_sexo << ";"
 		<< A.m_tamanho << ";"
-		<< A.m_dieta << ";";
-	A.m_veterinario.getId() != -1 ? o << A.m_veterinario.getId() << ";" : o << ";";
-	A.m_tratador.getId() != -1 ? o << A.m_tratador.getId() << ";" : o << ";";
-	o << A.m_nome_batismo << ";"
+		<< A.m_dieta << ";"
+		<< A.m_veterinario.getId() << ";"
+		<< A.m_tratador.getId() << ";"
+		<< A.m_nome_batismo << ";"
 		<< A.m_cor_pelo << ";"
 		<< A.m_autorizacao_ibama << ";"
 		<< A.m_pais_origem << ";";

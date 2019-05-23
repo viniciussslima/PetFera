@@ -18,6 +18,27 @@ AveNativo::AveNativo(int new_id, string new_classe,
 
 AveNativo::~AveNativo(){}
 
+void AveNativo::Exibir_informacoes()
+{
+	cout << endl
+		<< "Id: " << m_id << endl
+		<< "Classe: " << m_classe << endl
+		<< "Nome cientifico: " << m_nome_cientifico << endl
+		<< "Sexo: " << m_sexo << endl
+		<< "Tamanho: " << m_tamanho << endl
+		<< "Dieta: " << m_dieta << endl;
+		if (m_veterinario.getId() != 0)
+			cout << "Id do veterinario" << m_veterinario.getId() << endl;
+		if (m_tratador.getId() != 0)
+			cout << "Id do tratador" << m_tratador.getId() << endl;
+	cout << "Nome batismo: " << m_nome_batismo << endl
+		<< "Tamanho do bico: " << m_tamanho_do_bico << endl
+		<< "Envergadura das asas: " << m_envergadura_das_asas << endl
+		<< "Autorizacao ibama: " << m_autorizacao_ibama << endl
+		<< "UF de origem: " << m_uf_origem << endl
+		<< endl;
+}
+
 ostream& operator<<(ostream &o, AveNativo A)
 {
 	o << A.m_id << ";"
@@ -25,10 +46,10 @@ ostream& operator<<(ostream &o, AveNativo A)
 		<< A.m_nome_cientifico << ";"
 		<< A.m_sexo << ";"
 		<< A.m_tamanho << ";"
-		<< A.m_dieta << ";";
-	A.m_veterinario.getId() != -1 ? o << A.m_veterinario.getId() << ";" : o << ";";
-	A.m_tratador.getId() != -1 ? o << A.m_tratador.getId() << ";" : o << ";";
-	o << A.m_nome_batismo << ";"
+		<< A.m_dieta << ";"
+		<< A.m_veterinario.getId() << ";"
+		<< A.m_tratador.getId() << ";"
+		<< A.m_nome_batismo << ";"
 		<< A.m_tamanho_do_bico << ";"
 		<< A.m_envergadura_das_asas << ";"
 		<< A.m_autorizacao_ibama << ";"

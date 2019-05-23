@@ -14,6 +14,7 @@ class AveNativo : public Ave, public AnimalNativo
 			double, string, Veterinario, Tratador ,
 			string, double,	double, string, string );
 		~AveNativo();
+		void Exibir_informacoes();
 		friend ostream& operator<<(ostream &, AveNativo);
 };
 

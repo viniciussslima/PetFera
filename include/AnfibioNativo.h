@@ -14,6 +14,7 @@ class AnfibioNativo : public Anfibio, public AnimalNativo
 			double, string,	Veterinario, Tratador,
 			string, int, date, string, string);
 		~AnfibioNativo();
+		void Exibir_informacoes();
 		friend ostream& operator<<(ostream &, AnfibioNativo);
 };
 

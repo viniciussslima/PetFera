@@ -14,6 +14,7 @@ class ReptilExotico : public Reptil, public AnimalExotico
 			double, string, Veterinario, Tratador,
 			string, bool, string, string, string);
 		~ReptilExotico();
+		void Exibir_informacoes();
 		friend ostream& operator<<(ostream &, ReptilExotico);
 };
 
