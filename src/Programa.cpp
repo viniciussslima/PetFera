@@ -668,8 +668,8 @@ void Programa::Remocao_animal()
 	vector<string> animal_para_excluir;
 	ifstream arquivo_animais("../Dados/animais.csv");
 	ofstream temp("../Dados/temp.txt");
-	
-	cout << "digite o id do animal que quer remover" << endl;
+
+	cout << "Digite o id do animal que quer remover" << endl;
 
  	cin >> id;
     while (getline(arquivo_animais, linha))
@@ -802,8 +802,27 @@ void Programa::Cadastro_funcionario()
 
 void Programa::Remocao_funcionario()
 {
-int id;
+/*	int ID_Do_Funcionario_R;
+	string linha;
 
+	cout << "digite o id od funcionario que deseja remover" << endl;
+	cin >> ID_Do_Funcionario_R;
+	ofstream Edit_A("../Dados/Funcionarios.txt");
+
+	map<int, Veterinario>::iterator iterator_V = Funcionario_veterinario.find(id);
+	map<int, Tratador>::iterator iterator_T = Funcionario_Tratador.find(id);
+
+	if(Edit_A.is_open()){
+		while(getline(Edit_A,linha)){
+			cout 
+		}
+
+	}
+	else{
+		cout<< "não foi possivel abrir o arquivo" << endl;
+	}
+
+*/
 
 
 }
@@ -883,34 +902,67 @@ void Programa::Consultar_funcionario()
 {
 	int ID_Do_Funcionario;
 	bool id_test;
+	int i;
+	string linha;
+	ifstream Edit_B;
 
-	do{	
-		cout <<"digite o id do funcionario" << enld;
-		cin >> ID_Do_Funcionario; 
+	cout <<"(1) ver um funcionario especifico" <<"-- (2) ver todos os funcionarios" << endl;
 
-		map<int, Veterinario>::iterator iterator_V = Funcionario_veterinario.find(id);
-		map<int, Tratador>::iterator iterator_T = Funcionario_Tratador.find(id);
+	cin >> i;
+	switch(i)
+	{
+		case 1:
+			do{	
+				cout <<"digite o id do funcionario" << enld;
+				cin >> ID_Do_Funcionario; 
 
-		if(iterator_V != Funcionario_veterinario.end()){
-					id_teste = true;
-					cout << iterator_V->second << endl;
-		}
+				map<int, Veterinario>::iterator iterator_V = Funcionario_veterinario.find(id);
+				map<int, Tratador>::iterator iterator_T = Funcionario_Tratador.find(id);
 
-		if(iterator_T != Funcionario_Tratador.end()){
-					id_teste = true;
-					cout << iterator_T->second << endl;
-		}
+				if(iterator_V != Funcionario_veterinario.end()){
+							id_teste = true;
+							cout << iterator_V->second << endl;
+				}
 
-		else{
-			id_teste = false;
-		}
-		if(!id_teste){
-			cout <<"Erro no id" << endl;
-		}
+				if(iterator_T != Funcionario_Tratador.end()){
+							id_teste = true;
+							cout << iterator_T->second << endl;
+				}
 
-	}while(!id_test);
+				else{
+					id_teste = false;
+				}
+				if(!id_teste){
+					cout <<"Erro no id" << endl;
+				}
+
+			}while(!id_test);
+			break;
+
+		case 2:
+			Edit_B.open("../Dados/Funcionarios.txt");
+			if(Edit_B.is_open()){
+				while(getline(Edit_B,linha)){
+					cout << linha << endl;
+				}
+				Edit_B.close();
+
+			}
+			else{
+				cout << "não foi possivel realizar essa operação" << endl;
+			}
+			break;
+
+
+
+
+
+
+	}
 
 }
+
+
 
 void Programa::Separador_csv(string data, vector<string> &dados)
 {
