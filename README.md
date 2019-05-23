@@ -11,6 +11,10 @@
 
 ## Instruções:
 
+Para compilar é necessario ter instalado o gtkmm 3
+Caso não tenha acesse:
+	https://www.gtkmm.org/pt_BR/download.html
+
 ### Para compilar:
 
 	make
