@@ -71,38 +71,30 @@ JanelaCadastroFuncionario::JanelaCadastroFuncionario()
 	box_dados->add(*box_direita);
 
 	box_esquerda->add(*label_id);
-	box_direita->add(*entry_id);
-
 	box_esquerda->add(*label_funcao);
-	box_direita->add(*combo_box_fucao);
-
 	box_esquerda->add(*label_nome_do_funcionario);
-	box_direita->add(*entry_nome_do_funcionario);
-
 	box_esquerda->add(*label_cpf);
-	box_direita->add(*entry_cpf);
-
 	box_esquerda->add(*label_idade);
-	box_direita->add(*entry_idade);
-
 	box_esquerda->add(*label_tipo_sanguineo);
-	box_direita->add(*combo_box_tipo_sanguineo);
-
 	box_esquerda->add(*label_rh);
-	box_direita->add(*combo_box_rh);
-
 	box_esquerda->add(*label_especialidade);
-	box_direita->add(*entry_especialidade);
-
 	box_esquerda->add(*label_crmv);
-	box_direita->add(*entry_crmv);
-
 	box_esquerda->add(*label_nivel_de_seguranca);
+	
+	box_direita->add(*entry_id);
+	box_direita->add(*combo_box_fucao);
+	box_direita->add(*entry_nome_do_funcionario);
+	box_direita->add(*entry_cpf);
+	box_direita->add(*entry_idade);
+	box_direita->add(*combo_box_tipo_sanguineo);
+	box_direita->add(*combo_box_rh);
+	box_direita->add(*entry_especialidade);
+	box_direita->add(*entry_crmv);
 	box_direita->add(*combo_box_nivel_de_seguranca);
 
 	//Conexão
 	button_cadastrar->signal_clicked().connect(sigc::mem_fun(*this, &JanelaCadastroFuncionario::Cadastrar));
-	combo_box_fucao->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroFuncionario::FuncaoMudada) );
+	combo_box_fucao->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroFuncionario::MudarFuncionario) );
 }
 
 
@@ -131,7 +123,21 @@ JanelaCadastroFuncionario::~JanelaCadastroFuncionario()
 	delete combo_box_tipo_sanguineo;
 	delete combo_box_rh;
 	delete combo_box_nivel_de_seguranca;
+	delete button_cadastrar;
+	delete box_principal;
 	delete box_dados;
+	delete box_esquerda;
+	delete box_direita;
+	delete label_id;
+	delete label_funcao;
+	delete label_nome_do_funcionario;
+	delete label_cpf;
+	delete label_idade;
+	delete label_tipo_sanguineo;
+	delete label_rh;
+	delete label_especialidade;
+	delete label_crmv;
+	delete label_nivel_de_seguranca;
 }
 
 void JanelaCadastroFuncionario::Run()
@@ -139,8 +145,6 @@ void JanelaCadastroFuncionario::Run()
 	window->show_all();
 	combo_box_nivel_de_seguranca->hide();
 	label_nivel_de_seguranca->hide();
-	entry_crmv->show();
-	label_crmv->show();
 	Main::run(*window);
 }
 
@@ -194,7 +198,7 @@ void JanelaCadastroFuncionario::Cadastrar()
 	window->close();
 }
 
-void JanelaCadastroFuncionario::FuncaoMudada()
+void JanelaCadastroFuncionario::MudarFuncionario()
 {
 	switch(combo_box_fucao->get_active_row_number())
 	{
@@ -205,12 +209,10 @@ void JanelaCadastroFuncionario::FuncaoMudada()
 			label_crmv->show();
 			break;
 		case 1:
-		{
 			combo_box_nivel_de_seguranca->show();
 			label_nivel_de_seguranca->show();
 			entry_crmv->hide();
 			label_crmv->hide();
 			break;
-		}
 	}
 }

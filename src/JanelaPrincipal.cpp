@@ -1,5 +1,6 @@
 #include "JanelaPrincipal.h"
 #include "JanelaCadastroFuncionario.h"
+#include "JanelaCadastroAnimal.h"
 
 using namespace Gtk;
 using namespace std;
@@ -36,6 +37,7 @@ JanelaPrincipal::JanelaPrincipal()
 
 	//Conexão
 	button_cadastro_funcionario->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::CadastrarFuncionario));
+	button_cadastro_animal->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::CadastrarAnimal));
 }
 
 JanelaPrincipal::~JanelaPrincipal()
@@ -63,14 +65,8 @@ void JanelaPrincipal::CadastrarFuncionario()
 	temp.Run();
 }
 
-/*  int id;
-	string funcao;
-	string nome_do_funcionario;
-	string cpf;
-	short idade;
-	string tipo_sanguineo;
-	char rh;
-	string especialidade;
-	string crmv;
-	int nivel_de_seguranca;
-	*/
+void JanelaPrincipal::CadastrarAnimal()
+{
+	JanelaCadastroAnimal temp;
+	temp.Run();
+}

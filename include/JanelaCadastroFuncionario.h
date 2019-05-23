@@ -45,19 +45,7 @@ class JanelaCadastroFuncionario
 
 		void Run();
 		void Cadastrar();
-		void FuncaoMudada();
+		void MudarFuncionario();
 };
 
 #endif
-
-/*  int id;
-	string funcao;
-	string nome_do_funcionario;
-	string cpf;
-	short idade;
-	string tipo_sanguineo;
-	char rh;
-	string especialidade;
-	string crmv;
-	int nivel_de_seguranca;
-	*/
