@@ -17,6 +17,22 @@ Tratador::Tratador(int new_id, string new_nome, string new_cpf,
 
 Tratador::~Tratador(){}
 
+void Tratador::Exibir_tratador(){
+		cout << endl
+		<< "Id: " << m_id << endl
+		<< "Função: Tratador" << endl
+		<< "Nome: " << m_nome << endl
+		<< "CPF: " << m_cpf << endl
+		<< "Idade: " << m_idade << endl
+		<< "Tipo Sanguineo: " << m_tipo_sanguineo << endl
+		<< "RH: " << m_fator_rh << endl
+		<<"Especialidade: " << m_especialidade << endl
+		<<"m_nivel_de_seguranca: " << m_nivel_de_seguranca << endl; 
+
+
+}
+
+
 ostream& operator<<(ostream &o, Tratador A)
 {
 	o << A.m_id << ";"

@@ -17,6 +17,7 @@ class Tratador : public Funcionario
 		Tratador();
 		~Tratador();
 		friend ostream& operator<<(ostream &, Tratador);
+		void Exibir_tratador();
 	
 };
 

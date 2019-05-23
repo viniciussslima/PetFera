@@ -938,7 +938,7 @@ void Programa::Consultar_funcionario()
 				}
 				if(iterator_T != tratadores.end()){
 							id_test = true;
-							cout << iterator_T->second<< endl;
+							iterator_T->second.Exibir_tratador();
 				}
 				else{
 					id_test = false;

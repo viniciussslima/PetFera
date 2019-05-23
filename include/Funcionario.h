@@ -23,7 +23,6 @@ class Funcionario
 			string);
 		~Funcionario();
 		int getId();
-		void Exibir_Funcionaio();
 	
 };
 
