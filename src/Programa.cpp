@@ -301,7 +301,7 @@ void Programa::Carregar()
 
 void Programa::Cadastro_animal(int id)
 {
-	bool teste_id;
+	string teste_id = "N/A";
 	string classe;
 	string nome_cientifico;
 	char sexo;
@@ -319,38 +319,18 @@ void Programa::Cadastro_animal(int id)
 	ofstream outfile;
 
 	do{
-		if (id == 0 || teste_id)
+		if (id == 0 || teste_id.compare("N/A") != 0)
 		{
 			cout << "Id: ";
 			cin >> id;
+			teste_id = Verificar_id_animal(id);
 		}
 
-		map<int, AnfibioExotico>::iterator it1 = anfibios_exoticos.find(id);
-		map<int, AnfibioNativo>::iterator it2 = anfibios_nativos.find(id);
-		
-		map<int, AveExotico>::iterator it3 = aves_exoticas.find(id);
-		map<int, AveNativo>::iterator it4 = aves_nativas.find(id);
-
-		map<int, MamiferoExotico>::iterator it5 = mamiferos_exoticos.find(id);
-		map<int, MamiferoNativo>::iterator it6 = mamiferos_nativos.find(id);
-
-		map<int, ReptilExotico>::iterator it7 = repteis_exoticos.find(id);
-		map<int, ReptilNativo>::iterator it8 = repteis_nativos.find(id);
-
-		it1 != anfibios_exoticos.end() ? teste_id = true :
-		it2 != anfibios_nativos.end() ? teste_id = true :
-		it3 != aves_exoticas.end() ? teste_id = true :
-		it4 != aves_nativas.end() ? teste_id = true :
-		it5 != mamiferos_exoticos.end() ? teste_id = true :
-		it6 != mamiferos_nativos.end() ? teste_id = true :
-		it7 != repteis_exoticos.end() ? teste_id = true :
-		it8 != repteis_nativos.end() ? teste_id = true : teste_id = false;
-
-		if (teste_id)
+		if (teste_id.compare("N/A") != 0)
 		{
 			cout << "Id já em uso" << endl;
 		}
-	}while(teste_id);
+	}while(teste_id.compare("N/A") != 0);
 
 	cout << "Classe: ";
 	cin >> classe;
@@ -745,9 +725,8 @@ void Programa::Remocao_animal(int id)
     }
 }
 
-void Programa::Cadastro_funcionario()
+void Programa::Cadastro_funcionario(int id)
 {
-	int id;
 	string funcao;
 	string nome_do_funcionario;
 	string cpf;
@@ -757,10 +736,22 @@ void Programa::Cadastro_funcionario()
 	string especialidade;
 	string crmv;
 	int nivel_de_seguranca;
+	string teste_id = "N/A";
 	ofstream outfile;
 
-	cout << "Id: ";
-	cin >> id;
+	do{
+		if (id == 0 || teste_id.compare("N/A") != 0)
+		{
+			cout << "Id: ";
+			cin >> id;
+			teste_id = Verificar_id_funcionario(id);
+		}
+
+		if (teste_id.compare("N/A") != 0)
+		{
+			cout << "Id já em uso" << endl;
+		}
+	}while(teste_id.compare("N/A") != 0);
 
 	cout << "Função: ";
 	cin >> funcao;
@@ -809,9 +800,9 @@ void Programa::Cadastro_funcionario()
 	}
 }
 
-void Programa::Remocao_funcionario()
+void Programa::Remocao_funcionario(int id)
 {
-/*	int ID_Do_Funcionario_R;
+/*	
 	string linha;
 
 	cout << "digite o id od funcionario que deseja remover" << endl;
@@ -841,73 +832,59 @@ void Programa::Remocao_funcionario()
 void Programa::Consultar_animal()
 {
 	int id;
-	bool teste_id;
+	string teste_id;
+	bool loop = true;
 	do{
 		cout << "Id: ";
 		cin >> id;
-		
-		map<int, AnfibioExotico>::iterator it1 = anfibios_exoticos.find(id);
-		map<int, AnfibioNativo>::iterator it2 = anfibios_nativos.find(id);
-		
-		map<int, AveExotico>::iterator it3 = aves_exoticas.find(id);
-		map<int, AveNativo>::iterator it4 = aves_nativas.find(id);
 
-		map<int, MamiferoExotico>::iterator it5 = mamiferos_exoticos.find(id);
-		map<int, MamiferoNativo>::iterator it6 = mamiferos_nativos.find(id);
+		teste_id = Verificar_id_animal(id);
 
-		map<int, ReptilExotico>::iterator it7 = repteis_exoticos.find(id);
-		map<int, ReptilNativo>::iterator it8 = repteis_nativos.find(id);
-
-		if(it1 != anfibios_exoticos.end())
+		if(teste_id.compare("AnfibioExotico") == 0)
 		{
-			teste_id = true;
-			it1->second.Exibir_informacoes();
+			anfibios_exoticos[id].Exibir_informacoes();
+			loop = false;
 		}
-		else if(it2 != anfibios_nativos.end())
+		else if(teste_id.compare("AnfibioNativo") == 0)
 		{
-			teste_id = true;
-			it2->second.Exibir_informacoes();
+			anfibios_nativos[id].Exibir_informacoes();
+			loop = false;
 		}
-		else if(it3 != aves_exoticas.end())
+		else if(teste_id.compare("AveExotica") == 0)
 		{
-			teste_id = true;
-			it3->second.Exibir_informacoes();
+			aves_exoticas[id].Exibir_informacoes();
+			loop = false;
 		}
-		else if(it4 != aves_nativas.end())
+		else if(teste_id.compare("AveNativa") == 0)
 		{
-			teste_id = true;
-			it4->second.Exibir_informacoes();
+			aves_nativas[id].Exibir_informacoes();
+			loop = false;
 		}
-		else if(it5 != mamiferos_exoticos.end())
-		{
-			teste_id = true;
-			it5->second.Exibir_informacoes();
+		else if(teste_id.compare("MamiferoExotico") == 0)
+		{	
+			mamiferos_exoticos[id].Exibir_informacoes();
+			loop = false;
 		}
-		else if(it6 != mamiferos_nativos.end())
+		else if(teste_id.compare("MamiferoNativo") == 0)
 		{
-			teste_id = true;
-			it6->second.Exibir_informacoes();
+			mamiferos_nativos[id].Exibir_informacoes();
+			loop = false;
 		}
-		else if(it7 != repteis_exoticos.end())
+		else if(teste_id.compare("ReptilExotico") == 0)
 		{
-			teste_id = true;
-			it7->second.Exibir_informacoes();
+			repteis_exoticos[id].Exibir_informacoes();
+			loop = false;
 		}
-		else if(it8 != repteis_nativos.end())
+		else if(teste_id.compare("ReptilNativo") == 0)
 		{
-			teste_id = true;
-			it8->second.Exibir_informacoes();
+			repteis_nativos[id].Exibir_informacoes();
+			loop = false;
 		}
 		else
 		{
-			teste_id = false;
-		}
-
-		if (!teste_id)
-		{
 			cout << "Id invalido" << endl;
 		}
-	}while(!teste_id); 
+	}while(loop); 
 }
 
 void Programa::Consultar_funcionario()
@@ -977,8 +954,8 @@ void Programa::Modificar_informacoes()
 {
 	string tipo;
 	int id;
-	bool teste_id;
-	cout << "Qual deseja alterar(Animal/funcionario): " << endl;
+	string teste_id;
+	cout << "Qual deseja alterar(Animal/Funcionario): " << endl;
 	cin >> tipo;
 	for (unsigned int i = 0; i < tipo.length(); ++i)
 		tipo[i] = toupper(tipo[i]);
@@ -986,63 +963,33 @@ void Programa::Modificar_informacoes()
 	{
 		do{
 			cin >> id;
-			map<int, AnfibioExotico>::iterator it1 = anfibios_exoticos.find(id);
-			map<int, AnfibioNativo>::iterator it2 = anfibios_nativos.find(id);
-			
-			map<int, AveExotico>::iterator it3 = aves_exoticas.find(id);
-			map<int, AveNativo>::iterator it4 = aves_nativas.find(id);
-
-			map<int, MamiferoExotico>::iterator it5 = mamiferos_exoticos.find(id);
-			map<int, MamiferoNativo>::iterator it6 = mamiferos_nativos.find(id);
-
-			map<int, ReptilExotico>::iterator it7 = repteis_exoticos.find(id);
-			map<int, ReptilNativo>::iterator it8 = repteis_nativos.find(id);
-
-			if(it1 != anfibios_exoticos.end())
+			teste_id = Verificar_id_animal(id);
+			if(teste_id.compare("N/A") != 0)
 			{
-				teste_id = true;
 				Remocao_animal(id);
 				Cadastro_animal(id);
 			}
-			else if(it2 != anfibios_nativos.end())
-			{
-				teste_id = true;
-			}
-			else if(it3 != aves_exoticas.end())
-			{
-				teste_id = true;
-			}
-			else if(it4 != aves_nativas.end())
-			{
-				teste_id = true;
-			}
-			else if(it5 != mamiferos_exoticos.end())
-			{
-				teste_id = true;
-			}
-			else if(it6 != mamiferos_nativos.end())
-			{
-				teste_id = true;
-			}
-			else if(it7 != repteis_exoticos.end())
-			{
-				teste_id = true;
-			}
-			else if(it8 != repteis_nativos.end())
-			{
-				teste_id = true;
-			}
 			else
-			{
-				teste_id = false;
-			}
-
-			if (!teste_id)
 			{
 				cout << "Id invalido" << endl;
 			}
-		}while(!teste_id); 
-
+		}while(teste_id.compare("N/A") == 0);
+	}
+	else if (tipo.compare("FUNCIONARIO") == 0)
+	{
+		do{
+			cin >> id;
+			teste_id = Verificar_id_funcionario(id);
+			if(teste_id.compare("N/A") != 0)
+			{
+				Remocao_funcionario(id);
+				Cadastro_funcionario(id);
+			}
+			else
+			{
+				cout << "Id invalido" << endl;
+			}
+		}while(teste_id.compare("N/A") == 0);
 	}
 }
 
@@ -1087,4 +1034,70 @@ void Programa::Separador_data(string data, vector<string> &dados)
         }
     }
     dados.push_back(palavras);
+}
+
+string Programa::Verificar_id_animal(int id)
+{
+	map<int, AnfibioExotico>::iterator it1 = anfibios_exoticos.find(id);
+	map<int, AnfibioNativo>::iterator it2 = anfibios_nativos.find(id);
+	
+	map<int, AveExotico>::iterator it3 = aves_exoticas.find(id);
+	map<int, AveNativo>::iterator it4 = aves_nativas.find(id);
+
+	map<int, MamiferoExotico>::iterator it5 = mamiferos_exoticos.find(id);
+	map<int, MamiferoNativo>::iterator it6 = mamiferos_nativos.find(id);
+
+	map<int, ReptilExotico>::iterator it7 = repteis_exoticos.find(id);
+	map<int, ReptilNativo>::iterator it8 = repteis_nativos.find(id);
+
+	if(it1 != anfibios_exoticos.end())
+	{
+		return "AnfibioExotico";
+	}
+	else if(it2 != anfibios_nativos.end())
+	{
+		return "AnfibioNativo";
+	}
+	else if(it3 != aves_exoticas.end())
+	{
+		return "AveExotica";
+	}
+	else if(it4 != aves_nativas.end())
+	{
+		return "AveNativa";
+	}
+	else if(it5 != mamiferos_exoticos.end())
+	{
+		return "MamiferoExotico";
+	}
+	else if(it6 != mamiferos_nativos.end())
+	{
+		return "MamiferoNativo";
+	}
+	else if(it7 != repteis_exoticos.end())
+	{
+		return "ReptilExotico";
+	}
+	else if(it8 != repteis_nativos.end())
+	{
+		return "ReptilNativo";
+	}
+	
+	return "N/A";
+}
+
+string Programa::Verificar_id_funcionario(int id)
+{
+	map<int, Veterinario>::iterator it1 = veterinarios.find(id);
+	map<int, Tratador>::iterator it2 = tratadores.find(id);
+
+	if(it1 != veterinarios.end())
+	{
+		return "Veterinario";
+	}
+	else if(it2 != tratadores.end())
+	{
+		return "Tratador";
+	}
+	return "N/A";
 }

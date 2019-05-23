@@ -52,13 +52,15 @@ class Programa
 		void Carregar();
 		void Cadastro_animal(int id = 0);
 		void Remocao_animal(int id = 0);
-		void Cadastro_funcionario();
-		void Remocao_funcionario();
+		void Cadastro_funcionario(int id = 0);
+		void Remocao_funcionario(int id = 0);
 		void Consultar_animal();
 		void Consultar_funcionario();
 		void Modificar_informacoes();
 		void Separador_csv(string, vector<string>&);
 		void Separador_data(string, vector<string> &);
+		string Verificar_id_animal(int);
+		string Verificar_id_funcionario(int);
 };
 
 #endif
