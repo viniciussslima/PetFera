@@ -814,7 +814,7 @@ void Programa::Remocao_funcionario()
 
 	if(Edit_A.is_open()){
 		while(getline(Edit_A,linha)){
-			cout 
+			if(linha.find(ID) == )
 		}
 
 	}
@@ -823,7 +823,6 @@ void Programa::Remocao_funcionario()
 	}
 
 */
-
 
 }
 void Programa::Consultar_animal()
@@ -904,7 +903,7 @@ void Programa::Consultar_funcionario()
 	bool id_test;
 	int i;
 	string linha;
-	ifstream Edit_B;
+	ifstream Ler_B;
 
 	cout <<"(1) ver um funcionario especifico" <<"-- (2) ver todos os funcionarios" << endl;
 
@@ -940,12 +939,12 @@ void Programa::Consultar_funcionario()
 			break;
 
 		case 2:
-			Edit_B.open("../Dados/Funcionarios.txt");
-			if(Edit_B.is_open()){
-				while(getline(Edit_B,linha)){
+			Ler_B.open("../Dados/Funcionarios.txt");
+			if(Ler_B.is_open()){
+				while(getline(Ler_B,linha)){
 					cout << linha << endl;
 				}
-				Edit_B.close();
+				Ler_B.close();
 
 			}
 			else{
