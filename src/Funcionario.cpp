@@ -16,7 +16,21 @@ Funcionario::Funcionario(int new_id, string new_nome, string new_cpf,
 	m_fator_rh = new_fator_rh;
 	m_especialidade = new_especialidade;
 }
+/*void Funcionario::Exibir_Funcionaio(){
+		cout << endl
+		<< "Id: " << id << endl
+		<< "Função: " << funcao << endl
+		<< "Nome: " << nome_do_funcionario << endl
+		<< "CPF: " << cpf << endl
+		<< "Idade: " << idade << endl
+		<< "Tipo Sanguineo: " << tipo_sanguineo << endl;
+	cout<<"Especialidade: " << especialidade << endl
 
+
+
+
+}
+*/
 Funcionario::~Funcionario(){}
 
 int Funcionario::getId()

@@ -818,8 +818,12 @@ void Programa::Remocao_funcionario()
 	cin >> ID_Do_Funcionario_R;
 	ofstream Edit_A("../Dados/Funcionarios.txt");
 
-	map<int, Veterinario>::iterator iterator_V = Funcionario_veterinario.find(id);
-	map<int, Tratador>::iterator iterator_T = Funcionario_Tratador.find(id);
+	map<int, Veterinario>::iterator iterator_V = veterinarios.find(id);
+	map<int, Tratador>::iterator iterator_T = tratadores.find(id);
+
+	if(iterator_V != veterinarios.end()){
+		iterator_V->second.erase();
+		}
 
 	if(Edit_A.is_open()){
 		while(getline(Edit_A,linha)){
@@ -830,8 +834,8 @@ void Programa::Remocao_funcionario()
 	else{
 		cout<< "não foi possivel abrir o arquivo" << endl;
 	}
-
 */
+
 
 }
 void Programa::Consultar_animal()
@@ -908,8 +912,8 @@ void Programa::Consultar_animal()
 
 void Programa::Consultar_funcionario()
 {
-	/*int ID_Do_Funcionario;
-	bool id_test;
+	int ID_Do_Funcionario;
+	bool id_test = false;
 	int i;
 	string linha;
 	ifstream Ler_B;
@@ -920,35 +924,33 @@ void Programa::Consultar_funcionario()
 	switch(i)
 	{
 		case 1:
-			do{	
-				cout <<"digite o id do funcionario" << enld;
+		do{
+				cout <<"digite o id do funcionario" << endl;
 				cin >> ID_Do_Funcionario; 
 
-				map<int, Veterinario>::iterator iterator_V = Funcionario_veterinario.find(id);
-				map<int, Tratador>::iterator iterator_T = Funcionario_Tratador.find(id);
+				map<int, Veterinario>::iterator iterator_V = veterinarios.find(ID_Do_Funcionario);
+				map<int, Tratador>::iterator iterator_T = tratadores.find(ID_Do_Funcionario);
 
-				if(iterator_V != Funcionario_veterinario.end()){
-							id_teste = true;
+				if(iterator_V != veterinarios.end()){
+							id_test = true;
 							cout << iterator_V->second << endl;
 				}
-
-				if(iterator_T != Funcionario_Tratador.end()){
-							id_teste = true;
-							cout << iterator_T->second << endl;
+				if(iterator_T != tratadores.end()){
+							id_test = true;
+							cout << iterator_T->second<< endl;
 				}
-
 				else{
-					id_teste = false;
+					id_test = false;
 				}
-				if(!id_teste){
+				if(!id_test){
 					cout <<"Erro no id" << endl;
 				}
-
 			}while(!id_test);
 			break;
 
+
 		case 2:
-			Ler_B.open("../Dados/Funcionarios.txt");
+			Ler_B.open("../Dados/funcionarios.csv");
 			if(Ler_B.is_open()){
 				while(getline(Ler_B,linha)){
 					cout << linha << endl;
@@ -966,7 +968,7 @@ void Programa::Consultar_funcionario()
 
 
 
-	}*/
+	}
 
 }
 
