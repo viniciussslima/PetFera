@@ -1,28 +1,29 @@
 #include <fstream>
 #include <string>
 #include "JanelaCadastroAnimal.h"
-#include "JanelaPrincipal.h"
-
-#include "Veterinario.h"
-#include "Tratador.h"
-
-#include "AnfibioExotico.h"
-#include "AnfibioNativo.h"
-
-#include "AveExotico.h"
-#include "AveNativo.h"
-
-#include "MamiferoExotico.h"
-#include "MamiferoNativo.h"
-
-#include "ReptilExotico.h"
-#include "ReptilNativo.h"
 
 using namespace Gtk;
 using namespace std;
 
-JanelaCadastroAnimal::JanelaCadastroAnimal()
+JanelaCadastroAnimal::JanelaCadastroAnimal(map<int, Veterinario> &vtemp, map<int, Tratador> &ttemp, map<int, AnfibioExotico> &anetemp, 
+										   map<int, AnfibioNativo> &anntemp, map<int, AveExotico> &avetemp, map<int, AveNativo> &avntemp,
+										   map<int, MamiferoExotico> &metemp, map<int, MamiferoNativo> &mntemp, 
+										   map<int, ReptilExotico> &retemp, map<int, ReptilNativo> &rntemp)
 {
+	veterinarios = &vtemp;
+	tratadores = &ttemp;
+
+	anfibios_exoticos = &anetemp;
+	anfibios_nativos = &anntemp;
+
+	aves_exoticas = &avetemp;
+	aves_nativas = &avntemp;
+
+	mamiferos_exoticos = &metemp;
+	mamiferos_nativos = &mntemp;
+
+	repteis_exoticos = &retemp;
+	repteis_nativos = &rntemp;
 	//Inicialização
 	window = new Window;
 
@@ -158,6 +159,9 @@ JanelaCadastroAnimal::JanelaCadastroAnimal()
 	button_cadastrar->signal_clicked().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::Cadastrar));
 	combo_box_classe->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::MudarClasse));
 	combo_box_regiao->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::MudarRegiao));
+	check_button_veterinario_incluso->signal_clicked().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::MostrarVeterinario));
+	check_button_tratador_incluso->signal_clicked().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::MostrarTratador));
+	check_button_venenoso->signal_clicked().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::MostrarVenenoso));
 }
 
 JanelaCadastroAnimal::~JanelaCadastroAnimal()
@@ -233,8 +237,8 @@ void JanelaCadastroAnimal::Cadastrar()
 	char sexo = combo_box_sexo->get_active_text()[0];
 	float tamanho = stof(entry_tamanho->get_text());
 	string dieta = entry_dieta->get_text();
-	Veterinario veterinario = check_button_veterinario_incluso->get_active() ? (veterinarios.find(id))->second : (veterinarios.find(0))->second;
-	Tratador tratador = check_button_tratador_incluso->get_active() ? (tratadores.find(id))->second : (tratadores.find(0))->second;
+	Veterinario veterinario = check_button_veterinario_incluso->get_active() ? (veterinarios->find(id))->second : (veterinarios->find(0))->second;
+	Tratador tratador = check_button_tratador_incluso->get_active() ? (tratadores->find(id))->second : (tratadores->find(0))->second;
 	string nome_batismo = entry_nome_batismo->get_text();
 	string autorizacao_ibama = entry_autorizacao_ibama->get_text();
 	string nacionalidade = combo_box_regiao->get_active_row_number() == 0 ? entry_uf->get_text() : entry_nacionalidade->get_text();
@@ -432,5 +436,47 @@ void JanelaCadastroAnimal::MudarRegiao()
 			entry_nacionalidade->show();
 			label_nacionalidade->show();
 			break;
+	}
+}
+
+void JanelaCadastroAnimal::MostrarVeterinario()
+{
+	if(check_button_veterinario_incluso->get_active())
+	{
+		entry_veterinario_id->hide();
+		label_veterinario_id->hide();
+	}
+	else
+	{
+		entry_veterinario_id->show();
+		label_veterinario_id->show();
+	}
+}
+
+void JanelaCadastroAnimal::MostrarTratador()
+{
+	if(check_button_tratador_incluso->get_active())
+	{
+		entry_tratador_id->hide();
+		label_tratador_id->hide();
+	}
+	else
+	{
+		entry_tratador_id->show();
+		label_tratador_id->show();
+	}
+}
+
+void JanelaCadastroAnimal::MostrarVenenoso()
+{
+	if(check_button_venenoso->get_active())
+	{
+		entry_tipo_de_veneno->hide();
+		label_tipo_de_veneno->hide();
+	}
+	else
+	{
+		entry_tipo_de_veneno->show();
+		label_tipo_de_veneno->show();
 	}
 }
