@@ -101,10 +101,10 @@ void Programa::Carregar()
 	vector <string> dados;
 
 	Veterinario veterinario0;
-	veterinarios.insert(pair<int, Veterinario>(-1, veterinario0));
+	veterinarios.insert(pair<int, Veterinario>(0, veterinario0));
 
 	Tratador tratador0;
-	tratadores.insert(pair<int, Tratador>(-1, tratador0));
+	tratadores.insert(pair<int, Tratador>(0, tratador0));
 	
 	string files[] = {"funcionarios", "animais"};
 	for (int i = 0; i < 2; i++)
@@ -158,13 +158,13 @@ void Programa::Carregar()
 				tamanho = stod(dados[4]);
 				dieta = dados[5];
 
-				if (!dados[6].empty())
+				if (stoi(dados[6]) != 0)
 				{
 					veterinario_id = stoi(dados[6]);
 					veterinario_incluso = true;
 				}
 
-				if (!dados[7].empty())
+				if (stoi(dados[7]) != 0)
 				{
 					tratador_id = stoi(dados[7]);
 					tratador_incluso = true;
@@ -181,7 +181,7 @@ void Programa::Carregar()
 				}
 				else
 				{
-					it_veterinario = veterinarios.find(-1);
+					it_veterinario = veterinarios.find(0);
 				}
 				
 				if (tratador_incluso)
@@ -190,7 +190,7 @@ void Programa::Carregar()
 				}
 				else
 				{
-					it_tratador = tratadores.find(-1);
+					it_tratador = tratadores.find(0);
 				}
 
 				if (classe.compare("AMPHIBIA") == 0)
@@ -331,14 +331,14 @@ void Programa::Cadastro_animal()
 		map<int, ReptilExotico>::iterator it7 = repteis_exoticos.find(id);
 		map<int, ReptilNativo>::iterator it8 = repteis_nativos.find(id);
 
-		it1 != anfibios_exoticos.end() ? teste_id = true : teste_id = false;
-		it2 != anfibios_nativos.end() || teste_id == true ? teste_id = true : teste_id = false;
-		it3 != aves_exoticas.end() || teste_id == true ? teste_id = true : teste_id = false;
-		it4 != aves_nativas.end() || teste_id == true ? teste_id = true : teste_id = false;
-		it5 != mamiferos_exoticos.end() || teste_id == true ? teste_id = true : teste_id = false;
-		it6 != mamiferos_nativos.end() || teste_id == true ? teste_id = true : teste_id = false;
-		it7 != repteis_exoticos.end() || teste_id == true ? teste_id = true : teste_id = false;
-		it8 != repteis_nativos.end() || teste_id == true ? teste_id = true : teste_id = false;
+		it1 != anfibios_exoticos.end() ? teste_id = true :
+		it2 != anfibios_nativos.end() ? teste_id = true :
+		it3 != aves_exoticas.end() ? teste_id = true :
+		it4 != aves_nativas.end() ? teste_id = true :
+		it5 != mamiferos_exoticos.end() ? teste_id = true :
+		it6 != mamiferos_nativos.end() ? teste_id = true :
+		it7 != repteis_exoticos.end() ? teste_id = true :
+		it8 != repteis_nativos.end() ? teste_id = true : teste_id = false;
 
 		if (teste_id)
 		{
@@ -409,7 +409,7 @@ void Programa::Cadastro_animal()
 	}
 	else
 	{
-		it_veterinario = veterinarios.find(-1);
+		it_veterinario = veterinarios.find(0);
 	}
 
 	cout << "Tratador incluso(S/N): ";
@@ -430,7 +430,7 @@ void Programa::Cadastro_animal()
 	}
 	else
 	{
-		it_tratador = tratadores.find(-1);	
+		it_tratador = tratadores.find(0);	
 	}
 
 	cout << "Nacionalidade: ";
@@ -850,7 +850,7 @@ void Programa::Consultar_animal()
 		if(it1 != anfibios_exoticos.end())
 		{
 			teste_id = true;
-			cout << it1->second << endl;
+			it1->second.Exibir_informacoes();
 		}
 		else if(it2 != anfibios_nativos.end())
 		{
