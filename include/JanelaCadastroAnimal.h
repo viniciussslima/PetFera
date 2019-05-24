@@ -108,6 +108,7 @@ class JanelaCadastroAnimal
 		void MostrarVeterinario();
 		void MostrarTratador();
 		void MostrarVenenoso();
+		void Separador_data(string, vector<string> &);
 };
 
 /*
