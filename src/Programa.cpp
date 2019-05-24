@@ -674,54 +674,30 @@ void Programa::Remocao_animal(int id)
     if(animal_para_excluir[1].compare("AMPHIBIA") == 0)
     {
 		if(animal_para_excluir[animal_para_excluir.size() - 1].length() == 2)
-	    {
-	    	map<int, AnfibioNativo>::iterator it = anfibios_nativos.find(id);
-	    	anfibios_nativos.erase(it);
-	    }
+	    	anfibios_nativos.erase(id);
 	    else
-	    {
-	    	map<int, AnfibioExotico>::iterator it = anfibios_exoticos.find(id);
-	    	anfibios_exoticos.erase(it);
-	    }
+	    	anfibios_exoticos.erase(id);
     }
     if(animal_para_excluir[1].compare("AVES") == 0)
     {
 		if(animal_para_excluir[animal_para_excluir.size() - 1].length() == 2)
-	    {
-	    	map<int, AveNativo>::iterator it = aves_nativas.find(id);
-	    	aves_nativas.erase(it);
-	    }
+	    	aves_nativas.erase(id);
 	    else
-	    {
-	    	map<int, AveExotico>::iterator it = aves_exoticas.find(id);
-	    	aves_exoticas.erase(it);
-	    }
+	    	aves_exoticas.erase(id);
     }
     if(animal_para_excluir[1].compare("MAMMALIA") == 0)
     {
 		if(animal_para_excluir[animal_para_excluir.size() - 1].length() == 2)
-	    {
-	    	map<int, MamiferoNativo>::iterator it = mamiferos_nativos.find(id);
-	    	mamiferos_nativos.erase(it);
-	    }
+	    	mamiferos_nativos.erase(id);
 	    else
-	    {
-	    	map<int, MamiferoExotico>::iterator it = mamiferos_exoticos.find(id);
-	    	mamiferos_exoticos.erase(it);
-	    }
+	    	mamiferos_exoticos.erase(id);
     }
     if(animal_para_excluir[1].compare("REPTILIA") == 0)
     {
 		if(animal_para_excluir[animal_para_excluir.size() - 1].length() == 2)
-	    {
-	    	map<int, ReptilNativo>::iterator it = repteis_nativos.find(id);
-	    	repteis_nativos.erase(it);
-	    }
+	    	repteis_nativos.erase(id);
 	    else
-	    {
-	    	map<int, ReptilExotico>::iterator it = repteis_exoticos.find(id);
-	    	repteis_exoticos.erase(it);
-	    }
+	    	repteis_exoticos.erase(id);
     }
 }
 
