@@ -17,6 +17,20 @@ Veterinario::Veterinario(int new_id, string new_nome, string new_cpf,
 
 Veterinario::~Veterinario(){}
 
+void Veterinario::Exibir_Veterinario(){
+	cout << endl
+		<< "Id: " << m_id << endl
+		<< "Função: Veterinario" << endl
+		<< "Nome: " << m_nome << endl
+		<< "CPF: " << m_cpf << endl
+		<< "Idade: " << m_idade << endl
+		<< "Tipo Sanguineo: " << m_tipo_sanguineo << endl
+		<< "RH: " << m_fator_rh << endl
+		<<"Especialidade: " << m_especialidade << endl
+		<<"CRMV: " << m_cmv << endl;
+
+}
+
 ostream& operator<<(ostream &o, Veterinario A)
 {
 	o << A.m_id << ";"

@@ -802,30 +802,41 @@ void Programa::Cadastro_funcionario(int id)
 
 void Programa::Remocao_funcionario(int id)
 {
-/*	
+	
 	string linha;
+	int ID_Do_Funcionario_R;
+	vector<string> palavras;
+	ofstream arquivoTemp("../Dados/TempFuncionario.csv");
 
-	cout << "digite o id od funcionario que deseja remover" << endl;
+
+	cout << "digite o id do funcionario que deseja remover" << endl;
 	cin >> ID_Do_Funcionario_R;
-	ofstream Edit_A("../Dados/Funcionarios.txt");
+	ifstream Edit_A("../Dados/funcionarios.csv");
 
-	map<int, Veterinario>::iterator iterator_V = veterinarios.find(id);
-	map<int, Tratador>::iterator iterator_T = tratadores.find(id);
+	veterinarios.erase(ID_Do_Funcionario_R);
+	tratadores.erase(ID_Do_Funcionario_R);
 
-	if(iterator_V != veterinarios.end()){
-		iterator_V->second.erase();
+
+	if(Edit_A.is_open())
+	{
+		while(getline(Edit_A,linha))
+		{
+			Separador_csv(linha,palavras);
+			if(stoi(palavras[0]) != ID_Do_Funcionario_R)
+			{
+				arquivoTemp << linha << endl;
+			}
 		}
-
-	if(Edit_A.is_open()){
-		while(getline(Edit_A,linha)){
-			if(linha.find(ID) == )
-		}
-
+		remove("../Dados/funcionarios.csv");
+		rename("../Dados/TempFuncionario.csv","../Dados/funcionarios.csv");
+		arquivoTemp.close();
 	}
-	else{
+	else
+	{
 		cout<< "não foi possivel abrir o arquivo" << endl;
 	}
-*/
+
+
 
 
 }
@@ -910,7 +921,7 @@ void Programa::Consultar_funcionario()
 
 				if(iterator_V != veterinarios.end()){
 							id_test = true;
-							cout << iterator_V->second << endl;
+							iterator_V->second.Exibir_Veterinario();
 							break;
 				}
 				if(iterator_T != tratadores.end()){
