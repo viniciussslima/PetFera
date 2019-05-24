@@ -80,3 +80,5 @@ cleanall: clean
 	cd $(BINDIR) && rm -f core $(PROG)
 run:
 	cd $(BINDIR) && ./$(PROG) && cd ..
+gdb:
+	cd $(BINDIR) && gdb $(PROG) && cd ..	
