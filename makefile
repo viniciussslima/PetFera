@@ -4,8 +4,9 @@ BUILDDIR = build/
 BINDIR = bin/
 CC = g++
 PROG = main
-CPPFLAGS = `pkg-config --cflags gtkmm-3.0` -Wall -std=c++11 -I$(INCLUDEDIR)
-LDFLAGS = `pkg-config --libs gtkmm-3.0` -L/lib
+CPPFLAGSGTK = `pkg-config --cflags gtkmm-3.0` -Wall -std=c++11 -I$(INCLUDEDIR)
+CPPFLAGS = -Wall -std=c++11 -I$(INCLUDEDIR)
+LDFLAGS = `pkg-config --libs gtkmm-3.0`
 OBJS = main.o JanelaPrincipal.o JanelaCadastroFuncionario.o \
 JanelaCadastroAnimal.o \
 date.o \
@@ -26,13 +27,13 @@ folder :
 	mkdir -p $(BUILDDIR)
 	mkdir -p Dados
 main.o:
-	$(CC) $(CPPFLAGS) -c $(SRCDIR)main.cpp
+	$(CC) $(CPPFLAGSGTK) -c $(SRCDIR)main.cpp
 JanelaPrincipal.o: $(INCLUDEDIR)JanelaPrincipal.h
-	$(CC) $(CPPFLAGS) -c $(SRCDIR)JanelaPrincipal.cpp
+	$(CC) $(CPPFLAGSGTK) -c $(SRCDIR)JanelaPrincipal.cpp
 JanelaCadastroFuncionario.o: $(INCLUDEDIR)JanelaCadastroFuncionario.h
-	$(CC) $(CPPFLAGS) -c $(SRCDIR)JanelaCadastroFuncionario.cpp
+	$(CC) $(CPPFLAGSGTK) -c $(SRCDIR)JanelaCadastroFuncionario.cpp
 JanelaCadastroAnimal.o: $(INCLUDEDIR)JanelaCadastroAnimal.h
-	$(CC) $(CPPFLAGS) -c $(SRCDIR)JanelaCadastroAnimal.cpp
+	$(CC) $(CPPFLAGSGTK) -c $(SRCDIR)JanelaCadastroAnimal.cpp
 date.o : $(INCLUDEDIR)date.h
 	$(CC) $(CPPFLAGS) -c $(SRCDIR)date.cpp
 Funcionario.o : $(INCLUDEDIR)Funcionario.h
