@@ -24,6 +24,13 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(map<int, Veterinario> &vtemp, map<int
 
 	repteis_exoticos = &retemp;
 	repteis_nativos = &rntemp;
+
+	Veterinario veterinario;
+	Tratador tratador;
+
+	veterinarios->insert(pair<int, Veterinario>(0, veterinario));
+	tratadores->insert(pair<int, Tratador>(0, tratador));
+
 	//Inicialização
 	window = new Window;
 
@@ -232,14 +239,14 @@ void JanelaCadastroAnimal::Run()
 void JanelaCadastroAnimal::Cadastrar()
 {
 	ofstream outfile;
-	outfile.open("../Dados/funcionarios.csv", ios::app);
+	outfile.open("../Dados/animais.csv", ios::app);
 	int id = stoi(entry_id->get_text());
 	string classe = combo_box_classe->get_active_text(); 
 	for(unsigned int i = 0; i < classe.length(); i++)
 		classe[i] = toupper(classe[i]);
 	string nome_cientifico = entry_nome_cientifico->get_text();
 	char sexo = combo_box_sexo->get_active_text()[0];
-	float tamanho = stof(entry_tamanho->get_text());
+	double tamanho = stod(entry_tamanho->get_text());
 	string dieta = entry_dieta->get_text();
 	Veterinario veterinario = check_button_veterinario_incluso->get_active() ? (veterinarios->find(id))->second : (veterinarios->find(0))->second;
 	Tratador tratador = check_button_tratador_incluso->get_active() ? (tratadores->find(id))->second : (tratadores->find(0))->second;
@@ -256,24 +263,34 @@ void JanelaCadastroAnimal::Cadastrar()
 			{
 				case 0:
 				{
-					string data = entry_data_da_ultima_muda->get_text();
-					string dia, mes, ano;
-					dia = data[0] + data[1];
-					mes = data[3] + data[4];
-					ano = data[6] + data[7] + data[8] + data[9];
-					AnfibioNativo temp(id, classe, nome_cientifico, sexo, tamanho, dieta, veterinario, tratador, nome_batismo, stoi(entry_total_de_mudas->get_text()), date(stoi(dia), stoi(mes), stoi(ano)), autorizacao_ibama, nacionalidade);
+					vector<string> data;
+					string data_string = entry_data_da_ultima_muda->get_text();
+					Separador_data(data_string, data);
+					date data_date(stoi(data[0]), stoi(data[1]), stoi(data[2]));
+
+					AnfibioNativo temp(id, classe, nome_cientifico, sexo, 
+						tamanho, dieta, veterinario, tratador, 
+						nome_batismo, stoi(entry_total_de_mudas->get_text()), 
+						data_date, autorizacao_ibama, nacionalidade);
+
 					outfile << temp << endl;
+					anfibios_nativos->insert(pair<int, AnfibioNativo>(id, temp));
 					break;
 				}
 				case 1:
 				{
-					string data = entry_data_da_ultima_muda->get_text();
-					string dia, mes, ano;
-					dia = data[0] + data[1];
-					mes = data[3] + data[4];
-					ano = data[6] + data[7] + data[8] + data[9];
-					AnfibioExotico temp(id, classe, nome_cientifico, sexo, tamanho, dieta, veterinario, tratador, nome_batismo, stoi(entry_total_de_mudas->get_text()), date(stoi(dia), stoi(mes), stoi(ano)), autorizacao_ibama, nacionalidade);
+					vector<string> data;
+					string data_string = entry_data_da_ultima_muda->get_text();
+					Separador_data(data_string, data);
+					date data_date(stoi(data[0]), stoi(data[1]), stoi(data[2]));
+
+					AnfibioExotico temp(id, classe, nome_cientifico, sexo,
+						tamanho, dieta, veterinario, tratador, 
+						nome_batismo, stoi(entry_total_de_mudas->get_text()),
+						data_date, autorizacao_ibama, nacionalidade);
+
 					outfile << temp << endl;
+					anfibios_exoticos->insert(pair<int, AnfibioExotico>(id, temp));
 					break;
 				}
 			}
@@ -286,14 +303,26 @@ void JanelaCadastroAnimal::Cadastrar()
 			{
 				case 0:
 				{
-					AveNativo temp(id, classe, nome_cientifico, sexo, tamanho, dieta, veterinario, tratador, nome_batismo, stod(entry_tamanho_do_bico->get_text()), stod(entry_envergadura_das_asas->get_text()), autorizacao_ibama, nacionalidade);
+					AveNativo temp(id, classe, nome_cientifico, sexo, 
+						tamanho, dieta, veterinario, tratador, 
+						nome_batismo, stod(entry_tamanho_do_bico->get_text()), 
+						stod(entry_envergadura_das_asas->get_text()), 
+						autorizacao_ibama, nacionalidade);
+
 					outfile << temp << endl;
+					aves_nativas->insert(pair<int, AveNativo>(id, temp));
 					break;
 				}
 				case 1:
 				{
-					AveExotico temp(id, classe, nome_cientifico, sexo, tamanho, dieta, veterinario, tratador, nome_batismo, stod(entry_tamanho_do_bico->get_text()), stod(entry_envergadura_das_asas->get_text()), autorizacao_ibama, nacionalidade);
+					AveExotico temp(id, classe, nome_cientifico, sexo, 
+						tamanho, dieta, veterinario, tratador, 
+						nome_batismo, stod(entry_tamanho_do_bico->get_text()), 
+						stod(entry_envergadura_das_asas->get_text()), 
+						autorizacao_ibama, nacionalidade);
+
 					outfile << temp << endl;
+					aves_exoticas->insert(pair<int, AveExotico>(id, temp));
 					break;
 				}
 			}
@@ -306,14 +335,24 @@ void JanelaCadastroAnimal::Cadastrar()
 			{
 				case 0:
 				{
-					MamiferoNativo temp(id, classe, nome_cientifico, sexo, tamanho, dieta, veterinario, tratador, nome_batismo, entry_cor_dos_pelos->get_text(), autorizacao_ibama, nacionalidade);
+					MamiferoNativo temp(id, classe, nome_cientifico, sexo, 
+						tamanho, dieta, veterinario, tratador, 
+						nome_batismo, entry_cor_dos_pelos->get_text(), 
+						autorizacao_ibama, nacionalidade);
+
 					outfile << temp << endl;
+					mamiferos_nativos->insert(pair<int, MamiferoNativo>(id, temp));
 					break;
 				}
 				case 1:
 				{
-					MamiferoExotico temp(id, classe, nome_cientifico, sexo, tamanho, dieta, veterinario, tratador, nome_batismo, entry_cor_dos_pelos->get_text(), autorizacao_ibama, nacionalidade);
+					MamiferoExotico temp(id, classe, nome_cientifico, sexo, 
+						tamanho, dieta, veterinario, tratador, 
+						nome_batismo, entry_cor_dos_pelos->get_text(), 
+						autorizacao_ibama, nacionalidade);
+
 					outfile << temp << endl;
+					mamiferos_exoticos->insert(pair<int, MamiferoExotico>(id, temp));
 					break;
 				}
 			}
@@ -326,14 +365,26 @@ void JanelaCadastroAnimal::Cadastrar()
 			{
 				case 0:
 				{
-					ReptilNativo temp(id, classe, nome_cientifico, sexo, tamanho, dieta, veterinario, tratador, nome_batismo, check_button_venenoso->get_active(), entry_tipo_de_veneno->get_text(), autorizacao_ibama, nacionalidade);
+					ReptilNativo temp(id, classe, nome_cientifico, sexo, 
+						tamanho, dieta, veterinario, tratador, 
+						nome_batismo, check_button_venenoso->get_active(), 
+						entry_tipo_de_veneno->get_text(), autorizacao_ibama, 
+						nacionalidade);
+
 					outfile << temp << endl;
+					repteis_nativos->insert(pair<int, ReptilNativo>(id, temp));
 					break;
 				}
 				case 1:
 				{
-					ReptilExotico temp(id, classe, nome_cientifico, sexo, tamanho, dieta, veterinario, tratador, nome_batismo, check_button_venenoso->get_active(), entry_tipo_de_veneno->get_text(), autorizacao_ibama, nacionalidade);
+					ReptilExotico temp(id, classe, nome_cientifico, sexo, 
+						tamanho, dieta, veterinario, tratador, nome_batismo, 
+						check_button_venenoso->get_active(), 
+						entry_tipo_de_veneno->get_text(), autorizacao_ibama, 
+						nacionalidade);
+
 					outfile << temp << endl;
+					repteis_exoticos->insert(pair<int, ReptilExotico>(id, temp));
 					break;
 				}
 			}
@@ -483,4 +534,25 @@ void JanelaCadastroAnimal::MostrarVenenoso()
 		entry_tipo_de_veneno->show();
 		label_tipo_de_veneno->show();
 	}
+}
+
+void JanelaCadastroAnimal::Separador_data(string data, vector<string> &dados)
+{
+    dados.clear();
+    int i = 0;
+    string palavras = "";
+    for (string::iterator it = data.begin(); it != data.end(); it++)
+    {
+        if (*it != ' ')
+        {
+            palavras += *it;
+        }
+        else
+        {
+            i++;
+            dados.push_back(palavras);
+            palavras = "";
+        }
+    }
+    dados.push_back(palavras);
 }
