@@ -72,9 +72,9 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(map<int, Veterinario> &vtemp, map<int
 	label_tratador_id = new Label("ID do Tratador: ");
 	label_nome_batismo = new Label("Nome de Batismo: ");
 	label_total_de_mudas = new Label("Total de Mudas: ");
-	label_data_da_ultima_muda = new Label("Data da Ultima Muda");
-	label_tamanho_do_bico = new Label("Tamanho do Bico");
-	label_envergadura_das_asas = new Label("Envergadura das Asas");
+	label_data_da_ultima_muda = new Label("Data da Ultima Muda: ");
+	label_tamanho_do_bico = new Label("Tamanho do Bico: ");
+	label_envergadura_das_asas = new Label("Envergadura das Asas: ");
 	label_cor_dos_pelos = new Label("Cor dos Pelos: ");
 	label_venenoso = new Label("Venenoso?");
 	label_tipo_de_veneno = new Label("Tipo de Veneno: ");
@@ -196,6 +196,10 @@ JanelaCadastroAnimal::~JanelaCadastroAnimal()
 void JanelaCadastroAnimal::Run()
 {
 	window->show_all();
+	entry_veterinario_id->hide();
+	label_veterinario_id->hide();
+	entry_tratador_id->hide();
+	label_tratador_id->hide();
 	entry_nacionalidade->hide();
 	label_nacionalidade->hide();
 	entry_tamanho_do_bico->hide();
@@ -414,8 +418,8 @@ void JanelaCadastroAnimal::MudarClasse()
 			label_cor_dos_pelos->hide();
 			check_button_venenoso->show();
 			label_venenoso->show();
-			entry_tipo_de_veneno->show();
-			label_tipo_de_veneno->show();
+			entry_tipo_de_veneno->hide();
+			label_tipo_de_veneno->hide();
 			break;
 	}
 }
@@ -441,7 +445,7 @@ void JanelaCadastroAnimal::MudarRegiao()
 
 void JanelaCadastroAnimal::MostrarVeterinario()
 {
-	if(check_button_veterinario_incluso->get_active())
+	if(!check_button_veterinario_incluso->get_active())
 	{
 		entry_veterinario_id->hide();
 		label_veterinario_id->hide();
@@ -455,7 +459,7 @@ void JanelaCadastroAnimal::MostrarVeterinario()
 
 void JanelaCadastroAnimal::MostrarTratador()
 {
-	if(check_button_tratador_incluso->get_active())
+	if(!check_button_tratador_incluso->get_active())
 	{
 		entry_tratador_id->hide();
 		label_tratador_id->hide();
@@ -469,7 +473,7 @@ void JanelaCadastroAnimal::MostrarTratador()
 
 void JanelaCadastroAnimal::MostrarVenenoso()
 {
-	if(check_button_venenoso->get_active())
+	if(!check_button_venenoso->get_active())
 	{
 		entry_tipo_de_veneno->hide();
 		label_tipo_de_veneno->hide();
