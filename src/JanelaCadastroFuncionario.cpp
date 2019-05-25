@@ -46,7 +46,7 @@ JanelaCadastroFuncionario::JanelaCadastroFuncionario(map<int, Veterinario> &vtem
 
 	//Configuração
 	window->set_default_size(50, 100);
-	window->set_title("PetFera");
+	window->set_title("Cadastrar Funcionário");
 	window->add(*box_principal);
 
 	combo_box_fucao->append("Veterinario");
