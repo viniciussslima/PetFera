@@ -16,6 +16,7 @@ class Tratador : public Funcionario
 	short, string, char,	string, int);
 		Tratador();
 		~Tratador();
+		int get_nivel_de_seguranca();
 		friend ostream& operator<<(ostream &, Tratador);
 	
 };

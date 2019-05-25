@@ -17,6 +17,11 @@ Tratador::Tratador(int new_id, string new_nome, string new_cpf,
 
 Tratador::~Tratador(){}
 
+int Tratador::get_nivel_de_seguranca()
+{
+	return m_nivel_de_seguranca;
+}
+
 ostream& operator<<(ostream &o, Tratador A)
 {
 	o << A.m_id << ";"
