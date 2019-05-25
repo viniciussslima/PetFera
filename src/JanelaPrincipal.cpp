@@ -1,6 +1,7 @@
 #include "JanelaPrincipal.h"
 #include "JanelaCadastroFuncionario.h"
 #include "JanelaCadastroAnimal.h"
+#include "JanelaRemocaoFuncionario.h"
 #include <fstream>
 
 using namespace Gtk;
@@ -182,6 +183,7 @@ JanelaPrincipal::JanelaPrincipal()
 	//Conexão
 	button_cadastro_funcionario->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::CadastrarFuncionario));
 	button_cadastro_animal->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::CadastrarAnimal));
+	button_remocao_funcionario->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::RemoverFuncionario));
 }
 
 JanelaPrincipal::~JanelaPrincipal()
@@ -216,19 +218,8 @@ void JanelaPrincipal::CadastrarAnimal()
 	temp.Run();
 }
 
-/*
-		map<int, Veterinario>& veterinarios;
-		map<int, Tratador>& tratadores;
-
-		map<int, AnfibioExotico>& anfibios_exoticos;
-		map<int, AnfibioNativo>& anfibios_nativos;
-
-		map<int, AveExotico>& aves_exoticas;
-		map<int, AveNativo>& aves_nativas;
-
-		map<int, MamiferoExotico>& mamiferos_exoticos;
-		map<int, MamiferoNativo>& mamiferos_nativos;
-
-		map<int, ReptilExotico>& repteis_exoticos;
-		map<int, ReptilNativo>& repteis_nativos;
-*/
+void JanelaPrincipal::RemoverFuncionario()
+{
+	JanelaRemocaoFuncionario temp(veterinarios, tratadores);
+	temp.Run();
+}

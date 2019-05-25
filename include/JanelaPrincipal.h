@@ -61,6 +61,7 @@ class JanelaPrincipal
 		void Run();
 		void CadastrarFuncionario();
 		void CadastrarAnimal();
+		void RemoverFuncionario();
 };
 
 #endif
