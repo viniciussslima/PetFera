@@ -1,7 +1,5 @@
 #include <fstream>
 #include "JanelaCadastroFuncionario.h"
-#include "Tratador.h"
-#include "Veterinario.h"
 
 using namespace Gtk;
 using namespace std;
