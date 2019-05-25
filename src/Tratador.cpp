@@ -20,6 +20,7 @@ Tratador::~Tratador(){}
 ostream& operator<<(ostream &o, Tratador A)
 {
 	o << A.m_id << ";"
+		<< "TRATADOR" << ";"
 		<< A.m_nome << ";"
 		<< A.m_cpf << ";"
 		<< A.m_idade << ";"
