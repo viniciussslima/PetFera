@@ -4,6 +4,9 @@
 #include <iostream>
 #include <gtkmm.h>
 
+#include "Separador.h"
+#include "date.h"
+
 #include "Veterinario.h"
 #include "Tratador.h"
 
