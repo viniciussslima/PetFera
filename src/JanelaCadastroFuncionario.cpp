@@ -151,7 +151,7 @@ void JanelaCadastroFuncionario::Run()
 
 void JanelaCadastroFuncionario::Cadastrar()
 {
-	ofstream outfile;
+	ofstream outfile("../Dados/funcionarios.csv", ios::app);
 	string tipo_sanguineo;
 	char rh;
 	switch(combo_box_tipo_sanguineo->get_active_row_number())
@@ -184,7 +184,6 @@ void JanelaCadastroFuncionario::Cadastrar()
 		case 0:
 		{
 			Veterinario veterinario(stoi(entry_id->get_text()), entry_nome_do_funcionario->get_text(), entry_cpf->get_text(), stoi(entry_idade->get_text()), tipo_sanguineo, rh, entry_especialidade->get_text(), entry_crmv->get_text());
-			outfile.open("../Dados/funcionarios.csv", ios::app);
 			veterinarios->insert(pair<int, Veterinario>(stoi(entry_id->get_text()), veterinario));
 			outfile << veterinario << endl;
 			break;
@@ -192,7 +191,6 @@ void JanelaCadastroFuncionario::Cadastrar()
 		case 1:
 		{
 			Tratador tratador(stoi(entry_id->get_text()), entry_nome_do_funcionario->get_text(), entry_cpf->get_text(), stoi(entry_idade->get_text()), tipo_sanguineo, rh, entry_especialidade->get_text(), combo_box_nivel_de_seguranca->get_active_row_number());
-			outfile.open("../Dados/funcionarios.csv", ios::app);
 			tratadores->insert(pair<int, Tratador>(stoi(entry_id->get_text()), tratador));
 			outfile << tratador << endl;
 			break;

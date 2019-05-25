@@ -28,9 +28,6 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(map<int, Veterinario> &vtemp, map<int
 	Veterinario veterinario;
 	Tratador tratador;
 
-	veterinarios->insert(pair<int, Veterinario>(0, veterinario));
-	tratadores->insert(pair<int, Tratador>(0, tratador));
-
 	//Inicialização
 	window = new Window;
 

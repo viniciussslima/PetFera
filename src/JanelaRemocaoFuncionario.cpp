@@ -1,4 +1,3 @@
-#include <fstream>
 #include "JanelaRemocaoFuncionario.h"
 
 using namespace Gtk;

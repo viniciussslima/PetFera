@@ -2,6 +2,7 @@
 #define _JANELA_REMOCAO_FUNCIONARIO_H_
 
 #include <iostream>
+#include <fstream>
 #include <gtkmm.h>
 #include <map>
 #include "Veterinario.h"
