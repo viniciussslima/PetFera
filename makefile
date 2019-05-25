@@ -8,7 +8,7 @@ CPPFLAGSGTK = `pkg-config --cflags gtkmm-3.0` -Wall -std=c++11 -I$(INCLUDEDIR)
 CPPFLAGS = -Wall -std=c++11 -I$(INCLUDEDIR)
 LDFLAGS = `pkg-config --libs gtkmm-3.0`
 OBJS = main.o JanelaPrincipal.o JanelaCadastroFuncionario.o \
-JanelaCadastroAnimal.o JanelaRemocaoFuncionario.o \
+JanelaCadastroAnimal.o JanelaRemocaoFuncionario.o JanelaRemocaoAnimal.o\
 date.o \
 Funcionario.o Veterinario.o Tratador.o \
 Animal.o \
@@ -37,6 +37,8 @@ JanelaCadastroAnimal.o: $(INCLUDEDIR)JanelaCadastroAnimal.h
 	$(CC) $(CPPFLAGSGTK) -c $(SRCDIR)JanelaCadastroAnimal.cpp
 JanelaRemocaoFuncionario.o: $(INCLUDEDIR)JanelaRemocaoFuncionario.h
 	$(CC) $(CPPFLAGSGTK) -c $(SRCDIR)JanelaRemocaoFuncionario.cpp
+JanelaRemocaoAnimal.o: $(INCLUDEDIR)JanelaRemocaoAnimal.h
+	$(CC) $(CPPFLAGSGTK) -c $(SRCDIR)JanelaRemocaoAnimal.cpp
 date.o : $(INCLUDEDIR)date.h
 	$(CC) $(CPPFLAGS) -c $(SRCDIR)date.cpp
 Funcionario.o : $(INCLUDEDIR)Funcionario.h
