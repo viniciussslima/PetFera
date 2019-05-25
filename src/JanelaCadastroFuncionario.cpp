@@ -6,8 +6,11 @@
 using namespace Gtk;
 using namespace std;
 
-JanelaCadastroFuncionario::JanelaCadastroFuncionario()
+JanelaCadastroFuncionario::JanelaCadastroFuncionario(map<int, Veterinario> &vtemp, map<int, Tratador> &ttemp)
 {
+	veterinarios = &vtemp;
+	tratadores = &ttemp;
+
 	//Inicialização
 	window = new Window;
 
@@ -184,6 +187,7 @@ void JanelaCadastroFuncionario::Cadastrar()
 		{
 			Veterinario veterinario(stoi(entry_id->get_text()), entry_nome_do_funcionario->get_text(), entry_cpf->get_text(), stoi(entry_idade->get_text()), tipo_sanguineo, rh, entry_especialidade->get_text(), entry_crmv->get_text());
 			outfile.open("../Dados/funcionarios.csv", ios::app);
+			veterinarios->insert(pair<int, Veterinario>(stoi(entry_id->get_text()), veterinario));
 			outfile << veterinario << endl;
 			break;
 		}
@@ -191,6 +195,7 @@ void JanelaCadastroFuncionario::Cadastrar()
 		{
 			Tratador tratador(stoi(entry_id->get_text()), entry_nome_do_funcionario->get_text(), entry_cpf->get_text(), stoi(entry_idade->get_text()), tipo_sanguineo, rh, entry_especialidade->get_text(), combo_box_nivel_de_seguranca->get_active_row_number());
 			outfile.open("../Dados/funcionarios.csv", ios::app);
+			tratadores->insert(pair<int, Tratador>(stoi(entry_id->get_text()), tratador));
 			outfile << tratador << endl;
 			break;
 		}

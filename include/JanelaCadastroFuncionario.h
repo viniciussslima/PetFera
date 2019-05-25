@@ -3,6 +3,9 @@
 
 #include <iostream>
 #include <gtkmm.h>
+#include <map>
+#include "Veterinario.h"
+#include "Tratador.h"
 
 using namespace Gtk;
 using namespace std;
@@ -39,8 +42,11 @@ class JanelaCadastroFuncionario
 		Label *label_especialidade;
 		Label *label_crmv;
 		Label *label_nivel_de_seguranca;
+
+		map<int, Veterinario> *veterinarios;
+		map<int, Tratador> *tratadores;
 	public:
-		JanelaCadastroFuncionario();
+		JanelaCadastroFuncionario(map<int, Veterinario>&, map<int, Tratador>&);
 		~JanelaCadastroFuncionario();
 
 		void Run();
