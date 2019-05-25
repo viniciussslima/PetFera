@@ -17,6 +17,7 @@ Mamifero.o MamiferoNativo.o MamiferoExotico.o \
 Reptil.o ReptilNativo.o ReptilExotico.o \
 Ave.o AveNativo.o AveExotico.o \
 AnimalSilvestre.o AnimalNativo.o AnimalExotico.o \
+Separador.o
 
 $(PROG): $(OBJS) folder
 	$(CC) -o $(PROG) $(OBJS) $(LDFLAGS)
@@ -74,6 +75,8 @@ AnimalNativo.o : $(INCLUDEDIR)AnimalNativo.h
 	$(CC) $(CPPFLAGS) -c $(SRCDIR)AnimalNativo.cpp
 AnimalExotico.o : $(INCLUDEDIR)AnimalExotico.h
 	$(CC) $(CPPFLAGS) -c $(SRCDIR)AnimalExotico.cpp
+Separador.o : $(INCLUDEDIR)Separador.h
+	$(CC) $(CPPFLAGS) -c $(SRCDIR)Separador.cpp
 clean:
 	cd $(BUILDIR) && rm -f core $(OBJS)
 cleanall: clean
