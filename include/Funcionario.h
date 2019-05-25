@@ -22,8 +22,13 @@ class Funcionario
 			short, string, char ,
 			string);
 		~Funcionario();
-		int getId();
-	
+		int get_id();
+		string get_nome();
+		string get_cpf();
+		short get_idade();
+		string get_tipo_sanguineo();
+		char get_rh();
+		string get_especialidade();		
 };
 
 #endif

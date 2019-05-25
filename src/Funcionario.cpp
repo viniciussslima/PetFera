@@ -19,7 +19,37 @@ Funcionario::Funcionario(int new_id, string new_nome, string new_cpf,
 
 Funcionario::~Funcionario(){}
 
-int Funcionario::getId()
+int Funcionario::get_id()
 {
 	return m_id;
+}
+
+string Funcionario::get_nome()
+{
+	return m_nome;
+}
+
+string Funcionario::get_cpf()
+{
+	return m_cpf;
+}
+
+short Funcionario::get_idade()
+{
+	return m_idade;
+}
+
+string Funcionario::get_tipo_sanguineo()
+{
+	return m_tipo_sanguineo;
+}
+
+char Funcionario::get_rh()
+{
+	return m_fator_rh;
+}
+
+string Funcionario::get_especialidade()
+{
+	return m_especialidade;
 }
