@@ -61,7 +61,7 @@ void JanelaPrincipal::Run()
 
 void JanelaPrincipal::CadastrarFuncionario()
 {
-	JanelaCadastroFuncionario temp;
+	JanelaCadastroFuncionario temp(veterinarios, tratadores);
 	temp.Run();
 }
 
