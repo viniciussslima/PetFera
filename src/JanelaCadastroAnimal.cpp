@@ -64,8 +64,8 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(map<int, Veterinario> &vtemp, map<int
 
 	box_principal = new VBox;
 	box_dados = new HBox;
-	box_esquerda = new VBox;
-	box_direita = new VBox;
+	box_esquerda = new VBox(true);
+	box_direita = new VBox(true);
 
 	label_id = new Label("ID: ");
 	label_classe = new Label("Classe: ");
@@ -92,7 +92,7 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(map<int, Veterinario> &vtemp, map<int
 
 	//Configuração
 	window->set_default_size(50, 100);
-	window->set_title("PetFera");
+	window->set_title("Cadastrar Animal");
 	window->add(*box_principal);
 
 	combo_box_classe->append("Amphibia");

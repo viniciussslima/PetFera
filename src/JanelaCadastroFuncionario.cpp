@@ -30,8 +30,8 @@ JanelaCadastroFuncionario::JanelaCadastroFuncionario(map<int, Veterinario> &vtem
 
 	box_principal = new VBox;
 	box_dados = new HBox;
-	box_esquerda = new VBox;
-	box_direita = new VBox;
+	box_esquerda = new VBox(true);
+	box_direita = new VBox(true);
 
 	label_id = new Label("ID: ");
 	label_funcao = new Label("Função: ");
