@@ -30,5 +30,5 @@
     ```
 2)
     ```
-    Ir até a pasta bin e executar o comando ./PetFera
+    ./bin/PetFera
     ```
