@@ -263,10 +263,10 @@ void JanelaCadastroAnimal::Cadastrar()
 			{
 				case 0:
 				{
-					vector<string> data;
+					vector<int> data;
 					string data_string = entry_data_da_ultima_muda->get_text();
-					Separador_data(data_string, data);
-					date data_date(stoi(data[0]), stoi(data[1]), stoi(data[2]));
+					data = Separador_data(data_string);
+					date data_date(data[0], data[1], data[2]);
 
 					AnfibioNativo temp(id, classe, nome_cientifico, sexo, 
 						tamanho, dieta, veterinario, tratador, 
@@ -279,10 +279,10 @@ void JanelaCadastroAnimal::Cadastrar()
 				}
 				case 1:
 				{
-					vector<string> data;
+					vector<int> data;
 					string data_string = entry_data_da_ultima_muda->get_text();
-					Separador_data(data_string, data);
-					date data_date(stoi(data[0]), stoi(data[1]), stoi(data[2]));
+					data = Separador_data(data_string);
+					date data_date(data[0], data[1], data[2]);
 
 					AnfibioExotico temp(id, classe, nome_cientifico, sexo,
 						tamanho, dieta, veterinario, tratador, 
@@ -534,25 +534,4 @@ void JanelaCadastroAnimal::MostrarVenenoso()
 		entry_tipo_de_veneno->show();
 		label_tipo_de_veneno->show();
 	}
-}
-
-void JanelaCadastroAnimal::Separador_data(string data, vector<string> &dados)
-{
-    dados.clear();
-    int i = 0;
-    string palavras = "";
-    for (string::iterator it = data.begin(); it != data.end(); it++)
-    {
-        if (*it != ' ')
-        {
-            palavras += *it;
-        }
-        else
-        {
-            i++;
-            dados.push_back(palavras);
-            palavras = "";
-        }
-    }
-    dados.push_back(palavras);
 }

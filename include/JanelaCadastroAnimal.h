@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <gtkmm.h>
+#include "Separador.h"
 
 #include "Veterinario.h"
 #include "Tratador.h"
@@ -108,7 +109,6 @@ class JanelaCadastroAnimal
 		void MostrarVeterinario();
 		void MostrarTratador();
 		void MostrarVenenoso();
-		void Separador_data(string, vector<string> &);
 };
 
 /*
