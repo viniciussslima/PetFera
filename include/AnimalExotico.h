@@ -13,6 +13,7 @@ class AnimalExotico : public AnimalSilvestre
 		AnimalExotico();
 		AnimalExotico(string, string);
 		~AnimalExotico();
+		string get_pais_de_origem();
 };
 
 #endif

@@ -10,3 +10,8 @@ AnimalNativo::AnimalNativo(string new_autorizacao_ibama,
 }
 
 AnimalNativo::~AnimalNativo(){}
+
+string AnimalNativo::get_uf_de_origem()
+{
+	return m_uf_origem;
+}

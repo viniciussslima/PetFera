@@ -20,3 +20,13 @@ Ave::Ave(int new_id, string new_classe,
 }
 
 Ave::~Ave(){}
+
+double Ave::get_tamanho_do_bico()
+{
+	return m_tamanho_do_bico;
+}
+
+double Ave::get_envergadura_das_asas()
+{
+	return m_evergadura_das_asas;
+}

@@ -18,6 +18,7 @@ public:
 		double, string, Veterinario,
 		Tratador, string, bool, string);
 	~Reptil();
+	string get_tipo_de_veneno();
 };
 
 #endif

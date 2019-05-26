@@ -7,13 +7,13 @@ using namespace std;
 
 class AnimalNativo : public AnimalSilvestre
 {
-protected:
-	string m_uf_origem;
-public:
-	AnimalNativo();
-	AnimalNativo(string, string);
-	~AnimalNativo();
-	
+	protected:
+		string m_uf_origem;
+	public:
+		AnimalNativo();
+		AnimalNativo(string, string);
+		~AnimalNativo();
+		string get_uf_de_origem();
 };
 
 #endif

@@ -13,6 +13,7 @@ class AnimalSilvestre
 		AnimalSilvestre();
 		AnimalSilvestre(string);
 		~AnimalSilvestre();
+		string get_autorizacao_ibama();
 };
 
 #endif

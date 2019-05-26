@@ -17,6 +17,11 @@ Veterinario::Veterinario(int new_id, string new_nome, string new_cpf,
 
 Veterinario::~Veterinario(){}
 
+string Veterinario::get_crmv()
+{
+	return m_cmv;
+}
+
 ostream& operator<<(ostream &o, Veterinario A)
 {
 	o << A.m_id << ";"

@@ -8,17 +8,18 @@ using namespace std;
 
 class Anfibio: public Animal
 {
-protected:
-	int m_total_de_mudas;
-	date m_ultima_muda;
+	protected:
+		int m_total_de_mudas;
+		date m_ultima_muda;
 
-public:
-	Anfibio();
-	Anfibio(int, string, string, char,
-			double, string, Veterinario,
-			Tratador, string, int, date);
-	~Anfibio();
-
+	public:
+		Anfibio();
+		Anfibio(int, string, string, char,
+				double, string, Veterinario,
+				Tratador, string, int, date);
+		~Anfibio();
+		int get_total_de_mudas();
+		string get_data_da_ultima_muda();
 };
 
 #endif

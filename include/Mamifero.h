@@ -17,6 +17,7 @@ public:
 		double, string, Veterinario,
 		Tratador, string, string);
 	~Mamifero();
+	string get_cor_do_pelo();
 };
 
 #endif

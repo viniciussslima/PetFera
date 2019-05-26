@@ -18,6 +18,8 @@ class Ave : public Animal
 			Veterinario, Tratador, string, double, double);
 		
 		~Ave();
+		double get_tamanho_do_bico();
+		double get_envergadura_das_asas();
 };
 
 #endif

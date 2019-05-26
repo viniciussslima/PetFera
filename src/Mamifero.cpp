@@ -18,3 +18,8 @@ Mamifero::Mamifero(int new_id, string new_classe,
 }
 
 Mamifero::~Mamifero(){}
+
+string Mamifero::get_cor_do_pelo()
+{
+	return m_cor_pelo;
+}

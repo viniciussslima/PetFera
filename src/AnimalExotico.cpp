@@ -12,3 +12,8 @@ AnimalExotico::AnimalExotico(string new_autorizacao_ibama,
 }
 
 AnimalExotico::~AnimalExotico(){}
+
+string AnimalExotico::get_pais_de_origem()
+{
+	return m_pais_origem;
+}

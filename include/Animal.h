@@ -26,7 +26,14 @@ class Animal
 			double, string, Veterinario,
 			Tratador, string);
 		~Animal();
-		int getId();
+		int get_id();
+		string get_nome_cientifico();
+		char get_sexo();
+		double get_tamanho();
+		string get_dieta();
+		int get_veterinario_id();
+		int get_tratador_id();
+		string get_nome_de_batismo();
 };
 
 #endif

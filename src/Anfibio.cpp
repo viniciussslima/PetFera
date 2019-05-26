@@ -21,3 +21,20 @@ Anfibio::Anfibio(int new_id, string new_classe,
 }
 
 Anfibio::~Anfibio(){}
+
+int Anfibio::get_total_de_mudas()
+{
+	return m_total_de_mudas;
+}
+
+string Anfibio::get_data_da_ultima_muda()
+{
+	string temp;
+	temp += to_string(m_ultima_muda.day());
+	temp += "/";
+	temp += to_string(m_ultima_muda.month());
+	temp += "/";
+	temp += to_string(m_ultima_muda.year());
+	cout << temp << endl;
+	return temp;
+}

@@ -23,7 +23,42 @@ Animal::Animal(int new_id, string new_classe,
 	
 Animal::~Animal(){}
 
-int Animal::getId()
+int Animal::get_id()
 {
 	return m_id;
+}
+
+string Animal::get_nome_cientifico()
+{
+	return m_nome_cientifico;
+}
+
+char Animal::get_sexo()
+{
+	return m_sexo;
+}
+
+double Animal::get_tamanho()
+{
+	return m_tamanho;
+}
+
+string Animal::get_dieta()
+{
+	return m_dieta;
+}
+
+int Animal::get_veterinario_id()
+{
+	return m_veterinario.get_id();
+}
+
+int Animal::get_tratador_id()
+{
+	return m_tratador.get_id();
+}
+
+string Animal::get_nome_de_batismo()
+{
+	return m_nome_batismo;
 }

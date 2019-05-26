@@ -17,6 +17,7 @@ class Veterinario : public Funcionario
 			short, string, char, string,
 			string);
 		~Veterinario();
+		string get_crmv();
 		friend ostream& operator<<(ostream &, Veterinario);
 	
 };
