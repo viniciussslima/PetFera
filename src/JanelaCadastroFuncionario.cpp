@@ -67,7 +67,7 @@ JanelaCadastroFuncionario::JanelaCadastroFuncionario(map<int, Veterinario> &vtem
 	combo_box_nivel_de_seguranca->set_active(0);
 
 	box_principal->add(*box_dados);
-	box_principal->add(*button_cadastrar);
+	box_principal->pack_start(*button_cadastrar, PACK_SHRINK);
 	box_dados->add(*box_esquerda);
 	box_dados->add(*box_direita);
 
@@ -151,7 +151,7 @@ void JanelaCadastroFuncionario::Run()
 
 void JanelaCadastroFuncionario::Cadastrar()
 {
-	ofstream outfile("../Dados/funcionarios.csv", ios::app);
+	ofstream outfile("/home/kotzuo/Área de Trabalho/PetFera/Dados/funcionarios.csv", ios::app);
 	string tipo_sanguineo;
 	char rh;
 	switch(combo_box_tipo_sanguineo->get_active_row_number())

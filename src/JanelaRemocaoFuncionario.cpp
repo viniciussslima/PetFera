@@ -22,7 +22,7 @@ JanelaRemocaoFuncionario::JanelaRemocaoFuncionario(map<int, Veterinario> &vtemp,
 	window->add(*box_principal);
 
 	box_principal->add(*box_dados);
-	box_principal->add(*button_confirmar);
+	box_principal->pack_start(*button_confirmar, PACK_SHRINK);
 
 	box_dados->add(*label_id);
 	box_dados->add(*entry_id);
