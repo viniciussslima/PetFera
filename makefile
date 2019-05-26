@@ -8,7 +8,7 @@ CPPFLAGSGTK = `pkg-config --cflags gtkmm-3.0` -Wall -std=c++11 -I$(INCLUDEDIR)
 CPPFLAGS = -Wall -std=c++11 -I$(INCLUDEDIR)
 LDFLAGS = `pkg-config --libs gtkmm-3.0`
 OBJS = main.o JanelaPrincipal.o JanelaCadastroFuncionario.o \
-JanelaCadastroAnimal.o JanelaRemocaoFuncionario.o JanelaRemocaoAnimal.o JanelaConsultarFuncionario.o\
+JanelaCadastroAnimal.o JanelaRemocaoFuncionario.o JanelaRemocaoAnimal.o\
 date.o \
 Funcionario.o Veterinario.o Tratador.o \
 Animal.o \
@@ -39,8 +39,6 @@ JanelaRemocaoFuncionario.o: $(INCLUDEDIR)JanelaRemocaoFuncionario.h
 	$(CC) $(CPPFLAGSGTK) -c $(SRCDIR)JanelaRemocaoFuncionario.cpp
 JanelaRemocaoAnimal.o: $(INCLUDEDIR)JanelaRemocaoAnimal.h
 	$(CC) $(CPPFLAGSGTK) -c $(SRCDIR)JanelaRemocaoAnimal.cpp
-JanelaConsultarFuncionario.o: $(INCLUDEDIR)JanelaConsultarFuncionario.h
-	$(CC) $(CPPFLAGSGTK) -c $(SRCDIR)JanelaConsultarFuncionario.cpp
 date.o : $(INCLUDEDIR)date.h
 	$(CC) $(CPPFLAGS) -c $(SRCDIR)date.cpp
 Funcionario.o : $(INCLUDEDIR)Funcionario.h
@@ -88,6 +86,6 @@ clean:
 cleanall: clean
 	cd $(BINDIR) && rm -f core $(PROG)
 run:
-	cd $(BINDIR) && ./$(PROG) && cd ..
+	./$(BINDIR)$(PROG)
 gdb:
 	cd $(BINDIR) && gdb $(PROG) && cd ..	
