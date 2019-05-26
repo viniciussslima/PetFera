@@ -107,7 +107,7 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(map<int, Veterinario> &vtemp, map<int
 	combo_box_regiao->set_active(0);
 
 	box_principal->add(*box_dados);
-	box_principal->add(*button_cadastrar);
+	box_principal->pack_start(*button_cadastrar, PACK_SHRINK);
 	box_dados->add(*box_esquerda);
 	box_dados->add(*box_direita);
 
@@ -218,20 +218,6 @@ void JanelaCadastroAnimal::Run()
 	label_tipo_de_veneno->hide();
 	Main::run(*window);
 }
-
-/*  int id;
-	string classe;
-	string nome_cientifico;
-	char sexo;
-	float tamanho;
-	string dieta;
-	char veterinario_incluso;
-	char tratador_incluso;
-	string nome_batismo;
-	caracteristicas da classe
-	string autorizacao_ibama
-	string nacionalidade;
-	*/
 
 void JanelaCadastroAnimal::Cadastrar()
 {
