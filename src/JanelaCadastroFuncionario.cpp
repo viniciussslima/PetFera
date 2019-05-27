@@ -45,7 +45,6 @@ JanelaCadastroFuncionario::JanelaCadastroFuncionario(JanelaPrincipal &jptemp, ma
 	label_nivel_de_seguranca = new Label("Nivel de segurança: ");
 
 	//Configuração
-	window->set_default_size(50, 100);
 	window->set_title("Cadastrar Funcionário");
 	window->add(*box_principal);
 

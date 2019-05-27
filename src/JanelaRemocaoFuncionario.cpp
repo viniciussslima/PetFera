@@ -19,7 +19,6 @@ JanelaRemocaoFuncionario::JanelaRemocaoFuncionario(JanelaPrincipal &jptemp, map<
 	label_id = new Label("ID: ");
 
 	//Configuração
-	window->set_default_size(50, 100);
 	window->set_title("Remover Funcionário");
 	window->add(*box_principal);
 

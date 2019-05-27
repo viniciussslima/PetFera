@@ -90,7 +90,6 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 	label_uf = new Label("Estado: ");
 
 	//Configuração
-	window->set_default_size(50, 100);
 	window->set_title("Cadastrar Animal");
 	window->add(*box_principal);
 
