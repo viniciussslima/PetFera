@@ -65,11 +65,11 @@ void JanelaRemocaoFuncionario::Remover()
 	string linha;
 	int id = stoi(entry_id->get_text());
 	vector<string> palavras;
-	ifstream funcionarios_csv("../Dados/funcionarios.csv");
+	ifstream funcionarios_csv("Dados/funcionarios.csv");
 
 	if(funcionarios_csv.is_open())
 	{
-		ofstream funcionarios_temp("../Dados/TempFuncionario.csv");
+		ofstream funcionarios_temp("Dados/TempFuncionario.csv");
 		while(getline(funcionarios_csv, linha))
 		{
 			palavras = Separador_csv(linha);
@@ -83,8 +83,8 @@ void JanelaRemocaoFuncionario::Remover()
 					veterinarios->erase(id);
 			}
 		}
-		remove("../Dados/funcionarios.csv");
-		rename("../Dados/TempFuncionario.csv", "../Dados/funcionarios.csv");
+		remove("Dados/funcionarios.csv");
+		rename("Dados/TempFuncionario.csv", "Dados/funcionarios.csv");
 		funcionarios_temp.close();
 	}
 	else

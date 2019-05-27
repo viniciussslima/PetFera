@@ -67,11 +67,11 @@ void JanelaRemocaoAnimal::Remover()
 	string linha;
 	int id = stoi(entry_id->get_text());
 	vector<string> palavras;
-	ifstream animais_csv("../Dados/animais.csv");
+	ifstream animais_csv("Dados/animais.csv");
 
 	if(animais_csv.is_open())
 	{
-		ofstream animais_temp("../Dados/temp_animais.csv");
+		ofstream animais_temp("Dados/temp_animais.csv");
 		while(getline(animais_csv, linha))
 		{
 			palavras = Separador_csv(linha);
@@ -109,8 +109,8 @@ void JanelaRemocaoAnimal::Remover()
 			    }
 			}
 		}
-		remove("../Dados/animais.csv");
-		rename("../Dados/temp_animais.csv", "../Dados/animais.csv");
+		remove("Dados/animais.csv");
+		rename("Dados/temp_animais.csv", "../Dados/animais.csv");
 		animais_temp.close();
 	}
 	else
