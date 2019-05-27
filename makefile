@@ -3,7 +3,7 @@ SRCDIR = src/
 BUILDDIR = build/
 BINDIR = bin/
 CC = g++
-PROG = main
+PROG = $(BINDIR)main
 CPPFLAGSGTK = `pkg-config --cflags gtkmm-3.0` -Wall -std=c++11 -I$(INCLUDEDIR)
 CPPFLAGS = -Wall -std=c++11 -I$(INCLUDEDIR)
 LDFLAGS = `pkg-config --libs gtkmm-3.0`
@@ -86,6 +86,6 @@ clean :
 cleanall : clean
 	rm -f core $(PROG)
 run :
-	./$(BINDIR)$(PROG)
+	./$(PROG)
 gdb:
 	cd $(BINDIR) && gdb $(PROG) && cd ..	
