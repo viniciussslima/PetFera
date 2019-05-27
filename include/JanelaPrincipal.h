@@ -5,6 +5,7 @@
 #include <gtkmm.h>
 
 #include "Separador.h"
+#include "JanelaPrincipal.h"
 #include "date.h"
 
 #include "Veterinario.h"

@@ -421,26 +421,26 @@ void JanelaPrincipal::Run()
 
 void JanelaPrincipal::CadastrarFuncionario()
 {
-	JanelaCadastroFuncionario temp(veterinarios, tratadores);
+	JanelaCadastroFuncionario temp(*this, veterinarios, tratadores);
 	temp.Run();
 }
 
 void JanelaPrincipal::CadastrarAnimal()
 {
-	JanelaCadastroAnimal temp(veterinarios, tratadores, anfibios_exoticos, anfibios_nativos, aves_exoticas,
+	JanelaCadastroAnimal temp(*this, veterinarios, tratadores, anfibios_exoticos, anfibios_nativos, aves_exoticas,
 							  aves_nativas, mamiferos_exoticos, mamiferos_nativos, repteis_exoticos, repteis_nativos);
 	temp.Run();
 }
 
 void JanelaPrincipal::RemoverFuncionario()
 {
-	JanelaRemocaoFuncionario temp(veterinarios, tratadores);
+	JanelaRemocaoFuncionario temp(*this, veterinarios, tratadores);
 	temp.Run();
 }
 
 void JanelaPrincipal::RemoverAnimal()
 {
-	JanelaRemocaoAnimal temp(anfibios_exoticos, anfibios_nativos, aves_exoticas,
+	JanelaRemocaoAnimal temp(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
 							 aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
 							 repteis_exoticos, repteis_nativos);
 	temp.Run();
