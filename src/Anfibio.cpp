@@ -35,6 +35,5 @@ string Anfibio::get_data_da_ultima_muda()
 	temp += to_string(m_ultima_muda.month());
 	temp += "/";
 	temp += to_string(m_ultima_muda.year());
-	cout << temp << endl;
 	return temp;
 }
