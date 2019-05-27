@@ -87,6 +87,10 @@ class JanelaCadastroAnimal
 
 		JanelaPrincipal *janela_principal;
 
+		bool valid_id;
+		bool valid_tratador_id;
+		bool valid_veterinario_id;
+
 		map<int, Veterinario> *veterinarios;
 		map<int, Tratador> *tratadores;
 
@@ -116,6 +120,8 @@ class JanelaCadastroAnimal
 		void MostrarTratador();
 		void MostrarVenenoso();
 		void AtualizarIconeId();
+		void AtualizarIconeTratadorId();
+		void AtualizarIconeVeterinarioId();
 };
 
 /*
