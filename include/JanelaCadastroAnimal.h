@@ -81,6 +81,9 @@ class JanelaCadastroAnimal
 		Label *label_nacionalidade;
 		Label *label_uf;
 
+		Glib::RefPtr<Gdk::Pixbuf> pixbuf_check;
+		Glib::RefPtr<Gdk::Pixbuf> pixbuf_uncheck;
+
 		map<int, Veterinario> *veterinarios;
 		map<int, Tratador> *tratadores;
 
@@ -109,6 +112,7 @@ class JanelaCadastroAnimal
 		void MostrarVeterinario();
 		void MostrarTratador();
 		void MostrarVenenoso();
+		void AtualizarIconeId();
 };
 
 /*

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <gtkmm.h>
 #include <map>
+#include <string>
 #include "Veterinario.h"
 #include "Tratador.h"
 
@@ -43,6 +44,9 @@ class JanelaCadastroFuncionario
 		Label *label_crmv;
 		Label *label_nivel_de_seguranca;
 
+		Glib::RefPtr<Gdk::Pixbuf> pixbuf_check;
+		Glib::RefPtr<Gdk::Pixbuf> pixbuf_uncheck;
+
 		map<int, Veterinario> *veterinarios;
 		map<int, Tratador> *tratadores;
 	public:
@@ -52,6 +56,8 @@ class JanelaCadastroFuncionario
 		void Run();
 		void Cadastrar();
 		void MudarFuncionario();
+		void AtualizarIconeId();
+		void AtualizarIconeCPF();
 };
 
 #endif
