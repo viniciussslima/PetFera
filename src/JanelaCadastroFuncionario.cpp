@@ -243,27 +243,13 @@ void JanelaCadastroFuncionario::AtualizarIconeId()
 	if(is_numeric && !temp.empty())
 	{
 		int id = stoi(temp);
-		switch(combo_box_fucao->get_active_row_number())
-		{
-			case 0:
-			{
-				map<int, Veterinario>::iterator it = veterinarios->find(id);
-				if(it != veterinarios->end())
-					entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
-				else
-					entry_id->set_icon_from_pixbuf(pixbuf_check);
-				break;
-			}
-			case 1:
-			{
-				map<int, Tratador>::iterator it = tratadores->find(id);
-				if(it != tratadores->end())
-					entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
-				else
-					entry_id->set_icon_from_pixbuf(pixbuf_check);
-				break;
-			}
-		}
+		map<int, Veterinario>::iterator it_v = veterinarios->find(id);
+		map<int, Tratador>::iterator it_t = tratadores->find(id);
+
+		if(it_v != veterinarios->end() || it_t != tratadores->end())
+			entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+		else
+			entry_id->set_icon_from_pixbuf(pixbuf_check);
 	}
 	else
 		entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
