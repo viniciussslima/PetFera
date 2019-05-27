@@ -3,8 +3,10 @@
 using namespace Gtk;
 using namespace std;
 
-JanelaRemocaoFuncionario::JanelaRemocaoFuncionario(map<int, Veterinario> &vtemp, map<int, Tratador> &ttemp)
+JanelaRemocaoFuncionario::JanelaRemocaoFuncionario(JanelaPrincipal &jptemp, map<int, Veterinario> &vtemp, map<int, Tratador> &ttemp)
 {
+	janela_principal = &jptemp;
+
 	veterinarios = &vtemp;
 	tratadores = &ttemp;
 
@@ -78,9 +80,15 @@ void JanelaRemocaoFuncionario::Remover()
 			else
 			{
 				if(palavras[1].compare("TRATADOR") == 0)
+				{
+					//janela_principal->AtualizarLista(0);
 					tratadores->erase(id);
+				}
 				else
+				{
+					//janela_principal->AtualizarLista(1);
 					veterinarios->erase(id);
+				}
 			}
 		}
 		remove("Dados/funcionarios.csv");

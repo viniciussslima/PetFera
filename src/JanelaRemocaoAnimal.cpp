@@ -3,11 +3,13 @@
 using namespace Gtk;
 using namespace std;
 
-JanelaRemocaoAnimal::JanelaRemocaoAnimal(map<int, AnfibioExotico> &anetemp, map<int, AnfibioNativo> &anntemp, 
+JanelaRemocaoAnimal::JanelaRemocaoAnimal(JanelaPrincipal &jptemp, map<int, AnfibioExotico> &anetemp, map<int, AnfibioNativo> &anntemp, 
 										 map<int, AveExotico> &avetemp, map<int, AveNativo> &avntemp,
 										 map<int, MamiferoExotico> &metemp, map<int, MamiferoNativo> &mntemp, 
 										 map<int, ReptilExotico> &retemp, map<int, ReptilNativo> &rntemp)
 {
+	janela_principal = &jptemp;
+
 	anfibios_exoticos = &anetemp;
 	anfibios_nativos = &anntemp;
 
@@ -82,30 +84,54 @@ void JanelaRemocaoAnimal::Remover()
 				if(palavras[1].compare("AMPHIBIA") == 0)
 			    {
 					if(palavras[palavras.size() - 1].length() == 2)
+					{
+						//janela_principal->AtualizarLista(2);
 				    	anfibios_nativos->erase(id);
+					}
 				    else
+				    {
+				    	//janela_principal->AtualizarLista(3);
 				    	anfibios_exoticos->erase(id);
+				    }
 			    }
 			    if(palavras[1].compare("AVES") == 0)
 			    {
 					if(palavras[palavras.size() - 1].length() == 2)
+					{
+						//janela_principal->AtualizarLista(4);
 				    	aves_nativas->erase(id);
+					}
 				    else
+				    {
+				    	//janela_principal->AtualizarLista(5);
 				    	aves_exoticas->erase(id);
+				    }
 			    }
 			    if(palavras[1].compare("MAMMALIA") == 0)
 			    {
 					if(palavras[palavras.size() - 1].length() == 2)
+					{
+						//janela_principal->AtualizarLista(6);
 				    	mamiferos_nativos->erase(id);
+					}
 				    else
+				    {
+				    	//janela_principal->AtualizarLista(7);
 				    	mamiferos_exoticos->erase(id);
+				    }
 			    }
 			    if(palavras[1].compare("REPTILIA") == 0)
 			    {
 					if(palavras[palavras.size() - 1].length() == 2)
+					{
+						//janela_principal->AtualizarLista(8);
 				    	repteis_nativos->erase(id);
+					}
 				    else
+				    {
+				    	//janela_principal->AtualizarLista(9);
 				    	repteis_exoticos->erase(id);
+				    }
 			    }
 			}
 		}

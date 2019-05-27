@@ -4,8 +4,10 @@
 using namespace Gtk;
 using namespace std;
 
-JanelaCadastroFuncionario::JanelaCadastroFuncionario(map<int, Veterinario> &vtemp, map<int, Tratador> &ttemp)
+JanelaCadastroFuncionario::JanelaCadastroFuncionario(JanelaPrincipal &jptemp, map<int, Veterinario> &vtemp, map<int, Tratador> &ttemp)
 {
+	janela_principal = &jptemp;
+
 	veterinarios = &vtemp;
 	tratadores = &ttemp;
 
@@ -194,6 +196,7 @@ void JanelaCadastroFuncionario::Cadastrar()
 			Veterinario veterinario(stoi(entry_id->get_text()), entry_nome_do_funcionario->get_text(), entry_cpf->get_text(), stoi(entry_idade->get_text()), tipo_sanguineo, rh, entry_especialidade->get_text(), entry_crmv->get_text());
 			veterinarios->insert(pair<int, Veterinario>(stoi(entry_id->get_text()), veterinario));
 			outfile << veterinario << endl;
+			//janela_principal->AtualizarLista(1);
 			break;
 		}
 		case 1:
@@ -201,6 +204,7 @@ void JanelaCadastroFuncionario::Cadastrar()
 			Tratador tratador(stoi(entry_id->get_text()), entry_nome_do_funcionario->get_text(), entry_cpf->get_text(), stoi(entry_idade->get_text()), tipo_sanguineo, rh, entry_especialidade->get_text(), combo_box_nivel_de_seguranca->get_active_row_number());
 			tratadores->insert(pair<int, Tratador>(stoi(entry_id->get_text()), tratador));
 			outfile << tratador << endl;
+			//janela_principal->AtualizarLista(0);
 			break;
 		}
 	}
