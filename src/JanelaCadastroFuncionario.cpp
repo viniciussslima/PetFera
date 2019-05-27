@@ -6,6 +6,9 @@ using namespace std;
 
 JanelaCadastroFuncionario::JanelaCadastroFuncionario(JanelaPrincipal &jptemp, map<int, Veterinario> &vtemp, map<int, Tratador> &ttemp)
 {
+	valid_id = false;
+	valid_cpf = false;
+
 	janela_principal = &jptemp;
 
 	veterinarios = &vtemp;
@@ -160,53 +163,90 @@ void JanelaCadastroFuncionario::Run()
 
 void JanelaCadastroFuncionario::Cadastrar()
 {
-	ofstream outfile("Dados/funcionarios.csv", ios::app);
-	string tipo_sanguineo;
-	char rh;
-	switch(combo_box_tipo_sanguineo->get_active_row_number())
+	bool valid_dados = false;
+	if(combo_box_fucao->get_active_row_number() == 0)
 	{
-		case 0:
-			tipo_sanguineo = "A";
-			break;
-		case 1:
-			tipo_sanguineo = "B";
-			break;
-		case 2:
-			tipo_sanguineo = "AB";
-			break;
-		case 3:
-			tipo_sanguineo = "O";
-			break;
+		if(!entry_id->get_text().empty() && !entry_nome_do_funcionario->get_text().empty() &&
+		   !entry_idade->get_text().empty() && !entry_especialidade->get_text().empty() &&
+		   !entry_crmv->get_text().empty())
+			valid_dados = true;
 	}
-	switch(combo_box_rh->get_active_row_number())
+	else
 	{
-		case 0:
-			rh = '+';
-			break;
-		case 1:
-			rh = '-';
-			break;
+		if(!entry_id->get_text().empty() && !entry_nome_do_funcionario->get_text().empty() &&
+		   !entry_idade->get_text().empty() && !entry_especialidade->get_text().empty())
+			valid_dados = true;
 	}
 
-	switch(combo_box_fucao->get_active_row_number())
+	if(valid_id && valid_cpf && valid_dados)
 	{
-		case 0:
+		ofstream outfile("Dados/funcionarios.csv", ios::app);
+		string tipo_sanguineo;
+		char rh;
+		switch(combo_box_tipo_sanguineo->get_active_row_number())
 		{
-			Veterinario veterinario(stoi(entry_id->get_text()), entry_nome_do_funcionario->get_text(), entry_cpf->get_text(), stoi(entry_idade->get_text()), tipo_sanguineo, rh, entry_especialidade->get_text(), entry_crmv->get_text());
-			veterinarios->insert(pair<int, Veterinario>(stoi(entry_id->get_text()), veterinario));
-			outfile << veterinario << endl;
-			//janela_principal->AtualizarLista(1);
-			break;
+			case 0:
+				tipo_sanguineo = "A";
+				break;
+			case 1:
+				tipo_sanguineo = "B";
+				break;
+			case 2:
+				tipo_sanguineo = "AB";
+				break;
+			case 3:
+				tipo_sanguineo = "O";
+				break;
 		}
-		case 1:
+		switch(combo_box_rh->get_active_row_number())
 		{
-			Tratador tratador(stoi(entry_id->get_text()), entry_nome_do_funcionario->get_text(), entry_cpf->get_text(), stoi(entry_idade->get_text()), tipo_sanguineo, rh, entry_especialidade->get_text(), combo_box_nivel_de_seguranca->get_active_row_number());
-			tratadores->insert(pair<int, Tratador>(stoi(entry_id->get_text()), tratador));
-			outfile << tratador << endl;
-			//janela_principal->AtualizarLista(0);
-			break;
+			case 0:
+				rh = '+';
+				break;
+			case 1:
+				rh = '-';
+				break;
+		}
+
+		switch(combo_box_fucao->get_active_row_number())
+		{
+			case 0:
+			{
+				Veterinario veterinario(stoi(entry_id->get_text()), entry_nome_do_funcionario->get_text(), entry_cpf->get_text(), stoi(entry_idade->get_text()), tipo_sanguineo, rh, entry_especialidade->get_text(), entry_crmv->get_text());
+				veterinarios->insert(pair<int, Veterinario>(stoi(entry_id->get_text()), veterinario));
+				outfile << veterinario << endl;
+				//janela_principal->AtualizarLista(1);
+				break;
+			}
+			case 1:
+			{
+				Tratador tratador(stoi(entry_id->get_text()), entry_nome_do_funcionario->get_text(), entry_cpf->get_text(), stoi(entry_idade->get_text()), tipo_sanguineo, rh, entry_especialidade->get_text(), combo_box_nivel_de_seguranca->get_active_row_number());
+				tratadores->insert(pair<int, Tratador>(stoi(entry_id->get_text()), tratador));
+				outfile << tratador << endl;
+				//janela_principal->AtualizarLista(0);
+				break;
+			}
 		}
 	}
+	if(!valid_id)
+	{
+		MessageDialog dialog(*window, "ID inválido.");
+		dialog.set_secondary_text("Nenhum ID foi apresentado ou foi encontrado um funcionário com o ID apresentado, funcionários não podem ter IDs iguais.");
+  		dialog.run();
+	}
+	if(!valid_cpf)
+	{
+		MessageDialog dialog(*window, "CPF inválido.");
+		dialog.set_secondary_text("O CPF apresentado é inválido.");
+  		dialog.run();
+	}
+	if(!valid_dados)
+	{
+		MessageDialog dialog(*window, "Dado(s) inválido(s).");
+		dialog.set_secondary_text("Falta preencher um ou mais dados.");
+  		dialog.run();
+	}
+	
 	window->close();
 }
 
@@ -250,12 +290,21 @@ void JanelaCadastroFuncionario::AtualizarIconeId()
 		map<int, Tratador>::iterator it_t = tratadores->find(id);
 
 		if(it_v != veterinarios->end() || it_t != tratadores->end())
+		{
+			valid_id = false;
 			entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+		}
 		else
+		{
+			valid_id = true;
 			entry_id->set_icon_from_pixbuf(pixbuf_check);
+		}
 	}
 	else
+	{
+		valid_id = false;
 		entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+	}
 	
 }
 
@@ -297,10 +346,19 @@ void JanelaCadastroFuncionario::AtualizarIconeCPF()
 		}
 
 		if(verificador_1 * 10 % 11 == stoi(cpf.substr(9, 1)) && verificador_2 * 10 % 11 == stoi(cpf.substr(10, 1)))
+		{
+			valid_cpf = true;
 			entry_cpf->set_icon_from_pixbuf(pixbuf_check);
+		}
 		else
+		{
+			valid_cpf = false;
 			entry_cpf->set_icon_from_pixbuf(pixbuf_uncheck);
+		}
 	}
 	else
+	{
+		valid_cpf = false;
 		entry_cpf->set_icon_from_pixbuf(pixbuf_uncheck);
+	}
 }
