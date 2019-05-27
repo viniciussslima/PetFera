@@ -40,6 +40,11 @@ class JanelaRemocaoAnimal
 
 		JanelaPrincipal *janela_principal;
 
+		Glib::RefPtr<Gdk::Pixbuf> pixbuf_check;
+		Glib::RefPtr<Gdk::Pixbuf> pixbuf_uncheck;
+
+		bool valid_id;
+
 		map<int, AnfibioExotico> *anfibios_exoticos;
 		map<int, AnfibioNativo> *anfibios_nativos;
 
@@ -60,6 +65,7 @@ class JanelaRemocaoAnimal
 
 		void Run();
 		void Remover();
+		void AtualizarIconeId();
 };
 
 #endif
