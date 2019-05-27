@@ -10,6 +10,8 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 										   map<int, MamiferoExotico> &metemp, map<int, MamiferoNativo> &mntemp, 
 										   map<int, ReptilExotico> &retemp, map<int, ReptilNativo> &rntemp)
 {
+	valid_id = false;
+
 	janela_principal = &jptemp;
 
 	veterinarios = &vtemp;
@@ -97,6 +99,8 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 	pixbuf_uncheck = Gdk::Pixbuf::create_from_file("icons/uncheck.ico");
 
 	entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+	entry_veterinario_id->set_icon_from_pixbuf(pixbuf_uncheck);
+	entry_tratador_id->set_icon_from_pixbuf(pixbuf_uncheck);
 
 	combo_box_classe->append("Amphibia");
 	combo_box_classe->append("Aves");
@@ -173,6 +177,8 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 	check_button_tratador_incluso->signal_clicked().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::MostrarTratador));
 	check_button_venenoso->signal_clicked().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::MostrarVenenoso));
 	entry_id->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeId));
+	entry_tratador_id->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeTratadorId));
+	entry_veterinario_id->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeVeterinarioId));
 }
 
 JanelaCadastroAnimal::~JanelaCadastroAnimal()
@@ -228,166 +234,304 @@ void JanelaCadastroAnimal::Run()
 
 void JanelaCadastroAnimal::Cadastrar()
 {
-	ofstream outfile;
-	outfile.open("Dados/animais.csv", ios::app);
-	int id = stoi(entry_id->get_text());
-	string classe = combo_box_classe->get_active_text(); 
-	for(unsigned int i = 0; i < classe.length(); i++)
-		classe[i] = toupper(classe[i]);
-	string nome_cientifico = entry_nome_cientifico->get_text();
-	char sexo = combo_box_sexo->get_active_text()[0];
-	double tamanho = stod(entry_tamanho->get_text());
-	string dieta = entry_dieta->get_text();
-	Veterinario veterinario = check_button_veterinario_incluso->get_active() ? (veterinarios->find(id))->second : veterinarios->begin()->second;
-	Tratador tratador = check_button_tratador_incluso->get_active() ? (tratadores->find(id))->second : tratadores->begin()->second;
-	string nome_batismo = entry_nome_batismo->get_text();
-	string autorizacao_ibama = entry_autorizacao_ibama->get_text();
-	string nacionalidade = combo_box_regiao->get_active_row_number() == 0 ? entry_uf->get_text() : entry_nacionalidade->get_text();
+	bool valid_dados = false;
 
-	switch(combo_box_classe->get_active_row_number())
+	if(!check_button_tratador_incluso->get_active())
+		valid_tratador_id = true;
+	if(!check_button_veterinario_incluso->get_active())
+		valid_veterinario_id = true;
+
+	if(!entry_id->get_text().empty() && !entry_tamanho->get_text().empty() &&
+	   !entry_dieta->get_text().empty() && !entry_nome_batismo->get_text().empty() &&
+	   !entry_autorizacao_ibama->get_text().empty())
 	{
-		case 0:
+		switch(combo_box_classe->get_active_row_number())
 		{
-			//anfibio
-			switch(combo_box_regiao->get_active_row_number())
+			case 0:
 			{
-				case 0:
+				//anfibio
+				if(!entry_total_de_mudas->get_text().empty() && !entry_data_da_ultima_muda->get_text().empty())
 				{
-					vector<int> data;
-					string data_string = entry_data_da_ultima_muda->get_text();
-					data = Separador_data(data_string);
-					date data_date(data[0], data[1], data[2]);
-
-					AnfibioNativo temp(id, classe, nome_cientifico, sexo, 
-						tamanho, dieta, veterinario, tratador, 
-						nome_batismo, stoi(entry_total_de_mudas->get_text()), 
-						data_date, autorizacao_ibama, nacionalidade);
-
-					outfile << temp << endl;
-					anfibios_nativos->insert(pair<int, AnfibioNativo>(id, temp));
-					//janela_principal->AtualizarLista(2);
-					break;
+					switch(combo_box_regiao->get_active_row_number())
+					{
+						case 0:
+						{
+							if(!entry_uf->get_text().empty())
+								valid_dados = true;
+							break;
+						}
+						case 1:
+						{
+							if(!entry_nacionalidade->get_text().empty())
+								valid_dados = true;
+							break;
+						}
+					}
 				}
-				case 1:
-				{
-					vector<int> data;
-					string data_string = entry_data_da_ultima_muda->get_text();
-					data = Separador_data(data_string);
-					date data_date(data[0], data[1], data[2]);
-
-					AnfibioExotico temp(id, classe, nome_cientifico, sexo,
-						tamanho, dieta, veterinario, tratador, 
-						nome_batismo, stoi(entry_total_de_mudas->get_text()),
-						data_date, autorizacao_ibama, nacionalidade);
-
-					outfile << temp << endl;
-					anfibios_exoticos->insert(pair<int, AnfibioExotico>(id, temp));
-					//janela_principal->AtualizarLista(3);
-					break;
-				}
+				break;
 			}
-			break;
+			case 1:
+			{
+				//aves
+				if(!entry_tamanho_do_bico->get_text().empty() && !entry_envergadura_das_asas->get_text().empty())
+				{
+					switch(combo_box_regiao->get_active_row_number())
+					{
+						case 0:
+						{
+							if(!entry_uf->get_text().empty())
+								valid_dados = true;
+							break;
+						}
+						case 1:
+						{
+							if(!entry_nacionalidade->get_text().empty())
+								valid_dados = true;
+							break;
+						}
+					}
+				}
+				break;
+			}
+			case 2:
+			{
+				//mamifero
+				if(!entry_cor_dos_pelos->get_text().empty())
+				{
+					switch(combo_box_regiao->get_active_row_number())
+					{
+						case 0:
+						{
+							if(!entry_uf->get_text().empty())
+								valid_dados = true;
+							break;
+						}
+						case 1:
+						{
+							if(!entry_nacionalidade->get_text().empty())
+								valid_dados = true;
+							break;
+						}
+					}
+				}
+				break;
+			}
+			case 3:
+			{
+				//reptil
+				if(check_button_venenoso->get_active() ? !entry_tipo_de_veneno->get_text().empty() : true)
+				{
+					switch(combo_box_regiao->get_active_row_number())
+					{
+						case 0:
+						{
+							if(!entry_uf->get_text().empty())
+								valid_dados = true;
+							break;
+						}
+						case 1:
+						{
+							if(!entry_nacionalidade->get_text().empty())
+								valid_dados = true;
+							break;
+						}
+					}
+				}
+				break;
+			}
 		}
-		case 1:
+	}
+
+	
+
+	if(valid_id && valid_tratador_id && valid_veterinario_id && valid_dados)
+	{
+		ofstream outfile;
+		outfile.open("Dados/animais.csv", ios::app);
+		int id = stoi(entry_id->get_text());
+		string classe = combo_box_classe->get_active_text(); 
+		for(unsigned int i = 0; i < classe.length(); i++)
+			classe[i] = toupper(classe[i]);
+		string nome_cientifico = entry_nome_cientifico->get_text();
+		char sexo = combo_box_sexo->get_active_text()[0];
+		double tamanho = stod(entry_tamanho->get_text());
+		string dieta = entry_dieta->get_text();
+		Veterinario veterinario = check_button_veterinario_incluso->get_active() ? (veterinarios->find(id))->second : veterinarios->begin()->second;
+		Tratador tratador = check_button_tratador_incluso->get_active() ? (tratadores->find(id))->second : tratadores->begin()->second;
+		string nome_batismo = entry_nome_batismo->get_text();
+		string autorizacao_ibama = entry_autorizacao_ibama->get_text();
+		string nacionalidade = combo_box_regiao->get_active_row_number() == 0 ? entry_uf->get_text() : entry_nacionalidade->get_text();
+
+		switch(combo_box_classe->get_active_row_number())
 		{
-			//aves
-			switch(combo_box_regiao->get_active_row_number())
+			case 0:
 			{
-				case 0:
+				//anfibio
+				switch(combo_box_regiao->get_active_row_number())
 				{
-					AveNativo temp(id, classe, nome_cientifico, sexo, 
-						tamanho, dieta, veterinario, tratador, 
-						nome_batismo, stod(entry_tamanho_do_bico->get_text()), 
-						stod(entry_envergadura_das_asas->get_text()), 
-						autorizacao_ibama, nacionalidade);
+					case 0:
+					{
+						vector<int> data;
+						string data_string = entry_data_da_ultima_muda->get_text();
+						data = Separador_data(data_string);
+						date data_date(data[0], data[1], data[2]);
 
-					outfile << temp << endl;
-					aves_nativas->insert(pair<int, AveNativo>(id, temp));
-					//janela_principal->AtualizarLista(4);
-					break;
-				}
-				case 1:
-				{
-					AveExotico temp(id, classe, nome_cientifico, sexo, 
-						tamanho, dieta, veterinario, tratador, 
-						nome_batismo, stod(entry_tamanho_do_bico->get_text()), 
-						stod(entry_envergadura_das_asas->get_text()), 
-						autorizacao_ibama, nacionalidade);
+						AnfibioNativo temp(id, classe, nome_cientifico, sexo, 
+							tamanho, dieta, veterinario, tratador, 
+							nome_batismo, stoi(entry_total_de_mudas->get_text()), 
+							data_date, autorizacao_ibama, nacionalidade);
 
-					outfile << temp << endl;
-					aves_exoticas->insert(pair<int, AveExotico>(id, temp));
-					//janela_principal->AtualizarLista(5);
-					break;
+						outfile << temp << endl;
+						anfibios_nativos->insert(pair<int, AnfibioNativo>(id, temp));
+						//janela_principal->AtualizarLista(2);
+						break;
+					}
+					case 1:
+					{
+						vector<int> data;
+						string data_string = entry_data_da_ultima_muda->get_text();
+						data = Separador_data(data_string);
+						date data_date(data[0], data[1], data[2]);
+
+						AnfibioExotico temp(id, classe, nome_cientifico, sexo,
+							tamanho, dieta, veterinario, tratador, 
+							nome_batismo, stoi(entry_total_de_mudas->get_text()),
+							data_date, autorizacao_ibama, nacionalidade);
+
+						outfile << temp << endl;
+						anfibios_exoticos->insert(pair<int, AnfibioExotico>(id, temp));
+						//janela_principal->AtualizarLista(3);
+						break;
+					}
 				}
+				break;
 			}
-			break;
-		}
-		case 2:
-		{
-			//mamifero
-			switch(combo_box_regiao->get_active_row_number())
+			case 1:
 			{
-				case 0:
+				//aves
+				switch(combo_box_regiao->get_active_row_number())
 				{
-					MamiferoNativo temp(id, classe, nome_cientifico, sexo, 
-						tamanho, dieta, veterinario, tratador, 
-						nome_batismo, entry_cor_dos_pelos->get_text(), 
-						autorizacao_ibama, nacionalidade);
+					case 0:
+					{
+						AveNativo temp(id, classe, nome_cientifico, sexo, 
+							tamanho, dieta, veterinario, tratador, 
+							nome_batismo, stod(entry_tamanho_do_bico->get_text()), 
+							stod(entry_envergadura_das_asas->get_text()), 
+							autorizacao_ibama, nacionalidade);
 
-					outfile << temp << endl;
-					mamiferos_nativos->insert(pair<int, MamiferoNativo>(id, temp));
-					//janela_principal->AtualizarLista(6);
-					break;
-				}
-				case 1:
-				{
-					MamiferoExotico temp(id, classe, nome_cientifico, sexo, 
-						tamanho, dieta, veterinario, tratador, 
-						nome_batismo, entry_cor_dos_pelos->get_text(), 
-						autorizacao_ibama, nacionalidade);
+						outfile << temp << endl;
+						aves_nativas->insert(pair<int, AveNativo>(id, temp));
+						//janela_principal->AtualizarLista(4);
+						break;
+					}
+					case 1:
+					{
+						AveExotico temp(id, classe, nome_cientifico, sexo, 
+							tamanho, dieta, veterinario, tratador, 
+							nome_batismo, stod(entry_tamanho_do_bico->get_text()), 
+							stod(entry_envergadura_das_asas->get_text()), 
+							autorizacao_ibama, nacionalidade);
 
-					outfile << temp << endl;
-					mamiferos_exoticos->insert(pair<int, MamiferoExotico>(id, temp));
-					//janela_principal->AtualizarLista(7);
-					break;
+						outfile << temp << endl;
+						aves_exoticas->insert(pair<int, AveExotico>(id, temp));
+						//janela_principal->AtualizarLista(5);
+						break;
+					}
 				}
+				break;
 			}
-			break;
-		}
-		case 3:
-		{
-			//reptil
-			switch(combo_box_regiao->get_active_row_number())
+			case 2:
 			{
-				case 0:
+				//mamifero
+				switch(combo_box_regiao->get_active_row_number())
 				{
-					ReptilNativo temp(id, classe, nome_cientifico, sexo, 
-						tamanho, dieta, veterinario, tratador, 
-						nome_batismo, check_button_venenoso->get_active(), 
-						entry_tipo_de_veneno->get_text(), autorizacao_ibama, 
-						nacionalidade);
+					case 0:
+					{
+						MamiferoNativo temp(id, classe, nome_cientifico, sexo, 
+							tamanho, dieta, veterinario, tratador, 
+							nome_batismo, entry_cor_dos_pelos->get_text(), 
+							autorizacao_ibama, nacionalidade);
 
-					outfile << temp << endl;
-					repteis_nativos->insert(pair<int, ReptilNativo>(id, temp));
-					//janela_principal->AtualizarLista(8);
-					break;
-				}
-				case 1:
-				{
-					ReptilExotico temp(id, classe, nome_cientifico, sexo, 
-						tamanho, dieta, veterinario, tratador, nome_batismo, 
-						check_button_venenoso->get_active(), 
-						entry_tipo_de_veneno->get_text(), autorizacao_ibama, 
-						nacionalidade);
+						outfile << temp << endl;
+						mamiferos_nativos->insert(pair<int, MamiferoNativo>(id, temp));
+						//janela_principal->AtualizarLista(6);
+						break;
+					}
+					case 1:
+					{
+						MamiferoExotico temp(id, classe, nome_cientifico, sexo, 
+							tamanho, dieta, veterinario, tratador, 
+							nome_batismo, entry_cor_dos_pelos->get_text(), 
+							autorizacao_ibama, nacionalidade);
 
-					outfile << temp << endl;
-					repteis_exoticos->insert(pair<int, ReptilExotico>(id, temp));
-					//janela_principal->AtualizarLista(9);
-					break;
+						outfile << temp << endl;
+						mamiferos_exoticos->insert(pair<int, MamiferoExotico>(id, temp));
+						//janela_principal->AtualizarLista(7);
+						break;
+					}
 				}
+				break;
 			}
-			break;
+			case 3:
+			{
+				//reptil
+				switch(combo_box_regiao->get_active_row_number())
+				{
+					case 0:
+					{
+						ReptilNativo temp(id, classe, nome_cientifico, sexo, 
+							tamanho, dieta, veterinario, tratador, 
+							nome_batismo, check_button_venenoso->get_active(), 
+							entry_tipo_de_veneno->get_text(), autorizacao_ibama, 
+							nacionalidade);
+
+						outfile << temp << endl;
+						repteis_nativos->insert(pair<int, ReptilNativo>(id, temp));
+						//janela_principal->AtualizarLista(8);
+						break;
+					}
+					case 1:
+					{
+						ReptilExotico temp(id, classe, nome_cientifico, sexo, 
+							tamanho, dieta, veterinario, tratador, nome_batismo, 
+							check_button_venenoso->get_active(), 
+							entry_tipo_de_veneno->get_text(), autorizacao_ibama, 
+							nacionalidade);
+
+						outfile << temp << endl;
+						repteis_exoticos->insert(pair<int, ReptilExotico>(id, temp));
+						//janela_principal->AtualizarLista(9);
+						break;
+					}
+				}
+				break;
+			}
 		}
+	}
+
+	if(!valid_id)
+	{
+		MessageDialog dialog(*window, "ID inválido.");
+		dialog.set_secondary_text("Nenhum ID foi apresentado ou foi encontrado um animal com o ID apresentado, animais não podem ter IDs iguais.");
+  		dialog.run();
+	}	
+	if(!valid_tratador_id)
+	{
+		MessageDialog dialog(*window, "ID do tratador inválido.");
+		dialog.set_secondary_text("Nenhum ID foi apresentado ou não foi encontrado um tratador com o ID apresentado");
+  		dialog.run();
+	}
+	if(!valid_veterinario_id)
+	{
+		MessageDialog dialog(*window, "ID do veterinário inválido.");
+		dialog.set_secondary_text("Nenhum ID foi apresentado ou não foi encontrado um veterinário com o ID apresentado");
+  		dialog.run();
+	}
+	if(!valid_dados)
+	{
+		MessageDialog dialog(*window, "Dado(s) inválido(s).");
+		dialog.set_secondary_text("Falta preencher um ou mais dados.");
+  		dialog.run();
 	}
 	
 	window->close();
@@ -569,10 +713,89 @@ void JanelaCadastroAnimal::AtualizarIconeId()
 		   it_av_n != aves_nativas->end() || it_av_e != aves_exoticas->end() ||
 		   it_m_n != mamiferos_nativos->end() || it_m_e != mamiferos_exoticos->end() ||
 		   it_r_n != repteis_nativos->end() || it_r_e != repteis_exoticos->end())
+		{
+			valid_id = false;
 			entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+		}
 		else
+		{
+			valid_id = true;
 			entry_id->set_icon_from_pixbuf(pixbuf_check);
+		}
 	}
 	else
+	{
+		valid_id = false;
 		entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+	}
+}
+
+void JanelaCadastroAnimal::AtualizarIconeTratadorId()
+{
+	string temp = entry_tratador_id->get_text();
+	bool is_numeric = true;
+	for(unsigned int i = 0; i < temp.size(); i++)
+	{
+		if(!isdigit(temp[i]))
+		{
+			is_numeric = false;
+			break;
+		}
+	}
+	if(is_numeric && !temp.empty())
+	{
+		int id = stoi(temp);
+		map<int, Tratador>::iterator it_t = tratadores->find(id);
+
+		if(it_t != tratadores->end())
+		{
+			valid_tratador_id = true;
+			entry_tratador_id->set_icon_from_pixbuf(pixbuf_check);
+		}
+		else
+		{
+			valid_tratador_id = false;
+			entry_tratador_id->set_icon_from_pixbuf(pixbuf_uncheck);
+		}
+	}
+	else
+	{
+		valid_tratador_id = false;
+		entry_tratador_id->set_icon_from_pixbuf(pixbuf_uncheck);
+	}
+}
+
+void JanelaCadastroAnimal::AtualizarIconeVeterinarioId()
+{
+	string temp = entry_veterinario_id->get_text();
+	bool is_numeric = true;
+	for(unsigned int i = 0; i < temp.size(); i++)
+	{
+		if(!isdigit(temp[i]))
+		{
+			is_numeric = false;
+			break;
+		}
+	}
+	if(is_numeric && !temp.empty())
+	{
+		int id = stoi(temp);
+		map<int, Veterinario>::iterator it_t = veterinarios->find(id);
+
+		if(it_t != veterinarios->end())
+		{
+			valid_veterinario_id = true;
+			entry_veterinario_id->set_icon_from_pixbuf(pixbuf_check);
+		}
+		else
+		{
+			valid_veterinario_id = false;
+			entry_veterinario_id->set_icon_from_pixbuf(pixbuf_uncheck);
+		}
+	}
+	else
+	{
+		valid_veterinario_id = false;
+		entry_veterinario_id->set_icon_from_pixbuf(pixbuf_uncheck);
+	}
 }
