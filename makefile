@@ -21,7 +21,7 @@ $(BUILDDIR)Ave.o $(BUILDDIR)AveNativo.o $(BUILDDIR)AveExotico.o \
 $(BUILDDIR)AnimalSilvestre.o $(BUILDDIR)AnimalNativo.o $(BUILDDIR)AnimalExotico.o \
 $(BUILDDIR)Programa.o
 
-$(PROG) : $(OBJS) folder
+$(PROG) : folder $(OBJS)
 	$(CC) $(LDFLAGS) -o $(PROG) $(OBJS)
 folder :
 	mkdir -p $(BINDIR)
@@ -76,4 +76,4 @@ clean :
 cleanall : clean
 	rm -f core $(PROG)
 run :
-	$(PROG)
+	cd bin && ./PetFera && cd ..
