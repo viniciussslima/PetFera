@@ -86,6 +86,6 @@ clean :
 cleanall : clean
 	rm -f core $(PROG)
 run :
-	cd bin && ./PetFera && cd ..
+	./$(BINDIR)$(PROG)
 gdb:
 	cd $(BINDIR) && gdb $(PROG) && cd ..	
