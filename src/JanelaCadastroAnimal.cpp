@@ -546,113 +546,23 @@ void JanelaCadastroAnimal::AtualizarIconeId()
 	if(is_numeric && !temp.empty())
 	{
 		int id = stoi(temp);
-		switch(combo_box_classe->get_active_row_number())
-		{
-			case 0:
-			{
-				//anfibio
-				switch(combo_box_regiao->get_active_row_number())
-				{
-					case 0:
-					{
-						map<int, AnfibioNativo>::iterator it = anfibios_nativos->find(id);
-						if(it != anfibios_nativos->end())
-							entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
-						else
-							entry_id->set_icon_from_pixbuf(pixbuf_check);
-						break;
-					}
-					case 1:
-					{
-						map<int, AnfibioExotico>::iterator it = anfibios_exoticos->find(id);
-						if(it != anfibios_exoticos->end())
-							entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
-						else
-							entry_id->set_icon_from_pixbuf(pixbuf_check);
-						break;
-					}
-				}
-				break;
-			}
-			case 1:
-			{
-				//aves
-				switch(combo_box_regiao->get_active_row_number())
-				{
-					case 0:
-					{
-						map<int, AveNativo>::iterator it = aves_nativas->find(id);
-						if(it != aves_nativas->end())
-							entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
-						else
-							entry_id->set_icon_from_pixbuf(pixbuf_check);
-						break;
-					}
-					case 1:
-					{
-						map<int, AveExotico>::iterator it = aves_exoticas->find(id);
-						if(it != aves_exoticas->end())
-							entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
-						else
-							entry_id->set_icon_from_pixbuf(pixbuf_check);
-						break;
-					}
-				}
-				break;
-			}
-			case 2:
-			{
-				//mamifero
-				switch(combo_box_regiao->get_active_row_number())
-				{
-					case 0:
-					{
-						map<int, MamiferoNativo>::iterator it = mamiferos_nativos->find(id);
-						if(it != mamiferos_nativos->end())
-							entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
-						else
-							entry_id->set_icon_from_pixbuf(pixbuf_check);
-						break;
-					}
-					case 1:
-					{
-						map<int, MamiferoExotico>::iterator it = mamiferos_exoticos->find(id);
-						if(it != mamiferos_exoticos->end())
-							entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
-						else
-							entry_id->set_icon_from_pixbuf(pixbuf_check);
-						break;
-					}
-				}
-				break;
-			}
-			case 3:
-			{
-				//reptil
-				switch(combo_box_regiao->get_active_row_number())
-				{
-					case 0:
-					{
-						map<int, ReptilNativo>::iterator it = repteis_nativos->find(id);
-						if(it != repteis_nativos->end())
-							entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
-						else
-							entry_id->set_icon_from_pixbuf(pixbuf_check);
-						break;
-					}
-					case 1:
-					{
-						map<int, ReptilExotico>::iterator it = repteis_exoticos->find(id);
-						if(it != repteis_exoticos->end())
-							entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
-						else
-							entry_id->set_icon_from_pixbuf(pixbuf_check);
-						break;
-					}
-				}
-				break;
-			}
-		}
+
+		map<int, AnfibioNativo>::iterator it_an_n = anfibios_nativos->find(id);
+		map<int, AnfibioExotico>::iterator it_an_e = anfibios_exoticos->find(id);
+		map<int, AveNativo>::iterator it_av_n = aves_nativas->find(id);
+		map<int, AveExotico>::iterator it_av_e = aves_exoticas->find(id);
+		map<int, MamiferoNativo>::iterator it_m_n = mamiferos_nativos->find(id);
+		map<int, MamiferoExotico>::iterator it_m_e = mamiferos_exoticos->find(id);
+		map<int, ReptilNativo>::iterator it_r_n = repteis_nativos->find(id);
+		map<int, ReptilExotico>::iterator it_r_e = repteis_exoticos->find(id);
+
+		if(it_an_n != anfibios_nativos->end() || it_an_e != anfibios_exoticos->end() ||
+		   it_av_n != aves_nativas->end() || it_av_e != aves_exoticas->end() ||
+		   it_m_n != mamiferos_nativos->end() || it_m_e != mamiferos_exoticos->end() ||
+		   it_r_n != repteis_nativos->end() || it_r_e != repteis_exoticos->end())
+			entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+		else
+			entry_id->set_icon_from_pixbuf(pixbuf_check);
 	}
 	else
 		entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
