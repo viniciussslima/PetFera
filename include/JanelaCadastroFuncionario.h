@@ -7,6 +7,7 @@
 #include <string>
 #include "Veterinario.h"
 #include "Tratador.h"
+#include "JanelaPrincipal.h"
 
 using namespace Gtk;
 using namespace std;
@@ -47,10 +48,12 @@ class JanelaCadastroFuncionario
 		Glib::RefPtr<Gdk::Pixbuf> pixbuf_check;
 		Glib::RefPtr<Gdk::Pixbuf> pixbuf_uncheck;
 
+		JanelaPrincipal *janela_principal;
+
 		map<int, Veterinario> *veterinarios;
 		map<int, Tratador> *tratadores;
 	public:
-		JanelaCadastroFuncionario(map<int, Veterinario>&, map<int, Tratador>&);
+		JanelaCadastroFuncionario(JanelaPrincipal&, map<int, Veterinario>&, map<int, Tratador>&);
 		~JanelaCadastroFuncionario();
 
 		void Run();

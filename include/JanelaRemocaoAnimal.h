@@ -6,6 +6,8 @@
 #include <gtkmm.h>
 #include <map>
 
+#include "JanelaPrincipal.h"
+
 #include "AnfibioExotico.h"
 #include "AnfibioNativo.h"
 
@@ -36,6 +38,8 @@ class JanelaRemocaoAnimal
 
 		Label *label_id;
 
+		JanelaPrincipal *janela_principal;
+
 		map<int, AnfibioExotico> *anfibios_exoticos;
 		map<int, AnfibioNativo> *anfibios_nativos;
 
@@ -48,7 +52,7 @@ class JanelaRemocaoAnimal
 		map<int, ReptilExotico> *repteis_exoticos;
 		map<int, ReptilNativo> *repteis_nativos;
 	public:
-		JanelaRemocaoAnimal(map<int, AnfibioExotico>&, map<int, AnfibioNativo>&, 
+		JanelaRemocaoAnimal(JanelaPrincipal&, map<int, AnfibioExotico>&, map<int, AnfibioNativo>&, 
 							     map<int, AveExotico>&, map<int, AveNativo>&,
 							 	 map<int, MamiferoExotico>&, map<int, MamiferoNativo>&, 
 							 	 map<int, ReptilExotico>&, map<int, ReptilNativo>&);

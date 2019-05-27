@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <gtkmm.h>
+#include "JanelaPrincipal.h"
 #include "Separador.h"
 
 #include "Veterinario.h"
@@ -84,6 +85,8 @@ class JanelaCadastroAnimal
 		Glib::RefPtr<Gdk::Pixbuf> pixbuf_check;
 		Glib::RefPtr<Gdk::Pixbuf> pixbuf_uncheck;
 
+		JanelaPrincipal *janela_principal;
+
 		map<int, Veterinario> *veterinarios;
 		map<int, Tratador> *tratadores;
 
@@ -99,7 +102,7 @@ class JanelaCadastroAnimal
 		map<int, ReptilExotico> *repteis_exoticos;
 		map<int, ReptilNativo> *repteis_nativos;
 	public:
-		JanelaCadastroAnimal(map<int, Veterinario>&, map<int, Tratador>&, map<int, AnfibioExotico>&, 
+		JanelaCadastroAnimal(JanelaPrincipal&, map<int, Veterinario>&, map<int, Tratador>&, map<int, AnfibioExotico>&, 
 							 map<int, AnfibioNativo>&, map<int, AveExotico>&, map<int, AveNativo>&,
 							 map<int, MamiferoExotico>&, map<int, MamiferoNativo>&, 
 							 map<int, ReptilExotico>&, map<int, ReptilNativo>&);

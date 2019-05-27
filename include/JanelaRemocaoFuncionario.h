@@ -5,9 +5,12 @@
 #include <fstream>
 #include <gtkmm.h>
 #include <map>
+
 #include "Veterinario.h"
 #include "Tratador.h"
+
 #include "Separador.h"
+#include "JanelaPrincipal.h"
 
 using namespace Gtk;
 using namespace std;
@@ -25,10 +28,12 @@ class JanelaRemocaoFuncionario
 
 		Label *label_id;
 
+		JanelaPrincipal *janela_principal;
+
 		map<int, Veterinario> *veterinarios;
 		map<int, Tratador> *tratadores;
 	public:
-		JanelaRemocaoFuncionario(map<int, Veterinario>&, map<int, Tratador>&);
+		JanelaRemocaoFuncionario(JanelaPrincipal&, map<int, Veterinario>&, map<int, Tratador>&);
 		~JanelaRemocaoFuncionario();
 
 		void Run();
