@@ -30,6 +30,11 @@ class JanelaRemocaoFuncionario
 
 		JanelaPrincipal *janela_principal;
 
+		Glib::RefPtr<Gdk::Pixbuf> pixbuf_check;
+		Glib::RefPtr<Gdk::Pixbuf> pixbuf_uncheck;
+
+		bool valid_id;
+
 		map<int, Veterinario> *veterinarios;
 		map<int, Tratador> *tratadores;
 	public:
@@ -38,6 +43,7 @@ class JanelaRemocaoFuncionario
 
 		void Run();
 		void Remover();
+		void AtualizarIconeId();
 };
 
 #endif
