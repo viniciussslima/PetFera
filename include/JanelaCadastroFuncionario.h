@@ -50,6 +50,9 @@ class JanelaCadastroFuncionario
 
 		JanelaPrincipal *janela_principal;
 
+		bool valid_id;
+		bool valid_cpf;
+
 		map<int, Veterinario> *veterinarios;
 		map<int, Tratador> *tratadores;
 	public:
