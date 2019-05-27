@@ -47,6 +47,12 @@ JanelaCadastroFuncionario::JanelaCadastroFuncionario(map<int, Veterinario> &vtem
 	window->set_title("Cadastrar Funcionário");
 	window->add(*box_principal);
 
+	pixbuf_check = Gdk::Pixbuf::create_from_file("icons/check.ico");
+	pixbuf_uncheck = Gdk::Pixbuf::create_from_file("icons/uncheck.ico");
+
+	entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+	entry_cpf->set_icon_from_pixbuf(pixbuf_uncheck);
+
 	combo_box_fucao->append("Veterinario");
 	combo_box_fucao->append("Tratador");
 	combo_box_fucao->set_active(0);
@@ -95,7 +101,9 @@ JanelaCadastroFuncionario::JanelaCadastroFuncionario(map<int, Veterinario> &vtem
 
 	//Conexão
 	button_cadastrar->signal_clicked().connect(sigc::mem_fun(*this, &JanelaCadastroFuncionario::Cadastrar));
-	combo_box_fucao->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroFuncionario::MudarFuncionario) );
+	combo_box_fucao->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroFuncionario::MudarFuncionario));
+	entry_id->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroFuncionario::AtualizarIconeId));
+	entry_cpf->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroFuncionario::AtualizarIconeCPF));
 }
 
 
@@ -151,7 +159,7 @@ void JanelaCadastroFuncionario::Run()
 
 void JanelaCadastroFuncionario::Cadastrar()
 {
-	ofstream outfile("/home/kotzuo/Área de Trabalho/PetFera/Dados/funcionarios.csv", ios::app);
+	ofstream outfile("Dados/funcionarios.csv", ios::app);
 	string tipo_sanguineo;
 	char rh;
 	switch(combo_box_tipo_sanguineo->get_active_row_number())
@@ -208,12 +216,102 @@ void JanelaCadastroFuncionario::MudarFuncionario()
 			label_nivel_de_seguranca->hide();
 			entry_crmv->show();
 			label_crmv->show();
+			AtualizarIconeId();
 			break;
 		case 1:
 			combo_box_nivel_de_seguranca->show();
 			label_nivel_de_seguranca->show();
 			entry_crmv->hide();
 			label_crmv->hide();
+			AtualizarIconeId();
 			break;
 	}
+}
+
+void JanelaCadastroFuncionario::AtualizarIconeId()
+{
+	string temp = entry_id->get_text();
+	bool is_numeric = true;
+	for(unsigned int i = 0; i < temp.size(); i++)
+	{
+		if(!isdigit(temp[i]))
+		{
+			is_numeric = false;
+			break;
+		}
+	}
+	if(is_numeric && !temp.empty())
+	{
+		int id = stoi(temp);
+		switch(combo_box_fucao->get_active_row_number())
+		{
+			case 0:
+			{
+				map<int, Veterinario>::iterator it = veterinarios->find(id);
+				if(it != veterinarios->end())
+					entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+				else
+					entry_id->set_icon_from_pixbuf(pixbuf_check);
+				break;
+			}
+			case 1:
+			{
+				map<int, Tratador>::iterator it = tratadores->find(id);
+				if(it != tratadores->end())
+					entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+				else
+					entry_id->set_icon_from_pixbuf(pixbuf_check);
+				break;
+			}
+		}
+	}
+	else
+		entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+	
+}
+
+void JanelaCadastroFuncionario::AtualizarIconeCPF()
+{
+	string temp = entry_cpf->get_text();
+	bool is_cpf = true;
+	for(unsigned int i = 0; i < temp.size(); i++)
+	{
+		if(!isdigit(temp[i]) && (i == 0 || i == 1 || i == 2 || i == 4 || i == 5 || i == 6 || i == 8 || i == 9 || i == 10 || i == 12 || i == 13))
+		{
+			is_cpf = false;
+			break;
+		}
+		if(((i == 3 || i == 7) && !(temp[i] == '.')) || (i == 11 && !(temp[i] == '-')))
+		{
+			is_cpf = false;
+			break;
+		}
+	}
+
+	if(is_cpf && temp.size() == 14)
+	{
+		//string cpf = temp[0] + temp[1] + temp[2] + temp[4] + temp[5] + temp[6] + temp[8] + temp[9] + temp[10] + temp[12] + temp[13];
+		string cpf;
+		int verificador_1 = 0, verificador_2 = 0;
+
+		for(int i = 0; i < 14; i++)
+		{
+			if(i != 3 && i != 7 && i != 11)
+				cpf += temp[i];
+		}
+
+		for(int i = 0; i < 10; i++)
+		{
+			if(i != 9)
+				verificador_1 += stoi(cpf.substr(i, 1)) * (10 - i);
+			verificador_2 += stoi(cpf.substr(i, 1)) * (11 - i);
+		}
+
+		if(verificador_1 * 10 % 11 == stoi(cpf.substr(9, 1)) && verificador_2 * 10 % 11 == stoi(cpf.substr(10, 1)))
+			entry_cpf->set_icon_from_pixbuf(pixbuf_check);
+		else
+			entry_cpf->set_icon_from_pixbuf(pixbuf_uncheck);
+	}
+	else
+		entry_cpf->set_icon_from_pixbuf(pixbuf_uncheck);
 }

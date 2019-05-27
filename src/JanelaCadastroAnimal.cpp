@@ -92,6 +92,11 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(map<int, Veterinario> &vtemp, map<int
 	window->set_title("Cadastrar Animal");
 	window->add(*box_principal);
 
+	pixbuf_check = Gdk::Pixbuf::create_from_file("icons/check.ico");
+	pixbuf_uncheck = Gdk::Pixbuf::create_from_file("icons/uncheck.ico");
+
+	entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+
 	combo_box_classe->append("Amphibia");
 	combo_box_classe->append("Aves");
 	combo_box_classe->append("Mammalia");
@@ -166,6 +171,7 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(map<int, Veterinario> &vtemp, map<int
 	check_button_veterinario_incluso->signal_clicked().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::MostrarVeterinario));
 	check_button_tratador_incluso->signal_clicked().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::MostrarTratador));
 	check_button_venenoso->signal_clicked().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::MostrarVenenoso));
+	entry_id->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeId));
 }
 
 JanelaCadastroAnimal::~JanelaCadastroAnimal()
@@ -222,7 +228,7 @@ void JanelaCadastroAnimal::Run()
 void JanelaCadastroAnimal::Cadastrar()
 {
 	ofstream outfile;
-	outfile.open("../Dados/animais.csv", ios::app);
+	outfile.open("Dados/animais.csv", ios::app);
 	int id = stoi(entry_id->get_text());
 	string classe = combo_box_classe->get_active_text(); 
 	for(unsigned int i = 0; i < classe.length(); i++)
@@ -407,6 +413,7 @@ void JanelaCadastroAnimal::MudarClasse()
 			label_venenoso->hide();
 			entry_tipo_de_veneno->hide();
 			label_tipo_de_veneno->hide();
+			AtualizarIconeId();
 			break;
 		case 1:
 			entry_total_de_mudas->hide();
@@ -422,6 +429,7 @@ void JanelaCadastroAnimal::MudarClasse()
 			label_venenoso->hide();
 			entry_tipo_de_veneno->hide();
 			label_tipo_de_veneno->hide();
+			AtualizarIconeId();
 			break;
 		case 2:
 			entry_total_de_mudas->hide();
@@ -438,6 +446,7 @@ void JanelaCadastroAnimal::MudarClasse()
 			label_venenoso->hide();
 			entry_tipo_de_veneno->hide();
 			label_tipo_de_veneno->hide();
+			AtualizarIconeId();
 			break;
 		case 3:
 			entry_total_de_mudas->hide();
@@ -454,6 +463,7 @@ void JanelaCadastroAnimal::MudarClasse()
 			label_venenoso->show();
 			entry_tipo_de_veneno->hide();
 			label_tipo_de_veneno->hide();
+			AtualizarIconeId();
 			break;
 	}
 }
@@ -467,12 +477,14 @@ void JanelaCadastroAnimal::MudarRegiao()
 			label_uf->show();
 			entry_nacionalidade->hide();
 			label_nacionalidade->hide();
+			AtualizarIconeId();
 			break;
 		case 1:
 			entry_uf->hide();
 			label_uf->hide();
 			entry_nacionalidade->show();
 			label_nacionalidade->show();
+			AtualizarIconeId();
 			break;
 	}
 }
@@ -517,4 +529,131 @@ void JanelaCadastroAnimal::MostrarVenenoso()
 		entry_tipo_de_veneno->show();
 		label_tipo_de_veneno->show();
 	}
+}
+
+void JanelaCadastroAnimal::AtualizarIconeId()
+{
+	string temp = entry_id->get_text();
+	bool is_numeric = true;
+	for(unsigned int i = 0; i < temp.size(); i++)
+	{
+		if(!isdigit(temp[i]))
+		{
+			is_numeric = false;
+			break;
+		}
+	}
+	if(is_numeric && !temp.empty())
+	{
+		int id = stoi(temp);
+		switch(combo_box_classe->get_active_row_number())
+		{
+			case 0:
+			{
+				//anfibio
+				switch(combo_box_regiao->get_active_row_number())
+				{
+					case 0:
+					{
+						map<int, AnfibioNativo>::iterator it = anfibios_nativos->find(id);
+						if(it != anfibios_nativos->end())
+							entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+						else
+							entry_id->set_icon_from_pixbuf(pixbuf_check);
+						break;
+					}
+					case 1:
+					{
+						map<int, AnfibioExotico>::iterator it = anfibios_exoticos->find(id);
+						if(it != anfibios_exoticos->end())
+							entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+						else
+							entry_id->set_icon_from_pixbuf(pixbuf_check);
+						break;
+					}
+				}
+				break;
+			}
+			case 1:
+			{
+				//aves
+				switch(combo_box_regiao->get_active_row_number())
+				{
+					case 0:
+					{
+						map<int, AveNativo>::iterator it = aves_nativas->find(id);
+						if(it != aves_nativas->end())
+							entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+						else
+							entry_id->set_icon_from_pixbuf(pixbuf_check);
+						break;
+					}
+					case 1:
+					{
+						map<int, AveExotico>::iterator it = aves_exoticas->find(id);
+						if(it != aves_exoticas->end())
+							entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+						else
+							entry_id->set_icon_from_pixbuf(pixbuf_check);
+						break;
+					}
+				}
+				break;
+			}
+			case 2:
+			{
+				//mamifero
+				switch(combo_box_regiao->get_active_row_number())
+				{
+					case 0:
+					{
+						map<int, MamiferoNativo>::iterator it = mamiferos_nativos->find(id);
+						if(it != mamiferos_nativos->end())
+							entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+						else
+							entry_id->set_icon_from_pixbuf(pixbuf_check);
+						break;
+					}
+					case 1:
+					{
+						map<int, MamiferoExotico>::iterator it = mamiferos_exoticos->find(id);
+						if(it != mamiferos_exoticos->end())
+							entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+						else
+							entry_id->set_icon_from_pixbuf(pixbuf_check);
+						break;
+					}
+				}
+				break;
+			}
+			case 3:
+			{
+				//reptil
+				switch(combo_box_regiao->get_active_row_number())
+				{
+					case 0:
+					{
+						map<int, ReptilNativo>::iterator it = repteis_nativos->find(id);
+						if(it != repteis_nativos->end())
+							entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+						else
+							entry_id->set_icon_from_pixbuf(pixbuf_check);
+						break;
+					}
+					case 1:
+					{
+						map<int, ReptilExotico>::iterator it = repteis_exoticos->find(id);
+						if(it != repteis_exoticos->end())
+							entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+						else
+							entry_id->set_icon_from_pixbuf(pixbuf_check);
+						break;
+					}
+				}
+				break;
+			}
+		}
+	}
+	else
+		entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
 }
