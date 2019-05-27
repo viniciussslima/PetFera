@@ -237,8 +237,8 @@ void JanelaCadastroAnimal::Cadastrar()
 	char sexo = combo_box_sexo->get_active_text()[0];
 	double tamanho = stod(entry_tamanho->get_text());
 	string dieta = entry_dieta->get_text();
-	Veterinario veterinario = check_button_veterinario_incluso->get_active() ? (veterinarios->find(id))->second : (veterinarios->find(0))->second;
-	Tratador tratador = check_button_tratador_incluso->get_active() ? (tratadores->find(id))->second : (tratadores->find(0))->second;
+	Veterinario veterinario = check_button_veterinario_incluso->get_active() ? (veterinarios->find(id))->second : veterinarios->begin()->second;
+	Tratador tratador = check_button_tratador_incluso->get_active() ? (tratadores->find(id))->second : tratadores->begin()->second;
 	string nome_batismo = entry_nome_batismo->get_text();
 	string autorizacao_ibama = entry_autorizacao_ibama->get_text();
 	string nacionalidade = combo_box_regiao->get_active_row_number() == 0 ? entry_uf->get_text() : entry_nacionalidade->get_text();
