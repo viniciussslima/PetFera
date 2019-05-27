@@ -10,8 +10,8 @@ using namespace std;
 
 JanelaPrincipal::JanelaPrincipal()
 {
-	ifstream funcionarios_csv("/home/kotzuo/Área de Trabalho/PetFera/Dados/funcionarios.csv");
-	ifstream animais_csv("/home/kotzuo/Área de Trabalho/PetFera/Dados/animais.csv");
+	ifstream funcionarios_csv("Dados/funcionarios.csv");
+	ifstream animais_csv("Dados/animais.csv");
 
 	if(funcionarios_csv.is_open())
 	{
@@ -45,8 +45,6 @@ JanelaPrincipal::JanelaPrincipal()
 			}
 		}
 	}
-	else
-		cout << "Sem funcionarios.csv" << endl;
 
 	if(animais_csv.is_open())
 	{
