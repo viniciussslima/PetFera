@@ -427,23 +427,53 @@ void JanelaPrincipal::CadastrarFuncionario()
 
 void JanelaPrincipal::CadastrarAnimal()
 {
-	JanelaCadastroAnimal temp(*this, veterinarios, tratadores, anfibios_exoticos, anfibios_nativos, aves_exoticas,
-							  aves_nativas, mamiferos_exoticos, mamiferos_nativos, repteis_exoticos, repteis_nativos);
-	temp.Run();
+	if (tratadores.empty() && veterinarios.empty())
+	{
+		MessageDialog dialog(*window, "Impossivel cadastrar um animal.");
+		dialog.set_secondary_text("Não existem funcionarios cadastrados.");
+  		dialog.run();
+	}
+	else
+	{
+		JanelaCadastroAnimal temp(*this, veterinarios, tratadores, anfibios_exoticos, anfibios_nativos, aves_exoticas,
+								  aves_nativas, mamiferos_exoticos, mamiferos_nativos, repteis_exoticos, repteis_nativos);
+		temp.Run();
+	}
 }
 
 void JanelaPrincipal::RemoverFuncionario()
 {
-	JanelaRemocaoFuncionario temp(*this, veterinarios, tratadores);
-	temp.Run();
+	if (tratadores.empty() && veterinarios.empty())
+	{
+		MessageDialog dialog(*window, "Impossivel remover um funcionario.");
+		dialog.set_secondary_text("Não existem funcionarios cadastrados.");
+  		dialog.run();
+	}
+	else
+	{
+		JanelaRemocaoFuncionario temp(*this, veterinarios, tratadores);
+		temp.Run();
+	}
 }
 
 void JanelaPrincipal::RemoverAnimal()
 {
-	JanelaRemocaoAnimal temp(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
-							 aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-							 repteis_exoticos, repteis_nativos);
-	temp.Run();
+	if(anfibios_exoticos.empty() && anfibios_nativos.empty() && 
+		aves_exoticas.empty() && aves_nativas.empty() && 
+		mamiferos_exoticos.empty() && mamiferos_nativos.empty() &&
+		repteis_exoticos.empty() && repteis_nativos.empty())
+	{
+		MessageDialog dialog(*window, "Impossivel remover um animal.");
+		dialog.set_secondary_text("Não existem animais cadastrados.");
+  		dialog.run();
+	}
+	else
+	{
+		JanelaRemocaoAnimal temp(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
+								 aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+								 repteis_exoticos, repteis_nativos);
+		temp.Run();
+	}
 }
 
 void JanelaPrincipal::AtualizarLista(int i)
