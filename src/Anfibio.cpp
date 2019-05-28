@@ -2,7 +2,16 @@
 
 using namespace std;
 
+/**
+* @brief Construtor padrão da classe anfibio.
+*/
+
 Anfibio::Anfibio(){}
+
+/**
+* @brief construtor parametrizado da classe anfibio.
+* @param new_id: Numero que representa a identidade do anfibio.
+*/
 
 Anfibio::Anfibio(int new_id, string new_classe,
 		string new_nome_cientifico,	char new_sexo,
@@ -19,5 +28,9 @@ Anfibio::Anfibio(int new_id, string new_classe,
 	m_total_de_mudas = new_total_de_mudas;
 	m_ultima_muda = new_ultima_muda;
 }
+
+/**
+* @brief Destrutor da classe anfibio
+*/
 
 Anfibio::~Anfibio(){}
