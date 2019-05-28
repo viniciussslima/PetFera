@@ -21,8 +21,6 @@ $(BUILDDIR)Separador.o
 
 $(PROG): folder $(OBJS)
 	$(CC) -o $(PROG) $(OBJS) $(LDFLAGS)
-	mv $(PROG) $(BINDIR)
-	mv $(OBJS) $(BUILDDIR)
 folder :
 	mkdir -p $(BINDIR)
 	mkdir -p $(BUILDDIR)
