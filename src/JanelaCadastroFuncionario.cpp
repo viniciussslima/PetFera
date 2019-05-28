@@ -94,16 +94,16 @@ JanelaCadastroFuncionario::JanelaCadastroFuncionario(JanelaPrincipal &jptemp, ma
 	box_esquerda->add(*label_crmv);
 	box_esquerda->add(*label_nivel_de_seguranca);
 	
-	box_direita->add(*entry_id);
-	box_direita->add(*combo_box_fucao);
-	box_direita->add(*entry_nome_do_funcionario);
-	box_direita->add(*entry_cpf);
-	box_direita->add(*entry_idade);
-	box_direita->add(*combo_box_tipo_sanguineo);
-	box_direita->add(*combo_box_rh);
-	box_direita->add(*entry_especialidade);
-	box_direita->add(*entry_crmv);
-	box_direita->add(*combo_box_nivel_de_seguranca);
+	box_direita->pack_start(*entry_id, PACK_SHRINK);
+	box_direita->pack_start(*combo_box_fucao, PACK_SHRINK);
+	box_direita->pack_start(*entry_nome_do_funcionario, PACK_SHRINK);
+	box_direita->pack_start(*entry_cpf, PACK_SHRINK);
+	box_direita->pack_start(*entry_idade, PACK_SHRINK);
+	box_direita->pack_start(*combo_box_tipo_sanguineo, PACK_SHRINK);
+	box_direita->pack_start(*combo_box_rh, PACK_SHRINK);
+	box_direita->pack_start(*entry_especialidade, PACK_SHRINK);
+	box_direita->pack_start(*entry_crmv, PACK_SHRINK);
+	box_direita->pack_start(*combo_box_nivel_de_seguranca, PACK_SHRINK);
 
 	//Conexão
 	button_cadastrar->signal_clicked().connect(sigc::mem_fun(*this, &JanelaCadastroFuncionario::Cadastrar));
