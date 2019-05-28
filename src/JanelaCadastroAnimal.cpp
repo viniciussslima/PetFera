@@ -1,5 +1,6 @@
 #include <fstream>
 #include <string>
+#include <exception> 
 #include "JanelaCadastroAnimal.h"
 
 using namespace Gtk;
@@ -236,131 +237,44 @@ void JanelaCadastroAnimal::Cadastrar()
 {
 	bool valid_dados = false;
 
-	if(!check_button_tratador_incluso->get_active())
-		valid_tratador_id = true;
-	if(!check_button_veterinario_incluso->get_active())
-		valid_veterinario_id = true;
-
-	if(!entry_id->get_text().empty() && !entry_tamanho->get_text().empty() &&
-	   !entry_dieta->get_text().empty() && !entry_nome_batismo->get_text().empty() &&
-	   !entry_autorizacao_ibama->get_text().empty())
-	{
-		switch(combo_box_classe->get_active_row_number())
-		{
-			case 0:
-			{
-				//anfibio
-				if(!entry_total_de_mudas->get_text().empty() && !entry_data_da_ultima_muda->get_text().empty())
-				{
-					switch(combo_box_regiao->get_active_row_number())
-					{
-						case 0:
-						{
-							if(!entry_uf->get_text().empty())
-								valid_dados = true;
-							break;
-						}
-						case 1:
-						{
-							if(!entry_nacionalidade->get_text().empty())
-								valid_dados = true;
-							break;
-						}
-					}
-				}
-				break;
-			}
-			case 1:
-			{
-				//aves
-				if(!entry_tamanho_do_bico->get_text().empty() && !entry_envergadura_das_asas->get_text().empty())
-				{
-					switch(combo_box_regiao->get_active_row_number())
-					{
-						case 0:
-						{
-							if(!entry_uf->get_text().empty())
-								valid_dados = true;
-							break;
-						}
-						case 1:
-						{
-							if(!entry_nacionalidade->get_text().empty())
-								valid_dados = true;
-							break;
-						}
-					}
-				}
-				break;
-			}
-			case 2:
-			{
-				//mamifero
-				if(!entry_cor_dos_pelos->get_text().empty())
-				{
-					switch(combo_box_regiao->get_active_row_number())
-					{
-						case 0:
-						{
-							if(!entry_uf->get_text().empty())
-								valid_dados = true;
-							break;
-						}
-						case 1:
-						{
-							if(!entry_nacionalidade->get_text().empty())
-								valid_dados = true;
-							break;
-						}
-					}
-				}
-				break;
-			}
-			case 3:
-			{
-				//reptil
-				if(check_button_venenoso->get_active() ? !entry_tipo_de_veneno->get_text().empty() : true)
-				{
-					switch(combo_box_regiao->get_active_row_number())
-					{
-						case 0:
-						{
-							if(!entry_uf->get_text().empty())
-								valid_dados = true;
-							break;
-						}
-						case 1:
-						{
-							if(!entry_nacionalidade->get_text().empty())
-								valid_dados = true;
-							break;
-						}
-					}
-				}
-				break;
-			}
-		}
-	}
-
+	int id;
+	string classe;
+	string nome_cientifico;
+	char sexo;
+	double tamanho;
+	string dieta;
+	Veterinario veterinario;
+	Tratador tratador;
+	string nome_batismo;
+	string autorizacao_ibama;
+	string nacionalidade;
 	
+	try
+	{
+		id = stoi(entry_id->get_text());
+		classe = combo_box_classe->get_active_text(); 
+		for(unsigned int i = 0; i < classe.length(); i++)
+			classe[i] = toupper(classe[i]);
+		nome_cientifico = entry_nome_cientifico->get_text();
+		sexo = combo_box_sexo->get_active_text()[0];
+		tamanho = stod(entry_tamanho->get_text());
+		dieta = entry_dieta->get_text();
+		veterinario = check_button_veterinario_incluso->get_active() ? (veterinarios->find(id))->second : veterinarios->begin()->second;
+		tratador = check_button_tratador_incluso->get_active() ? (tratadores->find(id))->second : tratadores->begin()->second;
+		nome_batismo = entry_nome_batismo->get_text();
+		autorizacao_ibama = entry_autorizacao_ibama->get_text();
+		nacionalidade = combo_box_regiao->get_active_row_number() == 0 ? entry_uf->get_text() : entry_nacionalidade->get_text();
+		throw exception();
+	}
+	catch(exception& ex)
+	{
+		valid_dados = false;
+	}	
 
-	if(valid_id && valid_tratador_id && valid_veterinario_id && valid_dados)
+	if(valid_dados)
 	{
 		ofstream outfile;
 		outfile.open("Dados/animais.csv", ios::app);
-		int id = stoi(entry_id->get_text());
-		string classe = combo_box_classe->get_active_text(); 
-		for(unsigned int i = 0; i < classe.length(); i++)
-			classe[i] = toupper(classe[i]);
-		string nome_cientifico = entry_nome_cientifico->get_text();
-		char sexo = combo_box_sexo->get_active_text()[0];
-		double tamanho = stod(entry_tamanho->get_text());
-		string dieta = entry_dieta->get_text();
-		Veterinario veterinario = check_button_veterinario_incluso->get_active() ? (veterinarios->find(id))->second : veterinarios->begin()->second;
-		Tratador tratador = check_button_tratador_incluso->get_active() ? (tratadores->find(id))->second : tratadores->begin()->second;
-		string nome_batismo = entry_nome_batismo->get_text();
-		string autorizacao_ibama = entry_autorizacao_ibama->get_text();
-		string nacionalidade = combo_box_regiao->get_active_row_number() == 0 ? entry_uf->get_text() : entry_nacionalidade->get_text();
 
 		switch(combo_box_classe->get_active_row_number())
 		{
@@ -508,33 +422,12 @@ void JanelaCadastroAnimal::Cadastrar()
 			}
 		}
 	}
-
-	if(!valid_id)
-	{
-		MessageDialog dialog(*window, "ID inválido.");
-		dialog.set_secondary_text("Nenhum ID foi apresentado ou foi encontrado um animal com o ID apresentado, animais não podem ter IDs iguais.");
-  		dialog.run();
-	}	
-	if(!valid_tratador_id)
-	{
-		MessageDialog dialog(*window, "ID do tratador inválido.");
-		dialog.set_secondary_text("Nenhum ID foi apresentado ou não foi encontrado um tratador com o ID apresentado");
-  		dialog.run();
-	}
-	if(!valid_veterinario_id)
-	{
-		MessageDialog dialog(*window, "ID do veterinário inválido.");
-		dialog.set_secondary_text("Nenhum ID foi apresentado ou não foi encontrado um veterinário com o ID apresentado");
-  		dialog.run();
-	}
-	if(!valid_dados)
+	else
 	{
 		MessageDialog dialog(*window, "Dado(s) inválido(s).");
 		dialog.set_secondary_text("Falta preencher um ou mais dados.");
   		dialog.run();
 	}
-	
-	window->close();
 }
 
 /*
