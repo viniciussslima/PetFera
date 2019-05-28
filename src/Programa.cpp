@@ -881,6 +881,7 @@ void Programa::Consultar_funcionario()
 	int i;
 	string linha;
 	ifstream Ler_B;
+	vector<string> palavra;
 
 	cout <<"(1) ver um funcionario especifico" <<"-- (2) ver todos os funcionarios" << endl;
 
@@ -918,7 +919,25 @@ void Programa::Consultar_funcionario()
 			Ler_B.open("../Dados/funcionarios.csv");
 			if(Ler_B.is_open()){
 				while(getline(Ler_B,linha)){
-					cout << linha << endl;
+					Separador_csv(linha,palavra);
+					if(palavra[1].compare("VETERINARIO") == 0){
+
+					cout << "Nome:(" << palavra[2] <<")"<< endl
+					 <<"ID: "<<palavra [0]<< " / função: " << palavra[1]<<endl 
+					 <<"CPF: " <<palavra[3] <<" / idade: " << palavra[4]<<endl
+					 <<"Tipo sanguineo: " <<palavra[5] <<" / RH: " <<palavra[6]<< endl
+					 <<"especialidade: " << palavra[7] <<" / crmv: " <<palavra[8]<<endl;
+					 cout <<"-----------------------------" <<endl;
+					}
+					if(palavra[1].compare("TRATADOR") == 0)
+					{
+						cout << "Nome:(" << palavra[2] <<")"<< endl
+					 <<"ID: "<<palavra [0]<< " / função: " << palavra[1]<<endl 
+					 <<"CPF: " <<palavra[3] <<" / idade: " << palavra[4]<<endl
+					 <<"Tipo sanguineo: " <<palavra[5] <<" / RH: " <<palavra[6]<< endl
+					 <<"especialidade: " << palavra[7] <<" / nivel De Segurança: " <<palavra[8]<<endl;
+					 cout <<"-----------------------------" <<endl;
+					}
 				}
 				Ler_B.close();
 
