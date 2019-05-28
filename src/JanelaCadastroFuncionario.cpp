@@ -55,7 +55,9 @@ JanelaCadastroFuncionario::JanelaCadastroFuncionario(JanelaPrincipal &jptemp, ma
 	pixbuf_uncheck = Gdk::Pixbuf::create_from_file("icons/uncheck.ico");
 
 	entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+	entry_id->set_icon_tooltip_text("ID válido");
 	entry_cpf->set_icon_from_pixbuf(pixbuf_uncheck);
+	entry_cpf->set_icon_tooltip_text("CPF inválido");
 
 	combo_box_fucao->append("Veterinario");
 	combo_box_fucao->append("Tratador");
@@ -293,17 +295,20 @@ void JanelaCadastroFuncionario::AtualizarIconeId()
 		{
 			valid_id = false;
 			entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+			entry_id->set_icon_tooltip_text("Algum outro funcionário já possui esse ID");
 		}
 		else
 		{
 			valid_id = true;
 			entry_id->set_icon_from_pixbuf(pixbuf_check);
+			entry_id->set_icon_tooltip_text("ID válido");
 		}
 	}
 	else
 	{
 		valid_id = false;
 		entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+		entry_id->set_icon_tooltip_text("ID inválido");
 	}
 	
 }
@@ -349,16 +354,19 @@ void JanelaCadastroFuncionario::AtualizarIconeCPF()
 		{
 			valid_cpf = true;
 			entry_cpf->set_icon_from_pixbuf(pixbuf_check);
+			entry_cpf->set_icon_tooltip_text("CPF válido");
 		}
 		else
 		{
 			valid_cpf = false;
 			entry_cpf->set_icon_from_pixbuf(pixbuf_uncheck);
+			entry_cpf->set_icon_tooltip_text("CPF inválido");
 		}
 	}
 	else
 	{
 		valid_cpf = false;
 		entry_cpf->set_icon_from_pixbuf(pixbuf_uncheck);
+		entry_cpf->set_icon_tooltip_text("CPF inválido");
 	}
 }

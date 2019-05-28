@@ -99,8 +99,11 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 	pixbuf_uncheck = Gdk::Pixbuf::create_from_file("icons/uncheck.ico");
 
 	entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+	entry_id->set_icon_tooltip_text("ID inválido");
 	entry_veterinario_id->set_icon_from_pixbuf(pixbuf_uncheck);
+	entry_veterinario_id->set_icon_tooltip_text("ID inválido");
 	entry_tratador_id->set_icon_from_pixbuf(pixbuf_uncheck);
+	entry_tratador_id->set_icon_tooltip_text("ID inválido");
 
 	combo_box_classe->append("Amphibia");
 	combo_box_classe->append("Aves");
@@ -716,17 +719,20 @@ void JanelaCadastroAnimal::AtualizarIconeId()
 		{
 			valid_id = false;
 			entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+			entry_id->set_icon_tooltip_text("Algum outro animal já possui esse ID");
 		}
 		else
 		{
 			valid_id = true;
 			entry_id->set_icon_from_pixbuf(pixbuf_check);
+			entry_id->set_icon_tooltip_text("ID válido");
 		}
 	}
 	else
 	{
 		valid_id = false;
 		entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+		entry_id->set_icon_tooltip_text("ID inválido");
 	}
 }
 
@@ -751,17 +757,20 @@ void JanelaCadastroAnimal::AtualizarIconeTratadorId()
 		{
 			valid_tratador_id = true;
 			entry_tratador_id->set_icon_from_pixbuf(pixbuf_check);
+			entry_tratador_id->set_icon_tooltip_text("ID válido");
 		}
 		else
 		{
 			valid_tratador_id = false;
 			entry_tratador_id->set_icon_from_pixbuf(pixbuf_uncheck);
+			entry_tratador_id->set_icon_tooltip_text("Nenhum tratador possui esse ID");
 		}
 	}
 	else
 	{
 		valid_tratador_id = false;
 		entry_tratador_id->set_icon_from_pixbuf(pixbuf_uncheck);
+		entry_tratador_id->set_icon_tooltip_text("ID inválido");
 	}
 }
 
@@ -786,16 +795,19 @@ void JanelaCadastroAnimal::AtualizarIconeVeterinarioId()
 		{
 			valid_veterinario_id = true;
 			entry_veterinario_id->set_icon_from_pixbuf(pixbuf_check);
+			entry_veterinario_id->set_icon_tooltip_text("ID válido");
 		}
 		else
 		{
 			valid_veterinario_id = false;
 			entry_veterinario_id->set_icon_from_pixbuf(pixbuf_uncheck);
+			entry_veterinario_id->set_icon_tooltip_text("Nenhum veterinário possui esse ID");
 		}
 	}
 	else
 	{
 		valid_veterinario_id = false;
 		entry_veterinario_id->set_icon_from_pixbuf(pixbuf_uncheck);
+		entry_veterinario_id->set_icon_tooltip_text("ID inválido");
 	}
 }
