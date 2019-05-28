@@ -43,6 +43,7 @@ JanelaRemocaoAnimal::JanelaRemocaoAnimal(JanelaPrincipal &jptemp, map<int, Anfib
 	pixbuf_uncheck = Gdk::Pixbuf::create_from_file("icons/uncheck.ico");
 
 	entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+	entry_id->set_icon_tooltip_text("ID inválido");
 
 	box_principal->add(*box_dados);
 	box_principal->pack_start(*button_confirmar, PACK_SHRINK);
@@ -197,16 +198,19 @@ void JanelaRemocaoAnimal::AtualizarIconeId()
 		{
 			valid_id = true;
 			entry_id->set_icon_from_pixbuf(pixbuf_check);
+			entry_id->set_icon_tooltip_text("ID válido");
 		}
 		else
 		{
 			valid_id = false;
 			entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+			entry_id->set_icon_tooltip_text("Não foi encontrado nenhum animal com esse ID");
 		}
 	}
 	else
 	{
 		valid_id = false;
 		entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+		entry_id->set_icon_tooltip_text("ID inválido");
 	}
 }

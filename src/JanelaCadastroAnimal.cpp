@@ -100,8 +100,11 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 	pixbuf_uncheck = Gdk::Pixbuf::create_from_file("icons/uncheck.ico");
 
 	entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+	entry_id->set_icon_tooltip_text("ID inválido");
 	entry_veterinario_id->set_icon_from_pixbuf(pixbuf_uncheck);
+	entry_veterinario_id->set_icon_tooltip_text("ID inválido");
 	entry_tratador_id->set_icon_from_pixbuf(pixbuf_uncheck);
+	entry_tratador_id->set_icon_tooltip_text("ID inválido");
 
 	combo_box_classe->append("Amphibia");
 	combo_box_classe->append("Aves");
@@ -146,29 +149,29 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 	box_esquerda->add(*label_nacionalidade);
 	box_esquerda->add(*label_uf);
 	
-	box_direita->add(*entry_id);
-	box_direita->add(*combo_box_classe);
-	box_direita->add(*entry_nome_cientifico);
-	box_direita->add(*combo_box_sexo);
-	box_direita->add(*entry_tamanho);
-	box_direita->add(*entry_dieta);
-	box_direita->add(*check_button_veterinario_incluso);
-	box_direita->add(*entry_veterinario_id);
-	box_direita->add(*check_button_tratador_incluso);
-	box_direita->add(*entry_tratador_id);
-	box_direita->add(*entry_nome_batismo);
-	box_direita->add(*entry_total_de_mudas);
-	box_direita->add(*entry_data_da_ultima_muda);
-	box_direita->add(*entry_tamanho_do_bico);
-	box_direita->add(*entry_envergadura_das_asas);
-	box_direita->add(*entry_cor_dos_pelos);
-	box_direita->add(*check_button_venenoso);
-	box_direita->add(*entry_tipo_de_veneno);
+	box_direita->pack_start(*entry_id, PACK_SHRINK);
+	box_direita->pack_start(*combo_box_classe, PACK_SHRINK);
+	box_direita->pack_start(*entry_nome_cientifico, PACK_SHRINK);
+	box_direita->pack_start(*combo_box_sexo, PACK_SHRINK);
+	box_direita->pack_start(*entry_tamanho, PACK_SHRINK);
+	box_direita->pack_start(*entry_dieta, PACK_SHRINK);
+	box_direita->pack_start(*check_button_veterinario_incluso, PACK_SHRINK);
+	box_direita->pack_start(*entry_veterinario_id, PACK_SHRINK);
+	box_direita->pack_start(*check_button_tratador_incluso, PACK_SHRINK);
+	box_direita->pack_start(*entry_tratador_id, PACK_SHRINK);
+	box_direita->pack_start(*entry_nome_batismo, PACK_SHRINK);
+	box_direita->pack_start(*entry_total_de_mudas, PACK_SHRINK);
+	box_direita->pack_start(*entry_data_da_ultima_muda, PACK_SHRINK);
+	box_direita->pack_start(*entry_tamanho_do_bico, PACK_SHRINK);
+	box_direita->pack_start(*entry_envergadura_das_asas, PACK_SHRINK);
+	box_direita->pack_start(*entry_cor_dos_pelos, PACK_SHRINK);
+	box_direita->pack_start(*check_button_venenoso, PACK_SHRINK);
+	box_direita->pack_start(*entry_tipo_de_veneno, PACK_SHRINK);
 
-	box_direita->add(*entry_autorizacao_ibama);
-	box_direita->add(*combo_box_regiao);
-	box_direita->add(*entry_nacionalidade);
-	box_direita->add(*entry_uf);
+	box_direita->pack_start(*entry_autorizacao_ibama, PACK_SHRINK);
+	box_direita->pack_start(*combo_box_regiao, PACK_SHRINK);
+	box_direita->pack_start(*entry_nacionalidade, PACK_SHRINK);
+	box_direita->pack_start(*entry_uf, PACK_SHRINK);
 
 	//Conexão
 	button_cadastrar->signal_clicked().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::Cadastrar));
@@ -609,17 +612,20 @@ void JanelaCadastroAnimal::AtualizarIconeId()
 		{
 			valid_id = false;
 			entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+			entry_id->set_icon_tooltip_text("Algum outro animal já possui esse ID");
 		}
 		else
 		{
 			valid_id = true;
 			entry_id->set_icon_from_pixbuf(pixbuf_check);
+			entry_id->set_icon_tooltip_text("ID válido");
 		}
 	}
 	else
 	{
 		valid_id = false;
 		entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+		entry_id->set_icon_tooltip_text("ID inválido");
 	}
 }
 
@@ -644,17 +650,20 @@ void JanelaCadastroAnimal::AtualizarIconeTratadorId()
 		{
 			valid_tratador_id = true;
 			entry_tratador_id->set_icon_from_pixbuf(pixbuf_check);
+			entry_tratador_id->set_icon_tooltip_text("ID válido");
 		}
 		else
 		{
 			valid_tratador_id = false;
 			entry_tratador_id->set_icon_from_pixbuf(pixbuf_uncheck);
+			entry_tratador_id->set_icon_tooltip_text("Nenhum tratador possui esse ID");
 		}
 	}
 	else
 	{
 		valid_tratador_id = false;
 		entry_tratador_id->set_icon_from_pixbuf(pixbuf_uncheck);
+		entry_tratador_id->set_icon_tooltip_text("ID inválido");
 	}
 }
 
@@ -679,16 +688,19 @@ void JanelaCadastroAnimal::AtualizarIconeVeterinarioId()
 		{
 			valid_veterinario_id = true;
 			entry_veterinario_id->set_icon_from_pixbuf(pixbuf_check);
+			entry_veterinario_id->set_icon_tooltip_text("ID válido");
 		}
 		else
 		{
 			valid_veterinario_id = false;
 			entry_veterinario_id->set_icon_from_pixbuf(pixbuf_uncheck);
+			entry_veterinario_id->set_icon_tooltip_text("Nenhum veterinário possui esse ID");
 		}
 	}
 	else
 	{
 		valid_veterinario_id = false;
 		entry_veterinario_id->set_icon_from_pixbuf(pixbuf_uncheck);
+		entry_veterinario_id->set_icon_tooltip_text("ID inválido");
 	}
 }
