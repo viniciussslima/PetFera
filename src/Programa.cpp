@@ -729,7 +729,7 @@ void Programa::Cadastro_funcionario(int id)
 		}
 	}while(teste_id.compare("N/A") != 0);
 
-	cout << "Função: ";
+	cout << "(Veterinario/Tratador) Função: ";
 	cin >> funcao;
 	for (unsigned int i = 0; i < funcao.length(); i++) 
 		funcao[i] = toupper(funcao[i]);
@@ -738,16 +738,16 @@ void Programa::Cadastro_funcionario(int id)
 	cin.ignore();
 	getline(cin, nome_do_funcionario);
 
-	cout << "cpf: ";
+	cout << "(xxx.xxx.xxx-xx)cpf: ";
 	cin >> cpf;
 
 	cout << "Idade: ";
 	cin >> idade;
 
-	cout << "Tipo Sanguineo: ";
+	cout << "(A,B,O,AB)Tipo Sanguineo: ";
 	cin >> tipo_sanguineo;
 
-	cout << "rh: ";
+	cout << "(+ ou -)rh: ";
 	cin >> rh;
 
 	cout << "Especialidade: ";
@@ -756,7 +756,7 @@ void Programa::Cadastro_funcionario(int id)
 
 	if(funcao.compare("TRATADOR") == 0)
 	{
-		cout << "Nivel de Segurança: ";
+		cout << "(0,1,2,3)Nivel de Segurança: ";
 		cin >> nivel_de_seguranca;
 
 		Tratador tratador(id, nome_do_funcionario, cpf, idade, tipo_sanguineo, rh, especialidade, nivel_de_seguranca);
