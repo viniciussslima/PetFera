@@ -19,7 +19,7 @@ $(BUILDDIR)Ave.o $(BUILDDIR)AveNativo.o $(BUILDDIR)AveExotico.o \
 $(BUILDDIR)AnimalSilvestre.o $(BUILDDIR)AnimalNativo.o $(BUILDDIR)AnimalExotico.o \
 $(BUILDDIR)Separador.o
 
-$(PROG): folder $(OBJS)
+$(PROG): folder clean $(OBJS)
 	$(CC) -o $(PROG) $(OBJS) $(LDFLAGS)
 folder :
 	mkdir -p $(BINDIR)
