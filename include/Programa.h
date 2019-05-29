@@ -6,6 +6,8 @@
 #include <map>
 #include <vector>
 #include <fstream>
+#include <algorithm>
+
 
 #include "Veterinario.h"
 #include "Tratador.h"
