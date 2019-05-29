@@ -1,3 +1,7 @@
+/**
+* @file Funcionario.cpp
+*/
+
 #include "Funcionario.h"
 
 using namespace std;

@@ -2,9 +2,9 @@
 * @file main.cpp
 * @brief Progrma de cadastro de animais para a loja de animais silvestres Pet Fera.
 * @author
-* Hudson Bruno Macedo Alves
-* João Vitor Kobata
-* Vinicius Santos Silva de Lima
+* Hudson Bruno Macedo Alves,
+* João Vitor Kobata,
+* Vinicius Santos Silva de Lima.
 * @since 23/04/2019
 * @date 28/05/2019
 */

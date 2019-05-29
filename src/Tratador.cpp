@@ -1,3 +1,7 @@
+/**
+* @file Tratador.cpp
+*/
+
 #include "Funcionario.h"
 #include "Tratador.h"
 

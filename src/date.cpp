@@ -1,5 +1,7 @@
-// file: date.cpp
-// author: Bernt A Oedegaard.
+/**
+* @file date.cpp
+* @author Bernt A Oedegaard.
+*/
 #include "date.h"
 ///////////////////////////// construction //////////
 date::date(const int& d, const int& m, const int& y) {
@@ -143,8 +145,8 @@ inline long long_date(const date& d) {
 
 ostream& operator << (ostream& os, const date& d){
 	if (d.valid()) {
-	os << d.day() << " "
-		<< d.month() << " "
+	os << d.day() << "/"
+		<< d.month() << "/"
 		<< d.year();
 	}
 	else {

@@ -1,3 +1,7 @@
+/**
+* @file Animal.cpp
+*/
+
 #include "Animal.h"
 
 using namespace std;

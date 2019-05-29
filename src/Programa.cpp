@@ -1,7 +1,8 @@
+/**
+* @file Programa.cpp
+*/
+
 #include "Programa.h"
-#include <string>
-#include <fstream>
-#include <algorithm>
 
 using namespace std;
 
@@ -316,6 +317,7 @@ void Programa::Cadastro_animal(int id)
 	string autorizacao_ibama;
 	string nome_batismo;
 	string nacionalidade;
+	vector<string> dados;
 	ofstream outfile;
 
 	do{
@@ -441,13 +443,16 @@ void Programa::Cadastro_animal(int id)
 		if (classe.compare("AMPHIBIA") == 0)
 		{
 			int total_de_mudas;
-			date ultima_muda;
+			string data;
 
 			cout << "Total de mudas: ";
 			cin >> total_de_mudas;
-
+			
 			cout << "Data da ultima muda: ";
-			cin >> ultima_muda;
+			cin >> data;
+			Separador_data(teste, dados);
+			date ultima_muda(stoi(dados[0]), stoi(dados[1]), stoi(dados[2]));
+
 
 			AnfibioNativo anfibioNativo(id, classe, nome_cientifico,
 				sexo, tamanho, dieta, it_veterinario->second, 
@@ -545,13 +550,15 @@ void Programa::Cadastro_animal(int id)
 		if (classe.compare("AMPHIBIA") == 0)
 		{
 			int total_de_mudas;
-			date ultima_muda;
+			string data;
 
 			cout << "Total de mudas: ";
 			cin >> total_de_mudas;
-
+			
 			cout << "Data da ultima muda: ";
-			cin >> ultima_muda;
+			cin >> data;
+			Separador_data(teste, dados);
+			date ultima_muda(stoi(dados[0]), stoi(dados[1]), stoi(dados[2]));
 
 			AnfibioExotico anfibioExotico(id, classe, nome_cientifico,
 				sexo, tamanho, dieta, it_veterinario->second, 
@@ -1028,7 +1035,7 @@ void Programa::Separador_data(string data, vector<string> &dados)
     string palavras = "";
     for (string::iterator it = data.begin(); it != data.end(); it++)
     {
-        if (*it != ' ')
+        if (*it != '/')
         {
             palavras += *it;
         }
