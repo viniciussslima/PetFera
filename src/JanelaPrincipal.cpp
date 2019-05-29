@@ -61,8 +61,12 @@ JanelaPrincipal::JanelaPrincipal()
 			char sexo = palavras[3][0];
 			double tamanho = stod(palavras[4]);
 			string dieta = palavras[5];
-			Veterinario veterinario = veterinarios.find(stoi(palavras[6]))->second;
-			Tratador tratador = tratadores.find(stoi(palavras[7]))->second;
+			Veterinario veterinario;
+			if (stoi(palavras[6]) != 0)
+				veterinario = veterinarios.find(stoi(palavras[6]))->second;
+			Tratador tratador;
+			if (stoi(palavras[7]) != 0)
+				tratador = tratadores.find(stoi(palavras[7]))->second;
 			string nome_batismo = palavras[8];
 			string nacionalidade = palavras[palavras.size() - 1];
 

@@ -238,8 +238,7 @@ void JanelaCadastroAnimal::Run()
 
 void JanelaCadastroAnimal::Cadastrar()
 {
-	bool valid_dados = false;
-
+	bool valid_dados = true;
 	int id;
 	string classe;
 	string nome_cientifico;
@@ -262,16 +261,18 @@ void JanelaCadastroAnimal::Cadastrar()
 		sexo = combo_box_sexo->get_active_text()[0];
 		tamanho = stod(entry_tamanho->get_text());
 		dieta = entry_dieta->get_text();
-		veterinario = check_button_veterinario_incluso->get_active() ? (veterinarios->find(id))->second : veterinarios->begin()->second;
-		tratador = check_button_tratador_incluso->get_active() ? (tratadores->find(id))->second : tratadores->begin()->second;
+		veterinario = check_button_veterinario_incluso->get_active() ? (veterinarios->find(id))->second : Veterinario();
+		tratador = check_button_tratador_incluso->get_active() ? (tratadores->find(id))->second : Tratador();
 		nome_batismo = entry_nome_batismo->get_text();
 		autorizacao_ibama = entry_autorizacao_ibama->get_text();
 		nacionalidade = combo_box_regiao->get_active_row_number() == 0 ? entry_uf->get_text() : entry_nacionalidade->get_text();
-		throw exception();
 	}
-	catch(exception& ex)
+	catch(exception &ex)
 	{
 		valid_dados = false;
+		MessageDialog dialog(*window, "Dado(s) inválido(s).");
+		dialog.set_secondary_text("Falta preencher um ou mais dados.");
+  		dialog.run();
 	}	
 
 	if(valid_dados)
@@ -424,12 +425,7 @@ void JanelaCadastroAnimal::Cadastrar()
 				break;
 			}
 		}
-	}
-	else
-	{
-		MessageDialog dialog(*window, "Dado(s) inválido(s).");
-		dialog.set_secondary_text("Falta preencher um ou mais dados.");
-  		dialog.run();
+	window->close();
 	}
 }
 
