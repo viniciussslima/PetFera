@@ -271,7 +271,7 @@ void JanelaCadastroAnimal::Cadastrar()
 	{
 		valid_dados = false;
 		MessageDialog dialog(*window, "Dado(s) inválido(s).");
-		dialog.set_secondary_text("Falta preencher um ou mais dados.");
+		dialog.set_secondary_text("Falta preencher dado(s) ou existem dados incorretos.");
   		dialog.run();
 	}	
 
