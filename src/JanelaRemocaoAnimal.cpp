@@ -95,52 +95,52 @@ void JanelaRemocaoAnimal::Remover()
 				    {
 						if(palavras[palavras.size() - 1].length() == 2)
 						{
-							janela_principal->AtualizarLista(2);
 					    	anfibios_nativos->erase(id);
+							janela_principal->AtualizarLista(2);
 						}
 					    else
 					    {
-					    	janela_principal->AtualizarLista(3);
 					    	anfibios_exoticos->erase(id);
+					    	janela_principal->AtualizarLista(3);
 					    }
 				    }
 				    if(palavras[1].compare("AVES") == 0)
 				    {
 						if(palavras[palavras.size() - 1].length() == 2)
 						{
-							janela_principal->AtualizarLista(4);
 					    	aves_nativas->erase(id);
+							janela_principal->AtualizarLista(4);
 						}
 					    else
 					    {
-					    	janela_principal->AtualizarLista(5);
 					    	aves_exoticas->erase(id);
+					    	janela_principal->AtualizarLista(5);
 					    }
 				    }
 				    if(palavras[1].compare("MAMMALIA") == 0)
 				    {
 						if(palavras[palavras.size() - 1].length() == 2)
 						{
-							janela_principal->AtualizarLista(6);
 					    	mamiferos_nativos->erase(id);
+							janela_principal->AtualizarLista(6);
 						}
 					    else
 					    {
-					    	janela_principal->AtualizarLista(7);
 					    	mamiferos_exoticos->erase(id);
+					    	janela_principal->AtualizarLista(7);
 					    }
 				    }
 				    if(palavras[1].compare("REPTILIA") == 0)
 				    {
 						if(palavras[palavras.size() - 1].length() == 2)
 						{
-							janela_principal->AtualizarLista(8);
 					    	repteis_nativos->erase(id);
+							janela_principal->AtualizarLista(8);
 						}
 					    else
 					    {
-					    	janela_principal->AtualizarLista(9);
 					    	repteis_exoticos->erase(id);
+					    	janela_principal->AtualizarLista(9);
 					    }
 				    }
 				}
