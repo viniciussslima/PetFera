@@ -49,7 +49,7 @@ AnfibioExotico::AnfibioExotico(int new_id, string new_classe,
 AnfibioExotico::~AnfibioExotico(){}
 
 /**
-* @brief Função que imprime todas as informações do anfíbio na tela.
+* @brief Método que imprime todas as informações do anfíbio na tela.
 */
 
 void AnfibioExotico::Exibir_informacoes()
@@ -76,7 +76,7 @@ void AnfibioExotico::Exibir_informacoes()
 /**
 * @brief Sobrecarga do operador de extração.
 * @param o Parametro do tipo stream que recebe todas as informçãoes do anfíbio.
-* @param A Anfibio Exotico que vai ter todas as suas infomações passadas para a variavel o;
+* @param A Anfibio exótico que vai ter todas as suas infomações passadas para a variavel o;
 * @return Retorna a variavel o.
 */
 

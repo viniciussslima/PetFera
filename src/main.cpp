@@ -16,8 +16,8 @@
 using namespace std;
 
 /**
-* @brief Função principal
-* @details inicia o programa
+* @brief Função principal.
+* @details inicia o programa.
 */
 
 int main(void)
