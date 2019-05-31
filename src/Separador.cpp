@@ -28,7 +28,7 @@ vector<int> Separador_data(string data)
     string palavras = "";
     for (string::iterator it = data.begin(); it != data.end(); it++)
     {
-        if (*it != ' ')
+        if (*it != '/')
         {
             palavras += *it;
         }
