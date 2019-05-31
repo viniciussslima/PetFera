@@ -95,12 +95,12 @@ void JanelaRemocaoAnimal::Remover()
 				    {
 						if(palavras[palavras.size() - 1].length() == 2)
 						{
-							//janela_principal->AtualizarLista(2);
+							janela_principal->AtualizarLista(2);
 					    	anfibios_nativos->erase(id);
 						}
 					    else
 					    {
-					    	//janela_principal->AtualizarLista(3);
+					    	janela_principal->AtualizarLista(3);
 					    	anfibios_exoticos->erase(id);
 					    }
 				    }
@@ -108,12 +108,12 @@ void JanelaRemocaoAnimal::Remover()
 				    {
 						if(palavras[palavras.size() - 1].length() == 2)
 						{
-							//janela_principal->AtualizarLista(4);
+							janela_principal->AtualizarLista(4);
 					    	aves_nativas->erase(id);
 						}
 					    else
 					    {
-					    	//janela_principal->AtualizarLista(5);
+					    	janela_principal->AtualizarLista(5);
 					    	aves_exoticas->erase(id);
 					    }
 				    }
@@ -121,12 +121,12 @@ void JanelaRemocaoAnimal::Remover()
 				    {
 						if(palavras[palavras.size() - 1].length() == 2)
 						{
-							//janela_principal->AtualizarLista(6);
+							janela_principal->AtualizarLista(6);
 					    	mamiferos_nativos->erase(id);
 						}
 					    else
 					    {
-					    	//janela_principal->AtualizarLista(7);
+					    	janela_principal->AtualizarLista(7);
 					    	mamiferos_exoticos->erase(id);
 					    }
 				    }
@@ -134,12 +134,12 @@ void JanelaRemocaoAnimal::Remover()
 				    {
 						if(palavras[palavras.size() - 1].length() == 2)
 						{
-							//janela_principal->AtualizarLista(8);
+							janela_principal->AtualizarLista(8);
 					    	repteis_nativos->erase(id);
 						}
 					    else
 					    {
-					    	//janela_principal->AtualizarLista(9);
+					    	janela_principal->AtualizarLista(9);
 					    	repteis_exoticos->erase(id);
 					    }
 				    }

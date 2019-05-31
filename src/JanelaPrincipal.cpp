@@ -488,6 +488,7 @@ void JanelaPrincipal::AtualizarLista(int i)
 		case 0:
 		{
 			//tratadores
+			list_store_tratadores->clear();
 			for(map<int, Tratador>::iterator it = tratadores.begin(); it != tratadores.end(); it++)
 			{
 				row = *(list_store_tratadores->append());
@@ -507,6 +508,7 @@ void JanelaPrincipal::AtualizarLista(int i)
 		case 1:
 		{
 			//veterinarios
+			list_store_veterinarios->clear();
 			for(map<int, Veterinario>::iterator it = veterinarios.begin(); it != veterinarios.end(); it++)
 			{
 				row = *(list_store_veterinarios->append());
@@ -526,6 +528,7 @@ void JanelaPrincipal::AtualizarLista(int i)
 		case 2:
 		{
 			//anfibios nativos
+			list_store_anfibios_nativos->clear();
 			for(map<int, AnfibioNativo>::iterator it = anfibios_nativos.begin(); it != anfibios_nativos.end(); it++)
 			{
 				row = *(list_store_anfibios_nativos->append());
@@ -549,6 +552,7 @@ void JanelaPrincipal::AtualizarLista(int i)
 		case 3:
 		{
 			//anfibios exoticos
+			list_store_anfibios_exoticos->clear();
 			for(map<int, AnfibioExotico>::iterator it = anfibios_exoticos.begin(); it != anfibios_exoticos.end(); it++)
 			{
 				row = *(list_store_anfibios_exoticos->append());
@@ -572,6 +576,7 @@ void JanelaPrincipal::AtualizarLista(int i)
 		case 4:
 		{
 			//aves nativas
+			list_store_aves_nativas->clear();
 			for(map<int, AveNativo>::iterator it = aves_nativas.begin(); it != aves_nativas.end(); it++)
 			{
 				row = *(list_store_aves_nativas->append());
@@ -595,6 +600,7 @@ void JanelaPrincipal::AtualizarLista(int i)
 		case 5:
 		{
 			//aves exoticas
+			list_store_aves_exoticas->clear();
 			for(map<int, AveExotico>::iterator it = aves_exoticas.begin(); it != aves_exoticas.end(); it++)
 			{
 				row = *(list_store_aves_exoticas->append());
@@ -618,6 +624,7 @@ void JanelaPrincipal::AtualizarLista(int i)
 		case 6:
 		{
 			//mamiferos nativos
+			list_store_mamiferos_nativos->clear();
 			for(map<int, MamiferoNativo>::iterator it = mamiferos_nativos.begin(); it != mamiferos_nativos.end(); it++)
 			{
 				row = *(list_store_mamiferos_nativos->append());
@@ -640,6 +647,7 @@ void JanelaPrincipal::AtualizarLista(int i)
 		case 7:
 		{
 			//mamiferos exoticos
+			list_store_mamiferos_exoticos->clear();
 			for(map<int, MamiferoExotico>::iterator it = mamiferos_exoticos.begin(); it != mamiferos_exoticos.end(); it++)
 			{
 				row = *(list_store_mamiferos_exoticos->append());
@@ -662,6 +670,7 @@ void JanelaPrincipal::AtualizarLista(int i)
 		case 8:
 		{
 			//repteis nativos
+			list_store_repteis_nativos->clear();
 			for(map<int, ReptilNativo>::iterator it = repteis_nativos.begin(); it != repteis_nativos.end(); it++)
 			{
 				row = *(list_store_repteis_nativos->append());
@@ -684,6 +693,7 @@ void JanelaPrincipal::AtualizarLista(int i)
 		case 9:
 		{
 			//repteis exoticos
+			list_store_repteis_exoticos->clear();
 			for(map<int, ReptilExotico>::iterator it = repteis_exoticos.begin(); it != repteis_exoticos.end(); it++)
 			{
 				row = *(list_store_repteis_exoticos->append());

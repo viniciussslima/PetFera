@@ -91,12 +91,12 @@ void JanelaRemocaoFuncionario::Remover()
 				{
 					if(palavras[1].compare("TRATADOR") == 0)
 					{
-						//janela_principal->AtualizarLista(0);
+						janela_principal->AtualizarLista(0);
 						tratadores->erase(id);
 					}
 					else
 					{
-						//janela_principal->AtualizarLista(1);
+						janela_principal->AtualizarLista(1);
 						veterinarios->erase(id);
 					}
 				}

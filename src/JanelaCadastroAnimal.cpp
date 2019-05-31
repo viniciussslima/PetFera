@@ -261,8 +261,8 @@ void JanelaCadastroAnimal::Cadastrar()
 		sexo = combo_box_sexo->get_active_text()[0];
 		tamanho = stod(entry_tamanho->get_text());
 		dieta = entry_dieta->get_text();
-		veterinario = check_button_veterinario_incluso->get_active() ? (veterinarios->find(id))->second : Veterinario();
-		tratador = check_button_tratador_incluso->get_active() ? (tratadores->find(id))->second : Tratador();
+		veterinario = check_button_veterinario_incluso->get_active() ? (veterinarios->find(stoi(entry_veterinario_id->get_text())))->second : Veterinario();
+		tratador = check_button_tratador_incluso->get_active() ? (tratadores->find(stoi(entry_tratador_id->get_text())))->second : Tratador();
 		nome_batismo = entry_nome_batismo->get_text();
 		autorizacao_ibama = entry_autorizacao_ibama->get_text();
 		nacionalidade = combo_box_regiao->get_active_row_number() == 0 ? entry_uf->get_text() : entry_nacionalidade->get_text();
@@ -301,7 +301,7 @@ void JanelaCadastroAnimal::Cadastrar()
 
 						outfile << temp << endl;
 						anfibios_nativos->insert(pair<int, AnfibioNativo>(id, temp));
-						//janela_principal->AtualizarLista(2);
+						janela_principal->AtualizarLista(2);
 						break;
 					}
 					case 1:
@@ -318,7 +318,7 @@ void JanelaCadastroAnimal::Cadastrar()
 
 						outfile << temp << endl;
 						anfibios_exoticos->insert(pair<int, AnfibioExotico>(id, temp));
-						//janela_principal->AtualizarLista(3);
+						janela_principal->AtualizarLista(3);
 						break;
 					}
 				}
@@ -339,7 +339,7 @@ void JanelaCadastroAnimal::Cadastrar()
 
 						outfile << temp << endl;
 						aves_nativas->insert(pair<int, AveNativo>(id, temp));
-						//janela_principal->AtualizarLista(4);
+						janela_principal->AtualizarLista(4);
 						break;
 					}
 					case 1:
@@ -352,7 +352,7 @@ void JanelaCadastroAnimal::Cadastrar()
 
 						outfile << temp << endl;
 						aves_exoticas->insert(pair<int, AveExotico>(id, temp));
-						//janela_principal->AtualizarLista(5);
+						janela_principal->AtualizarLista(5);
 						break;
 					}
 				}
@@ -372,7 +372,7 @@ void JanelaCadastroAnimal::Cadastrar()
 
 						outfile << temp << endl;
 						mamiferos_nativos->insert(pair<int, MamiferoNativo>(id, temp));
-						//janela_principal->AtualizarLista(6);
+						janela_principal->AtualizarLista(6);
 						break;
 					}
 					case 1:
@@ -384,7 +384,7 @@ void JanelaCadastroAnimal::Cadastrar()
 
 						outfile << temp << endl;
 						mamiferos_exoticos->insert(pair<int, MamiferoExotico>(id, temp));
-						//janela_principal->AtualizarLista(7);
+						janela_principal->AtualizarLista(7);
 						break;
 					}
 				}
@@ -405,7 +405,7 @@ void JanelaCadastroAnimal::Cadastrar()
 
 						outfile << temp << endl;
 						repteis_nativos->insert(pair<int, ReptilNativo>(id, temp));
-						//janela_principal->AtualizarLista(8);
+						janela_principal->AtualizarLista(8);
 						break;
 					}
 					case 1:
@@ -418,7 +418,7 @@ void JanelaCadastroAnimal::Cadastrar()
 
 						outfile << temp << endl;
 						repteis_exoticos->insert(pair<int, ReptilExotico>(id, temp));
-						//janela_principal->AtualizarLista(9);
+						janela_principal->AtualizarLista(9);
 						break;
 					}
 				}
