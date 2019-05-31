@@ -94,6 +94,7 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 
 	//Configuração
 	window->set_title("Cadastrar Animal");
+	window->set_resizable(false);
 	window->add(*box_principal);
 
 	pixbuf_check = Gdk::Pixbuf::create_from_file("icons/check.ico");

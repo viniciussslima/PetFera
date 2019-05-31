@@ -22,6 +22,7 @@ JanelaRemocaoFuncionario::JanelaRemocaoFuncionario(JanelaPrincipal &jptemp, map<
 
 	//Configuração
 	window->set_title("Remover Funcionário");
+	window->set_resizable(false);
 	window->add(*box_principal);
 
 	pixbuf_check = Gdk::Pixbuf::create_from_file("icons/check.ico");

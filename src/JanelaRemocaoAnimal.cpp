@@ -37,6 +37,7 @@ JanelaRemocaoAnimal::JanelaRemocaoAnimal(JanelaPrincipal &jptemp, map<int, Anfib
 
 	//Configuração
 	window->set_title("Remover Animal");
+	window->set_resizable(false);
 	window->add(*box_principal);
 
 	pixbuf_check = Gdk::Pixbuf::create_from_file("icons/check.ico");
