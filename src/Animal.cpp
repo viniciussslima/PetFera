@@ -20,7 +20,7 @@ Animal::Animal(){}
 * @param new_sexo Carácter que representa o sexo do animal (F, M). 
 * @param new_tamanho Número que representa o tamanho do animal. 
 * @param new_dieta Palavra(s) que representa a dieta do animal. 
-* @param new_veterinario Veterinário responsável pelo animal. 
+* @param new_veterinario Veterinario responsável pelo animal. 
 * @param new_tratador Tratador responsável pelo animal. 
 * @param new_nome_batismo Palavra(s) que representam o nome de batismo do animal. 
 */

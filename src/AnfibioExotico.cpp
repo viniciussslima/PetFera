@@ -18,7 +18,7 @@ AnfibioExotico::AnfibioExotico(){}
 * @param new_sexo Carácter que representa o sexo do anfíbio (F, M). 
 * @param new_tamanho Número que representa o tamanho do anfíbio. 
 * @param new_dieta Palavra(s) que representa a dieta do anfíbio. 
-* @param new_veterinario Veterinário responsável pelo anfíbio. 
+* @param new_veterinario Veterinario responsável pelo anfíbio. 
 * @param new_tratador Tratador responsável pelo anfíbio. 
 * @param new_nome_batismo Palavra(s) que representam o nome de batismo do anfíbio. 
 * @param new_total_de_mudas Número que representa a quantidade de vezes que o anfíbio trocou de pele. 
@@ -62,12 +62,12 @@ void AnfibioExotico::Exibir_informacoes()
 		<< "Tamanho: " << m_tamanho << endl
 		<< "Dieta: " << m_dieta << endl;
 		if (m_veterinario.getId() != 0)
-			cout << "Id do veterinario" << m_veterinario.getId() << endl;
+			cout << "Id do veterinario: " << m_veterinario.getId() << endl;
 		if (m_tratador.getId() != 0)
-			cout << "Id do tratador" << m_tratador.getId() << endl;
+			cout << "Id do tratador: " << m_tratador.getId() << endl;
 	cout << "Nome batismo: " << m_nome_batismo << endl
-		<< "Total de mudas" << m_total_de_mudas << endl
-		<< "Data da ultima muda" << m_ultima_muda << endl
+		<< "Total de mudas: " << m_total_de_mudas << endl
+		<< "Data da ultima muda: " << m_ultima_muda << endl
 		<< "Autorizacao ibama: " << m_autorizacao_ibama << endl
 		<< "Pais de origem: " << m_pais_origem << endl
 		<< endl;
@@ -77,7 +77,7 @@ void AnfibioExotico::Exibir_informacoes()
 * @brief Sobrecarga do operador de extração.
 * @param o Parametro do tipo stream que recebe todas as informçãoes do anfíbio.
 * @param A Anfibio exótico que vai ter todas as suas infomações passadas para a variavel o;
-* @return Retorna a variavel o.
+* @return Retorna todas as infomações do anfibio exótico em forma de stream.
 */
 
 ostream& operator<<(ostream &o, AnfibioExotico A)
