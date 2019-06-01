@@ -450,7 +450,7 @@ void Programa::Cadastro_animal(int id)
 			
 			cout << "Data da ultima muda: ";
 			cin >> data;
-			Separador_data(teste, dados);
+			Separador_data(data, dados);
 			date ultima_muda(stoi(dados[0]), stoi(dados[1]), stoi(dados[2]));
 
 
@@ -557,7 +557,7 @@ void Programa::Cadastro_animal(int id)
 			
 			cout << "Data da ultima muda: ";
 			cin >> data;
-			Separador_data(teste, dados);
+			Separador_data(data, dados);
 			date ultima_muda(stoi(dados[0]), stoi(dados[1]), stoi(dados[2]));
 
 			AnfibioExotico anfibioExotico(id, classe, nome_cientifico,
