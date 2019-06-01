@@ -6,10 +6,18 @@
 
 using namespace std;
 
+/**
+* @brief Construtor padrão da classe Programa.
+*/
+
 Programa::Programa()
 {
 	loop = true;
 }
+
+/**
+* @brief Método que inicia o programa e mostra o menu.
+*/
 
 void Programa::Run()
 {
@@ -18,12 +26,12 @@ void Programa::Run()
 	while(loop)
 	{
 		cout << "Digite um numero comrespondente: " << endl  
-			<< "[1] Cadastro de um animal" << endl //Vinicius
-			<< "[2] Remoção de um animal" << endl //Hudson
-			<< "[3] Cadastro de um funcionario" << endl //Hudson
-			<< "[4] Remoção de um funcionario" << endl //Kobata
-			<< "[5] Consulta de dados de um animal" << endl //Vinicius
-			<< "[6] Consulta de dados de funcionario" << endl //Kobata
+			<< "[1] Cadastro de um animal" << endl
+			<< "[2] Remoção de um animal" << endl
+			<< "[3] Cadastro de um funcionario" << endl
+			<< "[4] Remoção de um funcionario" << endl
+			<< "[5] Consulta de dados de um animal" << endl
+			<< "[6] Consulta de dados de funcionario" << endl
 			<< "[7] Modificar dados" << endl
 			<< "[8] Sair" << endl;
 		cin >> escolha;
@@ -60,6 +68,10 @@ void Programa::Run()
 		}
 	}
 }
+
+/**
+* @brief Método que tranfere todas as informções nos arquivos csv para a maps.
+*/
 
 void Programa::Carregar()
 {
@@ -299,6 +311,11 @@ void Programa::Carregar()
 		infile.close();
 	}
 }
+
+/**
+* @brief Método que cadatra animais.
+* @param id Numero que representa o ID do animal que vai ser cadastrado, por padrão o ID é igual a zero.
+*/
 
 void Programa::Cadastro_animal(int id)
 {
@@ -708,6 +725,11 @@ void Programa::Remocao_animal(int id)
     }
 }
 
+/**
+* @brief Método que cadatra funcionários.
+* @param id Numero que representa o ID do funcionário que vai ser cadastrado, por padrão o ID é igual a zero.
+*/
+
 void Programa::Cadastro_funcionario(int id)
 {
 	string funcao;
@@ -783,6 +805,11 @@ void Programa::Cadastro_funcionario(int id)
 	}
 }
 
+/**
+* @brief Método que remove funcionários.
+* @param id Numero que representa o ID do funcionário que vai ser cadastrado, por padrão o ID é igual a zero.
+*/
+
 void Programa::Remocao_funcionario(int id)
 {
 	
@@ -818,11 +845,12 @@ void Programa::Remocao_funcionario(int id)
 	{
 		cout<< "não foi possivel abrir o arquivo" << endl;
 	}
-
-
-
-
 }
+
+/**
+* @brief Método que procura e imprime as informações de um animal já cadatrado aparti de sua ID.
+*/
+
 void Programa::Consultar_animal()
 {
 	int id;
@@ -880,6 +908,10 @@ void Programa::Consultar_animal()
 		}
 	}while(loop); 
 }
+
+/**
+* @brief Método que procura e imprime as informações de um animal já cadatrado aparti de sua ID.
+*/
 
 void Programa::Consultar_funcionario()
 {
@@ -953,15 +985,12 @@ void Programa::Consultar_funcionario()
 				cout << "não foi possivel realizar essa operação" << endl;
 			}
 			break;
-
-
-
-
-
-
 	}
-
 }
+
+/**
+* @brief Método que possibilita modificar informações de um animal ou funcionario.
+*/
 
 void Programa::Modificar_informacoes()
 {
@@ -1006,48 +1035,11 @@ void Programa::Modificar_informacoes()
 	}
 }
 
-
-
-void Programa::Separador_csv(string data, vector<string> &dados)
-{
-    dados.clear();
-    int i = 0;
-    string palavras = "";
-    for (string::iterator it = data.begin(); it != data.end(); it++)
-    {
-        if (*it != ';')
-        {
-            palavras += *it;
-        }
-        else
-        {
-            i++;
-            dados.push_back(palavras);
-            palavras = "";
-        }
-    }
-}
-
-void Programa::Separador_data(string data, vector<string> &dados)
-{
-    dados.clear();
-    int i = 0;
-    string palavras = "";
-    for (string::iterator it = data.begin(); it != data.end(); it++)
-    {
-        if (*it != '/')
-        {
-            palavras += *it;
-        }
-        else
-        {
-            i++;
-            dados.push_back(palavras);
-            palavras = "";
-        }
-    }
-    dados.push_back(palavras);
-}
+/**
+* @brief Método que verifica se a id de um animal existe.
+* @param id Numero que representa o ID de um animal.
+* @return Rerorna a classe do animal caso ele exista, caso não exista retorna a string N/A.
+*/
 
 string Programa::Verificar_id_animal(int id)
 {
@@ -1099,6 +1091,12 @@ string Programa::Verificar_id_animal(int id)
 	return "N/A";
 }
 
+/**
+* @brief Método que verifica se a id de um funcionario existe.
+* @param id Numero que representa o ID de um funcionario.
+* @return Rerorna a função do funcionario caso ele exista, caso não exista retorna a string N/A.
+*/
+
 string Programa::Verificar_id_funcionario(int id)
 {
 	map<int, Veterinario>::iterator it1 = veterinarios.find(id);
@@ -1113,4 +1111,57 @@ string Programa::Verificar_id_funcionario(int id)
 		return "Tratador";
 	}
 	return "N/A";
+}
+
+/**
+* @brief Método que separa as informações de uma linha de um arquivo csv.
+* @param data String que representa a linha que vai ter seus dados separados.
+* @param dados Vector que recebe as informações da linha.
+*/
+
+void Programa::Separador_csv(string data, vector<string> &dados)
+{
+    dados.clear();
+    int i = 0;
+    string palavras = "";
+    for (string::iterator it = data.begin(); it != data.end(); it++)
+    {
+        if (*it != ';')
+        {
+            palavras += *it;
+        }
+        else
+        {
+            i++;
+            dados.push_back(palavras);
+            palavras = "";
+        }
+    }
+}
+
+/**
+* @brief Método que separa uma data em dia, mes e ano.
+* @param data String que representa a data.
+* @param dados Vector que recebe as informações da data.
+*/
+
+void Programa::Separador_data(string data, vector<string> &dados)
+{
+    dados.clear();
+    int i = 0;
+    string palavras = "";
+    for (string::iterator it = data.begin(); it != data.end(); it++)
+    {
+        if (*it != '/')
+        {
+            palavras += *it;
+        }
+        else
+        {
+            i++;
+            dados.push_back(palavras);
+            palavras = "";
+        }
+    }
+    dados.push_back(palavras);
 }
