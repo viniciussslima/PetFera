@@ -3,12 +3,15 @@
 #include "JanelaCadastroAnimal.h"
 #include "JanelaRemocaoFuncionario.h"
 #include "JanelaRemocaoAnimal.h"
-#include <fstream>
 
 using namespace Gtk;
 using namespace std;
 
-JanelaPrincipal::JanelaPrincipal()
+JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinario(),
+	ModelColumnsAnfibioNativo(), ModelColumnsAnfibioExotico(),
+	ModelColumnsAveNativa(), ModelColumnsAveExotica(),
+	ModelColumnsMamiferoNativo(), ModelColumnsMamiferoExotico(),
+	ModelColumnsReptilNativo(), ModelColumnsReptilExotico()
 {
 	ifstream funcionarios_csv("Dados/funcionarios.csv");
 	ifstream animais_csv("Dados/animais.csv");

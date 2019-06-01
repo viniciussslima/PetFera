@@ -2,6 +2,7 @@
 #define _JANELA_PRINCIPAL_H_
 
 #include <iostream>
+#include <fstream>
 #include <gtkmm.h>
 
 #include "Separador.h"
@@ -25,7 +26,317 @@
 using namespace Gtk;
 using namespace std;
 
-class JanelaPrincipal
+class ModelColumnsTratador : public Gtk::TreeModel::ColumnRecord
+{
+	public:
+  		ModelColumnsTratador()
+    	{ 
+    		add(col_id); 
+    		add(col_nome); 
+    		add(col_cpf); 
+    		add(col_idade);
+    		add(col_tipo_sanguineo);
+    		add(col_rh);
+    		add(col_especialidade);
+    		add(col_nivel_seguranca);
+    	}
+
+    	TreeModelColumn<int> col_id;
+    	TreeModelColumn<string> col_nome;
+    	TreeModelColumn<string> col_cpf;
+    	TreeModelColumn<int> col_idade;
+    	TreeModelColumn<string> col_tipo_sanguineo;
+    	TreeModelColumn<string> col_rh;
+    	TreeModelColumn<string> col_especialidade;
+    	TreeModelColumn<int> col_nivel_seguranca;
+};
+
+class ModelColumnsVeterinario : public Gtk::TreeModel::ColumnRecord
+{
+	public:
+		ModelColumnsVeterinario()
+		{ 
+		add(col_id); 
+		add(col_nome); 
+		add(col_cpf); 
+		add(col_idade);
+		add(col_tipo_sanguineo);
+		add(col_rh);
+		add(col_especialidade);
+		add(col_crmv);
+		}
+
+	TreeModelColumn<int> col_id;
+	TreeModelColumn<string> col_nome;
+	TreeModelColumn<string> col_cpf;
+	TreeModelColumn<int> col_idade;
+	TreeModelColumn<string> col_tipo_sanguineo;
+	TreeModelColumn<string> col_rh;
+	TreeModelColumn<string> col_especialidade;
+	TreeModelColumn<string> col_crmv;
+};
+
+class ModelColumnsAnfibioNativo : public Gtk::TreeModel::ColumnRecord
+{
+	public:
+		ModelColumnsAnfibioNativo()
+		{ 
+		add(col_id); 
+		add(col_nome_cientifico); 
+		add(col_sexo); 
+		add(col_tamanho);
+		add(col_dieta);
+		add(col_veterinario);
+		add(col_tratador);
+		add(col_nome_batismo);
+		add(col_total_mudas);
+		add(col_data_ultima_muda);
+		add(col_autorizacao_ibama);
+		add(col_uf_origem);
+		}
+
+	TreeModelColumn<int> col_id;
+	TreeModelColumn<string> col_nome_cientifico;
+	TreeModelColumn<string> col_sexo;
+	TreeModelColumn<double> col_tamanho;
+	TreeModelColumn<string> col_dieta;
+	TreeModelColumn<int> col_veterinario;
+	TreeModelColumn<int> col_tratador;
+	TreeModelColumn<string> col_nome_batismo;
+	TreeModelColumn<int> col_total_mudas;
+	TreeModelColumn<string> col_data_ultima_muda;
+	TreeModelColumn<string> col_autorizacao_ibama;
+	TreeModelColumn<string> col_uf_origem;
+};
+
+class ModelColumnsAnfibioExotico : public Gtk::TreeModel::ColumnRecord
+{
+public:
+		ModelColumnsAnfibioExotico()
+		{ 
+		add(col_id); 
+		add(col_nome_cientifico); 
+		add(col_sexo); 
+		add(col_tamanho);
+		add(col_dieta);
+		add(col_veterinario);
+		add(col_tratador);
+		add(col_nome_batismo);
+		add(col_total_mudas);
+		add(col_data_ultima_muda);
+		add(col_autorizacao_ibama);
+		add(col_pais_origem);
+		}
+
+	TreeModelColumn<int> col_id;
+	TreeModelColumn<string> col_nome_cientifico;
+	TreeModelColumn<string> col_sexo;
+	TreeModelColumn<double> col_tamanho;
+	TreeModelColumn<string> col_dieta;
+	TreeModelColumn<int> col_veterinario;
+	TreeModelColumn<int> col_tratador;
+	TreeModelColumn<string> col_nome_batismo;
+	TreeModelColumn<int> col_total_mudas;
+	TreeModelColumn<string> col_data_ultima_muda;
+	TreeModelColumn<string> col_autorizacao_ibama;
+	TreeModelColumn<string> col_pais_origem;
+};
+
+class ModelColumnsAveNativa : public Gtk::TreeModel::ColumnRecord
+{
+public:
+		ModelColumnsAveNativa()
+		{ 
+		add(col_id); 
+		add(col_nome_cientifico); 
+		add(col_sexo); 
+		add(col_tamanho);
+		add(col_dieta);
+		add(col_veterinario);
+		add(col_tratador);
+		add(col_nome_batismo);
+		add(col_tamanho_bico);
+		add(col_envergadura_asas);
+		add(col_autorizacao_ibama);
+		add(col_uf_origem);
+		}
+
+	TreeModelColumn<int> col_id;
+	TreeModelColumn<string> col_nome_cientifico;
+	TreeModelColumn<string> col_sexo;
+	TreeModelColumn<double> col_tamanho;
+	TreeModelColumn<string> col_dieta;
+	TreeModelColumn<int> col_veterinario;
+	TreeModelColumn<int> col_tratador;
+	TreeModelColumn<string> col_nome_batismo;
+	TreeModelColumn<double> col_tamanho_bico;
+	TreeModelColumn<double> col_envergadura_asas;
+	TreeModelColumn<string> col_autorizacao_ibama;
+	TreeModelColumn<string> col_uf_origem;
+};
+
+class ModelColumnsAveExotica : public Gtk::TreeModel::ColumnRecord
+{
+	public:
+		ModelColumnsAveExotica()
+		{ 
+			add(col_id); 
+			add(col_nome_cientifico); 
+			add(col_sexo); 
+			add(col_tamanho);
+			add(col_dieta);
+			add(col_veterinario);
+			add(col_tratador);
+			add(col_nome_batismo);
+			add(col_tamanho_bico);
+			add(col_envergadura_asas);
+			add(col_autorizacao_ibama);
+			add(col_pais_origem);
+		}
+
+		TreeModelColumn<int> col_id;
+		TreeModelColumn<string> col_nome_cientifico;
+		TreeModelColumn<string> col_sexo;
+		TreeModelColumn<double> col_tamanho;
+		TreeModelColumn<string> col_dieta;
+		TreeModelColumn<int> col_veterinario;
+		TreeModelColumn<int> col_tratador;
+		TreeModelColumn<string> col_nome_batismo;
+		TreeModelColumn<double> col_tamanho_bico;
+		TreeModelColumn<double> col_envergadura_asas;
+		TreeModelColumn<string> col_autorizacao_ibama;
+		TreeModelColumn<string> col_pais_origem;
+};
+
+class ModelColumnsMamiferoNativo : public Gtk::TreeModel::ColumnRecord
+{
+	public:
+  		ModelColumnsMamiferoNativo()
+    	{ 
+    		add(col_id); 
+    		add(col_nome_cientifico); 
+    		add(col_sexo); 
+    		add(col_tamanho);
+    		add(col_dieta);
+    		add(col_veterinario);
+    		add(col_tratador);
+    		add(col_nome_batismo);
+    		add(col_cor_pelo);
+    		add(col_autorizacao_ibama);
+    		add(col_uf_origem);
+    	}
+
+    	TreeModelColumn<int> col_id;
+    	TreeModelColumn<string> col_nome_cientifico;
+    	TreeModelColumn<string> col_sexo;
+    	TreeModelColumn<double> col_tamanho;
+    	TreeModelColumn<string> col_dieta;
+    	TreeModelColumn<int> col_veterinario;
+    	TreeModelColumn<int> col_tratador;
+    	TreeModelColumn<string> col_nome_batismo;
+    	TreeModelColumn<string> col_cor_pelo;
+    	TreeModelColumn<string> col_autorizacao_ibama;
+    	TreeModelColumn<string> col_uf_origem;
+};
+
+class ModelColumnsMamiferoExotico : public Gtk::TreeModel::ColumnRecord
+{
+	public:
+  		ModelColumnsMamiferoExotico()
+    	{ 
+    		add(col_id); 
+    		add(col_nome_cientifico); 
+    		add(col_sexo); 
+    		add(col_tamanho);
+    		add(col_dieta);
+    		add(col_veterinario);
+    		add(col_tratador);
+    		add(col_nome_batismo);
+    		add(col_cor_pelo);
+    		add(col_autorizacao_ibama);
+    		add(col_pais_origem);
+    	}
+
+    	TreeModelColumn<int> col_id;
+    	TreeModelColumn<string> col_nome_cientifico;
+    	TreeModelColumn<string> col_sexo;
+    	TreeModelColumn<double> col_tamanho;
+    	TreeModelColumn<string> col_dieta;
+    	TreeModelColumn<int> col_veterinario;
+    	TreeModelColumn<int> col_tratador;
+    	TreeModelColumn<string> col_nome_batismo;
+    	TreeModelColumn<string> col_cor_pelo;
+    	TreeModelColumn<string> col_autorizacao_ibama;
+    	TreeModelColumn<string> col_pais_origem;
+};
+
+class ModelColumnsReptilNativo : public Gtk::TreeModel::ColumnRecord
+{
+	public:
+  		ModelColumnsReptilNativo()
+    	{ 
+    		add(col_id); 
+    		add(col_nome_cientifico); 
+    		add(col_sexo); 
+    		add(col_tamanho);
+    		add(col_dieta);
+    		add(col_veterinario);
+    		add(col_tratador);
+    		add(col_nome_batismo);
+    		add(col_veneno);
+    		add(col_autorizacao_ibama);
+    		add(col_uf_origem);
+    	}
+
+    	TreeModelColumn<int> col_id;
+    	TreeModelColumn<string> col_nome_cientifico;
+    	TreeModelColumn<string> col_sexo;
+    	TreeModelColumn<double> col_tamanho;
+    	TreeModelColumn<string> col_dieta;
+    	TreeModelColumn<int> col_veterinario;
+    	TreeModelColumn<int> col_tratador;
+    	TreeModelColumn<string> col_nome_batismo;
+    	TreeModelColumn<string> col_veneno;
+    	TreeModelColumn<string> col_autorizacao_ibama;
+    	TreeModelColumn<string> col_uf_origem;
+};
+
+	class ModelColumnsReptilExotico : public Gtk::TreeModel::ColumnRecord
+{
+	public:
+  		ModelColumnsReptilExotico()
+    	{ 
+    		add(col_id); 
+    		add(col_nome_cientifico); 
+    		add(col_sexo); 
+    		add(col_tamanho);
+    		add(col_dieta);
+    		add(col_veterinario);
+    		add(col_tratador);
+    		add(col_nome_batismo);
+    		add(col_veneno);
+    		add(col_autorizacao_ibama);
+    		add(col_pais_origem);
+    	}
+
+    	TreeModelColumn<int> col_id;
+    	TreeModelColumn<string> col_nome_cientifico;
+    	TreeModelColumn<string> col_sexo;
+    	TreeModelColumn<double> col_tamanho;
+    	TreeModelColumn<string> col_dieta;
+    	TreeModelColumn<int> col_veterinario;
+    	TreeModelColumn<int> col_tratador;
+    	TreeModelColumn<string> col_nome_batismo;
+    	TreeModelColumn<string> col_veneno;
+    	TreeModelColumn<string> col_autorizacao_ibama;
+    	TreeModelColumn<string> col_pais_origem;
+};
+
+class JanelaPrincipal : public ModelColumnsTratador, public ModelColumnsVeterinario,
+	public ModelColumnsAnfibioNativo, public ModelColumnsAnfibioExotico,
+	public ModelColumnsAveNativa, public ModelColumnsAveExotica,
+	public ModelColumnsMamiferoNativo, public ModelColumnsMamiferoExotico,
+	public ModelColumnsReptilNativo, public ModelColumnsReptilExotico
 {
 	private:
 		Window *window;
@@ -61,312 +372,6 @@ class JanelaPrincipal
 		ScrolledWindow *scrolled_window_mamiferos_exoticos;
 		ScrolledWindow *scrolled_window_repteis_nativos;
 		ScrolledWindow *scrolled_window_repteis_exoticos;
-
-		class ModelColumnsTratador : public Gtk::TreeModel::ColumnRecord
-		{
-			public:
-		  		ModelColumnsTratador()
-		    	{ 
-		    		add(col_id); 
-		    		add(col_nome); 
-		    		add(col_cpf); 
-		    		add(col_idade);
-		    		add(col_tipo_sanguineo);
-		    		add(col_rh);
-		    		add(col_especialidade);
-		    		add(col_nivel_seguranca);
-		    	}
-
-		    	TreeModelColumn<int> col_id;
-		    	TreeModelColumn<string> col_nome;
-		    	TreeModelColumn<string> col_cpf;
-		    	TreeModelColumn<int> col_idade;
-		    	TreeModelColumn<string> col_tipo_sanguineo;
-		    	TreeModelColumn<string> col_rh;
-		    	TreeModelColumn<string> col_especialidade;
-		    	TreeModelColumn<int> col_nivel_seguranca;
-	  	};
-
-	  	class ModelColumnsVeterinario : public Gtk::TreeModel::ColumnRecord
-		{
-			public:
-		  		ModelColumnsVeterinario()
-		    	{ 
-		    		add(col_id); 
-		    		add(col_nome); 
-		    		add(col_cpf); 
-		    		add(col_idade);
-		    		add(col_tipo_sanguineo);
-		    		add(col_rh);
-		    		add(col_especialidade);
-		    		add(col_crmv);
-		    	}
-
-		    	TreeModelColumn<int> col_id;
-		    	TreeModelColumn<string> col_nome;
-		    	TreeModelColumn<string> col_cpf;
-		    	TreeModelColumn<int> col_idade;
-		    	TreeModelColumn<string> col_tipo_sanguineo;
-		    	TreeModelColumn<string> col_rh;
-		    	TreeModelColumn<string> col_especialidade;
-		    	TreeModelColumn<string> col_crmv;
-	  	};
-
-	  	class ModelColumnsAnfibioNativo : public Gtk::TreeModel::ColumnRecord
-		{
-			public:
-		  		ModelColumnsAnfibioNativo()
-		    	{ 
-		    		add(col_id); 
-		    		add(col_nome_cientifico); 
-		    		add(col_sexo); 
-		    		add(col_tamanho);
-		    		add(col_dieta);
-		    		add(col_veterinario);
-		    		add(col_tratador);
-		    		add(col_nome_batismo);
-		    		add(col_total_mudas);
-		    		add(col_data_ultima_muda);
-		    		add(col_autorizacao_ibama);
-		    		add(col_uf_origem);
-		    	}
-
-		    	TreeModelColumn<int> col_id;
-		    	TreeModelColumn<string> col_nome_cientifico;
-		    	TreeModelColumn<string> col_sexo;
-		    	TreeModelColumn<double> col_tamanho;
-		    	TreeModelColumn<string> col_dieta;
-		    	TreeModelColumn<int> col_veterinario;
-		    	TreeModelColumn<int> col_tratador;
-		    	TreeModelColumn<string> col_nome_batismo;
-		    	TreeModelColumn<int> col_total_mudas;
-		    	TreeModelColumn<string> col_data_ultima_muda;
-		    	TreeModelColumn<string> col_autorizacao_ibama;
-		    	TreeModelColumn<string> col_uf_origem;
-	  	};
-
-	  	class ModelColumnsAnfibioExotico : public Gtk::TreeModel::ColumnRecord
-		{
-			public:
-		  		ModelColumnsAnfibioExotico()
-		    	{ 
-		    		add(col_id); 
-		    		add(col_nome_cientifico); 
-		    		add(col_sexo); 
-		    		add(col_tamanho);
-		    		add(col_dieta);
-		    		add(col_veterinario);
-		    		add(col_tratador);
-		    		add(col_nome_batismo);
-		    		add(col_total_mudas);
-		    		add(col_data_ultima_muda);
-		    		add(col_autorizacao_ibama);
-		    		add(col_pais_origem);
-		    	}
-
-		    	TreeModelColumn<int> col_id;
-		    	TreeModelColumn<string> col_nome_cientifico;
-		    	TreeModelColumn<string> col_sexo;
-		    	TreeModelColumn<double> col_tamanho;
-		    	TreeModelColumn<string> col_dieta;
-		    	TreeModelColumn<int> col_veterinario;
-		    	TreeModelColumn<int> col_tratador;
-		    	TreeModelColumn<string> col_nome_batismo;
-		    	TreeModelColumn<int> col_total_mudas;
-		    	TreeModelColumn<string> col_data_ultima_muda;
-		    	TreeModelColumn<string> col_autorizacao_ibama;
-		    	TreeModelColumn<string> col_pais_origem;
-	  	};
-
-	  	class ModelColumnsAveNativa : public Gtk::TreeModel::ColumnRecord
-		{
-			public:
-		  		ModelColumnsAveNativa()
-		    	{ 
-		    		add(col_id); 
-		    		add(col_nome_cientifico); 
-		    		add(col_sexo); 
-		    		add(col_tamanho);
-		    		add(col_dieta);
-		    		add(col_veterinario);
-		    		add(col_tratador);
-		    		add(col_nome_batismo);
-		    		add(col_tamanho_bico);
-		    		add(col_envergadura_asas);
-		    		add(col_autorizacao_ibama);
-		    		add(col_uf_origem);
-		    	}
-
-		    	TreeModelColumn<int> col_id;
-		    	TreeModelColumn<string> col_nome_cientifico;
-		    	TreeModelColumn<string> col_sexo;
-		    	TreeModelColumn<double> col_tamanho;
-		    	TreeModelColumn<string> col_dieta;
-		    	TreeModelColumn<int> col_veterinario;
-		    	TreeModelColumn<int> col_tratador;
-		    	TreeModelColumn<string> col_nome_batismo;
-		    	TreeModelColumn<double> col_tamanho_bico;
-		    	TreeModelColumn<double> col_envergadura_asas;
-		    	TreeModelColumn<string> col_autorizacao_ibama;
-		    	TreeModelColumn<string> col_uf_origem;
-	  	};
-
-	  	class ModelColumnsAveExotica : public Gtk::TreeModel::ColumnRecord
-		{
-			public:
-		  		ModelColumnsAveExotica()
-		    	{ 
-		    		add(col_id); 
-		    		add(col_nome_cientifico); 
-		    		add(col_sexo); 
-		    		add(col_tamanho);
-		    		add(col_dieta);
-		    		add(col_veterinario);
-		    		add(col_tratador);
-		    		add(col_nome_batismo);
-		    		add(col_tamanho_bico);
-		    		add(col_envergadura_asas);
-		    		add(col_autorizacao_ibama);
-		    		add(col_pais_origem);
-		    	}
-
-		    	TreeModelColumn<int> col_id;
-		    	TreeModelColumn<string> col_nome_cientifico;
-		    	TreeModelColumn<string> col_sexo;
-		    	TreeModelColumn<double> col_tamanho;
-		    	TreeModelColumn<string> col_dieta;
-		    	TreeModelColumn<int> col_veterinario;
-		    	TreeModelColumn<int> col_tratador;
-		    	TreeModelColumn<string> col_nome_batismo;
-		    	TreeModelColumn<double> col_tamanho_bico;
-		    	TreeModelColumn<double> col_envergadura_asas;
-		    	TreeModelColumn<string> col_autorizacao_ibama;
-		    	TreeModelColumn<string> col_pais_origem;
-	  	};
-
-	  	class ModelColumnsMamiferoNativo : public Gtk::TreeModel::ColumnRecord
-		{
-			public:
-		  		ModelColumnsMamiferoNativo()
-		    	{ 
-		    		add(col_id); 
-		    		add(col_nome_cientifico); 
-		    		add(col_sexo); 
-		    		add(col_tamanho);
-		    		add(col_dieta);
-		    		add(col_veterinario);
-		    		add(col_tratador);
-		    		add(col_nome_batismo);
-		    		add(col_cor_pelo);
-		    		add(col_autorizacao_ibama);
-		    		add(col_uf_origem);
-		    	}
-
-		    	TreeModelColumn<int> col_id;
-		    	TreeModelColumn<string> col_nome_cientifico;
-		    	TreeModelColumn<string> col_sexo;
-		    	TreeModelColumn<double> col_tamanho;
-		    	TreeModelColumn<string> col_dieta;
-		    	TreeModelColumn<int> col_veterinario;
-		    	TreeModelColumn<int> col_tratador;
-		    	TreeModelColumn<string> col_nome_batismo;
-		    	TreeModelColumn<string> col_cor_pelo;
-		    	TreeModelColumn<string> col_autorizacao_ibama;
-		    	TreeModelColumn<string> col_uf_origem;
-	  	};
-
-	  	class ModelColumnsMamiferoExotico : public Gtk::TreeModel::ColumnRecord
-		{
-			public:
-		  		ModelColumnsMamiferoExotico()
-		    	{ 
-		    		add(col_id); 
-		    		add(col_nome_cientifico); 
-		    		add(col_sexo); 
-		    		add(col_tamanho);
-		    		add(col_dieta);
-		    		add(col_veterinario);
-		    		add(col_tratador);
-		    		add(col_nome_batismo);
-		    		add(col_cor_pelo);
-		    		add(col_autorizacao_ibama);
-		    		add(col_pais_origem);
-		    	}
-
-		    	TreeModelColumn<int> col_id;
-		    	TreeModelColumn<string> col_nome_cientifico;
-		    	TreeModelColumn<string> col_sexo;
-		    	TreeModelColumn<double> col_tamanho;
-		    	TreeModelColumn<string> col_dieta;
-		    	TreeModelColumn<int> col_veterinario;
-		    	TreeModelColumn<int> col_tratador;
-		    	TreeModelColumn<string> col_nome_batismo;
-		    	TreeModelColumn<string> col_cor_pelo;
-		    	TreeModelColumn<string> col_autorizacao_ibama;
-		    	TreeModelColumn<string> col_pais_origem;
-	  	};
-
-	  	class ModelColumnsReptilNativo : public Gtk::TreeModel::ColumnRecord
-		{
-			public:
-		  		ModelColumnsReptilNativo()
-		    	{ 
-		    		add(col_id); 
-		    		add(col_nome_cientifico); 
-		    		add(col_sexo); 
-		    		add(col_tamanho);
-		    		add(col_dieta);
-		    		add(col_veterinario);
-		    		add(col_tratador);
-		    		add(col_nome_batismo);
-		    		add(col_veneno);
-		    		add(col_autorizacao_ibama);
-		    		add(col_uf_origem);
-		    	}
-
-		    	TreeModelColumn<int> col_id;
-		    	TreeModelColumn<string> col_nome_cientifico;
-		    	TreeModelColumn<string> col_sexo;
-		    	TreeModelColumn<double> col_tamanho;
-		    	TreeModelColumn<string> col_dieta;
-		    	TreeModelColumn<int> col_veterinario;
-		    	TreeModelColumn<int> col_tratador;
-		    	TreeModelColumn<string> col_nome_batismo;
-		    	TreeModelColumn<string> col_veneno;
-		    	TreeModelColumn<string> col_autorizacao_ibama;
-		    	TreeModelColumn<string> col_uf_origem;
-	  	};
-
-	  	class ModelColumnsReptilExotico : public Gtk::TreeModel::ColumnRecord
-		{
-			public:
-		  		ModelColumnsReptilExotico()
-		    	{ 
-		    		add(col_id); 
-		    		add(col_nome_cientifico); 
-		    		add(col_sexo); 
-		    		add(col_tamanho);
-		    		add(col_dieta);
-		    		add(col_veterinario);
-		    		add(col_tratador);
-		    		add(col_nome_batismo);
-		    		add(col_veneno);
-		    		add(col_autorizacao_ibama);
-		    		add(col_pais_origem);
-		    	}
-
-		    	TreeModelColumn<int> col_id;
-		    	TreeModelColumn<string> col_nome_cientifico;
-		    	TreeModelColumn<string> col_sexo;
-		    	TreeModelColumn<double> col_tamanho;
-		    	TreeModelColumn<string> col_dieta;
-		    	TreeModelColumn<int> col_veterinario;
-		    	TreeModelColumn<int> col_tratador;
-		    	TreeModelColumn<string> col_nome_batismo;
-		    	TreeModelColumn<string> col_veneno;
-		    	TreeModelColumn<string> col_autorizacao_ibama;
-		    	TreeModelColumn<string> col_pais_origem;
-	  	};
 
 	  	ModelColumnsTratador model_columns_tratador;
 	  	ModelColumnsVeterinario model_columns_veterinario;
