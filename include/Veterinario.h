@@ -10,7 +10,7 @@ using namespace std;
 class Veterinario : public Funcionario
 {
 	private:
-		string m_cmv;
+		string m_crmv;
 	public:
 		Veterinario();
 		Veterinario(int, string, string,
