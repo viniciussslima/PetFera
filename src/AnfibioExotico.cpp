@@ -76,8 +76,8 @@ void AnfibioExotico::Exibir_informacoes()
 /**
 * @brief Sobrecarga do operador de extração.
 * @param o Parametro do tipo stream que recebe todas as informçãoes do anfíbio.
-* @param A Anfibio exótico que vai ter todas as suas infomações passadas para a variavel o;
-* @return Retorna todas as infomações do anfibio exótico em forma de stream.
+* @param A Anfíbio exótico que vai ter todas as suas infomações passadas para a variavel o;
+* @return Retorna todas as infomações do anfíbio exótico em forma de stream.
 */
 
 ostream& operator<<(ostream &o, AnfibioExotico A)

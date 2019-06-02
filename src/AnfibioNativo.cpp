@@ -77,8 +77,8 @@ void AnfibioNativo::Exibir_informacoes()
 /**
 * @brief Sobrecarga do operador de extração.
 * @param o Parametro do tipo stream que recebe todas as informçãoes do anfíbio.
-* @param A Anfibio nativo que vai ter todas as suas infomações passadas para a variavel o;
-* @return Retorna todas as infomações do anfibio nativo em forma de stream.
+* @param A Anfíbio nativo que vai ter todas as suas infomações passadas para a variavel o;
+* @return Retorna todas as infomações do anfíbio nativo em forma de stream.
 
 */
 

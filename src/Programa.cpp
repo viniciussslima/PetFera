@@ -28,10 +28,10 @@ void Programa::Run()
 		cout << "Digite um numero comrespondente: " << endl  
 			<< "[1] Cadastro de um animal" << endl
 			<< "[2] Remoção de um animal" << endl
-			<< "[3] Cadastro de um funcionario" << endl
-			<< "[4] Remoção de um funcionario" << endl
+			<< "[3] Cadastro de um funcionário" << endl
+			<< "[4] Remoção de um funcionário" << endl
 			<< "[5] Consulta de dados de um animal" << endl
-			<< "[6] Consulta de dados de funcionario" << endl
+			<< "[6] Consulta de dados de funcionário" << endl
 			<< "[7] Modificar dados" << endl
 			<< "[8] Sair" << endl;
 		cin >> escolha;
@@ -670,6 +670,11 @@ void Programa::Cadastro_animal(int id)
 	}
 }
 
+/**
+* @brief Método que remove animais.
+* @param id Numero que representa o ID do animal que vai ser removido, por padrão o ID é igual a zero.
+*/
+
 void Programa::Remocao_animal(int id)
 {
 	string linha;
@@ -726,7 +731,7 @@ void Programa::Remocao_animal(int id)
 }
 
 /**
-* @brief Método que cadatra funcionários.
+* @brief Método que cadastra funcionários.
 * @param id Numero que representa o ID do funcionário que vai ser cadastrado, por padrão o ID é igual a zero.
 */
 
@@ -807,7 +812,7 @@ void Programa::Cadastro_funcionario(int id)
 
 /**
 * @brief Método que remove funcionários.
-* @param id Numero que representa o ID do funcionário que vai ser cadastrado, por padrão o ID é igual a zero.
+* @param id Numero que representa o ID do funcionário que vai ser removido, por padrão o ID é igual a zero.
 */
 
 void Programa::Remocao_funcionario(int id)
@@ -1092,9 +1097,9 @@ string Programa::Verificar_id_animal(int id)
 }
 
 /**
-* @brief Método que verifica se a id de um funcionario existe.
-* @param id Numero que representa o ID de um funcionario.
-* @return Rerorna a função do funcionario caso ele exista, caso não exista retorna a string N/A.
+* @brief Método que verifica se a id de um funcionário existe.
+* @param id Numero que representa o ID de um funcionário.
+* @return Rerorna a função do funcionário caso ele exista, caso não exista retorna a string N/A.
 */
 
 string Programa::Verificar_id_funcionario(int id)

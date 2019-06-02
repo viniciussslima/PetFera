@@ -1,6 +1,5 @@
 /**
 * @file main.cpp
-* @brief Progrma de cadastro de animais para a loja de animais silvestres Pet Fera.
 * @author
 * Hudson Bruno Macedo Alves,
 * João Vitor Kobata,
@@ -9,8 +8,6 @@
 * @date 28/05/2019
 */
 
-#include <iostream>
-#include <vector>
 #include "Programa.h"
 
 using namespace std;

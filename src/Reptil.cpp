@@ -6,7 +6,26 @@
 
 using namespace std;
 
+/**
+* @brief Construtor padrão da classe Reptil.
+*/
+
 Reptil::Reptil(){}
+
+/**
+* @brief construtor parametrizado da classe réptil.
+* @param new_id Número que representa a identidade do réptil. 
+* @param new_classe Palavra que representa a classe do animal (Ave, réptil, aves, réptil). 
+* @param new_nome_cientifico Palavra(s) que representa o nome científico do réptil. 
+* @param new_sexo Carácter que representa o sexo do réptil (F, M). 
+* @param new_tamanho Número que representa o tamanho do réptil. 
+* @param new_dieta Palavra(s) que representa a dieta do réptil. 
+* @param new_veterinario Veterinario responsável pelo réptil. 
+* @param new_tratador Tratador responsável pelo réptil. 
+* @param new_nome_batismo Palavra(s) que representam o nome de batismo do réptil. 
+* @param m_venenoso Variavel boleana que representa se o réptil é venenoso ou não (true ou false).
+* @param m_tipo_veneno Palavra(s) que representa o tipo de veneno do réptil caso m_venenoso for igual a true. 
+*/
 
 Reptil::Reptil(int new_id, string new_classe,
 	string new_nome_cientifico,	char new_sexo,
@@ -22,5 +41,9 @@ Reptil::Reptil(int new_id, string new_classe,
 	m_venenoso = new_venenoso; 
 	m_tipo_veneno = new_tipo_veneno;
 }
+
+/**
+* @brief Destrutor da classe Mamifero.
+*/
 
 Reptil::~Reptil(){}
