@@ -167,11 +167,12 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 	button_remocao_animal = new Button("Remover animal");
 	button_cadastro_funcionario = new Button("Cadastrar funcionario");
 	button_remocao_funcionario = new Button("Remover funcionario");
+	button_editar_animal = new Button("Editar animal");
 
 	box_principal = new VBox;
 	box_botoes = new HButtonBox;
 
-	entry_pesquisa = new Entry;
+	entry_pesquisa = new SearchEntry;
 
 	notebook_consulta = new Notebook;
 
@@ -208,9 +209,6 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 	box_principal->add(*notebook_consulta);
 	box_principal->pack_start(*box_botoes, PACK_SHRINK);
 
-	icone_lupa = Gdk::Pixbuf::create_from_file("icons/loupe_79257.ico");
-	entry_pesquisa->set_icon_from_pixbuf(icone_lupa);
-
 	notebook_consulta->append_page(*scrolled_window_tratadores, "Tratadores");
 	notebook_consulta->append_page(*scrolled_window_veterinarios, "Veterinarios");
 	notebook_consulta->append_page(*scrolled_window_anfibios_nativos, "Anfibios nativos");
@@ -238,6 +236,7 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 	box_botoes->pack_start(*button_remocao_animal, PACK_EXPAND_PADDING, 10);
 	box_botoes->pack_start(*button_cadastro_funcionario, PACK_EXPAND_PADDING, 10);
 	box_botoes->pack_start(*button_remocao_funcionario, PACK_EXPAND_PADDING, 10);
+	box_botoes->pack_start(*button_editar_animal, PACK_EXPAND_PADDING, 10);
 
 	//Criando o modelo de arvore
 	list_store_tratadores = ListStore::create(model_columns_tratador);
@@ -412,6 +411,7 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 	button_cadastro_animal->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::CadastrarAnimal));
 	button_remocao_funcionario->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::RemoverFuncionario));
 	button_remocao_animal->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::RemoverAnimal));
+	button_editar_animal->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::EditarAnimal));
 }
 
 JanelaPrincipal::~JanelaPrincipal()
@@ -507,6 +507,15 @@ void JanelaPrincipal::RemoverAnimal()
 								 repteis_exoticos, repteis_nativos);
 		temp.Run();
 	}
+}
+
+void JanelaPrincipal::EditarAnimal()
+{
+	Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_tratadores->get_selection();
+	Gtk::TreeModel::iterator selectedRow = selection->get_selected();
+	Gtk::TreeModel::Row row = *selectedRow;
+	int port = row.get_value(model_columns_tratador.col_id);
+	cout << port << endl;
 }
 
 void JanelaPrincipal::AtualizarLista(int i)
