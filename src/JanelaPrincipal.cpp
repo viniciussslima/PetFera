@@ -197,7 +197,7 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 
 	//Configuração
 	window->set_default_size(1280, 720);
-	window->set_resizable(false);
+	window->set_resizable(true);
 	window->set_border_width(5);
 	window->set_title("PetFera");
 	window->add(*box_principal);

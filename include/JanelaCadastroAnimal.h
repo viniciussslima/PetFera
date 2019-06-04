@@ -48,7 +48,7 @@ class JanelaCadastroAnimal
 		Entry *entry_autorizacao_ibama;
 		ComboBoxText *combo_box_regiao;
 		Entry *entry_nacionalidade;
-		Entry *entry_uf;
+		ComboBoxText *combo_box_uf;
 		Button *button_cadastrar;
 
 		Entry *entry_total_de_mudas;

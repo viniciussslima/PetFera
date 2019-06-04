@@ -44,11 +44,11 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 	entry_dieta = new Entry;
 	entry_nome_batismo = new Entry;
 	entry_nacionalidade = new Entry;
-	entry_uf = new Entry;
 	entry_veterinario_id = new Entry;
 	entry_tratador_id = new Entry;
 	entry_autorizacao_ibama = new Entry;
 
+	combo_box_uf = new ComboBoxText;
 	combo_box_classe = new ComboBoxText;
 	combo_box_sexo = new ComboBoxText;
 	combo_box_regiao = new ComboBoxText;
@@ -121,6 +121,39 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 	combo_box_regiao->append("Outra Nacionalidade");
 	combo_box_regiao->set_active(0);
 
+	combo_box_uf->set_wrap_width(27);
+
+	combo_box_uf->append("1","AC");
+	combo_box_uf->append("2","AL");
+	combo_box_uf->append("3","AP");
+	combo_box_uf->append("4","AM");
+	combo_box_uf->append("5","BA");
+	combo_box_uf->append("6","CE");
+	combo_box_uf->append("7","DF");
+	combo_box_uf->append("8","ES");
+	combo_box_uf->append("9","GO");
+	combo_box_uf->append("10","MA");
+	combo_box_uf->append("11","MT");
+	combo_box_uf->append("12","MS");
+	combo_box_uf->append("13","MG");
+	combo_box_uf->append("14","PA");
+	combo_box_uf->append("15","PB");
+	combo_box_uf->append("16","PR");
+	combo_box_uf->append("17","PE");
+	combo_box_uf->append("18","PI");
+	combo_box_uf->append("19","RJ");
+	combo_box_uf->append("20","RN");
+	combo_box_uf->append("21","RS");
+	combo_box_uf->append("22","RO");
+	combo_box_uf->append("23","RR");
+	combo_box_uf->append("24","SC");
+	combo_box_uf->append("25","SP");
+	combo_box_uf->append("26","SE");
+	combo_box_uf->append("27","TO");
+	combo_box_uf->set_active(0);
+
+
+
 	box_principal->add(*box_dados);
 	box_principal->pack_start(*button_cadastrar, PACK_SHRINK);
 	box_dados->add(*box_esquerda);
@@ -172,7 +205,7 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 	box_direita->pack_start(*entry_autorizacao_ibama, PACK_SHRINK);
 	box_direita->pack_start(*combo_box_regiao, PACK_SHRINK);
 	box_direita->pack_start(*entry_nacionalidade, PACK_SHRINK);
-	box_direita->pack_start(*entry_uf, PACK_SHRINK);
+	box_direita->pack_start(*combo_box_uf, PACK_SHRINK);
 
 	//Conexão
 	button_cadastrar->signal_clicked().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::Cadastrar));
@@ -266,7 +299,7 @@ void JanelaCadastroAnimal::Cadastrar()
 		tratador = check_button_tratador_incluso->get_active() ? (tratadores->find(stoi(entry_tratador_id->get_text())))->second : Tratador();
 		nome_batismo = entry_nome_batismo->get_text();
 		autorizacao_ibama = entry_autorizacao_ibama->get_text();
-		nacionalidade = combo_box_regiao->get_active_row_number() == 0 ? entry_uf->get_text() : entry_nacionalidade->get_text();
+		nacionalidade = combo_box_regiao->get_active_row_number() == 0 ? combo_box_uf->get_active_text() : entry_nacionalidade->get_text();
 	}
 	catch(exception &ex)
 	{
@@ -519,14 +552,14 @@ void JanelaCadastroAnimal::MudarRegiao()
 	switch(combo_box_regiao->get_active_row_number())
 	{
 		case 0:
-			entry_uf->show();
+			combo_box_uf->show();
 			label_uf->show();
 			entry_nacionalidade->hide();
 			label_nacionalidade->hide();
 			AtualizarIconeId();
 			break;
 		case 1:
-			entry_uf->hide();
+			combo_box_uf->hide();
 			label_uf->hide();
 			entry_nacionalidade->show();
 			label_nacionalidade->show();
