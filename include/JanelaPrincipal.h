@@ -351,6 +351,9 @@ class JanelaPrincipal : public ModelColumnsTratador, public ModelColumnsVeterina
 		Button *button_cadastro_funcionario;
 		Button *button_remocao_funcionario;
 
+		Glib::RefPtr<Gdk::Pixbuf> icone_lupa;
+		Entry *entry_pesquisa;
+
 		TreeView *tree_view_tratadores;
 		TreeView *tree_view_veterinarios;
 		TreeView *tree_view_anfibios_nativos;

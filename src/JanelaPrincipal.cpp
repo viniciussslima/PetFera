@@ -171,6 +171,8 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 	box_principal = new VBox;
 	box_botoes = new HButtonBox;
 
+	entry_pesquisa = new Entry;
+
 	notebook_consulta = new Notebook;
 
 	tree_view_tratadores = new TreeView;
@@ -202,8 +204,12 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 	window->set_title("PetFera");
 	window->add(*box_principal);
 
+	box_principal->pack_start(*entry_pesquisa, PACK_SHRINK);
 	box_principal->add(*notebook_consulta);
 	box_principal->pack_start(*box_botoes, PACK_SHRINK);
+
+	icone_lupa = Gdk::Pixbuf::create_from_file("icons/loupe_79257.ico");
+	entry_pesquisa->set_icon_from_pixbuf(icone_lupa);
 
 	notebook_consulta->append_page(*scrolled_window_tratadores, "Tratadores");
 	notebook_consulta->append_page(*scrolled_window_veterinarios, "Veterinarios");
@@ -245,15 +251,34 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 	list_store_repteis_nativos = ListStore::create(model_columns_reptil_nativo);
 	list_store_repteis_exoticos = ListStore::create(model_columns_reptil_exotico);
 
+	tree_view_tratadores->set_search_entry(*entry_pesquisa);
 	tree_view_tratadores->set_model(list_store_tratadores);
+
+	tree_view_veterinarios->set_search_entry(*entry_pesquisa);
 	tree_view_veterinarios->set_model(list_store_veterinarios);
+	
+	tree_view_anfibios_nativos->set_search_entry(*entry_pesquisa);
 	tree_view_anfibios_nativos->set_model(list_store_anfibios_nativos);
+	
+	tree_view_anfibios_exoticos->set_search_entry(*entry_pesquisa);
 	tree_view_anfibios_exoticos->set_model(list_store_anfibios_exoticos);
+	
+	tree_view_aves_nativas->set_search_entry(*entry_pesquisa);
 	tree_view_aves_nativas->set_model(list_store_aves_nativas);
+	
+	tree_view_aves_exoticas->set_search_entry(*entry_pesquisa);
 	tree_view_aves_exoticas->set_model(list_store_aves_exoticas);
+	
+	tree_view_mamiferos_nativos->set_search_entry(*entry_pesquisa);
 	tree_view_mamiferos_nativos->set_model(list_store_mamiferos_nativos);
+	
+	tree_view_mamiferos_exoticos->set_search_entry(*entry_pesquisa);
 	tree_view_mamiferos_exoticos->set_model(list_store_mamiferos_exoticos);
+	
+	tree_view_repteis_nativos->set_search_entry(*entry_pesquisa);
 	tree_view_repteis_nativos->set_model(list_store_repteis_nativos);
+	
+	tree_view_repteis_exoticos->set_search_entry(*entry_pesquisa);
 	tree_view_repteis_exoticos->set_model(list_store_repteis_exoticos);
 
 	//Adicionado as colunas da TreeView
