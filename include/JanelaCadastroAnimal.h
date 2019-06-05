@@ -88,8 +88,19 @@ class JanelaCadastroAnimal
 		JanelaPrincipal *janela_principal;
 
 		bool valid_id;
+		bool valid_nome_cientifico;
+		bool valid_tamanho;
+		bool valid_dieta;
 		bool valid_tratador_id;
 		bool valid_veterinario_id;
+		bool valid_nome_batismo;
+		bool valid_autorizacao_ibama;
+		bool valid_total_de_mudas;
+		bool valid_data_da_ultima_muda;
+		bool valid_tamanho_do_bico;
+		bool valid_envergadura_das_asas;
+		bool valid_cor_dos_pelos;
+		bool valid_tipo_veneno;
 
 		map<int, Veterinario> *veterinarios;
 		map<int, Tratador> *tratadores;
@@ -120,22 +131,15 @@ class JanelaCadastroAnimal
 		void MostrarTratador();
 		void MostrarVenenoso();
 		void AtualizarIconeId();
+		void AtualizarIconeNomeCientifico();
+		void AtualizarIconeTamanho();
+		void AtualizarIconeDieta();
 		void AtualizarIconeTratadorId();
 		void AtualizarIconeVeterinarioId();
+		void AtualizarIconeNomeBatismo();
+		void AtualizarIconeAutorizacaoIbama();
+		void AtualizarIconeTotalDeMudas();
+		void AtualizarIconeDataDaUltimaMuda();
 };
-
-/*
-int id;
-	bool teste_id;
-	string classe;
-	string nome_cientifico;
-	char sexo;
-	float tamanho;
-	string dieta;
-	char veterinario_incluso;
-	char tratador_incluso;
-	string nome_batismo;
-	string nacionalidade;
-*/
 
 #endif

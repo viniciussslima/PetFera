@@ -11,7 +11,14 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 										   map<int, MamiferoExotico> &metemp, map<int, MamiferoNativo> &mntemp, 
 										   map<int, ReptilExotico> &retemp, map<int, ReptilNativo> &rntemp)
 {
-	valid_id = false;
+	valid_tratador_id = true;
+	valid_veterinario_id = true;
+	valid_total_de_mudas = true;
+	valid_data_da_ultima_muda = true;
+	valid_tamanho_do_bico = true;
+	valid_envergadura_das_asas = true;
+	valid_cor_dos_pelos = true;
+	valid_tipo_veneno = true;
 
 	janela_principal = &jptemp;
 
@@ -102,10 +109,21 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 
 	entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
 	entry_id->set_icon_tooltip_text("ID inválido");
+	entry_nome_cientifico->set_icon_from_pixbuf(pixbuf_uncheck);
+	entry_tamanho->set_icon_from_pixbuf(pixbuf_uncheck);
+	entry_dieta->set_icon_from_pixbuf(pixbuf_uncheck);
 	entry_veterinario_id->set_icon_from_pixbuf(pixbuf_uncheck);
 	entry_veterinario_id->set_icon_tooltip_text("ID inválido");
 	entry_tratador_id->set_icon_from_pixbuf(pixbuf_uncheck);
 	entry_tratador_id->set_icon_tooltip_text("ID inválido");
+	entry_nome_batismo->set_icon_from_pixbuf(pixbuf_uncheck);
+	entry_autorizacao_ibama->set_icon_from_pixbuf(pixbuf_uncheck);
+	entry_total_de_mudas->set_icon_from_pixbuf(pixbuf_uncheck);
+	entry_data_da_ultima_muda->set_icon_from_pixbuf(pixbuf_uncheck);
+	entry_tamanho_do_bico->set_icon_from_pixbuf(pixbuf_uncheck);
+	entry_envergadura_das_asas->set_icon_from_pixbuf(pixbuf_uncheck);
+	entry_cor_dos_pelos->set_icon_from_pixbuf(pixbuf_uncheck);
+	entry_tipo_de_veneno->set_icon_from_pixbuf(pixbuf_uncheck);
 
 	combo_box_classe->append("Amphibia");
 	combo_box_classe->append("Aves");
@@ -215,8 +233,19 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 	check_button_tratador_incluso->signal_clicked().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::MostrarTratador));
 	check_button_venenoso->signal_clicked().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::MostrarVenenoso));
 	entry_id->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeId));
+	entry_nome_cientifico->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeNomeCientifico));
+	entry_tamanho->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeTamanho));
+	entry_dieta->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeDieta));
 	entry_tratador_id->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeTratadorId));
 	entry_veterinario_id->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeVeterinarioId));
+	entry_nome_batismo->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeNomeBatismo));
+	entry_autorizacao_ibama->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeAutorizacaoIbama));
+	entry_total_de_mudas->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeTotalDeMudas));
+	entry_data_da_ultima_muda->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeDataDaUltimaMuda));
+	//entry_tamanho_do_bico->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeDataDaUltimaMuda));
+	//entry_envergadura_das_asas->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeDataDaUltimaMuda));
+	//entry_cor_dos_pelos->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeDataDaUltimaMuda));
+	//entry_tipo_de_veneno->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeDataDaUltimaMuda));
 }
 
 JanelaCadastroAnimal::~JanelaCadastroAnimal()
@@ -272,45 +301,28 @@ void JanelaCadastroAnimal::Run()
 
 void JanelaCadastroAnimal::Cadastrar()
 {
-	bool valid_dados = true;
-	int id;
-	string classe;
-	string nome_cientifico;
-	char sexo;
-	double tamanho;
-	string dieta;
-	Veterinario veterinario;
-	Tratador tratador;
-	string nome_batismo;
-	string autorizacao_ibama;
-	string nacionalidade;
-	
-	try
+	if (valid_id && valid_nome_cientifico && 
+		valid_tamanho && valid_dieta && 
+		valid_tratador_id && valid_veterinario_id && 
+		valid_nome_batismo && valid_autorizacao_ibama &&
+		valid_total_de_mudas && valid_data_da_ultima_muda && 
+		valid_tamanho_do_bico && valid_envergadura_das_asas && 
+		valid_cor_dos_pelos && valid_tipo_veneno)
 	{
-		id = stoi(entry_id->get_text());
-		classe = combo_box_classe->get_active_text(); 
+		int id = stoi(entry_id->get_text());
+		string classe = combo_box_classe->get_active_text(); 
 		for(unsigned int i = 0; i < classe.length(); i++)
 			classe[i] = toupper(classe[i]);
-		nome_cientifico = entry_nome_cientifico->get_text();
-		sexo = combo_box_sexo->get_active_text()[0];
-		tamanho = stod(entry_tamanho->get_text());
-		dieta = entry_dieta->get_text();
-		veterinario = check_button_veterinario_incluso->get_active() ? (veterinarios->find(stoi(entry_veterinario_id->get_text())))->second : Veterinario();
-		tratador = check_button_tratador_incluso->get_active() ? (tratadores->find(stoi(entry_tratador_id->get_text())))->second : Tratador();
-		nome_batismo = entry_nome_batismo->get_text();
-		autorizacao_ibama = entry_autorizacao_ibama->get_text();
-		nacionalidade = combo_box_regiao->get_active_row_number() == 0 ? combo_box_uf->get_active_text() : entry_nacionalidade->get_text();
-	}
-	catch(exception &ex)
-	{
-		valid_dados = false;
-		MessageDialog dialog(*window, "Dado(s) inválido(s).");
-		dialog.set_secondary_text("Falta preencher dado(s) ou existem dados incorretos.");
-  		dialog.run();
-	}	
+		string nome_cientifico = entry_nome_cientifico->get_text();
+		char sexo = combo_box_sexo->get_active_text()[0];
+		double tamanho = stod(entry_tamanho->get_text());
+		string dieta = entry_dieta->get_text();
+		Veterinario veterinario = check_button_veterinario_incluso->get_active() ? (veterinarios->find(stoi(entry_veterinario_id->get_text())))->second : Veterinario();
+		Tratador tratador = check_button_tratador_incluso->get_active() ? (tratadores->find(stoi(entry_tratador_id->get_text())))->second : Tratador();
+		string nome_batismo = entry_nome_batismo->get_text();
+		string autorizacao_ibama = entry_autorizacao_ibama->get_text();
+		string nacionalidade = combo_box_regiao->get_active_row_number() == 0 ? combo_box_uf->get_active_text() : entry_nacionalidade->get_text();
 
-	if(valid_dados)
-	{
 		ofstream outfile;
 		outfile.open("Dados/animais.csv", ios::app);
 
@@ -461,23 +473,21 @@ void JanelaCadastroAnimal::Cadastrar()
 		}
 	window->close();
 	}
+	else
+	{
+		MessageDialog dialog(*window, "Dado(s) inválido(s).");
+		dialog.set_secondary_text("Falta preencher dado(s) ou existem dados incorretos.");
+  		dialog.run();
+	}
 }
-
-/*
-	entry_total_de_mudas = new Entry;
-	entry_data_da_ultima_muda = new Entry;
-	entry_tamanho_do_bico = new Entry;
-	entry_envergadura_das_asas = new Entry;
-	entry_cor_dos_pelos = new Entry;
-	check_button_venenoso new CheckButton;
-	entry_tipo_de_veneno = new Entry;
-	*/
 
 void JanelaCadastroAnimal::MudarClasse()
 {
 	switch(combo_box_classe->get_active_row_number())
 	{
 		case 0:
+			valid_total_de_mudas = false;
+			valid_data_da_ultima_muda = false;
 			entry_total_de_mudas->show();
 			label_total_de_mudas->show();
 			entry_data_da_ultima_muda->show();
@@ -495,6 +505,8 @@ void JanelaCadastroAnimal::MudarClasse()
 			AtualizarIconeId();
 			break;
 		case 1:
+			valid_tamanho_do_bico = false;
+			valid_envergadura_das_asas = false;
 			entry_total_de_mudas->hide();
 			label_total_de_mudas->hide();
 			entry_data_da_ultima_muda->hide();
@@ -511,6 +523,7 @@ void JanelaCadastroAnimal::MudarClasse()
 			AtualizarIconeId();
 			break;
 		case 2:
+			valid_cor_dos_pelos = false;
 			entry_total_de_mudas->hide();
 			label_total_de_mudas->hide();
 			entry_data_da_ultima_muda->hide();
@@ -528,6 +541,7 @@ void JanelaCadastroAnimal::MudarClasse()
 			AtualizarIconeId();
 			break;
 		case 3:
+			valid_tipo_veneno = false;
 			entry_total_de_mudas->hide();
 			label_total_de_mudas->hide();
 			entry_data_da_ultima_muda->hide();
@@ -572,11 +586,13 @@ void JanelaCadastroAnimal::MostrarVeterinario()
 {
 	if(!check_button_veterinario_incluso->get_active())
 	{
+		valid_veterinario_id = true;
 		entry_veterinario_id->hide();
 		label_veterinario_id->hide();
 	}
 	else
 	{
+		valid_veterinario_id = false;
 		entry_veterinario_id->show();
 		label_veterinario_id->show();
 	}
@@ -586,11 +602,13 @@ void JanelaCadastroAnimal::MostrarTratador()
 {
 	if(!check_button_tratador_incluso->get_active())
 	{
+		valid_tratador_id = true;
 		entry_tratador_id->hide();
 		label_tratador_id->hide();
 	}
 	else
 	{
+		valid_tratador_id = false;
 		entry_tratador_id->show();
 		label_tratador_id->show();
 	}
@@ -600,11 +618,13 @@ void JanelaCadastroAnimal::MostrarVenenoso()
 {
 	if(!check_button_venenoso->get_active())
 	{
+		valid_tipo_veneno = true;
 		entry_tipo_de_veneno->hide();
 		label_tipo_de_veneno->hide();
 	}
 	else
 	{
+		valid_tipo_veneno = false;
 		entry_tipo_de_veneno->show();
 		label_tipo_de_veneno->show();
 	}
@@ -656,6 +676,63 @@ void JanelaCadastroAnimal::AtualizarIconeId()
 		valid_id = false;
 		entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
 		entry_id->set_icon_tooltip_text("ID inválido");
+	}
+}
+
+void JanelaCadastroAnimal::AtualizarIconeNomeCientifico()
+{
+	string temp = entry_nome_cientifico->get_text();
+	if(temp.empty())
+	{
+			valid_nome_cientifico = false;
+			entry_nome_cientifico->set_icon_from_pixbuf(pixbuf_uncheck);
+	}
+	else
+	{
+		valid_nome_cientifico = true;
+		entry_nome_cientifico->set_icon_from_pixbuf(pixbuf_check);
+	}
+}
+
+void JanelaCadastroAnimal::AtualizarIconeTamanho()
+{
+	double temp;
+	try
+	{
+		temp = stod(entry_tamanho->get_text());
+	}
+	catch(exception &ex)
+	{
+		valid_tamanho = false;
+		entry_tamanho->set_icon_from_pixbuf(pixbuf_uncheck);
+		entry_tamanho->set_icon_tooltip_text("Tamanho inválido");
+		return;
+	}	
+	if(temp <= 0)
+	{
+			valid_tamanho = false;
+			entry_tamanho->set_icon_from_pixbuf(pixbuf_uncheck);
+			entry_tamanho->set_icon_tooltip_text("O tamanho tem que ser maior que 0");
+	}
+	else
+	{
+		valid_tamanho = true;
+		entry_tamanho->set_icon_from_pixbuf(pixbuf_check);
+	}
+}
+
+void JanelaCadastroAnimal::AtualizarIconeDieta()
+{
+	string temp = entry_dieta->get_text();
+	if(temp.empty())
+	{
+			valid_dieta = false;
+			entry_dieta->set_icon_from_pixbuf(pixbuf_uncheck);
+	}
+	else
+	{
+		valid_dieta = true;
+		entry_dieta->set_icon_from_pixbuf(pixbuf_check);
 	}
 }
 
@@ -732,5 +809,94 @@ void JanelaCadastroAnimal::AtualizarIconeVeterinarioId()
 		valid_veterinario_id = false;
 		entry_veterinario_id->set_icon_from_pixbuf(pixbuf_uncheck);
 		entry_veterinario_id->set_icon_tooltip_text("ID inválido");
+	}
+}
+
+void JanelaCadastroAnimal::AtualizarIconeNomeBatismo()
+{
+	string temp = entry_nome_batismo->get_text();
+	if(temp.empty())
+	{
+			valid_nome_batismo = false;
+			entry_nome_batismo->set_icon_from_pixbuf(pixbuf_uncheck);
+	}
+	else
+	{
+		valid_nome_batismo = true;
+		entry_nome_batismo->set_icon_from_pixbuf(pixbuf_check);
+	}
+}
+
+void JanelaCadastroAnimal::AtualizarIconeAutorizacaoIbama()
+{
+	string temp = entry_autorizacao_ibama->get_text();
+	if(temp.empty())
+	{
+			valid_autorizacao_ibama = false;
+			entry_autorizacao_ibama->set_icon_from_pixbuf(pixbuf_uncheck);
+	}
+	else
+	{
+		valid_autorizacao_ibama = true;
+		entry_autorizacao_ibama->set_icon_from_pixbuf(pixbuf_check);
+	}
+}
+
+void JanelaCadastroAnimal::AtualizarIconeTotalDeMudas()
+{
+	int temp;
+	try
+	{
+		temp = stoi(entry_total_de_mudas->get_text());
+	}
+	catch(exception &ex)
+	{
+		valid_total_de_mudas = false;
+		entry_total_de_mudas->set_icon_from_pixbuf(pixbuf_uncheck);
+		entry_total_de_mudas->set_icon_tooltip_text("Quantidade Inválida");
+		return;
+	}
+	if (temp < 0)
+	{
+		valid_total_de_mudas = false;
+		entry_total_de_mudas->set_icon_from_pixbuf(pixbuf_uncheck);
+		entry_total_de_mudas->set_icon_tooltip_text("Quantidade Inválida");
+	}
+	else
+	{
+		valid_tamanho = true;
+		entry_total_de_mudas->set_icon_from_pixbuf(pixbuf_check);
+	}
+}
+
+void JanelaCadastroAnimal::AtualizarIconeDataDaUltimaMuda()
+{
+	string temp1;
+	vector <int> data;
+	date data_da_ultima_muda;
+	try
+	{
+		temp1 = entry_data_da_ultima_muda->get_text();
+		data = Separador_data(temp1);
+		date temp2(data[0], data[1], data[2]);
+		data_da_ultima_muda = temp2;
+	}
+	catch(exception &ex)
+	{
+		valid_data_da_ultima_muda = false;
+		entry_data_da_ultima_muda->set_icon_from_pixbuf(pixbuf_uncheck);
+		entry_data_da_ultima_muda->set_icon_tooltip_text("Data Inválida");
+		return;
+	}
+	if (data_da_ultima_muda.valid())
+	{
+		valid_data_da_ultima_muda = true;
+		entry_data_da_ultima_muda->set_icon_from_pixbuf(pixbuf_check);
+	}
+	else
+	{
+		valid_data_da_ultima_muda = false;
+		entry_data_da_ultima_muda->set_icon_from_pixbuf(pixbuf_uncheck);
+		entry_data_da_ultima_muda->set_icon_tooltip_text("Data Inválida");
 	}
 }
