@@ -321,8 +321,8 @@ void JanelaCadastroFuncionario::AtualizarIconeNomeDoFuncionario()
 	string temp = entry_nome_do_funcionario->get_text();
 	if(temp.empty())
 	{
-			valid_nome_do_funcionario = false;
-			entry_nome_do_funcionario->set_icon_from_pixbuf(pixbuf_uncheck);
+		valid_nome_do_funcionario = false;
+		entry_nome_do_funcionario->set_icon_from_pixbuf(pixbuf_uncheck);
 	}
 	else
 	{
@@ -391,10 +391,22 @@ void JanelaCadastroFuncionario::AtualizarIconeCPF()
 
 void JanelaCadastroFuncionario::AtualizarIconeIdade()
 {
+	string entry_text = entry_idade->get_text();
 	int temp;
+	bool is_numeric = true;
+
+	for(unsigned int i = 0; i < entry_text.length(); i++)
+	{
+		if(!isdigit(entry_text[i]))
+		{
+			is_numeric = false;
+			break;
+		}
+	}
+
 	try
 	{
-		temp = stoi(entry_idade->get_text());
+		temp = stoi(entry_text);
 	}
 	catch(exception &ex)
 	{
@@ -402,16 +414,16 @@ void JanelaCadastroFuncionario::AtualizarIconeIdade()
 		entry_idade->set_icon_from_pixbuf(pixbuf_uncheck);
 		entry_idade->set_icon_tooltip_text("Idade inválida");
 		return;
-	}	
-	if(temp <= 0)
-	{
-			valid_idade = false;
-			entry_idade->set_icon_from_pixbuf(pixbuf_uncheck);
 	}
-	else
+	if(temp > 0 && is_numeric)
 	{
 		valid_idade = true;
 		entry_idade->set_icon_from_pixbuf(pixbuf_check);
+	}
+	else
+	{
+		valid_idade = false;
+		entry_idade->set_icon_from_pixbuf(pixbuf_uncheck);
 	}
 }
 
@@ -420,8 +432,8 @@ void JanelaCadastroFuncionario::AtualizarIconeEspecialidade()
 	string temp = entry_especialidade->get_text();
 	if(temp.empty())
 	{
-			valid_especialidade = false;
-			entry_especialidade->set_icon_from_pixbuf(pixbuf_uncheck);
+		valid_especialidade = false;
+		entry_especialidade->set_icon_from_pixbuf(pixbuf_uncheck);
 	}
 	else
 	{
@@ -435,8 +447,8 @@ void JanelaCadastroFuncionario::AtualizarIconeCRMV()
 	string temp = entry_crmv->get_text();
 	if(temp.empty())
 	{
-			valid_crmv = false;
-			entry_crmv->set_icon_from_pixbuf(pixbuf_uncheck);
+		valid_crmv = false;
+		entry_crmv->set_icon_from_pixbuf(pixbuf_uncheck);
 	}
 	else
 	{
