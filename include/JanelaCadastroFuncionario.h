@@ -51,7 +51,12 @@ class JanelaCadastroFuncionario
 		JanelaPrincipal *janela_principal;
 
 		bool valid_id;
+		bool valid_nome_do_funcionario;
 		bool valid_cpf;
+		bool valid_idade;
+		bool valid_especialidade;
+		bool valid_crmv;
+
 
 		map<int, Veterinario> *veterinarios;
 		map<int, Tratador> *tratadores;
@@ -63,7 +68,11 @@ class JanelaCadastroFuncionario
 		void Cadastrar();
 		void MudarFuncionario();
 		void AtualizarIconeId();
+		void AtualizarIconeNomeDoFuncionario();
 		void AtualizarIconeCPF();
+		void AtualizarIconeIdade();
+		void AtualizarIconeEspecialidade();
+		void AtualizarIconeCRMV();
 };
 
 #endif

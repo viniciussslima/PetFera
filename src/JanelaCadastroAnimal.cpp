@@ -11,11 +11,17 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 										   map<int, MamiferoExotico> &metemp, map<int, MamiferoNativo> &mntemp, 
 										   map<int, ReptilExotico> &retemp, map<int, ReptilNativo> &rntemp)
 {
+	valid_id = false;
+	valid_nome_cientifico = false;
+	valid_tamanho = false;
+	valid_dieta = false;
 	valid_tratador_id = true;
 	valid_veterinario_id = true;
+	valid_nome_batismo = false;
+	valid_autorizacao_ibama = false;
 	valid_nacionalidade = true;
-	valid_total_de_mudas = true;
-	valid_data_da_ultima_muda = true;
+	valid_total_de_mudas = false;
+	valid_data_da_ultima_muda = false;
 	valid_tamanho_do_bico = true;
 	valid_envergadura_das_asas = true;
 	valid_cor_dos_pelos = true;
@@ -304,31 +310,98 @@ void JanelaCadastroAnimal::Run()
 
 void JanelaCadastroAnimal::Cadastrar()
 {
-	cout << "id: " << valid_id << " "
-		"Nome Científico: " << valid_nome_cientifico << " "
-		"tamanho: " << valid_tamanho << " "
-		"dieta: " << valid_dieta << " "
-		"tratador: " << valid_tratador_id << " "
-		"veterinario: " << valid_veterinario_id << " "
-		"nome batismo: " << valid_nome_batismo << " "
-		"autorizacao ibama: " << valid_autorizacao_ibama << " "
-		"nacionalidade: " << valid_nacionalidade << " "
-		"total de mudas: " << valid_total_de_mudas << " "
-		"data da ultima muda: " << valid_data_da_ultima_muda << " "
-		"tamanho do bico: " << valid_tamanho_do_bico << " "
-		"envergadura das asas: " << valid_envergadura_das_asas << " "
-		"cor dos pelos: " << valid_cor_dos_pelos << " "
-		"tipo veneno: " << valid_tipo_veneno << endl;
-
-
-	if (valid_id && valid_nome_cientifico && 
-		valid_tamanho && valid_dieta && 
-		valid_tratador_id && valid_veterinario_id && 
-		valid_nome_batismo && valid_autorizacao_ibama &&
-		valid_nacionalidade && valid_total_de_mudas && 
-		valid_data_da_ultima_muda && valid_tamanho_do_bico && 
-		valid_envergadura_das_asas && valid_cor_dos_pelos && 
-		valid_tipo_veneno)
+	if (!valid_id)
+	{
+		MessageDialog dialog(*window, "ID inválido.");
+		dialog.set_secondary_text("Nenhum ID foi apresentado ou foi encontrado um animal com o ID apresentado, animais não podem ter IDs iguais.");
+  		dialog.run();
+	}
+	else if (!valid_nome_cientifico)
+	{
+		MessageDialog dialog(*window, "Nome inválido.");
+		dialog.set_secondary_text("Falta preencher o nome científico do animal.");
+  		dialog.run();
+	}
+	else if (!valid_tamanho)
+	{
+		MessageDialog dialog(*window, "Tamanho inválida.");
+		dialog.set_secondary_text("Falta preencher ou o tamanho é menor ou igual a 0.");
+  		dialog.run();
+	}
+	else if (!valid_dieta)
+	{
+		MessageDialog dialog(*window, "Dieta inválido.");
+		dialog.set_secondary_text("Falta preencher a dieta do animal.");
+  		dialog.run();
+	}
+	else if (!valid_tratador_id)
+	{
+		MessageDialog dialog(*window, "ID inválido.");
+		dialog.set_secondary_text("Nenhum ID foi apresentado ou foi encontrado um funcionário com o ID apresentado, funcionários não podem ter IDs iguais.");
+  		dialog.run();
+	}
+	else if (!valid_veterinario_id)
+	{
+		MessageDialog dialog(*window, "ID inválido.");
+		dialog.set_secondary_text("Nenhum ID foi apresentado ou foi encontrado um funcionário com o ID apresentado, funcionários não podem ter IDs iguais.");
+  		dialog.run();
+	}
+	else if (!valid_nome_batismo)
+	{
+		MessageDialog dialog(*window, "Nome inválido.");
+		dialog.set_secondary_text("Falta preencher o nome de batismo do animal.");
+  		dialog.run();
+	}
+	else if (!valid_total_de_mudas)
+	{
+		MessageDialog dialog(*window, "Total de mudas inválida.");
+		dialog.set_secondary_text("Falta preencher ou o valor digitado é menor que 0.");
+  		dialog.run();
+	}
+	else if (!valid_data_da_ultima_muda)
+	{
+		MessageDialog dialog(*window, "Data inválida.");
+		dialog.set_secondary_text("Falta preencher ou a data é inexistente.");
+  		dialog.run();
+	}
+	else if (!valid_tamanho_do_bico)
+	{
+		MessageDialog dialog(*window, "Tamanho do bico inválido.");
+		dialog.set_secondary_text("Falta preencher ou o tamanho do bico é menor ou igual a 0.");
+  		dialog.run();
+	}
+	else if (!valid_envergadura_das_asas)
+	{
+		MessageDialog dialog(*window, "Envergadura das asas inválida.");
+		dialog.set_secondary_text("Falta preencher ou a envergadura das asas é menor ou igual a 0.");
+  		dialog.run();
+	}
+	else if (!valid_cor_dos_pelos)
+	{
+		MessageDialog dialog(*window, "Cor dos pelos inválido.");
+		dialog.set_secondary_text("Falta preencher a cor dos pelos do animal.");
+  		dialog.run();
+	}
+	else if (!valid_tipo_veneno)
+	{
+		MessageDialog dialog(*window, "Tipo de veneno inválido.");
+		dialog.set_secondary_text("Falta preencher o tipo de veneno do animal.");
+  		dialog.run();
+	}
+	else if (!valid_autorizacao_ibama)
+	{
+		MessageDialog dialog(*window, "Autorização do ibama inválida.");
+		dialog.set_secondary_text("Falta preencher a autorização do ibama do animal.");
+  		dialog.run();
+	}
+	else if	(!valid_nacionalidade)
+	{
+		MessageDialog dialog(*window, "Nacionalidade inválida.");
+		dialog.set_secondary_text("Falta preencher a nacionalidade do animal.");
+  		dialog.run();
+	}
+	
+	else
 	{
 		int id = stoi(entry_id->get_text());
 		string classe = combo_box_classe->get_active_text(); 
@@ -494,12 +567,6 @@ void JanelaCadastroAnimal::Cadastrar()
 		}
 	window->close();
 	}
-	else
-	{
-		MessageDialog dialog(*window, "Dado(s) inválido(s).");
-		dialog.set_secondary_text("Falta preencher dado(s) ou existem dados incorretos.");
-  		dialog.run();
-	}
 }
 
 void JanelaCadastroAnimal::MudarClasse()
@@ -509,12 +576,10 @@ void JanelaCadastroAnimal::MudarClasse()
 		case 0:
 			valid_total_de_mudas = false;
 			valid_data_da_ultima_muda = false;
-
 			valid_tamanho_do_bico = true;
 			valid_envergadura_das_asas = true;
 			valid_cor_dos_pelos = true;
 			valid_tipo_veneno = true;
-
 
 			entry_total_de_mudas->show();
 			label_total_de_mudas->show();
@@ -535,7 +600,6 @@ void JanelaCadastroAnimal::MudarClasse()
 		case 1:
 			valid_tamanho_do_bico = false;
 			valid_envergadura_das_asas = false;
-
 			valid_total_de_mudas = true;
 			valid_data_da_ultima_muda = true;
 			valid_cor_dos_pelos = true;
@@ -558,10 +622,8 @@ void JanelaCadastroAnimal::MudarClasse()
 			break;
 		case 2:
 			valid_cor_dos_pelos = false;
-
 			valid_total_de_mudas = true;
 			valid_data_da_ultima_muda = true;
-
 			valid_tamanho_do_bico = true;
 			valid_envergadura_das_asas = true;
 			valid_tipo_veneno = true;
@@ -584,10 +646,8 @@ void JanelaCadastroAnimal::MudarClasse()
 			break;
 		case 3:
 			valid_tipo_veneno = false;
-
 			valid_total_de_mudas = true;
 			valid_data_da_ultima_muda = true;
-
 			valid_tamanho_do_bico = true;
 			valid_envergadura_das_asas = true;
 			valid_cor_dos_pelos = true;
@@ -616,6 +676,7 @@ void JanelaCadastroAnimal::MudarRegiao()
 	switch(combo_box_regiao->get_active_row_number())
 	{
 		case 0:
+			valid_nacionalidade = true;
 			combo_box_uf->show();
 			label_uf->show();
 			entry_nacionalidade->hide();
@@ -623,6 +684,7 @@ void JanelaCadastroAnimal::MudarRegiao()
 			AtualizarIconeId();
 			break;
 		case 1:
+			valid_nacionalidade = false;
 			combo_box_uf->hide();
 			label_uf->hide();
 			entry_nacionalidade->show();

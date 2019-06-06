@@ -167,7 +167,7 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 	button_remocao_animal = new Button("Remover animal");
 	button_cadastro_funcionario = new Button("Cadastrar funcionario");
 	button_remocao_funcionario = new Button("Remover funcionario");
-	button_editar_animal = new Button("Editar animal");
+	button_editar = new Button("Editar");
 
 	box_principal = new VBox;
 	box_botoes = new HButtonBox;
@@ -236,7 +236,7 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 	box_botoes->pack_start(*button_remocao_animal, PACK_EXPAND_PADDING, 10);
 	box_botoes->pack_start(*button_cadastro_funcionario, PACK_EXPAND_PADDING, 10);
 	box_botoes->pack_start(*button_remocao_funcionario, PACK_EXPAND_PADDING, 10);
-	box_botoes->pack_start(*button_editar_animal, PACK_EXPAND_PADDING, 10);
+	box_botoes->pack_start(*button_editar, PACK_EXPAND_PADDING, 10);
 
 	//Criando o modelo de arvore
 	list_store_tratadores = ListStore::create(model_columns_tratador);
@@ -411,7 +411,7 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 	button_cadastro_animal->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::CadastrarAnimal));
 	button_remocao_funcionario->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::RemoverFuncionario));
 	button_remocao_animal->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::RemoverAnimal));
-	button_editar_animal->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::EditarAnimal));
+	//button_editar->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::Editar));
 }
 
 JanelaPrincipal::~JanelaPrincipal()
@@ -515,14 +515,80 @@ void JanelaPrincipal::RemoverAnimal()
 	this->Run();
 }
 
-void JanelaPrincipal::EditarAnimal()
+/*void JanelaPrincipal::Editar()
 {
-	Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_tratadores->get_selection();
-	Gtk::TreeModel::iterator selectedRow = selection->get_selected();
-	Gtk::TreeModel::Row row = *selectedRow;
-	int port = row.get_value(model_columns_tratador.col_id);
-	cout << port << endl;
-}
+	switch(notebook_consulta->get_current_page())
+	{
+	case 0:
+		{
+			//tratadores
+			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_tratadores->get_selection();
+			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
+			Gtk::TreeModel::Row row = *selectedRow;
+			int id = row.get_value(model_columns_tratador.col_id);
+			cout << port << " "<< endl;
+			window->hide();
+			JanelaEditarFuncionario temp(*this, veterinarios, tratadores, id);
+			temp.Run();
+			this->Run();
+			break;
+		}
+		case 1:
+		{
+			//veterinarios
+			
+			break;
+		}
+		case 2:
+		{
+			//anfibios nativos
+			
+			break;
+		}
+		case 3:
+		{
+			//anfibios exoticos
+			
+			break;
+		}
+		case 4:
+		{
+			//aves nativas
+			
+			break;
+		}
+		case 5:
+		{
+			//aves exoticas
+			
+			break;
+		}
+		case 6:
+		{
+			//mamiferos nativos
+			
+			break;
+		}
+		case 7:
+		{
+			//mamiferos exoticos
+			
+			break;
+		}
+		case 8:
+		{
+			//repteis nativos
+			
+			break;
+		}
+		case 9:
+		{
+			//repteis exoticos
+			
+			break;
+		}
+	}
+}*/
 
 void JanelaPrincipal::AtualizarLista(int i)
 {

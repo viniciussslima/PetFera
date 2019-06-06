@@ -7,7 +7,11 @@ using namespace std;
 JanelaCadastroFuncionario::JanelaCadastroFuncionario(JanelaPrincipal &jptemp, map<int, Veterinario> &vtemp, map<int, Tratador> &ttemp)
 {
 	valid_id = false;
+	valid_nome_do_funcionario = false;
 	valid_cpf = false;
+	valid_idade = false;
+	valid_especialidade = false;
+	valid_crmv = false;
 
 	janela_principal = &jptemp;
 
@@ -57,8 +61,12 @@ JanelaCadastroFuncionario::JanelaCadastroFuncionario(JanelaPrincipal &jptemp, ma
 
 	entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
 	entry_id->set_icon_tooltip_text("ID válido");
+	entry_nome_do_funcionario->set_icon_from_pixbuf(pixbuf_uncheck);
 	entry_cpf->set_icon_from_pixbuf(pixbuf_uncheck);
 	entry_cpf->set_icon_tooltip_text("CPF inválido");
+	entry_idade->set_icon_from_pixbuf(pixbuf_uncheck);
+	entry_especialidade->set_icon_from_pixbuf(pixbuf_uncheck);
+	entry_crmv->set_icon_from_pixbuf(pixbuf_uncheck);
 
 	combo_box_fucao->append("Veterinario");
 	combo_box_fucao->append("Tratador");
@@ -110,21 +118,12 @@ JanelaCadastroFuncionario::JanelaCadastroFuncionario(JanelaPrincipal &jptemp, ma
 	button_cadastrar->signal_clicked().connect(sigc::mem_fun(*this, &JanelaCadastroFuncionario::Cadastrar));
 	combo_box_fucao->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroFuncionario::MudarFuncionario));
 	entry_id->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroFuncionario::AtualizarIconeId));
+	entry_nome_do_funcionario->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroFuncionario::AtualizarIconeNomeDoFuncionario));
+	entry_idade->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroFuncionario::AtualizarIconeIdade));
 	entry_cpf->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroFuncionario::AtualizarIconeCPF));
+	entry_especialidade->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroFuncionario::AtualizarIconeEspecialidade));
+	entry_crmv->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroFuncionario::AtualizarIconeCRMV));
 }
-
-
-/*  int id;
-	string funcao;
-	string nome_do_funcionario;
-	string cpf;
-	short idade;
-	string tipo_sanguineo;
-	char rh;
-	string especialidade;
-	string crmv;
-	int nivel_de_seguranca;
-	*/
 
 JanelaCadastroFuncionario::~JanelaCadastroFuncionario()
 {
@@ -166,22 +165,43 @@ void JanelaCadastroFuncionario::Run()
 
 void JanelaCadastroFuncionario::Cadastrar()
 {
-	bool valid_dados = false;
-	if(combo_box_fucao->get_active_row_number() == 0)
+	if(!valid_id)
 	{
-		if(!entry_id->get_text().empty() && !entry_nome_do_funcionario->get_text().empty() &&
-		   !entry_idade->get_text().empty() && !entry_especialidade->get_text().empty() &&
-		   !entry_crmv->get_text().empty())
-			valid_dados = true;
+		MessageDialog dialog(*window, "ID inválido.");
+		dialog.set_secondary_text("Nenhum ID foi apresentado ou foi encontrado um funcionário com o ID apresentado, funcionários não podem ter IDs iguais.");
+  		dialog.run();
+	}
+	else if(!valid_nome_do_funcionario)
+	{
+		MessageDialog dialog(*window, "Nome inválido.");
+		dialog.set_secondary_text("Falta preencher o nome do funcionário.");
+  		dialog.run();
+	}
+	else if(!valid_cpf)
+	{
+		MessageDialog dialog(*window, "CPF inválido.");
+		dialog.set_secondary_text("O CPF apresentado é inválido.");
+  		dialog.run();
+	}
+	else if(!valid_idade)
+	{
+		MessageDialog dialog(*window, "Idade inválida.");
+		dialog.set_secondary_text("Falta preencher ou a idade é menor ou igual a 0.");
+  		dialog.run();
+	}
+	else if(!valid_especialidade)
+	{
+		MessageDialog dialog(*window, "Especialidade inválida.");
+		dialog.set_secondary_text("Falta preencher a especialidade do funcionário.");
+  		dialog.run();
+	}
+	else if(!valid_crmv)
+	{
+		MessageDialog dialog(*window, "CRMV inválida.");
+		dialog.set_secondary_text("Falta preencher a CRMV do funcionário.");
+  		dialog.run();
 	}
 	else
-	{
-		if(!entry_id->get_text().empty() && !entry_nome_do_funcionario->get_text().empty() &&
-		   !entry_idade->get_text().empty() && !entry_especialidade->get_text().empty())
-			valid_dados = true;
-	}
-
-	if(valid_id && valid_cpf && valid_dados)
 	{
 		ofstream outfile("Dados/funcionarios.csv", ios::app);
 		string tipo_sanguineo;
@@ -230,27 +250,8 @@ void JanelaCadastroFuncionario::Cadastrar()
 				break;
 			}
 		}
+		window->close();
 	}
-	if(!valid_id)
-	{
-		MessageDialog dialog(*window, "ID inválido.");
-		dialog.set_secondary_text("Nenhum ID foi apresentado ou foi encontrado um funcionário com o ID apresentado, funcionários não podem ter IDs iguais.");
-  		dialog.run();
-	}
-	if(!valid_cpf)
-	{
-		MessageDialog dialog(*window, "CPF inválido.");
-		dialog.set_secondary_text("O CPF apresentado é inválido.");
-  		dialog.run();
-	}
-	if(!valid_dados)
-	{
-		MessageDialog dialog(*window, "Dado(s) inválido(s).");
-		dialog.set_secondary_text("Falta preencher um ou mais dados.");
-  		dialog.run();
-	}
-	
-	window->close();
 }
 
 void JanelaCadastroFuncionario::MudarFuncionario()
@@ -258,6 +259,7 @@ void JanelaCadastroFuncionario::MudarFuncionario()
 	switch(combo_box_fucao->get_active_row_number())
 	{
 		case 0:
+			valid_crmv = false;
 			combo_box_nivel_de_seguranca->hide();
 			label_nivel_de_seguranca->hide();
 			entry_crmv->show();
@@ -265,6 +267,7 @@ void JanelaCadastroFuncionario::MudarFuncionario()
 			AtualizarIconeId();
 			break;
 		case 1:
+			valid_crmv = true;
 			combo_box_nivel_de_seguranca->show();
 			label_nivel_de_seguranca->show();
 			entry_crmv->hide();
@@ -311,7 +314,21 @@ void JanelaCadastroFuncionario::AtualizarIconeId()
 		entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
 		entry_id->set_icon_tooltip_text("ID inválido");
 	}
-	
+}
+
+void JanelaCadastroFuncionario::AtualizarIconeNomeDoFuncionario()
+{
+	string temp = entry_nome_do_funcionario->get_text();
+	if(temp.empty())
+	{
+			valid_nome_do_funcionario = false;
+			entry_nome_do_funcionario->set_icon_from_pixbuf(pixbuf_uncheck);
+	}
+	else
+	{
+		valid_nome_do_funcionario = true;
+		entry_nome_do_funcionario->set_icon_from_pixbuf(pixbuf_check);
+	}
 }
 
 void JanelaCadastroFuncionario::AtualizarIconeCPF()
@@ -369,5 +386,61 @@ void JanelaCadastroFuncionario::AtualizarIconeCPF()
 		valid_cpf = false;
 		entry_cpf->set_icon_from_pixbuf(pixbuf_uncheck);
 		entry_cpf->set_icon_tooltip_text("CPF inválido");
+	}
+}
+
+void JanelaCadastroFuncionario::AtualizarIconeIdade()
+{
+	int temp;
+	try
+	{
+		temp = stoi(entry_idade->get_text());
+	}
+	catch(exception &ex)
+	{
+		valid_idade = false;
+		entry_idade->set_icon_from_pixbuf(pixbuf_uncheck);
+		entry_idade->set_icon_tooltip_text("Idade inválida");
+		return;
+	}	
+	if(temp <= 0)
+	{
+			valid_idade = false;
+			entry_idade->set_icon_from_pixbuf(pixbuf_uncheck);
+	}
+	else
+	{
+		valid_idade = true;
+		entry_idade->set_icon_from_pixbuf(pixbuf_check);
+	}
+}
+
+void JanelaCadastroFuncionario::AtualizarIconeEspecialidade()
+{
+	string temp = entry_especialidade->get_text();
+	if(temp.empty())
+	{
+			valid_especialidade = false;
+			entry_especialidade->set_icon_from_pixbuf(pixbuf_uncheck);
+	}
+	else
+	{
+		valid_especialidade = true;
+		entry_especialidade->set_icon_from_pixbuf(pixbuf_check);
+	}
+}
+
+void JanelaCadastroFuncionario::AtualizarIconeCRMV()
+{
+	string temp = entry_crmv->get_text();
+	if(temp.empty())
+	{
+			valid_crmv = false;
+			entry_crmv->set_icon_from_pixbuf(pixbuf_uncheck);
+	}
+	else
+	{
+		valid_crmv = true;
+		entry_crmv->set_icon_from_pixbuf(pixbuf_check);
 	}
 }
