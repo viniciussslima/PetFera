@@ -796,8 +796,8 @@ void JanelaCadastroAnimal::AtualizarIconeNomeCientifico()
 	string temp = entry_nome_cientifico->get_text();
 	if(temp.empty())
 	{
-			valid_nome_cientifico = false;
-			entry_nome_cientifico->set_icon_from_pixbuf(pixbuf_uncheck);
+		valid_nome_cientifico = false;
+		entry_nome_cientifico->set_icon_from_pixbuf(pixbuf_uncheck);
 	}
 	else
 	{
@@ -808,10 +808,22 @@ void JanelaCadastroAnimal::AtualizarIconeNomeCientifico()
 
 void JanelaCadastroAnimal::AtualizarIconeTamanho()
 {
+	string entry_text = entry_tamanho->get_text();
 	double temp;
+	bool is_numeric = true;
+
+	for(unsigned int i = 0; i < entry_text.length(); i++)
+	{
+		if(!isdigit(entry_text[i]))
+		{
+			is_numeric = false;
+			break;
+		}
+	}
+
 	try
 	{
-		temp = stod(entry_tamanho->get_text());
+		temp = stod(entry_text);
 	}
 	catch(exception &ex)
 	{
@@ -820,16 +832,16 @@ void JanelaCadastroAnimal::AtualizarIconeTamanho()
 		entry_tamanho->set_icon_tooltip_text("Tamanho inválido");
 		return;
 	}	
-	if(temp <= 0)
-	{
-			valid_tamanho = false;
-			entry_tamanho->set_icon_from_pixbuf(pixbuf_uncheck);
-			entry_tamanho->set_icon_tooltip_text("O tamanho tem que ser maior que 0");
-	}
-	else
+	if(temp > 0 && is_numeric)
 	{
 		valid_tamanho = true;
 		entry_tamanho->set_icon_from_pixbuf(pixbuf_check);
+	}
+	else
+	{
+		valid_tamanho = false;
+		entry_tamanho->set_icon_from_pixbuf(pixbuf_uncheck);
+		entry_tamanho->set_icon_tooltip_text("O tamanho tem que ser maior que 0 e ter somente numeros");
 	}
 }
 
