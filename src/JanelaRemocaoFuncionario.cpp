@@ -3,7 +3,10 @@
 using namespace Gtk;
 using namespace std;
 
-JanelaRemocaoFuncionario::JanelaRemocaoFuncionario(JanelaPrincipal &jptemp, map<int, Veterinario> &vtemp, map<int, Tratador> &ttemp)
+JanelaRemocaoFuncionario::JanelaRemocaoFuncionario(JanelaPrincipal &jptemp, map<int, Veterinario> &vtemp, map<int, Tratador> &ttemp, map<int, AnfibioExotico> &anetemp, 
+										   map<int, AnfibioNativo> &anntemp, map<int, AveExotico> &avetemp, map<int, AveNativo> &avntemp,
+										   map<int, MamiferoExotico> &metemp, map<int, MamiferoNativo> &mntemp, 
+										   map<int, ReptilExotico> &retemp, map<int, ReptilNativo> &rntemp)
 {
 	valid_id = false;
 
@@ -11,6 +14,18 @@ JanelaRemocaoFuncionario::JanelaRemocaoFuncionario(JanelaPrincipal &jptemp, map<
 
 	veterinarios = &vtemp;
 	tratadores = &ttemp;
+
+	anfibios_exoticos = &anetemp;
+	anfibios_nativos = &anntemp;
+
+	aves_exoticas = &avetemp;
+	aves_nativas = &avntemp;
+
+	mamiferos_exoticos = &metemp;
+	mamiferos_nativos = &mntemp;
+
+	repteis_exoticos = &retemp;
+	repteis_nativos = &rntemp;
 
 	//Inicialização
 	window = new Window;
@@ -41,19 +56,6 @@ JanelaRemocaoFuncionario::JanelaRemocaoFuncionario(JanelaPrincipal &jptemp, map<
 	button_confirmar->signal_clicked().connect(sigc::mem_fun(*this, &JanelaRemocaoFuncionario::Remover));
 	entry_id->signal_changed().connect(sigc::mem_fun(*this, &JanelaRemocaoFuncionario::AtualizarIconeId));
 }
-
-
-/*  int id;
-	string funcao;
-	string nome_do_funcionario;
-	string cpf;
-	short idade;
-	string tipo_sanguineo;
-	char rh;
-	string especialidade;
-	string crmv;
-	int nivel_de_seguranca;
-	*/
 
 JanelaRemocaoFuncionario::~JanelaRemocaoFuncionario()
 {
@@ -106,21 +108,14 @@ void JanelaRemocaoFuncionario::Remover()
 			rename("Dados/TempFuncionario.csv", "Dados/funcionarios.csv");
 			funcionarios_temp.close();
 		}
-		else
-		{
-			MessageDialog dialog(*window, "Arquivo funcionarios.csv não encontrado.");
-			dialog.set_secondary_text("Provavelmente nenhum funcionário foi cadastrado, certifique-se que existe algum funcionário antes de remover.");
-	  		dialog.run();
-		}
+	window->close();
 	}
 	else
 	{
-		MessageDialog dialog(*window, "Funcionário com ID inexistente.");
-		dialog.set_secondary_text("Não foi encontrado nenhum funcionário com o id apresentado.");
+		MessageDialog dialog(*window, "ID inválido.");
+		dialog.set_secondary_text("Não foi encontrado nenhum funcionário com o id apresentado ou esse fucionário é responsavel por algum animal.");
   		dialog.run();
 	}
-
-	window->close();
 }
 
 void JanelaRemocaoFuncionario::AtualizarIconeId()
@@ -140,12 +135,113 @@ void JanelaRemocaoFuncionario::AtualizarIconeId()
 		int id = stoi(temp);
 		map<int, Veterinario>::iterator it_v = veterinarios->find(id);
 		map<int, Tratador>::iterator it_t = tratadores->find(id);
+		bool animal_sob_responsabilidade = false;
 
 		if(it_v != veterinarios->end() || it_t != tratadores->end())
 		{
 			valid_id = true;
 			entry_id->set_icon_from_pixbuf(pixbuf_check);
 			entry_id->set_icon_tooltip_text("ID válido");
+			
+			for (map<int, AnfibioExotico>::iterator it = anfibios_exoticos->begin(); it != anfibios_exoticos->end(); it++)
+			{
+				if ((it->second).get_veterinario_id() == id ||
+					(it->second).get_tratador_id() == id)
+				{
+					animal_sob_responsabilidade = true;
+					break;
+				}
+			}
+			if (!animal_sob_responsabilidade)
+			{
+				for (map<int, AnfibioNativo>::iterator it = anfibios_nativos->begin(); it != anfibios_nativos->end(); it++)
+				{
+					if ((it->second).get_veterinario_id() == id ||
+						(it->second).get_tratador_id() == id)
+					{
+						animal_sob_responsabilidade = true;
+						break;
+					}
+				}
+			}
+			if (!animal_sob_responsabilidade)
+			{
+				for (map<int, AveExotico>::iterator it = aves_exoticas->begin(); it != aves_exoticas->end(); it++)
+				{
+					if ((it->second).get_veterinario_id() == id ||
+						(it->second).get_tratador_id() == id)
+					{
+						animal_sob_responsabilidade = true;
+						break;
+					}
+				}
+			}
+			if (!animal_sob_responsabilidade)
+			{
+				for (map<int, AveNativo>::iterator it = aves_nativas->begin(); it != aves_nativas->end(); it++)
+				{
+					if ((it->second).get_veterinario_id() == id ||
+						(it->second).get_tratador_id() == id)
+					{
+						animal_sob_responsabilidade = true;
+						break;
+					}
+				}
+			}
+			if (!animal_sob_responsabilidade)
+			{
+				for (map<int, MamiferoExotico>::iterator it = mamiferos_exoticos->begin(); it != mamiferos_exoticos->end(); it++)
+				{
+					if ((it->second).get_veterinario_id() == id ||
+						(it->second).get_tratador_id() == id)
+					{
+						animal_sob_responsabilidade = true;
+						break;
+					}
+				}
+			}
+			if (!animal_sob_responsabilidade)
+			{
+				for (map<int, MamiferoNativo>::iterator it = mamiferos_nativos->begin(); it != mamiferos_nativos->end(); it++)
+				{
+					if ((it->second).get_veterinario_id() == id ||
+						(it->second).get_tratador_id() == id)
+					{
+						animal_sob_responsabilidade = true;
+						break;
+					}
+				}
+			}
+			if (!animal_sob_responsabilidade)
+			{
+				for (map<int, ReptilExotico>::iterator it = repteis_exoticos->begin(); it != repteis_exoticos->end(); it++)
+				{
+					if ((it->second).get_veterinario_id() == id ||
+						(it->second).get_tratador_id() == id)
+					{
+						animal_sob_responsabilidade = true;
+						break;
+					}
+				}
+			}
+			if (!animal_sob_responsabilidade)
+			{
+				for (map<int, ReptilNativo>::iterator it = repteis_nativos->begin(); it != repteis_nativos->end(); it++)
+				{
+					if ((it->second).get_veterinario_id() == id ||
+						(it->second).get_tratador_id() == id)
+					{
+						animal_sob_responsabilidade = true;
+						break;
+					}
+				}
+			}
+			if(animal_sob_responsabilidade)
+			{
+				valid_id = false;
+				entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
+				entry_id->set_icon_tooltip_text("Esse funcionario é responsavel por animais, impossivel removelo");
+			}
 		}
 		else
 		{

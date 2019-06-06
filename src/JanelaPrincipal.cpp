@@ -487,7 +487,8 @@ void JanelaPrincipal::RemoverFuncionario()
 	}
 	else
 	{
-		JanelaRemocaoFuncionario temp(*this, veterinarios, tratadores);
+		JanelaRemocaoFuncionario temp(*this, veterinarios, tratadores, anfibios_exoticos, anfibios_nativos, aves_exoticas,
+								  aves_nativas, mamiferos_exoticos, mamiferos_nativos, repteis_exoticos, repteis_nativos);
 		temp.Run();
 	}
 	this->Run();
