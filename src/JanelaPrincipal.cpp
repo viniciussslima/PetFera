@@ -3,6 +3,7 @@
 #include "JanelaCadastroAnimal.h"
 #include "JanelaRemocaoFuncionario.h"
 #include "JanelaRemocaoAnimal.h"
+#include "Animal_Funcionario.h"
 
 using namespace Gtk;
 using namespace std;
@@ -168,6 +169,7 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 	button_cadastro_funcionario = new Button("Cadastrar funcionario");
 	button_remocao_funcionario = new Button("Remover funcionario");
 	button_editar = new Button("Editar");
+	button_buscar_animal_por_funcionario = new Button("Buscar animal Por funcionario");
 
 	box_principal = new VBox;
 	box_botoes = new HButtonBox;
@@ -412,6 +414,7 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 	button_remocao_funcionario->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::RemoverFuncionario));
 	button_remocao_animal->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::RemoverAnimal));
 	button_editar->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::Editar));
+	button_buscar_animal_por_funcionario->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::BuscarAnimalPorFuncionario));
 }
 
 JanelaPrincipal::~JanelaPrincipal()
@@ -513,6 +516,12 @@ void JanelaPrincipal::RemoverAnimal()
 		temp.Run();
 	}
 	this->Run();
+}
+
+void JanelaPrincipal::BuscarAnimalPorFuncionario()
+{
+	AnimalFuncionario temp;
+	temp.Run();
 }
 
 void JanelaPrincipal::Editar()

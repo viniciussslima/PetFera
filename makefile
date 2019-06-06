@@ -17,7 +17,7 @@ $(BUILDDIR)Mamifero.o $(BUILDDIR)MamiferoNativo.o $(BUILDDIR)MamiferoExotico.o \
 $(BUILDDIR)Reptil.o $(BUILDDIR)ReptilNativo.o $(BUILDDIR)ReptilExotico.o \
 $(BUILDDIR)Ave.o $(BUILDDIR)AveNativo.o $(BUILDDIR)AveExotico.o \
 $(BUILDDIR)AnimalSilvestre.o $(BUILDDIR)AnimalNativo.o $(BUILDDIR)AnimalExotico.o \
-$(BUILDDIR)Separador.o
+$(BUILDDIR)Separador.o $(BUILDDIR)Animal_Funcionario.o
 
 $(PROG): folder clean $(OBJS)
 	$(CC) -o $(PROG) $(OBJS) $(LDFLAGS)
@@ -37,6 +37,8 @@ $(BUILDDIR)JanelaRemocaoFuncionario.o: $(INCLUDEDIR)JanelaRemocaoFuncionario.h
 	$(CC) $(CPPFLAGSGTK) -c $(SRCDIR)JanelaRemocaoFuncionario.cpp -o $@
 $(BUILDDIR)JanelaRemocaoAnimal.o: $(INCLUDEDIR)JanelaRemocaoAnimal.h
 	$(CC) $(CPPFLAGSGTK) -c $(SRCDIR)JanelaRemocaoAnimal.cpp -o $@
+$(BUILDDIR)Animal_Funcionario.o: $(INCLUDEDIR)Animal_Funcionario.h
+	$(CC) $(CPPFLAGSGTK) -c $(SRCDIR)Animal_Funcionario.cpp -o $@
 $(BUILDDIR)date.o : $(INCLUDEDIR)date.h
 	$(CC) $(CPPFLAGS) -c $(SRCDIR)date.cpp -o $@
 $(BUILDDIR)Funcionario.o : $(INCLUDEDIR)Funcionario.h
