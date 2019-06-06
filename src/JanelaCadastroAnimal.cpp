@@ -13,6 +13,7 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 {
 	valid_tratador_id = true;
 	valid_veterinario_id = true;
+	valid_nacionalidade = true;
 	valid_total_de_mudas = true;
 	valid_data_da_ultima_muda = true;
 	valid_tamanho_do_bico = true;
@@ -118,6 +119,7 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 	entry_tratador_id->set_icon_tooltip_text("ID inválido");
 	entry_nome_batismo->set_icon_from_pixbuf(pixbuf_uncheck);
 	entry_autorizacao_ibama->set_icon_from_pixbuf(pixbuf_uncheck);
+	entry_nacionalidade->set_icon_from_pixbuf(pixbuf_uncheck);
 	entry_total_de_mudas->set_icon_from_pixbuf(pixbuf_uncheck);
 	entry_data_da_ultima_muda->set_icon_from_pixbuf(pixbuf_uncheck);
 	entry_tamanho_do_bico->set_icon_from_pixbuf(pixbuf_uncheck);
@@ -240,12 +242,13 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 	entry_veterinario_id->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeVeterinarioId));
 	entry_nome_batismo->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeNomeBatismo));
 	entry_autorizacao_ibama->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeAutorizacaoIbama));
+	entry_nacionalidade->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeNacionalidade));
 	entry_total_de_mudas->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeTotalDeMudas));
 	entry_data_da_ultima_muda->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeDataDaUltimaMuda));
-	//entry_tamanho_do_bico->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeDataDaUltimaMuda));
-	//entry_envergadura_das_asas->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeDataDaUltimaMuda));
-	//entry_cor_dos_pelos->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeDataDaUltimaMuda));
-	//entry_tipo_de_veneno->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeDataDaUltimaMuda));
+	entry_tamanho_do_bico->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeTamanhoDoBico));
+	entry_envergadura_das_asas->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeEnvergaduraDasAsas));
+	entry_cor_dos_pelos->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeCorDosPelos));
+	entry_tipo_de_veneno->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeTipoDeVeneno));
 }
 
 JanelaCadastroAnimal::~JanelaCadastroAnimal()
@@ -301,13 +304,31 @@ void JanelaCadastroAnimal::Run()
 
 void JanelaCadastroAnimal::Cadastrar()
 {
+	cout << "id: " << valid_id << " "
+		"Nome Científico: " << valid_nome_cientifico << " "
+		"tamanho: " << valid_tamanho << " "
+		"dieta: " << valid_dieta << " "
+		"tratador: " << valid_tratador_id << " "
+		"veterinario: " << valid_veterinario_id << " "
+		"nome batismo: " << valid_nome_batismo << " "
+		"autorizacao ibama: " << valid_autorizacao_ibama << " "
+		"nacionalidade: " << valid_nacionalidade << " "
+		"total de mudas: " << valid_total_de_mudas << " "
+		"data da ultima muda: " << valid_data_da_ultima_muda << " "
+		"tamanho do bico: " << valid_tamanho_do_bico << " "
+		"envergadura das asas: " << valid_envergadura_das_asas << " "
+		"cor dos pelos: " << valid_cor_dos_pelos << " "
+		"tipo veneno: " << valid_tipo_veneno << endl;
+
+
 	if (valid_id && valid_nome_cientifico && 
 		valid_tamanho && valid_dieta && 
 		valid_tratador_id && valid_veterinario_id && 
 		valid_nome_batismo && valid_autorizacao_ibama &&
-		valid_total_de_mudas && valid_data_da_ultima_muda && 
-		valid_tamanho_do_bico && valid_envergadura_das_asas && 
-		valid_cor_dos_pelos && valid_tipo_veneno)
+		valid_nacionalidade && valid_total_de_mudas && 
+		valid_data_da_ultima_muda && valid_tamanho_do_bico && 
+		valid_envergadura_das_asas && valid_cor_dos_pelos && 
+		valid_tipo_veneno)
 	{
 		int id = stoi(entry_id->get_text());
 		string classe = combo_box_classe->get_active_text(); 
@@ -488,6 +509,13 @@ void JanelaCadastroAnimal::MudarClasse()
 		case 0:
 			valid_total_de_mudas = false;
 			valid_data_da_ultima_muda = false;
+
+			valid_tamanho_do_bico = true;
+			valid_envergadura_das_asas = true;
+			valid_cor_dos_pelos = true;
+			valid_tipo_veneno = true;
+
+
 			entry_total_de_mudas->show();
 			label_total_de_mudas->show();
 			entry_data_da_ultima_muda->show();
@@ -507,6 +535,12 @@ void JanelaCadastroAnimal::MudarClasse()
 		case 1:
 			valid_tamanho_do_bico = false;
 			valid_envergadura_das_asas = false;
+
+			valid_total_de_mudas = true;
+			valid_data_da_ultima_muda = true;
+			valid_cor_dos_pelos = true;
+			valid_tipo_veneno = true;
+
 			entry_total_de_mudas->hide();
 			label_total_de_mudas->hide();
 			entry_data_da_ultima_muda->hide();
@@ -524,6 +558,14 @@ void JanelaCadastroAnimal::MudarClasse()
 			break;
 		case 2:
 			valid_cor_dos_pelos = false;
+
+			valid_total_de_mudas = true;
+			valid_data_da_ultima_muda = true;
+
+			valid_tamanho_do_bico = true;
+			valid_envergadura_das_asas = true;
+			valid_tipo_veneno = true;
+
 			entry_total_de_mudas->hide();
 			label_total_de_mudas->hide();
 			entry_data_da_ultima_muda->hide();
@@ -542,6 +584,14 @@ void JanelaCadastroAnimal::MudarClasse()
 			break;
 		case 3:
 			valid_tipo_veneno = false;
+
+			valid_total_de_mudas = true;
+			valid_data_da_ultima_muda = true;
+
+			valid_tamanho_do_bico = true;
+			valid_envergadura_das_asas = true;
+			valid_cor_dos_pelos = true;
+
 			entry_total_de_mudas->hide();
 			label_total_de_mudas->hide();
 			entry_data_da_ultima_muda->hide();
@@ -842,6 +892,21 @@ void JanelaCadastroAnimal::AtualizarIconeAutorizacaoIbama()
 	}
 }
 
+void JanelaCadastroAnimal::AtualizarIconeNacionalidade()
+{
+	string temp = entry_nacionalidade->get_text();
+	if(temp.empty())
+	{
+			valid_nacionalidade = false;
+			entry_nacionalidade->set_icon_from_pixbuf(pixbuf_uncheck);
+	}
+	else
+	{
+		valid_nacionalidade = true;
+		entry_nacionalidade->set_icon_from_pixbuf(pixbuf_check);
+	}
+}
+
 void JanelaCadastroAnimal::AtualizarIconeTotalDeMudas()
 {
 	int temp;
@@ -864,7 +929,7 @@ void JanelaCadastroAnimal::AtualizarIconeTotalDeMudas()
 	}
 	else
 	{
-		valid_tamanho = true;
+		valid_total_de_mudas = true;
 		entry_total_de_mudas->set_icon_from_pixbuf(pixbuf_check);
 	}
 }
@@ -898,5 +963,89 @@ void JanelaCadastroAnimal::AtualizarIconeDataDaUltimaMuda()
 		valid_data_da_ultima_muda = false;
 		entry_data_da_ultima_muda->set_icon_from_pixbuf(pixbuf_uncheck);
 		entry_data_da_ultima_muda->set_icon_tooltip_text("Data Inválida");
+	}
+}
+
+void JanelaCadastroAnimal::AtualizarIconeTamanhoDoBico()
+{
+	double temp;
+	try
+	{
+		temp = stod(entry_tamanho_do_bico->get_text());
+	}
+	catch(exception &ex)
+	{
+		valid_tamanho_do_bico = false;
+		entry_tamanho_do_bico->set_icon_from_pixbuf(pixbuf_uncheck);
+		entry_tamanho_do_bico->set_icon_tooltip_text("Tamanho inválido");
+		return;
+	}	
+	if(temp <= 0)
+	{
+			valid_tamanho_do_bico = false;
+			entry_tamanho_do_bico->set_icon_from_pixbuf(pixbuf_uncheck);
+			entry_tamanho_do_bico->set_icon_tooltip_text("O tamanho tem que ser maior que 0");
+	}
+	else
+	{
+		valid_tamanho_do_bico = true;
+		entry_tamanho_do_bico->set_icon_from_pixbuf(pixbuf_check);
+	}
+}
+
+void JanelaCadastroAnimal::AtualizarIconeEnvergaduraDasAsas()
+{
+	double temp;
+	try
+	{
+		temp = stod(entry_envergadura_das_asas->get_text());
+	}
+	catch(exception &ex)
+	{
+		valid_envergadura_das_asas = false;
+		entry_envergadura_das_asas->set_icon_from_pixbuf(pixbuf_uncheck);
+		entry_envergadura_das_asas->set_icon_tooltip_text("Tamanho inválido");
+		return;
+	}	
+	if(temp <= 0)
+	{
+			valid_envergadura_das_asas = false;
+			entry_envergadura_das_asas->set_icon_from_pixbuf(pixbuf_uncheck);
+			entry_envergadura_das_asas->set_icon_tooltip_text("O tamanho tem que ser maior que 0");
+	}
+	else
+	{
+		valid_envergadura_das_asas = true;
+		entry_envergadura_das_asas->set_icon_from_pixbuf(pixbuf_check);
+	}
+}
+
+void JanelaCadastroAnimal::AtualizarIconeCorDosPelos()
+{
+	string temp = entry_cor_dos_pelos->get_text();
+	if(temp.empty())
+	{
+			valid_cor_dos_pelos = false;
+			entry_cor_dos_pelos->set_icon_from_pixbuf(pixbuf_uncheck);
+	}
+	else
+	{
+		valid_cor_dos_pelos = true;
+		entry_cor_dos_pelos->set_icon_from_pixbuf(pixbuf_check);
+	}
+}
+
+void JanelaCadastroAnimal::AtualizarIconeTipoDeVeneno()
+{
+	string temp = entry_tipo_de_veneno->get_text();
+	if(temp.empty())
+	{
+			valid_tipo_veneno = false;
+			entry_tipo_de_veneno->set_icon_from_pixbuf(pixbuf_uncheck);
+	}
+	else
+	{
+		valid_tipo_veneno = true;
+		entry_tipo_de_veneno->set_icon_from_pixbuf(pixbuf_check);
 	}
 }

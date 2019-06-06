@@ -95,6 +95,7 @@ class JanelaCadastroAnimal
 		bool valid_veterinario_id;
 		bool valid_nome_batismo;
 		bool valid_autorizacao_ibama;
+		bool valid_nacionalidade;
 		bool valid_total_de_mudas;
 		bool valid_data_da_ultima_muda;
 		bool valid_tamanho_do_bico;
@@ -138,8 +139,13 @@ class JanelaCadastroAnimal
 		void AtualizarIconeVeterinarioId();
 		void AtualizarIconeNomeBatismo();
 		void AtualizarIconeAutorizacaoIbama();
+		void AtualizarIconeNacionalidade();
 		void AtualizarIconeTotalDeMudas();
 		void AtualizarIconeDataDaUltimaMuda();
+		void AtualizarIconeTamanhoDoBico();
+		void AtualizarIconeEnvergaduraDasAsas();
+		void AtualizarIconeCorDosPelos();
+		void AtualizarIconeTipoDeVeneno();
 };
 
 #endif
