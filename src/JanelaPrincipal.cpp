@@ -536,90 +536,90 @@ void JanelaPrincipal::Editar()
 		case 1:
 		{
 			//veterinarios
-			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_tratadores->get_selection();
+			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_veterinarios->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			int id = row.get_value(model_columns_tratador.col_id);
+			int id = row.get_value(model_columns_veterinario.col_id);
 			cout << id << " "<< endl;
 			break;
 		}
 		case 2:
 		{
 			//anfibios nativos
-			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_tratadores->get_selection();
+			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_anfibios_nativos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			int id = row.get_value(model_columns_tratador.col_id);
+			int id = row.get_value(model_columns_anfibio_nativo.col_id);
 			cout << id << " "<< endl;
 			break;
 		}
 		case 3:
 		{
 			//anfibios exoticos
-			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_tratadores->get_selection();
+			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_anfibios_exoticos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			int id = row.get_value(model_columns_tratador.col_id);
+			int id = row.get_value(model_columns_anfibio_exotico.col_id);
 			cout << id << " "<< endl;
 			break;
 		}
 		case 4:
 		{
 			//aves nativas
-			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_tratadores->get_selection();
+			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_aves_nativas->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			int id = row.get_value(model_columns_tratador.col_id);
+			int id = row.get_value(model_columns_ave_nativa.col_id);
 			cout << id << " "<< endl;
 			break;
 		}
 		case 5:
 		{
 			//aves exoticas
-			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_tratadores->get_selection();
+			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_aves_exoticas->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			int id = row.get_value(model_columns_tratador.col_id);
+			int id = row.get_value(model_columns_ave_exotica.col_id);
 			cout << id << " "<< endl;
 			break;
 		}
 		case 6:
 		{
 			//mamiferos nativos
-			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_tratadores->get_selection();
+			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_mamiferos_nativos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			int id = row.get_value(model_columns_tratador.col_id);
+			int id = row.get_value(model_columns_mamifero_nativo.col_id);
 			cout << id << " "<< endl;
 			break;
 		}
 		case 7:
 		{
 			//mamiferos exoticos
-			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_tratadores->get_selection();
+			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_mamiferos_exoticos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			int id = row.get_value(model_columns_tratador.col_id);
+			int id = row.get_value(model_columns_mamifero_exotico.col_id);
 			cout << id << " "<< endl;
 			break;
 		}
 		case 8:
 		{
 			//repteis nativos
-			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_tratadores->get_selection();
+			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_repteis_nativos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			int id = row.get_value(model_columns_tratador.col_id);
+			int id = row.get_value(model_columns_reptil_nativo.col_id);
 			cout << id << " "<< endl;
 			break;
 		}
 		case 9:
 		{
 			//repteis exoticos
-			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_tratadores->get_selection();
+			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_repteis_nativos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			int id = row.get_value(model_columns_tratador.col_id);
+			int id = row.get_value(model_columns_reptil_nativo.col_id);
 			cout << id << " "<< endl;
 			break;
 		}
