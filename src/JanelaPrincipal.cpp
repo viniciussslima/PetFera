@@ -454,10 +454,8 @@ void JanelaPrincipal::Run()
 
 void JanelaPrincipal::CadastrarFuncionario()
 {
-	window->hide();
 	JanelaCadastroFuncionario temp(*this, veterinarios, tratadores);
 	temp.Run();
-	this->Run();
 }
 
 void JanelaPrincipal::CadastrarAnimal()
@@ -478,7 +476,6 @@ void JanelaPrincipal::CadastrarAnimal()
 
 void JanelaPrincipal::RemoverFuncionario()
 {
-	window->hide();
 	if (tratadores.empty() && veterinarios.empty())
 	{
 		MessageDialog dialog(*window, "Impossivel remover um funcionario.");
@@ -490,12 +487,10 @@ void JanelaPrincipal::RemoverFuncionario()
 		JanelaRemocaoFuncionario temp(*this, veterinarios, tratadores);
 		temp.Run();
 	}
-	this->Run();
 }
 
 void JanelaPrincipal::RemoverAnimal()
 {
-	window->hide();
 	if(anfibios_exoticos.empty() && anfibios_nativos.empty() && 
 		aves_exoticas.empty() && aves_nativas.empty() && 
 		mamiferos_exoticos.empty() && mamiferos_nativos.empty() &&
@@ -512,7 +507,6 @@ void JanelaPrincipal::RemoverAnimal()
 								 repteis_exoticos, repteis_nativos);
 		temp.Run();
 	}
-	this->Run();
 }
 
 void JanelaPrincipal::Editar()
