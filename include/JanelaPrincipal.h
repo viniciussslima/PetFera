@@ -301,7 +301,7 @@ class ModelColumnsReptilNativo : public Gtk::TreeModel::ColumnRecord
     	TreeModelColumn<string> col_uf_origem;
 };
 
-	class ModelColumnsReptilExotico : public Gtk::TreeModel::ColumnRecord
+class ModelColumnsReptilExotico : public Gtk::TreeModel::ColumnRecord
 {
 	public:
   		ModelColumnsReptilExotico()

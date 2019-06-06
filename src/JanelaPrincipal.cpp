@@ -3,7 +3,9 @@
 #include "JanelaCadastroAnimal.h"
 #include "JanelaRemocaoFuncionario.h"
 #include "JanelaRemocaoAnimal.h"
-#include "Animal_Funcionario.h"
+#include "JanelaBuscaAnimais.h"
+#include <exception> 
+
 
 using namespace Gtk;
 using namespace std;
@@ -239,6 +241,7 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 	box_botoes->pack_start(*button_cadastro_funcionario, PACK_EXPAND_PADDING, 10);
 	box_botoes->pack_start(*button_remocao_funcionario, PACK_EXPAND_PADDING, 10);
 	box_botoes->pack_start(*button_editar, PACK_EXPAND_PADDING, 10);
+	box_botoes->pack_start(*button_buscar_animal_por_funcionario, PACK_EXPAND_PADDING, 10);
 
 	//Criando o modelo de arvore
 	list_store_tratadores = ListStore::create(model_columns_tratador);
@@ -513,14 +516,9 @@ void JanelaPrincipal::RemoverAnimal()
 	}
 }
 
-void JanelaPrincipal::BuscarAnimalPorFuncionario()
-{
-	AnimalFuncionario temp;
-	temp.Run();
-}
-
 void JanelaPrincipal::Editar()
 {
+	int id;
 	switch(notebook_consulta->get_current_page())
 	{
 	case 0:
@@ -529,8 +527,8 @@ void JanelaPrincipal::Editar()
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_tratadores->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			int id = row.get_value(model_columns_tratador.col_id);
-			cout << id << " "<< endl;
+			id = row.get_value(model_columns_tratador.col_id);
+			cout << id << endl;
 			/*window->hide();
 			JanelaEditarFuncionario temp(*this, veterinarios, tratadores, id);
 			temp.Run();
@@ -543,7 +541,7 @@ void JanelaPrincipal::Editar()
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_veterinarios->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			int id = row.get_value(model_columns_veterinario.col_id);
+			id = row.get_value(model_columns_veterinario.col_id);
 			cout << id << " "<< endl;
 			break;
 		}
@@ -553,7 +551,7 @@ void JanelaPrincipal::Editar()
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_anfibios_nativos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			int id = row.get_value(model_columns_anfibio_nativo.col_id);
+			id = row.get_value(model_columns_anfibio_nativo.col_id);
 			cout << id << " "<< endl;
 			break;
 		}
@@ -563,7 +561,7 @@ void JanelaPrincipal::Editar()
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_anfibios_exoticos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			int id = row.get_value(model_columns_anfibio_exotico.col_id);
+			id = row.get_value(model_columns_anfibio_exotico.col_id);
 			cout << id << " "<< endl;
 			break;
 		}
@@ -573,7 +571,7 @@ void JanelaPrincipal::Editar()
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_aves_nativas->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			int id = row.get_value(model_columns_ave_nativa.col_id);
+			id = row.get_value(model_columns_ave_nativa.col_id);
 			cout << id << " "<< endl;
 			break;
 		}
@@ -583,7 +581,7 @@ void JanelaPrincipal::Editar()
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_aves_exoticas->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			int id = row.get_value(model_columns_ave_exotica.col_id);
+			id = row.get_value(model_columns_ave_exotica.col_id);
 			cout << id << " "<< endl;
 			break;
 		}
@@ -593,7 +591,7 @@ void JanelaPrincipal::Editar()
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_mamiferos_nativos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			int id = row.get_value(model_columns_mamifero_nativo.col_id);
+			id = row.get_value(model_columns_mamifero_nativo.col_id);
 			cout << id << " "<< endl;
 			break;
 		}
@@ -603,7 +601,7 @@ void JanelaPrincipal::Editar()
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_mamiferos_exoticos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			int id = row.get_value(model_columns_mamifero_exotico.col_id);
+			id = row.get_value(model_columns_mamifero_exotico.col_id);
 			cout << id << " "<< endl;
 			break;
 		}
@@ -613,7 +611,7 @@ void JanelaPrincipal::Editar()
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_repteis_nativos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			int id = row.get_value(model_columns_reptil_nativo.col_id);
+			id = row.get_value(model_columns_reptil_nativo.col_id);
 			cout << id << " "<< endl;
 			break;
 		}
@@ -623,11 +621,42 @@ void JanelaPrincipal::Editar()
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_repteis_nativos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			int id = row.get_value(model_columns_reptil_nativo.col_id);
+			id = row.get_value(model_columns_reptil_nativo.col_id);
 			cout << id << " "<< endl;
 			break;
 		}
 	}
+}
+
+void JanelaPrincipal::BuscarAnimalPorFuncionario()
+{
+	int id;
+	switch(notebook_consulta->get_current_page())
+	{
+		case 0:
+		{
+			//tratadores
+			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_tratadores->get_selection();
+			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
+			Gtk::TreeModel::Row row = *selectedRow;
+			id = row.get_value(model_columns_tratador.col_id);
+			break;
+		}
+		case 1:
+		{
+			//veterinarios
+			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_veterinarios->get_selection();
+			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
+			Gtk::TreeModel::Row row = *selectedRow;
+			id = row.get_value(model_columns_veterinario.col_id);
+			break;
+		}
+	}
+
+	JanelaBuscaAnimais temp(anfibios_exoticos, anfibios_nativos, aves_exoticas,
+								 aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+								 repteis_exoticos, repteis_nativos, id);
+	temp.Run();
 }
 
 void JanelaPrincipal::AtualizarLista(int i)
