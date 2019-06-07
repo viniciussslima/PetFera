@@ -88,7 +88,12 @@ class JanelaBuscaAnimais : public ModelColumnsTratador, public ModelColumnsVeter
 	  	Glib::RefPtr<ListStore> list_store_repteis_exoticos;
 
 		bool valid_id;
+		int pagina;
+		int id;
 
+		map<int, Veterinario> *veterinarios;
+		map<int, Tratador> *tratadores;
+		
 		map<int, AnfibioExotico> *anfibios_exoticos;
 		map<int, AnfibioNativo> *anfibios_nativos;
 
@@ -101,12 +106,14 @@ class JanelaBuscaAnimais : public ModelColumnsTratador, public ModelColumnsVeter
 		map<int, ReptilExotico> *repteis_exoticos;
 		map<int, ReptilNativo> *repteis_nativos;
 	public:
-		JanelaBuscaAnimais(map<int, AnfibioExotico>&, map<int, AnfibioNativo>&, map<int, AveExotico>&, 
-							map<int, AveNativo>&, map<int, MamiferoExotico>&, map<int, MamiferoNativo>&, 
-							map<int, ReptilExotico>&, map<int, ReptilNativo>&, int id = 0);
+		JanelaBuscaAnimais(map<int, Veterinario>&, map<int, Tratador>&, map<int, AnfibioExotico>&, map<int, AnfibioNativo>&, 
+							map<int, AveExotico>&, map<int, AveNativo>&, map<int, MamiferoExotico>&, map<int, MamiferoNativo>&, 
+							map<int, ReptilExotico>&, map<int, ReptilNativo>&, int, int);
 		~JanelaBuscaAnimais();
 
 		void ProcurarAnimalPorFuncionario();
+		void Buscar();
+		void AtualizarIconeId();
 		void Run();
 };
 

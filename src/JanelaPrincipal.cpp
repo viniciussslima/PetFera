@@ -527,8 +527,12 @@ void JanelaPrincipal::Editar()
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_tratadores->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			id = row.get_value(model_columns_tratador.col_id);
-			cout << id << endl;
+			if (row == NULL)
+			{
+				cout << "tested" << endl;
+			}
+			//id = row.get_value(model_columns_tratador.col_id);
+			//cout << id << endl;
 			/*window->hide();
 			JanelaEditarFuncionario temp(*this, veterinarios, tratadores, id);
 			temp.Run();
@@ -631,31 +635,50 @@ void JanelaPrincipal::Editar()
 void JanelaPrincipal::BuscarAnimalPorFuncionario()
 {
 	int id;
-	switch(notebook_consulta->get_current_page())
+	int pagina = notebook_consulta->get_current_page();
+	Glib::RefPtr<Gtk::TreeSelection> selection;
+	Gtk::TreeModel::iterator selectedRow;
+	Gtk::TreeModel::Row row;
+	switch(pagina)
 	{
 		case 0:
-		{
 			//tratadores
-			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_tratadores->get_selection();
-			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
-			Gtk::TreeModel::Row row = *selectedRow;
-			id = row.get_value(model_columns_tratador.col_id);
+			selection = tree_view_tratadores->get_selection();
+			selectedRow = selection->get_selected();
+			row = *selectedRow;
+			if (row == NULL)
+			{
+				id = 0;
+			}
+			else
+			{
+				id = row.get_value(model_columns_tratador.col_id);	
+			}
 			break;
-		}
 		case 1:
-		{
 			//veterinarios
-			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_veterinarios->get_selection();
-			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
-			Gtk::TreeModel::Row row = *selectedRow;
-			id = row.get_value(model_columns_veterinario.col_id);
+			selection = tree_view_veterinarios->get_selection();			
+			selectedRow = selection->get_selected();
+			row = *selectedRow;
+			if (row == NULL)
+			{
+				id = 0;
+			}
+			else
+			{
+				id = row.get_value(model_columns_tratador.col_id);	
+			}
 			break;
-		}
+		default:
+			MessageDialog dialog(*window, "Impossivel fazer a busca.");
+			dialog.set_secondary_text("O item selecionado não é um funcionario.");
+	  		dialog.run();
+	  		id = 0;
 	}
 
-	JanelaBuscaAnimais temp(anfibios_exoticos, anfibios_nativos, aves_exoticas,
+	JanelaBuscaAnimais temp(veterinarios, tratadores, anfibios_exoticos, anfibios_nativos, aves_exoticas,
 								 aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-								 repteis_exoticos, repteis_nativos, id);
+								 repteis_exoticos, repteis_nativos, pagina, id);
 	temp.Run();
 }
 
