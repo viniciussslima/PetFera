@@ -532,7 +532,10 @@ void JanelaPrincipal::Editar()
 			if (row != NULL)
 			{
 				id = row.get_value(model_columns_tratador.col_id);	
-				JanelaEditarFuncionario temp(*this, veterinarios, tratadores, pagina, id);
+				JanelaEditarFuncionario temp(*this, veterinarios, tratadores, 
+					anfibios_exoticos, anfibios_nativos, aves_exoticas,
+					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+					repteis_exoticos, repteis_nativos, pagina, id);
 				temp.Run();
 			}
 			break;
@@ -546,7 +549,10 @@ void JanelaPrincipal::Editar()
 			if (row != NULL)
 			{
 				id = row.get_value(model_columns_veterinario.col_id);	
-				JanelaEditarFuncionario temp(*this, veterinarios, tratadores, pagina, id);
+				JanelaEditarFuncionario temp(*this, veterinarios, tratadores, 
+					anfibios_exoticos, anfibios_nativos, aves_exoticas,
+					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+					repteis_exoticos, repteis_nativos, pagina, id);
 				temp.Run();
 			}
 			break;
