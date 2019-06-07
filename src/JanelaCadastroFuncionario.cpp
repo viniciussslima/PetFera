@@ -60,7 +60,7 @@ JanelaCadastroFuncionario::JanelaCadastroFuncionario(JanelaPrincipal &jptemp, ma
 	pixbuf_uncheck = Gdk::Pixbuf::create_from_file("icons/uncheck.ico");
 
 	entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
-	entry_id->set_icon_tooltip_text("ID válido");
+	entry_id->set_icon_tooltip_text("ID inválido");
 	entry_nome_do_funcionario->set_icon_from_pixbuf(pixbuf_uncheck);
 	entry_cpf->set_icon_from_pixbuf(pixbuf_uncheck);
 	entry_cpf->set_icon_tooltip_text("CPF inválido");
