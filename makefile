@@ -91,4 +91,4 @@ cleanall : clean
 run :
 	./$(PROG)
 gdb:
-	cd $(BINDIR) && gdb $(PROG) && cd ..	
+	gdb $(PROG)	
