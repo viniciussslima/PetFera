@@ -9,6 +9,7 @@ CPPFLAGS = -Wall -std=c++11 -I$(INCLUDEDIR)
 LDFLAGS = `pkg-config --libs gtkmm-3.0`
 OBJS = $(BUILDDIR)main.o $(BUILDDIR)JanelaPrincipal.o $(BUILDDIR)JanelaCadastroFuncionario.o \
 $(BUILDDIR)JanelaCadastroAnimal.o $(BUILDDIR)JanelaRemocaoFuncionario.o $(BUILDDIR)JanelaRemocaoAnimal.o\
+$(BUILDDIR)JanelaBuscaAnimais.o\
 $(BUILDDIR)date.o \
 $(BUILDDIR)Funcionario.o $(BUILDDIR)Veterinario.o $(BUILDDIR)Tratador.o \
 $(BUILDDIR)Animal.o \
@@ -17,7 +18,7 @@ $(BUILDDIR)Mamifero.o $(BUILDDIR)MamiferoNativo.o $(BUILDDIR)MamiferoExotico.o \
 $(BUILDDIR)Reptil.o $(BUILDDIR)ReptilNativo.o $(BUILDDIR)ReptilExotico.o \
 $(BUILDDIR)Ave.o $(BUILDDIR)AveNativo.o $(BUILDDIR)AveExotico.o \
 $(BUILDDIR)AnimalSilvestre.o $(BUILDDIR)AnimalNativo.o $(BUILDDIR)AnimalExotico.o \
-$(BUILDDIR)Separador.o $(BUILDDIR)JanelaBuscaAnimais.o
+$(BUILDDIR)Separador.o
 
 $(PROG): folder clean $(OBJS)
 	$(CC) -o $(PROG) $(OBJS) $(LDFLAGS)
