@@ -3,6 +3,7 @@
 #include "JanelaCadastroAnimal.h"
 #include "JanelaRemocaoFuncionario.h"
 #include "JanelaRemocaoAnimal.h"
+#include "JanelaEditarFuncionario.h"
 #include "JanelaBuscaAnimais.h"
 #include <exception> 
 
@@ -519,7 +520,8 @@ void JanelaPrincipal::RemoverAnimal()
 void JanelaPrincipal::Editar()
 {
 	int id;
-	switch(notebook_consulta->get_current_page())
+	int pagina = notebook_consulta->get_current_page();
+	switch(pagina)
 	{
 	case 0:
 		{
@@ -527,16 +529,12 @@ void JanelaPrincipal::Editar()
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_tratadores->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			if (row == NULL)
+			if (row != NULL)
 			{
-				cout << "tested" << endl;
+				id = row.get_value(model_columns_tratador.col_id);	
+				JanelaEditarFuncionario temp(*this, veterinarios, tratadores, pagina, id);
+				temp.Run();
 			}
-			//id = row.get_value(model_columns_tratador.col_id);
-			//cout << id << endl;
-			/*window->hide();
-			JanelaEditarFuncionario temp(*this, veterinarios, tratadores, id);
-			temp.Run();
-			this->Run();*/
 			break;
 		}
 		case 1:
@@ -545,8 +543,12 @@ void JanelaPrincipal::Editar()
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_veterinarios->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			id = row.get_value(model_columns_veterinario.col_id);
-			cout << id << " "<< endl;
+			if (row != NULL)
+			{
+				id = row.get_value(model_columns_veterinario.col_id);	
+				JanelaEditarFuncionario temp(*this, veterinarios, tratadores, pagina, id);
+				temp.Run();
+			}
 			break;
 		}
 		case 2:
@@ -555,8 +557,12 @@ void JanelaPrincipal::Editar()
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_anfibios_nativos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			id = row.get_value(model_columns_anfibio_nativo.col_id);
-			cout << id << " "<< endl;
+			if (row != NULL)
+			{
+				id = row.get_value(model_columns_anfibio_nativo.col_id);	
+				//JanelaEditarAnimal temp(*this, veterinarios, tratadores, pagina, id);
+				//temp.Run();
+			}
 			break;
 		}
 		case 3:
@@ -565,8 +571,12 @@ void JanelaPrincipal::Editar()
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_anfibios_exoticos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			id = row.get_value(model_columns_anfibio_exotico.col_id);
-			cout << id << " "<< endl;
+			if (row != NULL)
+			{
+				id = row.get_value(model_columns_anfibio_exotico.col_id);	
+				//JanelaEditarAnimal temp(*this, veterinarios, tratadores, pagina, id);
+				//temp.Run();
+			}
 			break;
 		}
 		case 4:
@@ -575,8 +585,12 @@ void JanelaPrincipal::Editar()
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_aves_nativas->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			id = row.get_value(model_columns_ave_nativa.col_id);
-			cout << id << " "<< endl;
+			if (row != NULL)
+			{
+				id = row.get_value(model_columns_ave_nativa.col_id);	
+				//JanelaEditarAnimal temp(*this, veterinarios, tratadores, pagina, id);
+				//temp.Run();
+			}
 			break;
 		}
 		case 5:
@@ -585,8 +599,12 @@ void JanelaPrincipal::Editar()
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_aves_exoticas->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			id = row.get_value(model_columns_ave_exotica.col_id);
-			cout << id << " "<< endl;
+			if (row != NULL)
+			{
+				id = row.get_value(model_columns_ave_exotica.col_id);	
+				//JanelaEditarAnimal temp(*this, veterinarios, tratadores, pagina, id);
+				//temp.Run();
+			}
 			break;
 		}
 		case 6:
@@ -595,8 +613,12 @@ void JanelaPrincipal::Editar()
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_mamiferos_nativos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			id = row.get_value(model_columns_mamifero_nativo.col_id);
-			cout << id << " "<< endl;
+			if (row != NULL)
+			{
+				id = row.get_value(model_columns_mamifero_nativo.col_id);	
+				//JanelaEditarAnimal temp(*this, veterinarios, tratadores, pagina, id);
+				//temp.Run();
+			}
 			break;
 		}
 		case 7:
@@ -605,18 +627,26 @@ void JanelaPrincipal::Editar()
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_mamiferos_exoticos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			id = row.get_value(model_columns_mamifero_exotico.col_id);
-			cout << id << " "<< endl;
+			if (row != NULL)
+			{
+				id = row.get_value(model_columns_mamifero_exotico.col_id);	
+				//JanelaEditarAnimal temp(*this, veterinarios, tratadores, pagina, id);
+				//temp.Run();
+			}
 			break;
 		}
 		case 8:
 		{
 			//repteis nativos
-			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_repteis_nativos->get_selection();
+			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_repteis_exoticos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			id = row.get_value(model_columns_reptil_nativo.col_id);
-			cout << id << " "<< endl;
+			if (row != NULL)
+			{
+				id = row.get_value(model_columns_reptil_exotico.col_id);	
+				//JanelaEditarAnimal temp(*this, veterinarios, tratadores, pagina, id);
+				//temp.Run();
+			}
 			break;
 		}
 		case 9:
@@ -625,8 +655,12 @@ void JanelaPrincipal::Editar()
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_repteis_nativos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			id = row.get_value(model_columns_reptil_nativo.col_id);
-			cout << id << " "<< endl;
+			if (row != NULL)
+			{
+				id = row.get_value(model_columns_reptil_nativo.col_id);	
+				//JanelaEditarAnimal temp(*this, veterinarios, tratadores, pagina, id);
+				//temp.Run();
+			}
 			break;
 		}
 	}
