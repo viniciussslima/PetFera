@@ -661,12 +661,12 @@ void JanelaPrincipal::Editar()
 		case 8:
 		{
 			//repteis nativos
-			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_repteis_exoticos->get_selection();
+			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_repteis_nativos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
 			if (row != NULL)
 			{
-				id = row.get_value(model_columns_reptil_exotico.col_id);	
+				id = row.get_value(model_columns_reptil_nativo.col_id);	
 				JanelaEditarAnimal temp(*this, veterinarios, tratadores, 
 					anfibios_exoticos, anfibios_nativos, aves_exoticas,
 					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
@@ -678,12 +678,12 @@ void JanelaPrincipal::Editar()
 		case 9:
 		{
 			//repteis exoticos
-			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_repteis_nativos->get_selection();
+			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_repteis_exoticos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
 			if (row != NULL)
 			{
-				id = row.get_value(model_columns_reptil_nativo.col_id);	
+				id = row.get_value(model_columns_reptil_exotico.col_id);	
 				JanelaEditarAnimal temp(*this, veterinarios, tratadores, 
 					anfibios_exoticos, anfibios_nativos, aves_exoticas,
 					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 

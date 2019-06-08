@@ -52,7 +52,7 @@ class JanelaEditarAnimal
 		ComboBoxText *combo_box_regiao;
 		Entry *entry_nacionalidade;
 		ComboBoxText *combo_box_uf;
-		Button *button_cadastrar;
+		Button *button_editar;
 
 		Entry *entry_total_de_mudas;
 		Entry *entry_data_da_ultima_muda;
@@ -91,7 +91,6 @@ class JanelaEditarAnimal
 
 		JanelaPrincipal *janela_principal;
 
-		bool valid_id;
 		bool valid_nome_cientifico;
 		bool valid_tamanho;
 		bool valid_dieta;
@@ -133,6 +132,7 @@ class JanelaEditarAnimal
 		void Run();
 		void SetInformacooes();
 		void Editar();
+		void Remover();
 		void MudarClasse();
 		void MudarRegiao();
 		void MostrarVeterinario();

@@ -8,7 +8,6 @@ JanelaEditarAnimal::JanelaEditarAnimal(JanelaPrincipal &jptemp, map<int, Veterin
 										   map<int, MamiferoExotico> &metemp, map<int, MamiferoNativo> &mntemp, 
 										   map<int, ReptilExotico> &retemp, map<int, ReptilNativo> &rntemp, int pagtemp, int idtemp)
 {
-	valid_id = true;
 	valid_nome_cientifico = true;
 	valid_tamanho = true;
 	valid_dieta = true;
@@ -50,7 +49,7 @@ JanelaEditarAnimal::JanelaEditarAnimal(JanelaPrincipal &jptemp, map<int, Veterin
 	//Inicialização
 	window = new Window;
 
-	button_cadastrar = new Button("Editar");
+	button_editar = new Button("Editar");
 
 	entry_nome_cientifico = new Entry;
 	entry_tamanho = new Entry;
@@ -107,7 +106,7 @@ JanelaEditarAnimal::JanelaEditarAnimal(JanelaPrincipal &jptemp, map<int, Veterin
 	label_uf = new Label("Estado: ");
 
 	//Configuração
-	window->set_title("Cadastrar Animal");
+	window->set_title("Editar Animal");
 	window->set_resizable(false);
 	window->add(*box_principal);
 
@@ -174,7 +173,7 @@ JanelaEditarAnimal::JanelaEditarAnimal(JanelaPrincipal &jptemp, map<int, Veterin
 
 
 	box_principal->add(*box_dados);
-	box_principal->pack_start(*button_cadastrar, PACK_SHRINK);
+	box_principal->pack_start(*button_editar, PACK_SHRINK);
 	box_dados->add(*box_esquerda);
 	box_dados->add(*box_direita);
 
@@ -226,8 +225,10 @@ JanelaEditarAnimal::JanelaEditarAnimal(JanelaPrincipal &jptemp, map<int, Veterin
 	box_direita->pack_start(*entry_nacionalidade, PACK_SHRINK);
 	box_direita->pack_start(*combo_box_uf, PACK_SHRINK);
 
+	SetInformacooes();
+
 	//Conexão
-	button_cadastrar->signal_clicked().connect(sigc::mem_fun(*this, &JanelaEditarAnimal::Editar));
+	button_editar->signal_clicked().connect(sigc::mem_fun(*this, &JanelaEditarAnimal::Editar));
 	combo_box_classe->signal_changed().connect(sigc::mem_fun(*this, &JanelaEditarAnimal::MudarClasse));
 	combo_box_regiao->signal_changed().connect(sigc::mem_fun(*this, &JanelaEditarAnimal::MudarRegiao));
 	check_button_veterinario_incluso->signal_clicked().connect(sigc::mem_fun(*this, &JanelaEditarAnimal::MostrarVeterinario));
@@ -260,7 +261,7 @@ JanelaEditarAnimal::~JanelaEditarAnimal()
 	delete combo_box_classe;
 	delete check_button_veterinario_incluso;
 	delete check_button_tratador_incluso;
-	delete button_cadastrar;
+	delete button_editar;
 	delete box_principal;
 	delete box_dados;
 	delete box_esquerda;
@@ -280,32 +281,143 @@ JanelaEditarAnimal::~JanelaEditarAnimal()
 
 void JanelaEditarAnimal::Run()
 {
-	window->show_all();
-	entry_veterinario_id->hide();
-	label_veterinario_id->hide();
-	entry_tratador_id->hide();
-	label_tratador_id->hide();
-	entry_nacionalidade->hide();
-	label_nacionalidade->hide();
-	entry_tamanho_do_bico->hide();
-	label_tamanho_do_bico->hide();
-	entry_envergadura_das_asas->hide();
-	label_envergadura_das_asas->hide();
-	entry_cor_dos_pelos->hide();
-	label_cor_dos_pelos->hide();
-	check_button_venenoso->hide();
-	label_venenoso->hide();
-	entry_tipo_de_veneno->hide();
-	label_tipo_de_veneno->hide();
 	Main::run(*window);
 }
 
 void JanelaEditarAnimal::SetInformacooes()
 {
 	window->show_all();
+
+	entry_nacionalidade->hide();
+	label_nacionalidade->hide();
+
+	int id_veterinario;
+	int id_tratador;
+	string uf;
+	bool venenoso;
+
 	if (pagina == 2)
 	{
+		entry_tamanho_do_bico->hide();
+		label_tamanho_do_bico->hide();
+		entry_envergadura_das_asas->hide();
+		label_envergadura_das_asas->hide();
+		entry_cor_dos_pelos->hide();
+		label_cor_dos_pelos->hide();
+		check_button_venenoso->hide();
+		label_venenoso->hide();
+		entry_tipo_de_veneno->hide();
+		label_tipo_de_veneno->hide();
+		map <int, AnfibioNativo>::iterator it = anfibios_nativos->find(id);
 		
+		combo_box_classe->set_active(0);
+
+		entry_nome_cientifico->set_text((it->second).get_nome_cientifico());
+		
+		if ((it->second).get_sexo() == 'M')
+			combo_box_sexo->set_active(0);
+		else
+			combo_box_sexo->set_active(1);
+
+		entry_tamanho->set_text(to_string((it->second).get_tamanho()));
+
+		entry_dieta->set_text((it->second).get_dieta());
+
+		id_veterinario = (it->second).get_veterinario_id(); 
+		if (id_veterinario != 0)
+		{
+			check_button_veterinario_incluso->set_active(true);
+			entry_veterinario_id->set_text(to_string(id_veterinario));
+			MostrarVeterinario();
+			valid_veterinario_id = true;
+		}
+		else
+		{
+			MostrarVeterinario();
+			entry_veterinario_id->set_icon_from_pixbuf(pixbuf_uncheck);
+
+		}
+
+		id_tratador = (it->second).get_tratador_id();
+		if (id_tratador != 0)
+		{
+			check_button_tratador_incluso->set_active(true);
+			entry_tratador_id->set_text(to_string(id_tratador));
+			MostrarTratador();
+			valid_tratador_id = true;
+		}
+		else
+		{
+			entry_tratador_id->set_icon_from_pixbuf(pixbuf_uncheck);
+			MostrarTratador();
+		}
+
+		entry_nome_batismo->set_text((it->second).get_nome_de_batismo());
+
+		entry_total_de_mudas->set_text(to_string((it->second).get_total_de_mudas()));
+
+		entry_data_da_ultima_muda->set_text((it->second).get_data_da_ultima_muda());
+
+		entry_autorizacao_ibama->set_text((it->second).get_autorizacao_ibama());
+
+		combo_box_regiao->set_active(0);
+		MudarRegiao();
+
+		uf = (it->second).get_uf_de_origem();
+		if (uf.compare("AC") == 0)
+			combo_box_uf->set_active(0);
+		else if (uf.compare("AL") == 0)
+			combo_box_uf->set_active(1);
+		else if (uf.compare("AP") == 0)
+			combo_box_uf->set_active(2);
+		else if (uf.compare("AM") == 0)
+			combo_box_uf->set_active(3);
+		else if (uf.compare("BA") == 0)
+			combo_box_uf->set_active(4);
+		else if (uf.compare("CE") == 0)
+			combo_box_uf->set_active(5);
+		else if (uf.compare("DF") == 0)
+			combo_box_uf->set_active(6);
+		else if (uf.compare("ES") == 0)
+			combo_box_uf->set_active(7);
+		else if (uf.compare("GO") == 0)
+			combo_box_uf->set_active(8);
+		else if (uf.compare("MA") == 0)
+			combo_box_uf->set_active(9);
+		else if (uf.compare("MT") == 0)
+			combo_box_uf->set_active(10);
+		else if (uf.compare("MS") == 0)
+			combo_box_uf->set_active(11);
+		else if (uf.compare("MG") == 0)
+			combo_box_uf->set_active(12);
+		else if (uf.compare("PA") == 0)
+			combo_box_uf->set_active(13);
+		else if (uf.compare("PB") == 0)
+			combo_box_uf->set_active(14);
+		else if (uf.compare("PR") == 0)
+			combo_box_uf->set_active(15);
+		else if (uf.compare("PE") == 0)
+			combo_box_uf->set_active(16);
+		else if (uf.compare("PI") == 0)
+			combo_box_uf->set_active(17);
+		else if (uf.compare("RJ") == 0)
+			combo_box_uf->set_active(18);
+		else if (uf.compare("RN") == 0)
+			combo_box_uf->set_active(19);
+		else if (uf.compare("RS") == 0)
+			combo_box_uf->set_active(20);
+		else if (uf.compare("RO") == 0)
+			combo_box_uf->set_active(21);
+		else if (uf.compare("RR") == 0)
+			combo_box_uf->set_active(22);
+		else if (uf.compare("SC") == 0)
+			combo_box_uf->set_active(23);
+		else if (uf.compare("SP") == 0)
+			combo_box_uf->set_active(24);
+		else if (uf.compare("SE") == 0)
+			combo_box_uf->set_active(25);
+		else if (uf.compare("TO") == 0)
+			combo_box_uf->set_active(26);
 	}
 	else if (pagina == 3)
 	{
@@ -313,7 +425,127 @@ void JanelaEditarAnimal::SetInformacooes()
 	}
 	else if (pagina == 4)
 	{
+		entry_total_de_mudas->hide();
+		label_total_de_mudas->hide();
+		entry_data_da_ultima_muda->hide();
+		label_data_da_ultima_muda->hide();
+		entry_cor_dos_pelos->hide();
+		label_cor_dos_pelos->hide();
+		check_button_venenoso->hide();
+		label_venenoso->hide();
+		entry_tipo_de_veneno->hide();
+		label_tipo_de_veneno->hide();
+
+		map <int, AveNativo>::iterator it = aves_nativas->find(id);
 		
+		combo_box_classe->set_active(1);
+
+		entry_nome_cientifico->set_text((it->second).get_nome_cientifico());
+		
+		if ((it->second).get_sexo() == 'M')
+			combo_box_sexo->set_active(0);
+		else
+			combo_box_sexo->set_active(1);
+
+		entry_tamanho->set_text(to_string((it->second).get_tamanho()));
+
+		entry_dieta->set_text((it->second).get_dieta());
+
+		id_veterinario = (it->second).get_veterinario_id(); 
+		if (id_veterinario != 0)
+		{
+			check_button_veterinario_incluso->set_active(true);
+			entry_veterinario_id->set_text(to_string(id_veterinario));
+			MostrarVeterinario();
+			valid_veterinario_id = true;
+		}
+		else
+		{
+			MostrarVeterinario();
+			entry_veterinario_id->set_icon_from_pixbuf(pixbuf_uncheck);
+
+		}
+
+		id_tratador = (it->second).get_tratador_id();
+		if (id_tratador != 0)
+		{
+			check_button_tratador_incluso->set_active(true);
+			entry_tratador_id->set_text(to_string(id_tratador));
+			MostrarTratador();
+			valid_tratador_id = true;
+		}
+		else
+		{
+			entry_tratador_id->set_icon_from_pixbuf(pixbuf_uncheck);
+			MostrarTratador();
+		}
+
+		entry_nome_batismo->set_text((it->second).get_nome_de_batismo());
+
+		entry_tamanho_do_bico->set_text(to_string((it->second).get_tamanho_do_bico()));
+
+		entry_envergadura_das_asas->set_text(to_string((it->second).get_envergadura_das_asas()));
+
+		entry_autorizacao_ibama->set_text((it->second).get_autorizacao_ibama());
+
+		combo_box_regiao->set_active(0);
+		MudarRegiao();
+
+		uf = (it->second).get_uf_de_origem();
+		if (uf.compare("AC") == 0)
+			combo_box_uf->set_active(0);
+		else if (uf.compare("AL") == 0)
+			combo_box_uf->set_active(1);
+		else if (uf.compare("AP") == 0)
+			combo_box_uf->set_active(2);
+		else if (uf.compare("AM") == 0)
+			combo_box_uf->set_active(3);
+		else if (uf.compare("BA") == 0)
+			combo_box_uf->set_active(4);
+		else if (uf.compare("CE") == 0)
+			combo_box_uf->set_active(5);
+		else if (uf.compare("DF") == 0)
+			combo_box_uf->set_active(6);
+		else if (uf.compare("ES") == 0)
+			combo_box_uf->set_active(7);
+		else if (uf.compare("GO") == 0)
+			combo_box_uf->set_active(8);
+		else if (uf.compare("MA") == 0)
+			combo_box_uf->set_active(9);
+		else if (uf.compare("MT") == 0)
+			combo_box_uf->set_active(10);
+		else if (uf.compare("MS") == 0)
+			combo_box_uf->set_active(11);
+		else if (uf.compare("MG") == 0)
+			combo_box_uf->set_active(12);
+		else if (uf.compare("PA") == 0)
+			combo_box_uf->set_active(13);
+		else if (uf.compare("PB") == 0)
+			combo_box_uf->set_active(14);
+		else if (uf.compare("PR") == 0)
+			combo_box_uf->set_active(15);
+		else if (uf.compare("PE") == 0)
+			combo_box_uf->set_active(16);
+		else if (uf.compare("PI") == 0)
+			combo_box_uf->set_active(17);
+		else if (uf.compare("RJ") == 0)
+			combo_box_uf->set_active(18);
+		else if (uf.compare("RN") == 0)
+			combo_box_uf->set_active(19);
+		else if (uf.compare("RS") == 0)
+			combo_box_uf->set_active(20);
+		else if (uf.compare("RO") == 0)
+			combo_box_uf->set_active(21);
+		else if (uf.compare("RR") == 0)
+			combo_box_uf->set_active(22);
+		else if (uf.compare("SC") == 0)
+			combo_box_uf->set_active(23);
+		else if (uf.compare("SP") == 0)
+			combo_box_uf->set_active(24);
+		else if (uf.compare("SE") == 0)
+			combo_box_uf->set_active(25);
+		else if (uf.compare("TO") == 0)
+			combo_box_uf->set_active(26);
 	}
 	else if (pagina == 5)
 	{
@@ -321,7 +553,127 @@ void JanelaEditarAnimal::SetInformacooes()
 	}
 	else if (pagina == 6)
 	{
+		entry_total_de_mudas->hide();
+		label_total_de_mudas->hide();
+		entry_data_da_ultima_muda->hide();
+		label_data_da_ultima_muda->hide();
+		entry_tamanho_do_bico->hide();
+		label_tamanho_do_bico->hide();
+		entry_envergadura_das_asas->hide();
+		label_envergadura_das_asas->hide();
+		check_button_venenoso->hide();
+		label_venenoso->hide();
+		entry_tipo_de_veneno->hide();
+		label_tipo_de_veneno->hide();
+
+		map <int, MamiferoNativo>::iterator it = mamiferos_nativos->find(id);
 		
+		combo_box_classe->set_active(2);
+
+		entry_nome_cientifico->set_text((it->second).get_nome_cientifico());
+		
+		if ((it->second).get_sexo() == 'M')
+			combo_box_sexo->set_active(0);
+		else
+			combo_box_sexo->set_active(1);
+
+		entry_tamanho->set_text(to_string((it->second).get_tamanho()));
+
+		entry_dieta->set_text((it->second).get_dieta());
+
+		id_veterinario = (it->second).get_veterinario_id(); 
+		if (id_veterinario != 0)
+		{
+			check_button_veterinario_incluso->set_active(true);
+			entry_veterinario_id->set_text(to_string(id_veterinario));
+			MostrarVeterinario();
+			valid_veterinario_id = true;
+		}
+		else
+		{
+			MostrarVeterinario();
+			entry_veterinario_id->set_icon_from_pixbuf(pixbuf_uncheck);
+
+		}
+
+		id_tratador = (it->second).get_tratador_id();
+		if (id_tratador != 0)
+		{
+			check_button_tratador_incluso->set_active(true);
+			entry_tratador_id->set_text(to_string(id_tratador));
+			MostrarTratador();
+			valid_tratador_id = true;
+		}
+		else
+		{
+			entry_tratador_id->set_icon_from_pixbuf(pixbuf_uncheck);
+			MostrarTratador();
+		}
+
+		entry_nome_batismo->set_text((it->second).get_nome_de_batismo());
+
+		entry_cor_dos_pelos->set_text((it->second).get_cor_do_pelo());
+
+		entry_autorizacao_ibama->set_text((it->second).get_autorizacao_ibama());
+
+		combo_box_regiao->set_active(0);
+		MudarRegiao();
+
+		uf = (it->second).get_uf_de_origem();
+		if (uf.compare("AC") == 0)
+			combo_box_uf->set_active(0);
+		else if (uf.compare("AL") == 0)
+			combo_box_uf->set_active(1);
+		else if (uf.compare("AP") == 0)
+			combo_box_uf->set_active(2);
+		else if (uf.compare("AM") == 0)
+			combo_box_uf->set_active(3);
+		else if (uf.compare("BA") == 0)
+			combo_box_uf->set_active(4);
+		else if (uf.compare("CE") == 0)
+			combo_box_uf->set_active(5);
+		else if (uf.compare("DF") == 0)
+			combo_box_uf->set_active(6);
+		else if (uf.compare("ES") == 0)
+			combo_box_uf->set_active(7);
+		else if (uf.compare("GO") == 0)
+			combo_box_uf->set_active(8);
+		else if (uf.compare("MA") == 0)
+			combo_box_uf->set_active(9);
+		else if (uf.compare("MT") == 0)
+			combo_box_uf->set_active(10);
+		else if (uf.compare("MS") == 0)
+			combo_box_uf->set_active(11);
+		else if (uf.compare("MG") == 0)
+			combo_box_uf->set_active(12);
+		else if (uf.compare("PA") == 0)
+			combo_box_uf->set_active(13);
+		else if (uf.compare("PB") == 0)
+			combo_box_uf->set_active(14);
+		else if (uf.compare("PR") == 0)
+			combo_box_uf->set_active(15);
+		else if (uf.compare("PE") == 0)
+			combo_box_uf->set_active(16);
+		else if (uf.compare("PI") == 0)
+			combo_box_uf->set_active(17);
+		else if (uf.compare("RJ") == 0)
+			combo_box_uf->set_active(18);
+		else if (uf.compare("RN") == 0)
+			combo_box_uf->set_active(19);
+		else if (uf.compare("RS") == 0)
+			combo_box_uf->set_active(20);
+		else if (uf.compare("RO") == 0)
+			combo_box_uf->set_active(21);
+		else if (uf.compare("RR") == 0)
+			combo_box_uf->set_active(22);
+		else if (uf.compare("SC") == 0)
+			combo_box_uf->set_active(23);
+		else if (uf.compare("SP") == 0)
+			combo_box_uf->set_active(24);
+		else if (uf.compare("SE") == 0)
+			combo_box_uf->set_active(25);
+		else if (uf.compare("TO") == 0)
+			combo_box_uf->set_active(26);
 	}
 	else if (pagina == 7)
 	{
@@ -329,7 +681,137 @@ void JanelaEditarAnimal::SetInformacooes()
 	}
 	else if (pagina == 8)
 	{
+		entry_total_de_mudas->hide();
+		label_total_de_mudas->hide();
+		entry_data_da_ultima_muda->hide();
+		label_data_da_ultima_muda->hide();
+		entry_tamanho_do_bico->hide();
+		label_tamanho_do_bico->hide();
+		entry_envergadura_das_asas->hide();
+		label_envergadura_das_asas->hide();
+		entry_cor_dos_pelos->hide();
+		label_cor_dos_pelos->hide();
+
+		map <int, ReptilNativo>::iterator it = repteis_nativos->find(id);
 		
+		combo_box_classe->set_active(3);
+
+		entry_nome_cientifico->set_text((it->second).get_nome_cientifico());
+		
+		if ((it->second).get_sexo() == 'M')
+			combo_box_sexo->set_active(0);
+		else
+			combo_box_sexo->set_active(1);
+
+		entry_tamanho->set_text(to_string((it->second).get_tamanho()));
+
+		entry_dieta->set_text((it->second).get_dieta());
+
+		id_veterinario = (it->second).get_veterinario_id(); 
+		if (id_veterinario != 0)
+		{
+			check_button_veterinario_incluso->set_active(true);
+			entry_veterinario_id->set_text(to_string(id_veterinario));
+			MostrarVeterinario();
+			valid_veterinario_id = true;
+		}
+		else
+		{
+			MostrarVeterinario();
+			entry_veterinario_id->set_icon_from_pixbuf(pixbuf_uncheck);
+
+		}
+
+		id_tratador = (it->second).get_tratador_id();
+		if (id_tratador != 0)
+		{
+			check_button_tratador_incluso->set_active(true);
+			entry_tratador_id->set_text(to_string(id_tratador));
+			MostrarTratador();
+			valid_tratador_id = true;
+		}
+		else
+		{
+			entry_tratador_id->set_icon_from_pixbuf(pixbuf_uncheck);
+			MostrarTratador();
+		}
+
+		entry_nome_batismo->set_text((it->second).get_nome_de_batismo());
+
+		venenoso = (it->second).get_venenoso();
+		if (venenoso)
+		{
+			check_button_venenoso->set_active(true);
+			entry_tipo_de_veneno->set_text((it->second).get_tipo_de_veneno());
+			MostrarVenenoso();
+			valid_tipo_veneno = true;
+		}
+		else
+		{
+			entry_tipo_de_veneno->set_icon_from_pixbuf(pixbuf_uncheck);
+			MostrarVenenoso();
+		}
+
+		entry_autorizacao_ibama->set_text((it->second).get_autorizacao_ibama());
+
+		combo_box_regiao->set_active(0);
+		MudarRegiao();
+
+		uf = (it->second).get_uf_de_origem();
+		if (uf.compare("AC") == 0)
+			combo_box_uf->set_active(0);
+		else if (uf.compare("AL") == 0)
+			combo_box_uf->set_active(1);
+		else if (uf.compare("AP") == 0)
+			combo_box_uf->set_active(2);
+		else if (uf.compare("AM") == 0)
+			combo_box_uf->set_active(3);
+		else if (uf.compare("BA") == 0)
+			combo_box_uf->set_active(4);
+		else if (uf.compare("CE") == 0)
+			combo_box_uf->set_active(5);
+		else if (uf.compare("DF") == 0)
+			combo_box_uf->set_active(6);
+		else if (uf.compare("ES") == 0)
+			combo_box_uf->set_active(7);
+		else if (uf.compare("GO") == 0)
+			combo_box_uf->set_active(8);
+		else if (uf.compare("MA") == 0)
+			combo_box_uf->set_active(9);
+		else if (uf.compare("MT") == 0)
+			combo_box_uf->set_active(10);
+		else if (uf.compare("MS") == 0)
+			combo_box_uf->set_active(11);
+		else if (uf.compare("MG") == 0)
+			combo_box_uf->set_active(12);
+		else if (uf.compare("PA") == 0)
+			combo_box_uf->set_active(13);
+		else if (uf.compare("PB") == 0)
+			combo_box_uf->set_active(14);
+		else if (uf.compare("PR") == 0)
+			combo_box_uf->set_active(15);
+		else if (uf.compare("PE") == 0)
+			combo_box_uf->set_active(16);
+		else if (uf.compare("PI") == 0)
+			combo_box_uf->set_active(17);
+		else if (uf.compare("RJ") == 0)
+			combo_box_uf->set_active(18);
+		else if (uf.compare("RN") == 0)
+			combo_box_uf->set_active(19);
+		else if (uf.compare("RS") == 0)
+			combo_box_uf->set_active(20);
+		else if (uf.compare("RO") == 0)
+			combo_box_uf->set_active(21);
+		else if (uf.compare("RR") == 0)
+			combo_box_uf->set_active(22);
+		else if (uf.compare("SC") == 0)
+			combo_box_uf->set_active(23);
+		else if (uf.compare("SP") == 0)
+			combo_box_uf->set_active(24);
+		else if (uf.compare("SE") == 0)
+			combo_box_uf->set_active(25);
+		else if (uf.compare("TO") == 0)
+			combo_box_uf->set_active(26);
 	}
 	else if (pagina == 9)
 	{
@@ -339,13 +821,7 @@ void JanelaEditarAnimal::SetInformacooes()
 
 void JanelaEditarAnimal::Editar()
 {
-	if (!valid_id)
-	{
-		MessageDialog dialog(*window, "ID inválido.");
-		dialog.set_secondary_text("Nenhum ID foi apresentado ou foi encontrado um animal com o ID apresentado, animais não podem ter IDs iguais.");
-  		dialog.run();
-	}
-	else if (!valid_nome_cientifico)
+	if (!valid_nome_cientifico)
 	{
 		MessageDialog dialog(*window, "Nome inválido.");
 		dialog.set_secondary_text("Falta preencher o nome científico do animal.");
@@ -366,13 +842,13 @@ void JanelaEditarAnimal::Editar()
 	else if (!valid_tratador_id)
 	{
 		MessageDialog dialog(*window, "ID inválido.");
-		dialog.set_secondary_text("Nenhum ID foi apresentado ou foi encontrado um funcionário com o ID apresentado, funcionários não podem ter IDs iguais.");
+		dialog.set_secondary_text("Nenhum ID foi apresentado ou foi não foi encontrado um tratador com o ID apresentado.");
   		dialog.run();
 	}
 	else if (!valid_veterinario_id)
 	{
 		MessageDialog dialog(*window, "ID inválido.");
-		dialog.set_secondary_text("Nenhum ID foi apresentado ou foi encontrado um funcionário com o ID apresentado, funcionários não podem ter IDs iguais.");
+		dialog.set_secondary_text("Nenhum ID foi apresentado ou foi não foi encontrado um veterinario com o ID apresentado.");
   		dialog.run();
 	}
 	else if (!valid_nome_batismo)
@@ -432,6 +908,7 @@ void JanelaEditarAnimal::Editar()
 	
 	else
 	{
+		Remover();
 		string classe = combo_box_classe->get_active_text(); 
 		for(unsigned int i = 0; i < classe.length(); i++)
 			classe[i] = toupper(classe[i]);
@@ -595,6 +1072,79 @@ void JanelaEditarAnimal::Editar()
 		}
 	window->close();
 	}
+}
+
+void JanelaEditarAnimal::Remover()
+{
+	string linha;
+	vector<string> palavras;
+	ifstream animais_csv("Dados/animais.csv");
+
+	ofstream animais_temp("Dados/temp_animais.csv");
+	while(getline(animais_csv, linha))
+	{
+		palavras = Separador_csv(linha);
+		if(stoi(palavras[0]) != id)
+			animais_temp << linha << endl;
+		else
+		{
+			if(palavras[1].compare("AMPHIBIA") == 0)
+		    {
+				if(palavras[palavras.size() - 1].length() == 2)
+				{
+			    	anfibios_nativos->erase(id);
+					janela_principal->AtualizarLista(2);
+				}
+			    else
+			    {
+			    	anfibios_exoticos->erase(id);
+			    	janela_principal->AtualizarLista(3);
+			    }
+		    }
+		    if(palavras[1].compare("AVES") == 0)
+		    {
+				if(palavras[palavras.size() - 1].length() == 2)
+				{
+			    	aves_nativas->erase(id);
+					janela_principal->AtualizarLista(4);
+				}
+			    else
+			    {
+			    	aves_exoticas->erase(id);
+			    	janela_principal->AtualizarLista(5);
+			    }
+		    }
+		    if(palavras[1].compare("MAMMALIA") == 0)
+		    {
+				if(palavras[palavras.size() - 1].length() == 2)
+				{
+			    	mamiferos_nativos->erase(id);
+					janela_principal->AtualizarLista(6);
+				}
+			    else
+			    {
+			    	mamiferos_exoticos->erase(id);
+			    	janela_principal->AtualizarLista(7);
+			    }
+		    }
+		    if(palavras[1].compare("REPTILIA") == 0)
+		    {
+				if(palavras[palavras.size() - 1].length() == 2)
+				{
+			    	repteis_nativos->erase(id);
+					janela_principal->AtualizarLista(8);
+				}
+			    else
+			    {
+			    	repteis_exoticos->erase(id);
+			    	janela_principal->AtualizarLista(9);
+			    }
+		    }
+		}
+	}
+	remove("Dados/animais.csv");
+	rename("Dados/temp_animais.csv", "Dados/animais.csv");
+	animais_temp.close();
 }
 
 void JanelaEditarAnimal::MudarClasse()
