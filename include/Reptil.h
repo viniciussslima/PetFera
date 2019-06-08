@@ -19,6 +19,7 @@ public:
 		Tratador, string, bool, string);
 	~Reptil();
 	string get_tipo_de_veneno();
+	bool get_venenoso();
 };
 
 #endif

@@ -21,6 +21,11 @@ Reptil::Reptil(int new_id, string new_classe,
 
 Reptil::~Reptil(){}
 
+bool Reptil::get_venenoso()
+{
+	return m_venenoso;
+}
+
 string Reptil::get_tipo_de_veneno()
 {
 	if(m_venenoso)
