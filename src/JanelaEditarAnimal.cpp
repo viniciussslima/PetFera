@@ -288,9 +288,6 @@ void JanelaEditarAnimal::SetInformacooes()
 {
 	window->show_all();
 
-	entry_nacionalidade->hide();
-	label_nacionalidade->hide();
-
 	int id_veterinario;
 	int id_tratador;
 	string uf;
@@ -298,6 +295,8 @@ void JanelaEditarAnimal::SetInformacooes()
 
 	if (pagina == 2)
 	{
+		entry_nacionalidade->hide();
+		label_nacionalidade->hide();
 		entry_tamanho_do_bico->hide();
 		label_tamanho_do_bico->hide();
 		entry_envergadura_das_asas->hide();
@@ -308,6 +307,7 @@ void JanelaEditarAnimal::SetInformacooes()
 		label_venenoso->hide();
 		entry_tipo_de_veneno->hide();
 		label_tipo_de_veneno->hide();
+
 		map <int, AnfibioNativo>::iterator it = anfibios_nativos->find(id);
 		
 		combo_box_classe->set_active(0);
@@ -421,10 +421,79 @@ void JanelaEditarAnimal::SetInformacooes()
 	}
 	else if (pagina == 3)
 	{
+		entry_tamanho_do_bico->hide();
+		label_tamanho_do_bico->hide();
+		entry_envergadura_das_asas->hide();
+		label_envergadura_das_asas->hide();
+		entry_cor_dos_pelos->hide();
+		label_cor_dos_pelos->hide();
+		check_button_venenoso->hide();
+		label_venenoso->hide();
+		entry_tipo_de_veneno->hide();
+		label_tipo_de_veneno->hide();
+		
+		map <int, AnfibioExotico>::iterator it = anfibios_exoticos->find(id);
+		
+		combo_box_classe->set_active(0);
 
+		entry_nome_cientifico->set_text((it->second).get_nome_cientifico());
+		
+		if ((it->second).get_sexo() == 'M')
+			combo_box_sexo->set_active(0);
+		else
+			combo_box_sexo->set_active(1);
+
+		entry_tamanho->set_text(to_string((it->second).get_tamanho()));
+
+		entry_dieta->set_text((it->second).get_dieta());
+
+		id_veterinario = (it->second).get_veterinario_id(); 
+		if (id_veterinario != 0)
+		{
+			check_button_veterinario_incluso->set_active(true);
+			entry_veterinario_id->set_text(to_string(id_veterinario));
+			MostrarVeterinario();
+			valid_veterinario_id = true;
+		}
+		else
+		{
+			MostrarVeterinario();
+			entry_veterinario_id->set_icon_from_pixbuf(pixbuf_uncheck);
+
+		}
+
+		id_tratador = (it->second).get_tratador_id();
+		if (id_tratador != 0)
+		{
+			check_button_tratador_incluso->set_active(true);
+			entry_tratador_id->set_text(to_string(id_tratador));
+			MostrarTratador();
+			valid_tratador_id = true;
+		}
+		else
+		{
+			entry_tratador_id->set_icon_from_pixbuf(pixbuf_uncheck);
+			MostrarTratador();
+		}
+
+		entry_nome_batismo->set_text((it->second).get_nome_de_batismo());
+
+		entry_total_de_mudas->set_text(to_string((it->second).get_total_de_mudas()));
+
+		entry_data_da_ultima_muda->set_text((it->second).get_data_da_ultima_muda());
+
+		entry_autorizacao_ibama->set_text((it->second).get_autorizacao_ibama());
+
+		combo_box_regiao->set_active(1);
+		MudarRegiao();
+		valid_nacionalidade = true;
+
+		entry_nacionalidade->set_text((it->second).get_pais_de_origem());
 	}
 	else if (pagina == 4)
 	{
+		entry_nacionalidade->hide();
+		label_nacionalidade->hide();
 		entry_total_de_mudas->hide();
 		label_total_de_mudas->hide();
 		entry_data_da_ultima_muda->hide();
@@ -549,10 +618,79 @@ void JanelaEditarAnimal::SetInformacooes()
 	}
 	else if (pagina == 5)
 	{
+		entry_total_de_mudas->hide();
+		label_total_de_mudas->hide();
+		entry_data_da_ultima_muda->hide();
+		label_data_da_ultima_muda->hide();
+		entry_cor_dos_pelos->hide();
+		label_cor_dos_pelos->hide();
+		check_button_venenoso->hide();
+		label_venenoso->hide();
+		entry_tipo_de_veneno->hide();
+		label_tipo_de_veneno->hide();
+
+		map <int, AveExotico>::iterator it = aves_exoticas->find(id);
 		
+		combo_box_classe->set_active(1);
+
+		entry_nome_cientifico->set_text((it->second).get_nome_cientifico());
+		
+		if ((it->second).get_sexo() == 'M')
+			combo_box_sexo->set_active(0);
+		else
+			combo_box_sexo->set_active(1);
+
+		entry_tamanho->set_text(to_string((it->second).get_tamanho()));
+
+		entry_dieta->set_text((it->second).get_dieta());
+
+		id_veterinario = (it->second).get_veterinario_id(); 
+		if (id_veterinario != 0)
+		{
+			check_button_veterinario_incluso->set_active(true);
+			entry_veterinario_id->set_text(to_string(id_veterinario));
+			MostrarVeterinario();
+			valid_veterinario_id = true;
+		}
+		else
+		{
+			MostrarVeterinario();
+			entry_veterinario_id->set_icon_from_pixbuf(pixbuf_uncheck);
+
+		}
+
+		id_tratador = (it->second).get_tratador_id();
+		if (id_tratador != 0)
+		{
+			check_button_tratador_incluso->set_active(true);
+			entry_tratador_id->set_text(to_string(id_tratador));
+			MostrarTratador();
+			valid_tratador_id = true;
+		}
+		else
+		{
+			entry_tratador_id->set_icon_from_pixbuf(pixbuf_uncheck);
+			MostrarTratador();
+		}
+
+		entry_nome_batismo->set_text((it->second).get_nome_de_batismo());
+
+		entry_tamanho_do_bico->set_text(to_string((it->second).get_tamanho_do_bico()));
+
+		entry_envergadura_das_asas->set_text(to_string((it->second).get_envergadura_das_asas()));
+
+		entry_autorizacao_ibama->set_text((it->second).get_autorizacao_ibama());
+
+		combo_box_regiao->set_active(1);
+		MudarRegiao();
+		valid_nacionalidade = true;
+
+		entry_nacionalidade->set_text((it->second).get_pais_de_origem());
 	}
 	else if (pagina == 6)
 	{
+		entry_nacionalidade->hide();
+		label_nacionalidade->hide();
 		entry_total_de_mudas->hide();
 		label_total_de_mudas->hide();
 		entry_data_da_ultima_muda->hide();
@@ -677,10 +815,79 @@ void JanelaEditarAnimal::SetInformacooes()
 	}
 	else if (pagina == 7)
 	{
+		entry_total_de_mudas->hide();
+		label_total_de_mudas->hide();
+		entry_data_da_ultima_muda->hide();
+		label_data_da_ultima_muda->hide();
+		entry_tamanho_do_bico->hide();
+		label_tamanho_do_bico->hide();
+		entry_envergadura_das_asas->hide();
+		label_envergadura_das_asas->hide();
+		check_button_venenoso->hide();
+		label_venenoso->hide();
+		entry_tipo_de_veneno->hide();
+		label_tipo_de_veneno->hide();
+
+		map <int, MamiferoExotico>::iterator it = mamiferos_exoticos->find(id);
 		
+		combo_box_classe->set_active(2);
+
+		entry_nome_cientifico->set_text((it->second).get_nome_cientifico());
+		
+		if ((it->second).get_sexo() == 'M')
+			combo_box_sexo->set_active(0);
+		else
+			combo_box_sexo->set_active(1);
+
+		entry_tamanho->set_text(to_string((it->second).get_tamanho()));
+
+		entry_dieta->set_text((it->second).get_dieta());
+
+		id_veterinario = (it->second).get_veterinario_id(); 
+		if (id_veterinario != 0)
+		{
+			check_button_veterinario_incluso->set_active(true);
+			entry_veterinario_id->set_text(to_string(id_veterinario));
+			MostrarVeterinario();
+			valid_veterinario_id = true;
+		}
+		else
+		{
+			MostrarVeterinario();
+			entry_veterinario_id->set_icon_from_pixbuf(pixbuf_uncheck);
+
+		}
+
+		id_tratador = (it->second).get_tratador_id();
+		if (id_tratador != 0)
+		{
+			check_button_tratador_incluso->set_active(true);
+			entry_tratador_id->set_text(to_string(id_tratador));
+			MostrarTratador();
+			valid_tratador_id = true;
+		}
+		else
+		{
+			entry_tratador_id->set_icon_from_pixbuf(pixbuf_uncheck);
+			MostrarTratador();
+		}
+
+		entry_nome_batismo->set_text((it->second).get_nome_de_batismo());
+
+		entry_cor_dos_pelos->set_text((it->second).get_cor_do_pelo());
+
+		entry_autorizacao_ibama->set_text((it->second).get_autorizacao_ibama());
+
+		combo_box_regiao->set_active(1);
+		MudarRegiao();
+		valid_nacionalidade = true;
+
+		entry_nacionalidade->set_text((it->second).get_pais_de_origem());
 	}
 	else if (pagina == 8)
 	{
+		entry_nacionalidade->hide();
+		label_nacionalidade->hide();
 		entry_total_de_mudas->hide();
 		label_total_de_mudas->hide();
 		entry_data_da_ultima_muda->hide();
@@ -815,7 +1022,84 @@ void JanelaEditarAnimal::SetInformacooes()
 	}
 	else if (pagina == 9)
 	{
+		entry_total_de_mudas->hide();
+		label_total_de_mudas->hide();
+		entry_data_da_ultima_muda->hide();
+		label_data_da_ultima_muda->hide();
+		entry_tamanho_do_bico->hide();
+		label_tamanho_do_bico->hide();
+		entry_envergadura_das_asas->hide();
+		label_envergadura_das_asas->hide();
+		entry_cor_dos_pelos->hide();
+		label_cor_dos_pelos->hide();
+
+		map <int, ReptilExotico>::iterator it = repteis_exoticos->find(id);
 		
+		combo_box_classe->set_active(3);
+
+		entry_nome_cientifico->set_text((it->second).get_nome_cientifico());
+		
+		if ((it->second).get_sexo() == 'M')
+			combo_box_sexo->set_active(0);
+		else
+			combo_box_sexo->set_active(1);
+
+		entry_tamanho->set_text(to_string((it->second).get_tamanho()));
+
+		entry_dieta->set_text((it->second).get_dieta());
+
+		id_veterinario = (it->second).get_veterinario_id(); 
+		if (id_veterinario != 0)
+		{
+			check_button_veterinario_incluso->set_active(true);
+			entry_veterinario_id->set_text(to_string(id_veterinario));
+			MostrarVeterinario();
+			valid_veterinario_id = true;
+		}
+		else
+		{
+			MostrarVeterinario();
+			entry_veterinario_id->set_icon_from_pixbuf(pixbuf_uncheck);
+
+		}
+
+		id_tratador = (it->second).get_tratador_id();
+		if (id_tratador != 0)
+		{
+			check_button_tratador_incluso->set_active(true);
+			entry_tratador_id->set_text(to_string(id_tratador));
+			MostrarTratador();
+			valid_tratador_id = true;
+		}
+		else
+		{
+			entry_tratador_id->set_icon_from_pixbuf(pixbuf_uncheck);
+			MostrarTratador();
+		}
+
+		entry_nome_batismo->set_text((it->second).get_nome_de_batismo());
+
+		venenoso = (it->second).get_venenoso();
+		if (venenoso)
+		{
+			check_button_venenoso->set_active(true);
+			entry_tipo_de_veneno->set_text((it->second).get_tipo_de_veneno());
+			MostrarVenenoso();
+			valid_tipo_veneno = true;
+		}
+		else
+		{
+			entry_tipo_de_veneno->set_icon_from_pixbuf(pixbuf_uncheck);
+			MostrarVenenoso();
+		}
+
+		entry_autorizacao_ibama->set_text((it->second).get_autorizacao_ibama());
+
+		combo_box_regiao->set_active(1);
+		MudarRegiao();
+		valid_nacionalidade = true;
+
+		entry_nacionalidade->set_text((it->second).get_pais_de_origem());
 	}	
 }
 
