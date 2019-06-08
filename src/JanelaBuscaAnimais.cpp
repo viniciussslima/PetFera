@@ -33,14 +33,8 @@ JanelaBuscaAnimais::JanelaBuscaAnimais(map<int, Veterinario> &vtemp, map<int, Tr
 
 	//inicialização
 	window = new Window;
-	button_confirmar = new Button("Buscar");
-	entry_id = new Entry;
 	box_principal = new VBox;
-	box_dados = new HBox(true);
-	label_id = new Label("ID: ");
-
 	entry_pesquisa = new SearchEntry;
-
 	notebook_consulta = new Notebook;
 
 	tree_view_anfibios_nativos = new TreeView;
@@ -68,12 +62,6 @@ JanelaBuscaAnimais::JanelaBuscaAnimais(map<int, Veterinario> &vtemp, map<int, Tr
 	window->set_title("Animais Do Funcionario");
 	window->add(*box_principal);
 
-	box_principal->add(*box_dados);
-	box_principal->pack_start(*button_confirmar, PACK_SHRINK);
-
-	box_dados->add(*label_id);
-	box_dados->add(*entry_id);
-
 	box_principal->pack_start(*entry_pesquisa, PACK_SHRINK);
 	box_principal->add(*notebook_consulta);
 
@@ -97,24 +85,6 @@ JanelaBuscaAnimais::JanelaBuscaAnimais(map<int, Veterinario> &vtemp, map<int, Tr
 
 	pixbuf_check = Gdk::Pixbuf::create_from_file("icons/check.ico");
 	pixbuf_uncheck = Gdk::Pixbuf::create_from_file("icons/uncheck.ico");
-
-	
-	
-	if (id == 0)
-	{
-		valid_id = false;
-		entry_id->set_text("0");
-		entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
-		entry_id->set_icon_tooltip_text("ID inválido");
-	}
-	else
-	{
-		valid_id = true;
-		entry_id->set_text(to_string(id));
-		entry_id->set_icon_from_pixbuf(pixbuf_check);
-		entry_id->set_icon_tooltip_text("ID válido");
-	}
-
 
 	//Criando o modelo de arvore
 	list_store_anfibios_nativos = ListStore::create(model_columns_anfibio_nativo);
@@ -151,7 +121,6 @@ JanelaBuscaAnimais::JanelaBuscaAnimais(map<int, Veterinario> &vtemp, map<int, Tr
 	tree_view_repteis_exoticos->set_model(list_store_repteis_exoticos);
 
 	//Adicionado as colunas da TreeView
-
 	tree_view_anfibios_nativos->append_column("ID", model_columns_anfibio_nativo.col_id);
 	tree_view_anfibios_nativos->append_column("Nome Científico", model_columns_anfibio_nativo.col_nome_cientifico);
 	tree_view_anfibios_nativos->append_column("Sexo", model_columns_anfibio_nativo.col_sexo);
@@ -254,20 +223,30 @@ JanelaBuscaAnimais::JanelaBuscaAnimais(map<int, Veterinario> &vtemp, map<int, Tr
 
 	//Preenchendo o modelo de arvore
 	ProcurarAnimalPorFuncionario();
-
-	//Conexão
-	button_confirmar->signal_clicked().connect(sigc::mem_fun(*this, &JanelaBuscaAnimais::Buscar));
-	entry_id->signal_changed().connect(sigc::mem_fun(*this, &JanelaBuscaAnimais::AtualizarIconeId));
 }
 
 JanelaBuscaAnimais::~JanelaBuscaAnimais()
 {
 	delete window;
 	delete box_principal;
-	delete box_dados;
-	delete entry_id;
-	delete button_confirmar;
-	delete label_id;
+	delete entry_pesquisa;
+	delete notebook_consulta;
+	delete tree_view_anfibios_nativos;
+	delete tree_view_anfibios_exoticos;
+	delete tree_view_aves_nativas;
+	delete tree_view_aves_exoticas;
+	delete tree_view_mamiferos_nativos;
+	delete tree_view_mamiferos_exoticos;
+	delete tree_view_repteis_nativos;
+	delete tree_view_repteis_exoticos;
+	delete scrolled_window_anfibios_nativos;
+	delete scrolled_window_anfibios_exoticos;
+	delete scrolled_window_aves_nativas;
+	delete scrolled_window_aves_exoticas;
+	delete scrolled_window_mamiferos_nativos;
+	delete scrolled_window_mamiferos_exoticos;
+	delete scrolled_window_repteis_nativos;
+	delete scrolled_window_repteis_exoticos;
 }
 
 void JanelaBuscaAnimais::ProcurarAnimalPorFuncionario()
@@ -825,83 +804,6 @@ void JanelaBuscaAnimais::ProcurarAnimalPorFuncionario()
 			notebook_consulta->remove_page(*scrolled_window_repteis_exoticos);
 		if (!page_repteis_nativos)
 			notebook_consulta->remove_page(*scrolled_window_repteis_nativos);
-	}
-}
-
-void JanelaBuscaAnimais::Buscar()
-{
-	if(!valid_id)
-	{
-		MessageDialog dialog(*window, "ID inválido.");
-		dialog.set_secondary_text("Nenhum ID foi apresentado ou foi encontrado um funcionário com o ID apresentado, funcionários não podem ter IDs iguais.");
-  		dialog.run();
-	}
-	else
-	{
-		// Não está readicionando as paginas
-		for (int i = 0; i < notebook_consulta->get_n_pages(); i++)
-		{
-			notebook_consulta->remove_page(0);
-		}
-
-		notebook_consulta->append_page(*scrolled_window_anfibios_nativos, "Anfibios nativos");
-		notebook_consulta->append_page(*scrolled_window_anfibios_exoticos, "Anfibios exóticos");
-		notebook_consulta->append_page(*scrolled_window_aves_nativas, "Aves nativas");
-		notebook_consulta->append_page(*scrolled_window_aves_exoticas, "Aves exóticas");
-		notebook_consulta->append_page(*scrolled_window_mamiferos_nativos, "Mamíferos nativos");
-		notebook_consulta->append_page(*scrolled_window_mamiferos_exoticos, "Mamíferos exóticos");
-		notebook_consulta->append_page(*scrolled_window_repteis_nativos, "Répteis nativos");
-		notebook_consulta->append_page(*scrolled_window_repteis_exoticos, "Répteis exóticos");
-		
-		id = stoi(entry_id->get_text());
-		map<int, Veterinario>::iterator it_v = veterinarios->find(id);
-		map<int, Tratador>::iterator it_t = tratadores->find(id);
-
-		if(it_v != veterinarios->end())
-			pagina = 1;
-		else if (it_t != tratadores->end())
-			pagina = 0;
-
-		ProcurarAnimalPorFuncionario();
-	}
-}
-
-void JanelaBuscaAnimais::AtualizarIconeId()
-{
-	string temp = entry_id->get_text();
-	bool is_numeric = true;
-	for(unsigned int i = 0; i < temp.size(); i++)
-	{
-		if(!isdigit(temp[i]))
-		{
-			is_numeric = false;
-			break;
-		}
-	}
-	if(is_numeric && !temp.empty())
-	{
-		int id = stoi(temp);
-		map<int, Veterinario>::iterator it_v = veterinarios->find(id);
-		map<int, Tratador>::iterator it_t = tratadores->find(id);
-
-		if(it_v != veterinarios->end() || it_t != tratadores->end())
-		{
-			valid_id = true;
-			entry_id->set_icon_from_pixbuf(pixbuf_check);
-			entry_id->set_icon_tooltip_text("ID válido");
-		}
-		else
-		{
-			valid_id = false;
-			entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
-			entry_id->set_icon_tooltip_text("Algum outro funcionário já possui esse ID");
-		}
-	}
-	else
-	{
-		valid_id = false;
-		entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
-		entry_id->set_icon_tooltip_text("ID inválido");
 	}
 }
 

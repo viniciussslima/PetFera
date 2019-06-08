@@ -35,12 +35,6 @@ class JanelaBuscaAnimais : public ModelColumnsTratador, public ModelColumnsVeter
 		Window *window;
 
 		VBox *box_principal;
-		HBox *box_dados;
-
-		Entry *entry_id;
-		Button *button_confirmar;
-
-		Label *label_id;
 
 		JanelaPrincipal *janela_principal;
 
@@ -112,8 +106,6 @@ class JanelaBuscaAnimais : public ModelColumnsTratador, public ModelColumnsVeter
 		~JanelaBuscaAnimais();
 
 		void ProcurarAnimalPorFuncionario();
-		void Buscar();
-		void AtualizarIconeId();
 		void Run();
 };
 
