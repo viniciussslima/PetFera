@@ -250,6 +250,22 @@ JanelaEditarAnimal::JanelaEditarAnimal(JanelaPrincipal &jptemp, map<int, Veterin
 	entry_tipo_de_veneno->signal_changed().connect(sigc::mem_fun(*this, &JanelaEditarAnimal::AtualizarIconeTipoDeVeneno));
 }
 
+
+	
+
+
+
+	
+	
+	
+
+	box_principal = new VBox;
+	box_dados = new HBox;
+	box_esquerda = new VBox(true);
+	box_direita = new VBox(true);
+
+	
+
 JanelaEditarAnimal::~JanelaEditarAnimal()
 {
 	delete window;
@@ -257,6 +273,20 @@ JanelaEditarAnimal::~JanelaEditarAnimal()
 	delete entry_tamanho;
 	delete entry_dieta;
 	delete entry_nome_batismo;
+	delete entry_nacionalidade;
+	delete entry_veterinario_id;
+	delete entry_tratador_id;
+	delete entry_autorizacao_ibama;
+	delete entry_total_de_mudas;
+	delete entry_data_da_ultima_muda;
+	delete entry_tamanho_do_bico;
+	delete entry_envergadura_das_asas;
+	delete entry_cor_dos_pelos;
+	delete entry_tipo_de_veneno;
+	delete combo_box_uf;
+	delete combo_box_classe;
+	delete combo_box_sexo;
+	delete combo_box_regiao;
 	delete combo_box_regiao;
 	delete combo_box_classe;
 	delete check_button_veterinario_incluso;
@@ -274,9 +304,21 @@ JanelaEditarAnimal::~JanelaEditarAnimal()
 	delete label_tamanho;
 	delete label_dieta;
 	delete label_veterinario_incluso;
+	delete label_veterinario_id;
 	delete label_tratador_incluso;
+	delete label_tratador_id;
 	delete label_nome_batismo;
+	delete label_total_de_mudas;
+	delete label_data_da_ultima_muda;
+	delete label_tamanho_do_bico;
+	delete label_envergadura_das_asas;
+	delete label_cor_dos_pelos;
+	delete label_venenoso;
+	delete label_tipo_de_veneno;
+	delete label_autorizacao_do_ibama;
 	delete label_regiao;
+	delete label_nacionalidade;
+	delete label_uf;
 }
 
 void JanelaEditarAnimal::Run()

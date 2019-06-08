@@ -427,8 +427,11 @@ JanelaPrincipal::~JanelaPrincipal()
 	delete button_remocao_animal;
 	delete button_cadastro_funcionario;
 	delete button_remocao_funcionario;
+	delete button_editar;
+	delete button_buscar_animal_por_funcionario;
 	delete box_principal;
 	delete box_botoes;
+	delete entry_pesquisa;
 	delete notebook_consulta;
 	delete tree_view_tratadores;
 	delete tree_view_veterinarios;

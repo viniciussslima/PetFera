@@ -262,10 +262,23 @@ JanelaCadastroAnimal::~JanelaCadastroAnimal()
 	delete entry_tamanho;
 	delete entry_dieta;
 	delete entry_nome_batismo;
-	delete combo_box_regiao;
+	delete entry_nacionalidade;
+	delete entry_veterinario_id;
+	delete entry_tratador_id;
+	delete entry_autorizacao_ibama;
+	delete entry_total_de_mudas;
+	delete entry_data_da_ultima_muda;
+	delete entry_tamanho_do_bico;
+	delete entry_envergadura_das_asas;
+	delete entry_cor_dos_pelos;
+	delete entry_tipo_de_veneno;
+	delete combo_box_uf;
 	delete combo_box_classe;
+	delete combo_box_sexo;
+	delete combo_box_regiao;
 	delete check_button_veterinario_incluso;
 	delete check_button_tratador_incluso;
+	delete check_button_venenoso;
 	delete button_cadastrar;
 	delete box_principal;
 	delete box_dados;
@@ -278,9 +291,21 @@ JanelaCadastroAnimal::~JanelaCadastroAnimal()
 	delete label_tamanho;
 	delete label_dieta;
 	delete label_veterinario_incluso;
+	delete label_veterinario_id;
 	delete label_tratador_incluso;
+	delete label_tratador_id;
 	delete label_nome_batismo;
+	delete label_total_de_mudas;
+	delete label_data_da_ultima_muda;
+	delete label_tamanho_do_bico;
+	delete label_envergadura_das_asas;
+	delete label_cor_dos_pelos;
+	delete label_venenoso;
+	delete label_tipo_de_veneno;
+	delete label_autorizacao_do_ibama;
 	delete label_regiao;
+	delete label_nacionalidade;
+	delete label_uf;
 }
 
 void JanelaCadastroAnimal::Run()

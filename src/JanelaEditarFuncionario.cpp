@@ -141,7 +141,6 @@ JanelaEditarFuncionario::JanelaEditarFuncionario(JanelaPrincipal &jptemp, map<in
 JanelaEditarFuncionario::~JanelaEditarFuncionario()
 {
 	delete window;
-	delete label_id_numero;
 	delete entry_nome_do_funcionario;
 	delete entry_cpf;
 	delete entry_idade;
@@ -157,6 +156,7 @@ JanelaEditarFuncionario::~JanelaEditarFuncionario()
 	delete box_esquerda;
 	delete box_direita;
 	delete label_id;
+	delete label_id_numero;
 	delete label_funcao;
 	delete label_nome_do_funcionario;
 	delete label_cpf;
