@@ -100,8 +100,8 @@ class ModelColumnsAnfibioNativo : public Gtk::TreeModel::ColumnRecord
 	TreeModelColumn<string> col_sexo;
 	TreeModelColumn<double> col_tamanho;
 	TreeModelColumn<string> col_dieta;
-	TreeModelColumn<int> col_veterinario;
-	TreeModelColumn<int> col_tratador;
+	TreeModelColumn<string> col_veterinario;
+	TreeModelColumn<string> col_tratador;
 	TreeModelColumn<string> col_nome_batismo;
 	TreeModelColumn<int> col_total_mudas;
 	TreeModelColumn<string> col_data_ultima_muda;
@@ -133,8 +133,8 @@ public:
 	TreeModelColumn<string> col_sexo;
 	TreeModelColumn<double> col_tamanho;
 	TreeModelColumn<string> col_dieta;
-	TreeModelColumn<int> col_veterinario;
-	TreeModelColumn<int> col_tratador;
+	TreeModelColumn<string> col_veterinario;
+	TreeModelColumn<string> col_tratador;
 	TreeModelColumn<string> col_nome_batismo;
 	TreeModelColumn<int> col_total_mudas;
 	TreeModelColumn<string> col_data_ultima_muda;
@@ -166,8 +166,8 @@ public:
 	TreeModelColumn<string> col_sexo;
 	TreeModelColumn<double> col_tamanho;
 	TreeModelColumn<string> col_dieta;
-	TreeModelColumn<int> col_veterinario;
-	TreeModelColumn<int> col_tratador;
+	TreeModelColumn<string> col_veterinario;
+	TreeModelColumn<string> col_tratador;
 	TreeModelColumn<string> col_nome_batismo;
 	TreeModelColumn<double> col_tamanho_bico;
 	TreeModelColumn<double> col_envergadura_asas;
@@ -199,8 +199,8 @@ class ModelColumnsAveExotica : public Gtk::TreeModel::ColumnRecord
 		TreeModelColumn<string> col_sexo;
 		TreeModelColumn<double> col_tamanho;
 		TreeModelColumn<string> col_dieta;
-		TreeModelColumn<int> col_veterinario;
-		TreeModelColumn<int> col_tratador;
+		TreeModelColumn<string> col_veterinario;
+		TreeModelColumn<string> col_tratador;
 		TreeModelColumn<string> col_nome_batismo;
 		TreeModelColumn<double> col_tamanho_bico;
 		TreeModelColumn<double> col_envergadura_asas;
@@ -231,8 +231,8 @@ class ModelColumnsMamiferoNativo : public Gtk::TreeModel::ColumnRecord
     	TreeModelColumn<string> col_sexo;
     	TreeModelColumn<double> col_tamanho;
     	TreeModelColumn<string> col_dieta;
-    	TreeModelColumn<int> col_veterinario;
-    	TreeModelColumn<int> col_tratador;
+    	TreeModelColumn<string> col_veterinario;
+    	TreeModelColumn<string> col_tratador;
     	TreeModelColumn<string> col_nome_batismo;
     	TreeModelColumn<string> col_cor_pelo;
     	TreeModelColumn<string> col_autorizacao_ibama;
@@ -262,8 +262,8 @@ class ModelColumnsMamiferoExotico : public Gtk::TreeModel::ColumnRecord
     	TreeModelColumn<string> col_sexo;
     	TreeModelColumn<double> col_tamanho;
     	TreeModelColumn<string> col_dieta;
-    	TreeModelColumn<int> col_veterinario;
-    	TreeModelColumn<int> col_tratador;
+    	TreeModelColumn<string> col_veterinario;
+    	TreeModelColumn<string> col_tratador;
     	TreeModelColumn<string> col_nome_batismo;
     	TreeModelColumn<string> col_cor_pelo;
     	TreeModelColumn<string> col_autorizacao_ibama;
@@ -293,8 +293,8 @@ class ModelColumnsReptilNativo : public Gtk::TreeModel::ColumnRecord
     	TreeModelColumn<string> col_sexo;
     	TreeModelColumn<double> col_tamanho;
     	TreeModelColumn<string> col_dieta;
-    	TreeModelColumn<int> col_veterinario;
-    	TreeModelColumn<int> col_tratador;
+    	TreeModelColumn<string> col_veterinario;
+    	TreeModelColumn<string> col_tratador;
     	TreeModelColumn<string> col_nome_batismo;
     	TreeModelColumn<string> col_veneno;
     	TreeModelColumn<string> col_autorizacao_ibama;
@@ -324,8 +324,8 @@ class ModelColumnsReptilExotico : public Gtk::TreeModel::ColumnRecord
     	TreeModelColumn<string> col_sexo;
     	TreeModelColumn<double> col_tamanho;
     	TreeModelColumn<string> col_dieta;
-    	TreeModelColumn<int> col_veterinario;
-    	TreeModelColumn<int> col_tratador;
+    	TreeModelColumn<string> col_veterinario;
+    	TreeModelColumn<string> col_tratador;
     	TreeModelColumn<string> col_nome_batismo;
     	TreeModelColumn<string> col_veneno;
     	TreeModelColumn<string> col_autorizacao_ibama;
