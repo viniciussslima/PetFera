@@ -9,7 +9,7 @@ CPPFLAGS = -Wall -std=c++11 -I$(INCLUDEDIR)
 LDFLAGS = `pkg-config --libs gtkmm-3.0`
 OBJS = $(BUILDDIR)main.o $(BUILDDIR)JanelaPrincipal.o $(BUILDDIR)JanelaCadastroFuncionario.o \
 $(BUILDDIR)JanelaCadastroAnimal.o $(BUILDDIR)JanelaRemocaoFuncionario.o $(BUILDDIR)JanelaRemocaoAnimal.o\
-$(BUILDDIR)JanelaEditarFuncionario.o $(BUILDDIR)JanelaBuscaAnimais.o \
+$(BUILDDIR)JanelaEditarFuncionario.o $(BUILDDIR)JanelaEditarAnimal.o $(BUILDDIR)JanelaBuscaAnimais.o \
 $(BUILDDIR)date.o \
 $(BUILDDIR)Funcionario.o $(BUILDDIR)Veterinario.o $(BUILDDIR)Tratador.o \
 $(BUILDDIR)Animal.o \
@@ -40,6 +40,8 @@ $(BUILDDIR)JanelaRemocaoAnimal.o: $(INCLUDEDIR)JanelaRemocaoAnimal.h
 	$(CC) $(CPPFLAGSGTK) -c $(SRCDIR)JanelaRemocaoAnimal.cpp -o $@
 $(BUILDDIR)JanelaEditarFuncionario.o: $(INCLUDEDIR)JanelaEditarFuncionario.h
 	$(CC) $(CPPFLAGSGTK) -c $(SRCDIR)JanelaEditarFuncionario.cpp -o $@
+$(BUILDDIR)JanelaEditarAnimal.o: $(INCLUDEDIR)JanelaEditarAnimal.h
+	$(CC) $(CPPFLAGSGTK) -c $(SRCDIR)JanelaEditarAnimal.cpp -o $@
 $(BUILDDIR)JanelaBuscaAnimais.o: $(INCLUDEDIR)JanelaBuscaAnimais.h
 	$(CC) $(CPPFLAGSGTK) -c $(SRCDIR)JanelaBuscaAnimais.cpp -o $@
 $(BUILDDIR)date.o : $(INCLUDEDIR)date.h
