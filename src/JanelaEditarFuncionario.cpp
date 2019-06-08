@@ -86,21 +86,17 @@ JanelaEditarFuncionario::JanelaEditarFuncionario(JanelaPrincipal &jptemp, map<in
 	combo_box_fucao->append("Veterinario");
 	combo_box_fucao->append("Tratador");
 
-
 	combo_box_tipo_sanguineo->append("A");
 	combo_box_tipo_sanguineo->append("B");
 	combo_box_tipo_sanguineo->append("AB");
 	combo_box_tipo_sanguineo->append("O");
-	combo_box_tipo_sanguineo->set_active(0);
 
 	combo_box_rh->append("+");
 	combo_box_rh->append("-");
-	combo_box_rh->set_active(0);
 
 	combo_box_nivel_de_seguranca->append("0");
 	combo_box_nivel_de_seguranca->append("1");
 	combo_box_nivel_de_seguranca->append("2");
-	combo_box_nivel_de_seguranca->set_active(0);
 
 	box_principal->add(*box_dados);
 	box_principal->pack_start(*button_Editar, PACK_SHRINK);
@@ -289,47 +285,49 @@ void JanelaEditarFuncionario::Editar()
 	map<int, Tratador>::iterator it_t = tratadores->find(id);
 	map<int, Veterinario>::iterator it_v = veterinarios->find(id);
 
+	MessageDialog dialog(*window);
+
 	if(Responsabilidade() && it_t != tratadores->end() && 
 		combo_box_fucao->get_active_row_number() == 0)
 	{
-			MessageDialog dialog(*window, "Erro.");
+			dialog.set_message("Erro.")
 			dialog.set_secondary_text("Impossivel mudar a função desse funcionário, pois ele é responsavel por animais.");
   			dialog.run();
 	}
 	else if(Responsabilidade() && it_v != veterinarios->end() && 
 		combo_box_fucao->get_active_row_number() == 1)
 	{
-			MessageDialog dialog(*window, "Erro.");
+			dialog.set_message("Erro.")
 			dialog.set_secondary_text("Impossivel mudar a função desse funcionário, pois ele é responsavel por animais.");
   			dialog.run();
 	}
 	else if(!valid_nome_do_funcionario)
 	{
-		MessageDialog dialog(*window, "Nome inválido.");
+		dialog.set_message("Nome inválido.")
 		dialog.set_secondary_text("Falta preencher o nome do funcionário.");
   		dialog.run();
 	}
 	else if(!valid_cpf)
 	{
-		MessageDialog dialog(*window, "CPF inválido.");
+		dialog.set_message("CPF inválido.")
 		dialog.set_secondary_text("O CPF apresentado é inválido.");
   		dialog.run();
 	}
 	else if(!valid_idade)
 	{
-		MessageDialog dialog(*window, "Idade inválida.");
+		dialog.set_message("Idade inválida.")
 		dialog.set_secondary_text("Falta preencher ou a idade é menor ou igual a 0.");
   		dialog.run();
 	}
 	else if(!valid_especialidade)
 	{
-		MessageDialog dialog(*window, "Especialidade inválida.");
+		dialog.set_message("Especialidade inválida.")
 		dialog.set_secondary_text("Falta preencher a especialidade do funcionário.");
   		dialog.run();
 	}
 	else if(!valid_crmv)
 	{
-		MessageDialog dialog(*window, "CRMV inválida.");
+		dialog.set_message("CRMV inválida.")
 		dialog.set_secondary_text("Falta preencher a CRMV do funcionário.");
   		dialog.run();
 	}
