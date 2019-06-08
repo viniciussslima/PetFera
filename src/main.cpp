@@ -1,10 +1,10 @@
 #include <iostream>
-using namespace std;
-
 #include <gtkmm.h>
-using namespace Gtk;
 
 #include "JanelaPrincipal.h"
+
+using namespace std;
+using namespace Gtk;
 
 int main(int argc, char* argv[])
 {

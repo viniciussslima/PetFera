@@ -2,9 +2,11 @@
 #define _JANELA_EDITAR_FUNCIONARIO_H_
 
 #include <iostream>
-#include <gtkmm.h>
-#include <map>
 #include <string>
+#include <fstream>
+#include <map>
+#include <gtkmm.h>
+
 #include "Funcionario.h"
 #include "Veterinario.h"
 #include "Tratador.h"

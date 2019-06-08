@@ -1,6 +1,3 @@
-#include <fstream>
-#include <string>
-#include <exception> 
 #include "JanelaCadastroAnimal.h"
 
 using namespace Gtk;

@@ -1,4 +1,3 @@
-#include <fstream>
 #include "JanelaCadastroFuncionario.h"
 
 using namespace Gtk;

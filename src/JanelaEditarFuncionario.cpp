@@ -1,4 +1,3 @@
-#include <fstream>
 #include "JanelaEditarFuncionario.h"
 
 using namespace Gtk;

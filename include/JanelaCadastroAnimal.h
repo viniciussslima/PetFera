@@ -2,7 +2,12 @@
 #define _JANELA_CADASTRO_ANIMAL_H_
 
 #include <iostream>
+#include <string>
+#include <fstream>
+#include <exception>
+
 #include <gtkmm.h>
+
 #include "JanelaPrincipal.h"
 #include "Separador.h"
 
