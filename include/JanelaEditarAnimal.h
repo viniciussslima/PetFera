@@ -131,13 +131,13 @@ class JanelaEditarAnimal
 		~JanelaEditarAnimal();
 
 		void Run();
-		void Cadastrar();
+		void SetInformacooes();
+		void Editar();
 		void MudarClasse();
 		void MudarRegiao();
 		void MostrarVeterinario();
 		void MostrarTratador();
 		void MostrarVenenoso();
-		void AtualizarIconeId();
 		void AtualizarIconeNomeCientifico();
 		void AtualizarIconeTamanho();
 		void AtualizarIconeDieta();

@@ -227,7 +227,7 @@ JanelaEditarAnimal::JanelaEditarAnimal(JanelaPrincipal &jptemp, map<int, Veterin
 	box_direita->pack_start(*combo_box_uf, PACK_SHRINK);
 
 	//Conexão
-	button_cadastrar->signal_clicked().connect(sigc::mem_fun(*this, &JanelaEditarAnimal::Cadastrar));
+	button_cadastrar->signal_clicked().connect(sigc::mem_fun(*this, &JanelaEditarAnimal::Editar));
 	combo_box_classe->signal_changed().connect(sigc::mem_fun(*this, &JanelaEditarAnimal::MudarClasse));
 	combo_box_regiao->signal_changed().connect(sigc::mem_fun(*this, &JanelaEditarAnimal::MudarRegiao));
 	check_button_veterinario_incluso->signal_clicked().connect(sigc::mem_fun(*this, &JanelaEditarAnimal::MostrarVeterinario));
@@ -300,7 +300,44 @@ void JanelaEditarAnimal::Run()
 	Main::run(*window);
 }
 
-void JanelaEditarAnimal::Cadastrar()
+void JanelaEditarAnimal::SetInformacooes()
+{
+	window->show_all();
+	if (pagina == 2)
+	{
+		
+	}
+	else if (pagina == 3)
+	{
+
+	}
+	else if (pagina == 4)
+	{
+		
+	}
+	else if (pagina == 5)
+	{
+		
+	}
+	else if (pagina == 6)
+	{
+		
+	}
+	else if (pagina == 7)
+	{
+		
+	}
+	else if (pagina == 8)
+	{
+		
+	}
+	else if (pagina == 9)
+	{
+		
+	}	
+}
+
+void JanelaEditarAnimal::Editar()
 {
 	if (!valid_id)
 	{
