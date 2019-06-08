@@ -12,7 +12,15 @@ JanelaBuscaAnimais::JanelaBuscaAnimais(map<int, Veterinario> &vtemp, map<int, Tr
 											ModelColumnsMamiferoNativo(), ModelColumnsMamiferoExotico(), ModelColumnsReptilNativo(), 
 											ModelColumnsReptilExotico()
 {
-	
+	page_anfibios_exoticos = false;
+	page_anfibios_nativos = false;
+	page_aves_exoticas = false;
+	page_aves_nativas = false;
+	page_mamiferos_exoticos = false;
+	page_mamiferos_nativos = false;
+	page_repteis_exoticos = false;
+	page_repteis_nativos = false;
+
 	veterinarios = &vtemp;
 	tratadores = &ttemp;
 
@@ -261,15 +269,6 @@ void JanelaBuscaAnimais::ProcurarAnimalPorFuncionario()
 	list_store_repteis_nativos->clear();
 
 	TreeModel::Row row;
-
-	bool page_anfibios_exoticos = false;
-	bool page_anfibios_nativos = false;
-	bool page_aves_exoticas = false;
-	bool page_aves_nativas = false;
-	bool page_mamiferos_exoticos = false;
-	bool page_mamiferos_nativos = false;
-	bool page_repteis_exoticos = false;
-	bool page_repteis_nativos = false;
 
 	if (pagina == 0)
 	{
@@ -775,40 +774,38 @@ void JanelaBuscaAnimais::ProcurarAnimalPorFuncionario()
 			}
 		}
 	}
-	if(pagina == 0 || pagina == 1)
-	{
-		if (!page_anfibios_exoticos && !page_anfibios_nativos &&
-			!page_aves_exoticas && !page_aves_nativas &&
-			!page_mamiferos_exoticos && !page_mamiferos_nativos &&
-			!page_repteis_exoticos && !page_repteis_nativos)
-		{
-			MessageDialog dialog(*window, "Sem animais cadastradados.");
-			dialog.set_secondary_text("Esse funcionario não é responsavel por nenhum animal");
-	  		dialog.run();
-			return;
-		}
-
-		if (!page_anfibios_exoticos)
-			notebook_consulta->remove_page(*scrolled_window_anfibios_exoticos);
-		if (!page_anfibios_nativos)
-			notebook_consulta->remove_page(*scrolled_window_anfibios_nativos);
-		if (!page_aves_exoticas)
-			notebook_consulta->remove_page(*scrolled_window_aves_exoticas);
-		if (!page_aves_nativas)
-			notebook_consulta->remove_page(*scrolled_window_aves_nativas);
-		if (!page_mamiferos_exoticos)
-			notebook_consulta->remove_page(*scrolled_window_mamiferos_exoticos);
-		if (!page_mamiferos_nativos)
-			notebook_consulta->remove_page(*scrolled_window_mamiferos_nativos);
-		if (!page_repteis_exoticos)
-			notebook_consulta->remove_page(*scrolled_window_repteis_exoticos);
-		if (!page_repteis_nativos)
-			notebook_consulta->remove_page(*scrolled_window_repteis_nativos);
-	}
+	
+	if (!page_anfibios_exoticos)
+		notebook_consulta->remove_page(*scrolled_window_anfibios_exoticos);
+	if (!page_anfibios_nativos)
+		notebook_consulta->remove_page(*scrolled_window_anfibios_nativos);
+	if (!page_aves_exoticas)
+		notebook_consulta->remove_page(*scrolled_window_aves_exoticas);
+	if (!page_aves_nativas)
+		notebook_consulta->remove_page(*scrolled_window_aves_nativas);
+	if (!page_mamiferos_exoticos)
+		notebook_consulta->remove_page(*scrolled_window_mamiferos_exoticos);
+	if (!page_mamiferos_nativos)
+		notebook_consulta->remove_page(*scrolled_window_mamiferos_nativos);
+	if (!page_repteis_exoticos)
+		notebook_consulta->remove_page(*scrolled_window_repteis_exoticos);
+	if (!page_repteis_nativos)
+		notebook_consulta->remove_page(*scrolled_window_repteis_nativos);
 }
 
 void JanelaBuscaAnimais::Run()
 {
+	if (!page_anfibios_exoticos && !page_anfibios_nativos &&
+		!page_aves_exoticas && !page_aves_nativas &&
+		!page_mamiferos_exoticos && !page_mamiferos_nativos &&
+		!page_repteis_exoticos && !page_repteis_nativos)
+	{
+		MessageDialog dialog(*window, "Sem animais cadastradados.");
+		dialog.set_secondary_text("Esse funcionario não é responsavel por nenhum animal");
+  		dialog.run();
+		return;
+	}
+
 	window->show_all();
 	Main::run(*window);
 }

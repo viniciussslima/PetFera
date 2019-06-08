@@ -81,7 +81,14 @@ class JanelaBuscaAnimais : public ModelColumnsTratador, public ModelColumnsVeter
 	  	Glib::RefPtr<ListStore> list_store_repteis_nativos;
 	  	Glib::RefPtr<ListStore> list_store_repteis_exoticos;
 
-		bool valid_id;
+		bool page_anfibios_exoticos = false;
+		bool page_anfibios_nativos = false;
+		bool page_aves_exoticas = false;
+		bool page_aves_nativas = false;
+		bool page_mamiferos_exoticos = false;
+		bool page_mamiferos_nativos = false;
+		bool page_repteis_exoticos = false;
+		bool page_repteis_nativos = false;
 		int pagina;
 		int id;
 

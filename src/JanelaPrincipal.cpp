@@ -712,13 +712,13 @@ void JanelaPrincipal::BuscarAnimalPorFuncionario()
 			selection = tree_view_tratadores->get_selection();
 			selectedRow = selection->get_selected();
 			row = *selectedRow;
-			if (row == NULL)
-			{
-				id = 0;
-			}
-			else
+			if (row != NULL)
 			{
 				id = row.get_value(model_columns_tratador.col_id);	
+				JanelaBuscaAnimais temp(veterinarios, tratadores, anfibios_exoticos, anfibios_nativos, aves_exoticas,
+								 aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+								 repteis_exoticos, repteis_nativos, pagina, id);
+				temp.Run();
 			}
 			break;
 		case 1:
@@ -726,26 +726,22 @@ void JanelaPrincipal::BuscarAnimalPorFuncionario()
 			selection = tree_view_veterinarios->get_selection();			
 			selectedRow = selection->get_selected();
 			row = *selectedRow;
-			if (row == NULL)
+			if (row != NULL)
 			{
-				id = 0;
-			}
-			else
-			{
+			
 				id = row.get_value(model_columns_tratador.col_id);	
+				JanelaBuscaAnimais temp(veterinarios, tratadores, anfibios_exoticos, anfibios_nativos, aves_exoticas,
+								 aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+								 repteis_exoticos, repteis_nativos, pagina, id);
+				temp.Run();
 			}
 			break;
 		default:
 			MessageDialog dialog(*window, "Impossivel fazer a busca.");
 			dialog.set_secondary_text("O item selecionado não é um funcionario.");
 	  		dialog.run();
-	  		id = 0;
+	  		break;
 	}
-
-	JanelaBuscaAnimais temp(veterinarios, tratadores, anfibios_exoticos, anfibios_nativos, aves_exoticas,
-								 aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-								 repteis_exoticos, repteis_nativos, pagina, id);
-	temp.Run();
 }
 
 void JanelaPrincipal::AtualizarLista(int i)
