@@ -250,22 +250,6 @@ JanelaEditarAnimal::JanelaEditarAnimal(JanelaPrincipal &jptemp, map<int, Veterin
 	entry_tipo_de_veneno->signal_changed().connect(sigc::mem_fun(*this, &JanelaEditarAnimal::AtualizarIconeTipoDeVeneno));
 }
 
-
-	
-
-
-
-	
-	
-	
-
-	box_principal = new VBox;
-	box_dados = new HBox;
-	box_esquerda = new VBox(true);
-	box_direita = new VBox(true);
-
-	
-
 JanelaEditarAnimal::~JanelaEditarAnimal()
 {
 	delete window;
