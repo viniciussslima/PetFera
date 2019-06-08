@@ -642,7 +642,7 @@ void JanelaCadastroAnimal::MudarClasse()
 			AtualizarIconeId();
 			break;
 		case 3:
-			valid_tipo_veneno = false;
+			valid_tipo_veneno = true;
 			valid_total_de_mudas = true;
 			valid_data_da_ultima_muda = true;
 			valid_tamanho_do_bico = true;
