@@ -3,10 +3,9 @@
 #include "JanelaCadastroAnimal.h"
 #include "JanelaRemocaoFuncionario.h"
 #include "JanelaRemocaoAnimal.h"
+#include "JanelaEditarAnimal.h"
 #include "JanelaEditarFuncionario.h"
 #include "JanelaBuscaAnimais.h"
-#include <exception> 
-
 
 using namespace Gtk;
 using namespace std;
@@ -566,8 +565,11 @@ void JanelaPrincipal::Editar()
 			if (row != NULL)
 			{
 				id = row.get_value(model_columns_anfibio_nativo.col_id);	
-				//JanelaEditarAnimal temp(*this, veterinarios, tratadores, pagina, id);
-				//temp.Run();
+				JanelaEditarAnimal temp(*this, veterinarios, tratadores, 
+					anfibios_exoticos, anfibios_nativos, aves_exoticas,
+					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+					repteis_exoticos, repteis_nativos, pagina, id);
+				temp.Run();
 			}
 			break;
 		}
@@ -580,8 +582,11 @@ void JanelaPrincipal::Editar()
 			if (row != NULL)
 			{
 				id = row.get_value(model_columns_anfibio_exotico.col_id);	
-				//JanelaEditarAnimal temp(*this, veterinarios, tratadores, pagina, id);
-				//temp.Run();
+				JanelaEditarAnimal temp(*this, veterinarios, tratadores, 
+					anfibios_exoticos, anfibios_nativos, aves_exoticas,
+					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+					repteis_exoticos, repteis_nativos, pagina, id);
+				temp.Run();
 			}
 			break;
 		}
@@ -594,8 +599,11 @@ void JanelaPrincipal::Editar()
 			if (row != NULL)
 			{
 				id = row.get_value(model_columns_ave_nativa.col_id);	
-				//JanelaEditarAnimal temp(*this, veterinarios, tratadores, pagina, id);
-				//temp.Run();
+				JanelaEditarAnimal temp(*this, veterinarios, tratadores, 
+					anfibios_exoticos, anfibios_nativos, aves_exoticas,
+					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+					repteis_exoticos, repteis_nativos, pagina, id);
+				temp.Run();
 			}
 			break;
 		}
@@ -608,8 +616,11 @@ void JanelaPrincipal::Editar()
 			if (row != NULL)
 			{
 				id = row.get_value(model_columns_ave_exotica.col_id);	
-				//JanelaEditarAnimal temp(*this, veterinarios, tratadores, pagina, id);
-				//temp.Run();
+				JanelaEditarAnimal temp(*this, veterinarios, tratadores, 
+					anfibios_exoticos, anfibios_nativos, aves_exoticas,
+					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+					repteis_exoticos, repteis_nativos, pagina, id);
+				temp.Run();
 			}
 			break;
 		}
@@ -622,8 +633,11 @@ void JanelaPrincipal::Editar()
 			if (row != NULL)
 			{
 				id = row.get_value(model_columns_mamifero_nativo.col_id);	
-				//JanelaEditarAnimal temp(*this, veterinarios, tratadores, pagina, id);
-				//temp.Run();
+				JanelaEditarAnimal temp(*this, veterinarios, tratadores, 
+					anfibios_exoticos, anfibios_nativos, aves_exoticas,
+					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+					repteis_exoticos, repteis_nativos, pagina, id);
+				temp.Run();
 			}
 			break;
 		}
@@ -636,8 +650,11 @@ void JanelaPrincipal::Editar()
 			if (row != NULL)
 			{
 				id = row.get_value(model_columns_mamifero_exotico.col_id);	
-				//JanelaEditarAnimal temp(*this, veterinarios, tratadores, pagina, id);
-				//temp.Run();
+				JanelaEditarAnimal temp(*this, veterinarios, tratadores, 
+					anfibios_exoticos, anfibios_nativos, aves_exoticas,
+					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+					repteis_exoticos, repteis_nativos, pagina, id);
+				temp.Run();
 			}
 			break;
 		}
@@ -650,8 +667,11 @@ void JanelaPrincipal::Editar()
 			if (row != NULL)
 			{
 				id = row.get_value(model_columns_reptil_exotico.col_id);	
-				//JanelaEditarAnimal temp(*this, veterinarios, tratadores, pagina, id);
-				//temp.Run();
+				JanelaEditarAnimal temp(*this, veterinarios, tratadores, 
+					anfibios_exoticos, anfibios_nativos, aves_exoticas,
+					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+					repteis_exoticos, repteis_nativos, pagina, id);
+				temp.Run();
 			}
 			break;
 		}
@@ -664,8 +684,11 @@ void JanelaPrincipal::Editar()
 			if (row != NULL)
 			{
 				id = row.get_value(model_columns_reptil_nativo.col_id);	
-				//JanelaEditarAnimal temp(*this, veterinarios, tratadores, pagina, id);
-				//temp.Run();
+				JanelaEditarAnimal temp(*this, veterinarios, tratadores, 
+					anfibios_exoticos, anfibios_nativos, aves_exoticas,
+					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+					repteis_exoticos, repteis_nativos, pagina, id);
+				temp.Run();
 			}
 			break;
 		}
