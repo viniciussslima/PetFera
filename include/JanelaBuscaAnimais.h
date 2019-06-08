@@ -1,5 +1,5 @@
-#ifndef ANIMAL_FUNCIONARIO_H_
-#define ANIMAL_FUNCIONARIO_H_
+#ifndef _JANELA_BUSCA_ANIMAIS_H_
+#define _JANELA_BUSCA_ANIMAIS_H_
 
 #include <iostream>
 #include <fstream>
