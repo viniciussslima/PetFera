@@ -1135,6 +1135,13 @@ void JanelaEditarAnimal::Editar()
 		dialog.set_secondary_text("Nenhum ID foi apresentado ou foi não foi encontrado um veterinario com o ID apresentado.");
   		dialog.run();
 	}
+	else if (!check_button_veterinario_incluso->get_active() &&
+				!check_button_tratador_incluso->get_active())
+	{
+		MessageDialog dialog(*window, "Sem funcionário responsável pelo animal.");
+		dialog.set_secondary_text("O animal tem que ter pelo menos um funcionário responsável por ele.");
+  		dialog.run();
+	}
 	else if (!valid_nome_batismo)
 	{
 		MessageDialog dialog(*window, "Nome inválido.");
