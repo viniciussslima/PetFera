@@ -349,7 +349,7 @@ class JanelaPrincipal : public ModelColumnsTratador, public ModelColumnsVeterina
 		Button *button_cadastro_animal;
 		Button *button_remocao_animal;
 		Button *button_cadastro_funcionario;
-		Button *button_remocao_funcionario;
+		Button *button_remover;
 		Button *button_editar;
 		Button *button_buscar_animal_por_funcionario;
 
@@ -418,13 +418,12 @@ class JanelaPrincipal : public ModelColumnsTratador, public ModelColumnsVeterina
 		~JanelaPrincipal();
 
 		void Run();
-		void CadastrarFuncionario();
-		void CadastrarAnimal();
-		void RemoverFuncionario();
-		void RemoverAnimal();
-		void Editar();
+		void BotaoCadastrarFuncionario();
+		void BotaoCadastrarAnimal();
+		void BotaoRemover();
+		void BotaoEditar();
+		void BotaoBuscarAnimalPorFuncionario();
 		void AtualizarLista(int);
-		void BuscarAnimalPorFuncionario();
 };
 
 #endif

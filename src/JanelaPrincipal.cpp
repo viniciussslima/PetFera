@@ -1,8 +1,8 @@
 #include "JanelaPrincipal.h"
 #include "JanelaCadastroFuncionario.h"
 #include "JanelaCadastroAnimal.h"
-#include "JanelaRemocaoFuncionario.h"
-#include "JanelaRemocaoAnimal.h"
+#include "RemoverFuncionario.h"
+#include "RemoverAnimal.h"
 #include "JanelaEditarAnimal.h"
 #include "JanelaEditarFuncionario.h"
 #include "JanelaBuscaAnimais.h"
@@ -167,9 +167,8 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 	window = new Window;
 
 	button_cadastro_animal = new Button("Cadastrar animal");
-	button_remocao_animal = new Button("Remover animal");
+	button_remover = new Button("Remover");
 	button_cadastro_funcionario = new Button("Cadastrar funcionario");
-	button_remocao_funcionario = new Button("Remover funcionario");
 	button_editar = new Button("Editar");
 	button_buscar_animal_por_funcionario = new Button("Buscar animal Por funcionario");
 
@@ -237,9 +236,8 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 
 	box_botoes->set_layout(BUTTONBOX_CENTER);
 	box_botoes->pack_start(*button_cadastro_animal, PACK_EXPAND_PADDING, 10);
-	box_botoes->pack_start(*button_remocao_animal, PACK_EXPAND_PADDING, 10);
+	box_botoes->pack_start(*button_remover, PACK_EXPAND_PADDING, 10);
 	box_botoes->pack_start(*button_cadastro_funcionario, PACK_EXPAND_PADDING, 10);
-	box_botoes->pack_start(*button_remocao_funcionario, PACK_EXPAND_PADDING, 10);
 	box_botoes->pack_start(*button_editar, PACK_EXPAND_PADDING, 10);
 	box_botoes->pack_start(*button_buscar_animal_por_funcionario, PACK_EXPAND_PADDING, 10);
 
@@ -412,21 +410,19 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 	}
 
 	//Conexão
-	button_cadastro_funcionario->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::CadastrarFuncionario));
-	button_cadastro_animal->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::CadastrarAnimal));
-	button_remocao_funcionario->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::RemoverFuncionario));
-	button_remocao_animal->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::RemoverAnimal));
-	button_editar->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::Editar));
-	button_buscar_animal_por_funcionario->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::BuscarAnimalPorFuncionario));
+	button_cadastro_funcionario->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::BotaoCadastrarFuncionario));
+	button_cadastro_animal->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::BotaoCadastrarAnimal));
+	button_remover->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::BotaoRemover));
+	button_editar->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::BotaoEditar));
+	button_buscar_animal_por_funcionario->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::BotaoBuscarAnimalPorFuncionario));
 }
 
 JanelaPrincipal::~JanelaPrincipal()
 {
 	delete window;
 	delete button_cadastro_animal;
-	delete button_remocao_animal;
+	delete button_remover;
 	delete button_cadastro_funcionario;
-	delete button_remocao_funcionario;
 	delete button_editar;
 	delete button_buscar_animal_por_funcionario;
 	delete box_principal;
@@ -461,13 +457,13 @@ void JanelaPrincipal::Run()
 	Main::run(*window);
 }
 
-void JanelaPrincipal::CadastrarFuncionario()
+void JanelaPrincipal::BotaoCadastrarFuncionario()
 {
 	JanelaCadastroFuncionario temp(*this, veterinarios, tratadores);
 	temp.Run();
 }
 
-void JanelaPrincipal::CadastrarAnimal()
+void JanelaPrincipal::BotaoCadastrarAnimal()
 {
 	if (tratadores.empty() && veterinarios.empty())
 	{
@@ -483,43 +479,176 @@ void JanelaPrincipal::CadastrarAnimal()
 	}
 }
 
-void JanelaPrincipal::RemoverFuncionario()
+void JanelaPrincipal::BotaoRemover()
 {
-	if (tratadores.empty() && veterinarios.empty())
+	int id;
+	int pagina = notebook_consulta->get_current_page();
+	switch(pagina)
 	{
-		MessageDialog dialog(*window, "Impossivel remover um funcionario.");
-		dialog.set_secondary_text("Não existem funcionarios cadastrados.");
-  		dialog.run();
-	}
-	else
-	{
-		JanelaRemocaoFuncionario temp(*this, veterinarios, tratadores, anfibios_exoticos, anfibios_nativos, aves_exoticas,
-								  aves_nativas, mamiferos_exoticos, mamiferos_nativos, repteis_exoticos, repteis_nativos);
-		temp.Run();
+		case 0:
+		{
+			//tratadores
+			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_tratadores->get_selection();
+			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
+			Gtk::TreeModel::Row row = *selectedRow;
+			if (row != NULL)
+			{
+				id = row.get_value(model_columns_tratador.col_id);	
+				if (!RemoverFuncionario(*this, veterinarios, tratadores, anfibios_exoticos, anfibios_nativos, aves_exoticas,
+					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+					repteis_exoticos, repteis_nativos, id))
+				{
+					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
+					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
+			  		dialog.run();
+				}
+			}
+			break;
+		}
+		case 1:
+		{
+			//veterinarios
+			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_veterinarios->get_selection();
+			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
+			Gtk::TreeModel::Row row = *selectedRow;
+			if (row != NULL)
+			{
+				id = row.get_value(model_columns_veterinario.col_id);	
+				if (!RemoverFuncionario(*this, veterinarios, tratadores, anfibios_exoticos, anfibios_nativos, aves_exoticas,
+					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+					repteis_exoticos, repteis_nativos, id))
+				{
+					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
+					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
+			  		dialog.run();
+				}
+			}
+			break;
+		}
+		case 2:
+		{
+			//anfibios nativos
+			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_anfibios_nativos->get_selection();
+			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
+			Gtk::TreeModel::Row row = *selectedRow;
+			if (row != NULL)
+			{
+				id = row.get_value(model_columns_anfibio_nativo.col_id);	
+				RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
+							 aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+							 repteis_exoticos, repteis_nativos, pagina, id);
+			}
+			break;
+		}
+		case 3:
+		{
+			//anfibios exoticos
+			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_anfibios_exoticos->get_selection();
+			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
+			Gtk::TreeModel::Row row = *selectedRow;
+			if (row != NULL)
+			{
+				id = row.get_value(model_columns_anfibio_exotico.col_id);	
+				RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
+							 aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+							 repteis_exoticos, repteis_nativos, pagina, id);
+			}
+			break;
+		}
+		case 4:
+		{
+			//aves nativas
+			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_aves_nativas->get_selection();
+			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
+			Gtk::TreeModel::Row row = *selectedRow;
+			if (row != NULL)
+			{
+				id = row.get_value(model_columns_ave_nativa.col_id);	
+				RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
+							 aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+							 repteis_exoticos, repteis_nativos, pagina, id);
+			}
+			break;
+		}
+		case 5:
+		{
+			//aves exoticas
+			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_aves_exoticas->get_selection();
+			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
+			Gtk::TreeModel::Row row = *selectedRow;
+			if (row != NULL)
+			{
+				id = row.get_value(model_columns_ave_exotica.col_id);	
+				RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
+							 aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+							 repteis_exoticos, repteis_nativos, pagina, id);
+			}
+			break;
+		}
+		case 6:
+		{
+			//mamiferos nativos
+			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_mamiferos_nativos->get_selection();
+			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
+			Gtk::TreeModel::Row row = *selectedRow;
+			if (row != NULL)
+			{
+				id = row.get_value(model_columns_mamifero_nativo.col_id);	
+				RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
+							 aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+							 repteis_exoticos, repteis_nativos, pagina, id);
+			}
+			break;
+		}
+		case 7:
+		{
+			//mamiferos exoticos
+			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_mamiferos_exoticos->get_selection();
+			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
+			Gtk::TreeModel::Row row = *selectedRow;
+			if (row != NULL)
+			{
+				id = row.get_value(model_columns_mamifero_exotico.col_id);	
+				RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
+							 aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+							 repteis_exoticos, repteis_nativos, pagina, id);
+			}
+			break;
+		}
+		case 8:
+		{
+			//repteis nativos
+			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_repteis_nativos->get_selection();
+			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
+			Gtk::TreeModel::Row row = *selectedRow;
+			if (row != NULL)
+			{
+				id = row.get_value(model_columns_reptil_nativo.col_id);	
+				RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
+							 aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+							 repteis_exoticos, repteis_nativos, pagina, id);
+			}
+			break;
+		}
+		case 9:
+		{
+			//repteis exoticos
+			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_repteis_exoticos->get_selection();
+			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
+			Gtk::TreeModel::Row row = *selectedRow;
+			if (row != NULL)
+			{
+				id = row.get_value(model_columns_reptil_exotico.col_id);	
+				RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
+							 aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+							 repteis_exoticos, repteis_nativos, pagina, id);
+			}
+			break;
+		}
 	}
 }
 
-void JanelaPrincipal::RemoverAnimal()
-{
-	if(anfibios_exoticos.empty() && anfibios_nativos.empty() && 
-		aves_exoticas.empty() && aves_nativas.empty() && 
-		mamiferos_exoticos.empty() && mamiferos_nativos.empty() &&
-		repteis_exoticos.empty() && repteis_nativos.empty())
-	{
-		MessageDialog dialog(*window, "Impossivel remover um animal.");
-		dialog.set_secondary_text("Não existem animais cadastrados.");
-  		dialog.run();
-	}
-	else
-	{
-		JanelaRemocaoAnimal temp(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
-								 aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-								 repteis_exoticos, repteis_nativos);
-		temp.Run();
-	}
-}
-
-void JanelaPrincipal::Editar()
+void JanelaPrincipal::BotaoEditar()
 {
 	int id;
 	int pagina = notebook_consulta->get_current_page();
@@ -698,7 +827,7 @@ void JanelaPrincipal::Editar()
 	}
 }
 
-void JanelaPrincipal::BuscarAnimalPorFuncionario()
+void JanelaPrincipal::BotaoBuscarAnimalPorFuncionario()
 {
 	int id;
 	int pagina = notebook_consulta->get_current_page();
