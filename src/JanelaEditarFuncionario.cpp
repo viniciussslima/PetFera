@@ -1,3 +1,12 @@
+/**
+* @file JanelaEditarFuncionario.cpp
+* @brief Classe que abre uma janela que possibilita editar as informações de um funcionário.
+* @author
+* Hudson Bruno Macedo Alves,
+* João Vitor Kobata,
+* Vinicius Santos Silva de Lima.
+*/
+
 #include "JanelaEditarFuncionario.h"
 
 using namespace Gtk;

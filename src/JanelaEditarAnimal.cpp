@@ -1,3 +1,12 @@
+/**
+* @file JanelaEditarAnimal.cpp
+* @brief Classe que abre uma janela que possibilita editar as informações de um animal.
+* @author
+* Hudson Bruno Macedo Alves,
+* João Vitor Kobata,
+* Vinicius Santos Silva de Lima.
+*/
+
 #include "JanelaEditarAnimal.h"
 
 using namespace Gtk;

@@ -1,11 +1,20 @@
+/**
+* @file JanelaPrincipal.cpp
+* @author
+* Hudson Bruno Macedo Alves,
+* João Vitor Kobata,
+* Vinicius Santos Silva de Lima.
+*/
+
 #include "JanelaPrincipal.h"
 #include "JanelaCadastroFuncionario.h"
 #include "JanelaCadastroAnimal.h"
-#include "RemoverFuncionario.h"
-#include "RemoverAnimal.h"
 #include "JanelaEditarAnimal.h"
 #include "JanelaEditarFuncionario.h"
 #include "JanelaBuscaAnimais.h"
+
+#include "RemoverFuncionario.h"
+#include "RemoverAnimal.h"
 
 using namespace Gtk;
 using namespace std;

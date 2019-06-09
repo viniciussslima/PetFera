@@ -1,7 +1,38 @@
+/**
+* @file JanelaBuscaAnimais.cpp
+* @brief Classe abre uma janela com os animais sobre a responsabilidade de um funcionário.
+* @author
+* Hudson Bruno Macedo Alves,
+* João Vitor Kobata,
+* Vinicius Santos Silva de Lima.
+*/
+
 #include "JanelaBuscaAnimais.h"
 
 using namespace Gtk;
 using namespace std;
+
+/**
+* @brief Construtor padrão da classe JanelaBuscaAnimais.
+*/
+
+JanelaBuscaAnimais::JanelaBuscaAnimais(){}
+
+/**
+* @brief construtor parametrizado da classe JanelaBuscaAnimais.
+* @param vtemp  Map que contém todos os veterinários cadastrados.
+* @param ttemp Map que contém todos os tratadores cadastrados.
+* @param anetemp Map que contém todos os anfíbios exóticos cadastrados.
+* @param anntemp Map que contém todos os anfíbios nativos cadastrados.
+* @param avetemp Map que contém todas as aves exóticas cadastrados.
+* @param avntemp Map que contém todas as aves nativas cadastrados.
+* @param metemp Map que contém todos os mamíferos exóticos cadastrados.
+* @param mntemp Map que contém todos os mamíferos nativos cadastrados.
+* @param retemp Map que contém todos os reptéis exóticos cadastrados.
+* @param rntemp Map que contém todos os reptéis nativos cadastrados.
+* @param pagtemp Número que representa a pagina do notbook que o usuário estava vendo.
+* @param idtemp Número que representa o ID do funcionário que foi selecionado pelo o usuário.
+*/
 
 JanelaBuscaAnimais::JanelaBuscaAnimais(map<int, Veterinario> &vtemp, map<int, Tratador> &ttemp, map<int, AnfibioExotico> &anetemp, 
 										map<int, AnfibioNativo> &anntemp, map<int, AveExotico> &avetemp, map<int, AveNativo> &avntemp, 
@@ -11,7 +42,9 @@ JanelaBuscaAnimais::JanelaBuscaAnimais(map<int, Veterinario> &vtemp, map<int, Tr
 											ModelColumnsAnfibioExotico(), ModelColumnsAveNativa(), ModelColumnsAveExotica(),
 											ModelColumnsMamiferoNativo(), ModelColumnsMamiferoExotico(), ModelColumnsReptilNativo(), 
 											ModelColumnsReptilExotico()
-{
+{ 
+	// Atribuição de false para todas as variáveis boleanas que representão 
+	// se existe ou não um certo tipo de animal sob responsabilidade do funcionário escolhido. 
 	page_anfibios_exoticos = false;
 	page_anfibios_nativos = false;
 	page_aves_exoticas = false;
@@ -21,6 +54,7 @@ JanelaBuscaAnimais::JanelaBuscaAnimais(map<int, Veterinario> &vtemp, map<int, Tr
 	page_repteis_exoticos = false;
 	page_repteis_nativos = false;
 
+	// Atribui os endereços de memória dos maps recebidos como parâmetros para os maps da classe JanelaBuscaAnimais.
 	veterinarios = &vtemp;
 	tratadores = &ttemp;
 
@@ -36,10 +70,11 @@ JanelaBuscaAnimais::JanelaBuscaAnimais(map<int, Veterinario> &vtemp, map<int, Tr
 	repteis_exoticos = &retemp;
 	repteis_nativos = &rntemp;
 
+	// Atribui os valores de pagtemp e idtemp para os atributos pagina e id da classe JanelaBuscaAnimais.
 	pagina = pagtemp;
 	id = idtemp;
 
-	//inicialização
+	// inicialização dos atributos da classe GTK.
 	window = new Window;
 	box_principal = new VBox;
 	entry_pesquisa = new SearchEntry;
@@ -63,7 +98,7 @@ JanelaBuscaAnimais::JanelaBuscaAnimais(map<int, Veterinario> &vtemp, map<int, Tr
 	scrolled_window_repteis_nativos = new ScrolledWindow;
 	scrolled_window_repteis_exoticos = new ScrolledWindow;
 
-	//configuração
+	// Configuração dos atributos da classe GTK.
 	window->set_default_size(1280, 720);
 	window->set_resizable(true);
 	window->set_border_width(5);
@@ -94,7 +129,7 @@ JanelaBuscaAnimais::JanelaBuscaAnimais(map<int, Veterinario> &vtemp, map<int, Tr
 	pixbuf_check = Gdk::Pixbuf::create_from_file("icons/check.ico");
 	pixbuf_uncheck = Gdk::Pixbuf::create_from_file("icons/uncheck.ico");
 
-	//Criando o modelo de arvore
+	// Criando modelos de árvore.
 	list_store_anfibios_nativos = ListStore::create(model_columns_anfibio_nativo);
 	list_store_anfibios_exoticos = ListStore::create(model_columns_anfibio_exotico);
 	list_store_aves_nativas = ListStore::create(model_columns_ave_nativa);
@@ -128,7 +163,7 @@ JanelaBuscaAnimais::JanelaBuscaAnimais(map<int, Veterinario> &vtemp, map<int, Tr
 	tree_view_repteis_exoticos->set_search_entry(*entry_pesquisa);
 	tree_view_repteis_exoticos->set_model(list_store_repteis_exoticos);
 
-	//Adicionado as colunas da TreeView
+	// Adicionado as colunas das TreeViews.
 	tree_view_anfibios_nativos->append_column("ID", model_columns_anfibio_nativo.col_id);
 	tree_view_anfibios_nativos->append_column("Nome Científico", model_columns_anfibio_nativo.col_nome_cientifico);
 	tree_view_anfibios_nativos->append_column("Sexo", model_columns_anfibio_nativo.col_sexo);
@@ -229,9 +264,13 @@ JanelaBuscaAnimais::JanelaBuscaAnimais(map<int, Veterinario> &vtemp, map<int, Tr
 	tree_view_repteis_exoticos->append_column("Autorização do ibama", model_columns_reptil_exotico.col_autorizacao_ibama);
 	tree_view_repteis_exoticos->append_column("Nacionalidade", model_columns_reptil_exotico.col_pais_origem);
 
-	//Preenchendo o modelo de arvore
+	//Preenchendo o modelo de árvore.
 	ProcurarAnimalPorFuncionario();
 }
+
+/**
+* @brief Destrutor da classe JanelaBuscaAnimais.
+*/
 
 JanelaBuscaAnimais::~JanelaBuscaAnimais()
 {
@@ -257,20 +296,15 @@ JanelaBuscaAnimais::~JanelaBuscaAnimais()
 	delete scrolled_window_repteis_exoticos;
 }
 
+/**
+* @brief Método que procura e coloca nas Treeviews os dados dos animais que estão sob a responsabilidade do funcionário escolhido pelo o usuário.
+*/
+
 void JanelaBuscaAnimais::ProcurarAnimalPorFuncionario()
 {
-	list_store_anfibios_exoticos->clear();
-	list_store_anfibios_nativos->clear();
-	list_store_aves_exoticas->clear();
-	list_store_aves_nativas->clear();
-	list_store_mamiferos_exoticos->clear();
-	list_store_mamiferos_nativos->clear();
-	list_store_repteis_exoticos->clear();
-	list_store_repteis_nativos->clear();
-
 	TreeModel::Row row;
 
-	if (pagina == 0)
+	if (pagina == 0) // Se a pagina é igual a 0, o funcionários escolhido é um tratador.
 	{
 		for (map<int, AnfibioExotico>::iterator it = anfibios_exoticos->begin(); it != anfibios_exoticos->end(); it++)
 		{
@@ -522,7 +556,7 @@ void JanelaBuscaAnimais::ProcurarAnimalPorFuncionario()
 			}
 		}
 	}
-	else if (pagina == 1)
+	else if (pagina == 1) // Se a pagina é igual a 1, o funcionários escolhido é um veterinário.
 	{
 		for (map<int, AnfibioExotico>::iterator it = anfibios_exoticos->begin(); it != anfibios_exoticos->end(); it++)
 		{
@@ -774,7 +808,8 @@ void JanelaBuscaAnimais::ProcurarAnimalPorFuncionario()
 			}
 		}
 	}
-	
+
+	// Caso certos tipos de animais não estiverem sob a responsabilidade do funcionário a pagina fica vazia, então ela é removida.
 	if (!page_anfibios_exoticos)
 		notebook_consulta->remove_page(*scrolled_window_anfibios_exoticos);
 	if (!page_anfibios_nativos)
@@ -793,8 +828,13 @@ void JanelaBuscaAnimais::ProcurarAnimalPorFuncionario()
 		notebook_consulta->remove_page(*scrolled_window_repteis_nativos);
 }
 
+/**
+* @brief Método que inicia a janela de busca de animais por funcionários.
+*/
+
 void JanelaBuscaAnimais::Run()
 {
+	// Caso não houver nenhum animal cadastrado a janela não abre e aparece um aviso.
 	if (!page_anfibios_exoticos && !page_anfibios_nativos &&
 		!page_aves_exoticas && !page_aves_nativas &&
 		!page_mamiferos_exoticos && !page_mamiferos_nativos &&

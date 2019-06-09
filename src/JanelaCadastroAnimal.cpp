@@ -1,3 +1,11 @@
+/**
+* @file JanelaCadastroAnimal.cpp
+* @author
+* Hudson Bruno Macedo Alves,
+* João Vitor Kobata,
+* Vinicius Santos Silva de Lima.
+*/
+
 #include "JanelaCadastroAnimal.h"
 
 using namespace Gtk;

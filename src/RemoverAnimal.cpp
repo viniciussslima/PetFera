@@ -1,3 +1,12 @@
+/**
+* @file RemoverAnimal.cpp
+* @brief Função que remove animais.
+* @author
+* Hudson Bruno Macedo Alves,
+* João Vitor Kobata,
+* Vinicius Santos Silva de Lima.
+*/
+
 #include "RemoverAnimal.h"
 
 using namespace std;

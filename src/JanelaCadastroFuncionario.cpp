@@ -1,10 +1,33 @@
+/**
+* @file JanelaCadastroFuncionario.cpp
+* @author
+* Hudson Bruno Macedo Alves,
+* João Vitor Kobata,
+* Vinicius Santos Silva de Lima.
+*/
+
 #include "JanelaCadastroFuncionario.h"
 
 using namespace Gtk;
 using namespace std;
 
+/**
+* @brief Construtor padrão da classe JanelaCadastroFuncionario.
+*/
+
+JanelaCadastroFuncionario::JanelaCadastroFuncionario(){}
+
+/**
+* @brief construtor parametrizado da classe JanelaCadastroFuncionario.
+* @param jptemp Janela principal do programa.
+* @param vtemp  Map que contém todos os veterinários cadastrados.
+* @param ttemp Map que contém todos os tratadores cadastrados.
+*/
+
 JanelaCadastroFuncionario::JanelaCadastroFuncionario(JanelaPrincipal &jptemp, map<int, Veterinario> &vtemp, map<int, Tratador> &ttemp)
 {
+	// Atribuição de false para todas as variáveis boleanas que representão 
+	// se as informações digitados sobre o funcionário são validas ou não. 
 	valid_id = false;
 	valid_nome_do_funcionario = false;
 	valid_cpf = false;
@@ -12,12 +35,13 @@ JanelaCadastroFuncionario::JanelaCadastroFuncionario(JanelaPrincipal &jptemp, ma
 	valid_especialidade = false;
 	valid_crmv = false;
 
+	// Atribui os endereços de memória dos maps recebidos como parâmetros para os maps da classe JanelaCadastroFuncionario.
 	janela_principal = &jptemp;
 
 	veterinarios = &vtemp;
 	tratadores = &ttemp;
 
-	//Inicialização
+	// Inicialização dos atributos da classe GTK.
 	window = new Window;
 
 	button_cadastrar = new Button("Cadastrar");
@@ -50,7 +74,7 @@ JanelaCadastroFuncionario::JanelaCadastroFuncionario(JanelaPrincipal &jptemp, ma
 	label_crmv = new Label("CRMV: ");
 	label_nivel_de_seguranca = new Label("Nivel de segurança: ");
 
-	//Configuração
+	// Configuração dos atributos da classe GTK.
 	window->set_title("Cadastrar Funcionário");
 	window->set_resizable(false);
 	window->add(*box_principal);
@@ -113,7 +137,7 @@ JanelaCadastroFuncionario::JanelaCadastroFuncionario(JanelaPrincipal &jptemp, ma
 	box_direita->pack_start(*entry_crmv, PACK_SHRINK);
 	box_direita->pack_start(*combo_box_nivel_de_seguranca, PACK_SHRINK);
 
-	//Conexão
+	// Conexões dos atributos da classe GTK.
 	button_cadastrar->signal_clicked().connect(sigc::mem_fun(*this, &JanelaCadastroFuncionario::Cadastrar));
 	combo_box_fucao->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroFuncionario::MudarFuncionario));
 	entry_id->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroFuncionario::AtualizarIconeId));
@@ -123,6 +147,10 @@ JanelaCadastroFuncionario::JanelaCadastroFuncionario(JanelaPrincipal &jptemp, ma
 	entry_especialidade->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroFuncionario::AtualizarIconeEspecialidade));
 	entry_crmv->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroFuncionario::AtualizarIconeCRMV));
 }
+
+/**
+* @brief Destrutor da classe JanelaCadastroFuncionario.
+*/
 
 JanelaCadastroFuncionario::~JanelaCadastroFuncionario()
 {
@@ -153,6 +181,10 @@ JanelaCadastroFuncionario::~JanelaCadastroFuncionario()
 	delete label_crmv;
 	delete label_nivel_de_seguranca;
 }
+
+/**
+* @brief Método que inicia a janela de cadastro de funcionários.
+*/
 
 void JanelaCadastroFuncionario::Run()
 {

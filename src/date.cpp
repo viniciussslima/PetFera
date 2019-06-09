@@ -1,5 +1,9 @@
-// file: date.cpp
-// author: Bernt A Oedegaard.
+/**
+* @file date.cpp
+* @brief Classe que representa datas.
+* @author Bernt A Oedegaard.
+*/
+
 #include "date.h"
 ///////////////////////////// construction //////////
 date::date(const int& d, const int& m, const int& y) {

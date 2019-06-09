@@ -1,3 +1,12 @@
+/**
+* @file RemoverFuncionario.cpp
+* @brief Função que remove funcionários.
+* @author
+* Hudson Bruno Macedo Alves,
+* João Vitor Kobata,
+* Vinicius Santos Silva de Lima.
+*/
+
 #include "RemoverFuncionario.h"
 
 using namespace std;
