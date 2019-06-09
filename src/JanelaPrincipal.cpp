@@ -170,7 +170,7 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 	button_remover = new Button("Remover");
 	button_cadastro_funcionario = new Button("Cadastrar funcionario");
 	button_editar = new Button("Editar");
-	button_buscar_animal_por_funcionario = new Button("Buscar animal Por funcionario");
+	button_buscar_animal_por_funcionario = new Button("Buscar animal por funcionario");
 
 	box_principal = new VBox;
 	box_botoes = new HButtonBox;
@@ -487,6 +487,7 @@ void JanelaPrincipal::BotaoRemover()
 	int id;
 	int pagina = notebook_consulta->get_current_page();
 	int resposta;
+	bool valid_row = true;
 	switch(pagina)
 	{
 		case 0:
@@ -519,6 +520,10 @@ void JanelaPrincipal::BotaoRemover()
 			  		dialog.run();
 				}
 			}
+			else
+			{
+				valid_row = false;
+			}
 			break;
 		}
 		case 1:
@@ -551,6 +556,10 @@ void JanelaPrincipal::BotaoRemover()
 			  		dialog.run();
 				}
 			}
+			else
+			{
+				valid_row = false;
+			}
 			break;
 		}
 		case 2:
@@ -582,6 +591,10 @@ void JanelaPrincipal::BotaoRemover()
 					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
 			  		dialog.run();
 				}
+			}
+			else
+			{
+				valid_row = false;
 			}
 			break;
 		}
@@ -615,6 +628,10 @@ void JanelaPrincipal::BotaoRemover()
 			  		dialog.run();
 				}
 			}
+			else
+			{
+				valid_row = false;
+			}
 			break;
 		}
 		case 4:
@@ -646,6 +663,10 @@ void JanelaPrincipal::BotaoRemover()
 					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
 			  		dialog.run();
 				}
+			}
+			else
+			{
+				valid_row = false;
 			}
 			break;
 		}
@@ -679,6 +700,10 @@ void JanelaPrincipal::BotaoRemover()
 			  		dialog.run();
 				}
 			}
+			else
+			{
+				valid_row = false;
+			}
 			break;
 		}
 		case 6:
@@ -710,6 +735,10 @@ void JanelaPrincipal::BotaoRemover()
 					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
 			  		dialog.run();
 				}
+			}
+			else
+			{
+				valid_row = false;
 			}
 			break;
 		}
@@ -743,6 +772,10 @@ void JanelaPrincipal::BotaoRemover()
 			  		dialog.run();
 				}
 			}
+			else
+			{
+				valid_row = false;
+			}
 			break;
 		}
 		case 8:
@@ -774,6 +807,10 @@ void JanelaPrincipal::BotaoRemover()
 					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
 			  		dialog.run();
 				}
+			}
+			else
+			{
+				valid_row = false;
 			}
 			break;
 		}
@@ -807,8 +844,18 @@ void JanelaPrincipal::BotaoRemover()
 			  		dialog.run();
 				}
 			}
+			else
+			{
+				valid_row = false;
+			}
 			break;
 		}
+	}
+	if(!valid_row)
+	{
+		MessageDialog dialog(*window, "Nenhum animal ou funcionario selecionado.");
+		dialog.set_secondary_text("Primeiro selcione um funcionario ou um animal e depois aperte o butão remover.");
+  		dialog.run();
 	}
 }
 
@@ -816,6 +863,7 @@ void JanelaPrincipal::BotaoEditar()
 {
 	int id;
 	int pagina = notebook_consulta->get_current_page();
+	bool valid_row = true;
 	switch(pagina)
 	{
 	case 0:
@@ -832,6 +880,10 @@ void JanelaPrincipal::BotaoEditar()
 					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
 					repteis_exoticos, repteis_nativos, pagina, id);
 				temp.Run();
+			}
+			else
+			{
+				valid_row = false;
 			}
 			break;
 		}
@@ -850,6 +902,10 @@ void JanelaPrincipal::BotaoEditar()
 					repteis_exoticos, repteis_nativos, pagina, id);
 				temp.Run();
 			}
+			else
+			{
+				valid_row = false;
+			}
 			break;
 		}
 		case 2:
@@ -866,6 +922,10 @@ void JanelaPrincipal::BotaoEditar()
 					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
 					repteis_exoticos, repteis_nativos, pagina, id);
 				temp.Run();
+			}
+			else
+			{
+				valid_row = false;
 			}
 			break;
 		}
@@ -884,6 +944,10 @@ void JanelaPrincipal::BotaoEditar()
 					repteis_exoticos, repteis_nativos, pagina, id);
 				temp.Run();
 			}
+			else
+			{
+				valid_row = false;
+			}
 			break;
 		}
 		case 4:
@@ -900,6 +964,10 @@ void JanelaPrincipal::BotaoEditar()
 					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
 					repteis_exoticos, repteis_nativos, pagina, id);
 				temp.Run();
+			}
+			else
+			{
+				valid_row = false;
 			}
 			break;
 		}
@@ -918,6 +986,10 @@ void JanelaPrincipal::BotaoEditar()
 					repteis_exoticos, repteis_nativos, pagina, id);
 				temp.Run();
 			}
+			else
+			{
+				valid_row = false;
+			}
 			break;
 		}
 		case 6:
@@ -934,6 +1006,10 @@ void JanelaPrincipal::BotaoEditar()
 					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
 					repteis_exoticos, repteis_nativos, pagina, id);
 				temp.Run();
+			}
+			else
+			{
+				valid_row = false;
 			}
 			break;
 		}
@@ -952,6 +1028,10 @@ void JanelaPrincipal::BotaoEditar()
 					repteis_exoticos, repteis_nativos, pagina, id);
 				temp.Run();
 			}
+			else
+			{
+				valid_row = false;
+			}
 			break;
 		}
 		case 8:
@@ -968,6 +1048,10 @@ void JanelaPrincipal::BotaoEditar()
 					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
 					repteis_exoticos, repteis_nativos, pagina, id);
 				temp.Run();
+			}
+			else
+			{
+				valid_row = false;
 			}
 			break;
 		}
@@ -986,8 +1070,18 @@ void JanelaPrincipal::BotaoEditar()
 					repteis_exoticos, repteis_nativos, pagina, id);
 				temp.Run();
 			}
+			else
+			{
+				valid_row = false;
+			}
 			break;
 		}
+	}
+	if(!valid_row)
+	{
+		MessageDialog dialog(*window, "Nenhum animal ou funcionario selecionado.");
+		dialog.set_secondary_text("Primeiro selcione um funcionario ou um animal e depois aperte o butão editar.");
+  		dialog.run();
 	}
 }
 
@@ -998,6 +1092,7 @@ void JanelaPrincipal::BotaoBuscarAnimalPorFuncionario()
 	Glib::RefPtr<Gtk::TreeSelection> selection;
 	Gtk::TreeModel::iterator selectedRow;
 	Gtk::TreeModel::Row row;
+	bool valid_row = true;
 	switch(pagina)
 	{
 		case 0:
@@ -1012,6 +1107,10 @@ void JanelaPrincipal::BotaoBuscarAnimalPorFuncionario()
 								 aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
 								 repteis_exoticos, repteis_nativos, pagina, id);
 				temp.Run();
+			}
+			else
+			{
+				valid_row = false;
 			}
 			break;
 		case 1:
@@ -1028,12 +1127,22 @@ void JanelaPrincipal::BotaoBuscarAnimalPorFuncionario()
 								 repteis_exoticos, repteis_nativos, pagina, id);
 				temp.Run();
 			}
+			else
+			{
+				valid_row = false;
+			}
 			break;
 		default:
 			MessageDialog dialog(*window, "Impossivel fazer a busca.");
 			dialog.set_secondary_text("O item selecionado não é um funcionario.");
 	  		dialog.run();
 	  		break;
+	}
+	if(!valid_row)
+	{
+		MessageDialog dialog(*window, "Nenhum funcionario selecionado.");
+		dialog.set_secondary_text("Primeiro selcione um funcionario e depois aperte o butão buscar animal por funcionario.");
+  		dialog.run();
 	}
 }
 
