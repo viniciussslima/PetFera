@@ -2,7 +2,7 @@
 
 using namespace std;
 
-bool RemoverFuncionario(JanelaPrincipal &janela_principal, map<int, Veterinario> &veterinarios, map<int, Tratador> &tratadores, 
+void RemoverFuncionario(JanelaPrincipal &janela_principal, map<int, Veterinario> &veterinarios, map<int, Tratador> &tratadores, 
 						map<int, AnfibioExotico> &anfibios_exoticos, map<int, AnfibioNativo> &anfibios_nativos, 
 						map<int, AveExotico> &aves_exoticas, map<int, AveNativo> &aves_nativas, 
 						map<int, MamiferoExotico> &mamiferos_exoticos, map<int, MamiferoNativo> &mamiferos_nativos, 
@@ -39,11 +39,6 @@ bool RemoverFuncionario(JanelaPrincipal &janela_principal, map<int, Veterinario>
 		remove("Dados/funcionarios.csv");
 		rename("Dados/TempFuncionario.csv", "Dados/funcionarios.csv");
 		funcionarios_temp.close();
-		return true;
-	}
-	else
-	{
-		return false;
 	}
 }
 

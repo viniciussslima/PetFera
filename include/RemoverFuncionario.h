@@ -15,7 +15,7 @@
 using namespace Gtk;
 using namespace std;
 
-bool RemoverFuncionario(JanelaPrincipal&, map<int, Veterinario>&, map<int, Tratador>&, 
+void RemoverFuncionario(JanelaPrincipal&, map<int, Veterinario>&, map<int, Tratador>&, 
 					map<int, AnfibioExotico>&, map<int, AnfibioNativo>&, map<int, AveExotico>&,
 					map<int, AveNativo>&, map<int, MamiferoExotico>&, map<int, MamiferoNativo>&,
 					map<int, ReptilExotico>&, map<int, ReptilNativo>&, int);

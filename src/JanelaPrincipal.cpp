@@ -497,20 +497,26 @@ void JanelaPrincipal::BotaoRemover()
 			Gtk::TreeModel::Row row = *selectedRow;
 			if (row != NULL)
 			{
-				id = row.get_value(model_columns_tratador.col_id);	
-				MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionario? ");
-				confimacao.add_button("Não", 1);
-				resposta = confimacao.run();
-				if (resposta == RESPONSE_OK)
+				id = row.get_value(model_columns_tratador.col_id);
+				if(!Responsabilidade(anfibios_exoticos, anfibios_nativos, aves_exoticas,
+					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+					repteis_exoticos, repteis_nativos, id))
 				{
-					if (!RemoverFuncionario(*this, veterinarios, tratadores, anfibios_exoticos, anfibios_nativos, aves_exoticas,
-						aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-						repteis_exoticos, repteis_nativos, id))
+					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionario? ");
+					confimacao.add_button("Não", 1);
+					resposta = confimacao.run();
+					if (resposta == RESPONSE_OK)
 					{
-						MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
-						dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
-				  		dialog.run();
+						RemoverFuncionario(*this, veterinarios, tratadores, anfibios_exoticos, anfibios_nativos, aves_exoticas,
+											aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+											repteis_exoticos, repteis_nativos, id);
 					}
+				}
+				else
+				{
+					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
+					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
+			  		dialog.run();
 				}
 			}
 			break;
@@ -524,19 +530,25 @@ void JanelaPrincipal::BotaoRemover()
 			if (row != NULL)
 			{
 				id = row.get_value(model_columns_veterinario.col_id);	
-				MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionario? ");
-				confimacao.add_button("Não", 1);
-				resposta = confimacao.run();
-				if (resposta == RESPONSE_OK)
+				if(!Responsabilidade(anfibios_exoticos, anfibios_nativos, aves_exoticas,
+					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+					repteis_exoticos, repteis_nativos, id))
 				{
-					if (!RemoverFuncionario(*this, veterinarios, tratadores, anfibios_exoticos, anfibios_nativos, aves_exoticas,
-						aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-						repteis_exoticos, repteis_nativos, id))
+					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionario? ");
+					confimacao.add_button("Não", 1);
+					resposta = confimacao.run();
+					if (resposta == RESPONSE_OK)
 					{
-						MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
-						dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
-				  		dialog.run();
+						RemoverFuncionario(*this, veterinarios, tratadores, anfibios_exoticos, anfibios_nativos, aves_exoticas,
+											aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+											repteis_exoticos, repteis_nativos, id);
 					}
+				}
+				else
+				{
+					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
+					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
+			  		dialog.run();
 				}
 			}
 			break;
@@ -550,14 +562,25 @@ void JanelaPrincipal::BotaoRemover()
 			if (row != NULL)
 			{
 				id = row.get_value(model_columns_anfibio_nativo.col_id);	
-				MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionario? ");
-				confimacao.add_button("Não", 1);
-				resposta = confimacao.run();
-				if (resposta == RESPONSE_OK)
+				if(!Responsabilidade(anfibios_exoticos, anfibios_nativos, aves_exoticas,
+					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+					repteis_exoticos, repteis_nativos, id))
 				{
-					RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
-								 aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-								 repteis_exoticos, repteis_nativos, pagina, id);
+					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionario? ");
+					confimacao.add_button("Não", 1);
+					resposta = confimacao.run();
+					if (resposta == RESPONSE_OK)
+					{
+						RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
+										aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+										repteis_exoticos, repteis_nativos, pagina, id);
+					}
+				}
+				else
+				{
+					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
+					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
+			  		dialog.run();
 				}
 			}
 			break;
@@ -571,14 +594,25 @@ void JanelaPrincipal::BotaoRemover()
 			if (row != NULL)
 			{
 				id = row.get_value(model_columns_anfibio_exotico.col_id);	
-				MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionario? ");
-				confimacao.add_button("Não", 1);
-				resposta = confimacao.run();
-				if (resposta == RESPONSE_OK)
+				if(!Responsabilidade(anfibios_exoticos, anfibios_nativos, aves_exoticas,
+					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+					repteis_exoticos, repteis_nativos, id))
 				{
-					RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
-								 aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-								 repteis_exoticos, repteis_nativos, pagina, id);
+					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionario? ");
+					confimacao.add_button("Não", 1);
+					resposta = confimacao.run();
+					if (resposta == RESPONSE_OK)
+					{
+						RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
+										aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+										repteis_exoticos, repteis_nativos, pagina, id);
+					}
+				}
+				else
+				{
+					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
+					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
+			  		dialog.run();
 				}
 			}
 			break;
@@ -592,14 +626,25 @@ void JanelaPrincipal::BotaoRemover()
 			if (row != NULL)
 			{
 				id = row.get_value(model_columns_ave_nativa.col_id);	
-				MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionario? ");
-				confimacao.add_button("Não", 1);
-				resposta = confimacao.run();
-				if (resposta == RESPONSE_OK)
+				if(!Responsabilidade(anfibios_exoticos, anfibios_nativos, aves_exoticas,
+					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+					repteis_exoticos, repteis_nativos, id))
 				{
-					RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
-								 aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-								 repteis_exoticos, repteis_nativos, pagina, id);
+					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionario? ");
+					confimacao.add_button("Não", 1);
+					resposta = confimacao.run();
+					if (resposta == RESPONSE_OK)
+					{
+						RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
+										aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+										repteis_exoticos, repteis_nativos, pagina, id);
+					}
+				}
+				else
+				{
+					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
+					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
+			  		dialog.run();
 				}
 			}
 			break;
@@ -613,14 +658,25 @@ void JanelaPrincipal::BotaoRemover()
 			if (row != NULL)
 			{
 				id = row.get_value(model_columns_ave_exotica.col_id);	
-				MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionario? ");
-				confimacao.add_button("Não", 1);
-				resposta = confimacao.run();
-				if (resposta == RESPONSE_OK)
+				if(!Responsabilidade(anfibios_exoticos, anfibios_nativos, aves_exoticas,
+					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+					repteis_exoticos, repteis_nativos, id))
 				{
-					RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
-								 aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-								 repteis_exoticos, repteis_nativos, pagina, id);
+					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionario? ");
+					confimacao.add_button("Não", 1);
+					resposta = confimacao.run();
+					if (resposta == RESPONSE_OK)
+					{
+						RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
+										aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+										repteis_exoticos, repteis_nativos, pagina, id);
+					}
+				}
+				else
+				{
+					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
+					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
+			  		dialog.run();
 				}
 			}
 			break;
@@ -634,14 +690,25 @@ void JanelaPrincipal::BotaoRemover()
 			if (row != NULL)
 			{
 				id = row.get_value(model_columns_mamifero_nativo.col_id);	
-				MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionario? ");
-				confimacao.add_button("Não", 1);
-				resposta = confimacao.run();
-				if (resposta == RESPONSE_OK)
+				if(!Responsabilidade(anfibios_exoticos, anfibios_nativos, aves_exoticas,
+					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+					repteis_exoticos, repteis_nativos, id))
 				{
-					RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
-								 aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-								 repteis_exoticos, repteis_nativos, pagina, id);
+					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionario? ");
+					confimacao.add_button("Não", 1);
+					resposta = confimacao.run();
+					if (resposta == RESPONSE_OK)
+					{
+						RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
+										aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+										repteis_exoticos, repteis_nativos, pagina, id);
+					}
+				}
+				else
+				{
+					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
+					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
+			  		dialog.run();
 				}
 			}
 			break;
@@ -655,14 +722,25 @@ void JanelaPrincipal::BotaoRemover()
 			if (row != NULL)
 			{
 				id = row.get_value(model_columns_mamifero_exotico.col_id);	
-				MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionario? ");
-				confimacao.add_button("Não", 1);
-				resposta = confimacao.run();
-				if (resposta == RESPONSE_OK)
+				if(!Responsabilidade(anfibios_exoticos, anfibios_nativos, aves_exoticas,
+					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+					repteis_exoticos, repteis_nativos, id))
 				{
-					RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
-								 aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-								 repteis_exoticos, repteis_nativos, pagina, id);
+					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionario? ");
+					confimacao.add_button("Não", 1);
+					resposta = confimacao.run();
+					if (resposta == RESPONSE_OK)
+					{
+						RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
+										aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+										repteis_exoticos, repteis_nativos, pagina, id);
+					}
+				}
+				else
+				{
+					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
+					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
+			  		dialog.run();
 				}
 			}
 			break;
@@ -676,14 +754,25 @@ void JanelaPrincipal::BotaoRemover()
 			if (row != NULL)
 			{
 				id = row.get_value(model_columns_reptil_nativo.col_id);	
-				MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionario? ");
-				confimacao.add_button("Não", 1);
-				resposta = confimacao.run();
-				if (resposta == RESPONSE_OK)
+				if(!Responsabilidade(anfibios_exoticos, anfibios_nativos, aves_exoticas,
+					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+					repteis_exoticos, repteis_nativos, id))
 				{
-					RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
-								 aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-								 repteis_exoticos, repteis_nativos, pagina, id);
+					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionario? ");
+					confimacao.add_button("Não", 1);
+					resposta = confimacao.run();
+					if (resposta == RESPONSE_OK)
+					{
+						RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
+										aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+										repteis_exoticos, repteis_nativos, pagina, id);
+					}
+				}
+				else
+				{
+					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
+					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
+			  		dialog.run();
 				}
 			}
 			break;
@@ -697,14 +786,25 @@ void JanelaPrincipal::BotaoRemover()
 			if (row != NULL)
 			{
 				id = row.get_value(model_columns_reptil_exotico.col_id);	
-				MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionario? ");
-				confimacao.add_button("Não", 1);
-				resposta = confimacao.run();
-				if (resposta == RESPONSE_OK)
+				if(!Responsabilidade(anfibios_exoticos, anfibios_nativos, aves_exoticas,
+					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+					repteis_exoticos, repteis_nativos, id))
 				{
-					RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
-								 aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-								 repteis_exoticos, repteis_nativos, pagina, id);
+					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionario? ");
+					confimacao.add_button("Não", 1);
+					resposta = confimacao.run();
+					if (resposta == RESPONSE_OK)
+					{
+						RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
+										aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
+										repteis_exoticos, repteis_nativos, pagina, id);
+					}
+				}
+				else
+				{
+					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
+					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
+			  		dialog.run();
 				}
 			}
 			break;
