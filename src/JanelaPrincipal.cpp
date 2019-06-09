@@ -202,10 +202,13 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 	scrolled_window_repteis_exoticos = new ScrolledWindow;
 
 	//Configuração
+	pixbuf_icone = Gdk::Pixbuf::create_from_file("icons/PetFera2.ico");
+	
 	window->set_default_size(1280, 720);
 	window->set_resizable(true);
 	window->set_border_width(5);
 	window->set_title("PetFera");
+	window->set_icon(pixbuf_icone);
 	window->add(*box_principal);
 
 	box_principal->pack_start(*entry_pesquisa, PACK_SHRINK);

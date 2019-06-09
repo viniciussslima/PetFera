@@ -353,6 +353,8 @@ class JanelaPrincipal : public ModelColumnsTratador, public ModelColumnsVeterina
 		Button *button_editar;
 		Button *button_buscar_animal_por_funcionario;
 
+		Glib::RefPtr<Gdk::Pixbuf> pixbuf_icone;
+
 		SearchEntry *entry_pesquisa;
 
 		TreeView *tree_view_tratadores;
