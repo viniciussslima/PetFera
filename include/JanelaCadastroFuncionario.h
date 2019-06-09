@@ -63,6 +63,7 @@ class JanelaCadastroFuncionario
 		map<int, Veterinario> *veterinarios;
 		map<int, Tratador> *tratadores;
 	public:
+		JanelaCadastroFuncionario();
 		JanelaCadastroFuncionario(JanelaPrincipal&, map<int, Veterinario>&, map<int, Tratador>&);
 		~JanelaCadastroFuncionario();
 

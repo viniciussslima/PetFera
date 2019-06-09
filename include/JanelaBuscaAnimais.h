@@ -107,6 +107,7 @@ class JanelaBuscaAnimais : public ModelColumnsTratador, public ModelColumnsVeter
 		map<int, ReptilExotico> *repteis_exoticos;
 		map<int, ReptilNativo> *repteis_nativos;
 	public:
+		JanelaBuscaAnimais();
 		JanelaBuscaAnimais(map<int, Veterinario>&, map<int, Tratador>&, map<int, AnfibioExotico>&, map<int, AnfibioNativo>&, 
 							map<int, AveExotico>&, map<int, AveNativo>&, map<int, MamiferoExotico>&, map<int, MamiferoNativo>&, 
 							map<int, ReptilExotico>&, map<int, ReptilNativo>&, int, int);
