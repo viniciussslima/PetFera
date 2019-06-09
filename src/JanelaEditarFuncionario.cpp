@@ -98,6 +98,8 @@ JanelaEditarFuncionario::JanelaEditarFuncionario(JanelaPrincipal &jptemp, map<in
 	combo_box_nivel_de_seguranca->append("0");
 	combo_box_nivel_de_seguranca->append("1");
 	combo_box_nivel_de_seguranca->append("2");
+	combo_box_nivel_de_seguranca->set_active(0);
+
 
 	box_principal->add(*box_dados);
 	box_principal->pack_start(*button_Editar, PACK_SHRINK);
