@@ -994,6 +994,7 @@ void Programa::Consultar_funcionario()
 }
 void Programa::Consultar_funcionario_animal()
 {
+	
 	vector<string> palavras2;
 	int ID_temp;
 	ifstream animais_csv;
@@ -1034,28 +1035,19 @@ void Programa::Consultar_funcionario_animal()
 			{
 				if(I)
 				{
-
 					cout <<"o funcionario/veterinario "<< nome <<" está responsavel pelos seguintes animais: " << endl;
 					I = false;
-
 				}
-
 				cout <<"ID: " << palavra2[0]<<" Nome de bastismo: "<< palavra2[8] << endl;
-
 			}
 			if(stoi(palavra2[7]) == ID_temp)
 			{
 				if(N)
 				{
-
 					cout <<"o funcionario/Tratador "<< nome <<"está responsavel pelo seguintes animais: "<<endl; 
 					N = false
-
 				}
-
 				cout <<"ID: " << palavra2[0]<<" Nome de bastismo: "<< palavra2[8] << endl;
-
-
 			}
 		}
 	}
@@ -1065,6 +1057,7 @@ void Programa::Consultar_funcionario_animal()
 		cout <<"verifique se ha algum animal cadastrado" << endl;
 	}
 }
+
 
 /**
 * @brief Método que possibilita modificar informações de um animal ou funcionario.
