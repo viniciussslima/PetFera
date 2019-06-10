@@ -975,7 +975,7 @@ void Programa::Consultar_funcionario()
 					}
 					if(palavra[1].compare("TRATADOR") == 0)
 					{
-						cout << "Nome:(" << palavra[2] <<")"<< endl
+					 cout << "Nome:(" << palavra[2] <<")"<< endl
 					 <<"ID: "<<palavra [0]<< " / função: " << palavra[1]<<endl 
 					 <<"CPF: " <<palavra[3] <<" / idade: " << palavra[4]<<endl
 					 <<"Tipo sanguineo: " <<palavra[5] <<" / RH: " <<palavra[6]<< endl
@@ -988,6 +988,7 @@ void Programa::Consultar_funcionario()
 			}
 			else{
 				cout << "não foi possivel realizar essa operação" << endl;
+				cout <<"verifique se ha algum funcionario cadastrado"<<endl;
 			}
 			break;
 	}
@@ -1002,6 +1003,7 @@ void Programa::Consultar_funcionario_animal()
 	vector<string> animais;
 	vector<int> IDS_animal;
 	string nome;
+	int q = 0;
 	bool I = true;
 	bool N = true;
 
@@ -1038,7 +1040,8 @@ void Programa::Consultar_funcionario_animal()
 					cout <<"o funcionario/veterinario "<< nome <<" está responsavel pelos seguintes animais: " << endl;
 					I = false;
 				}
-				cout <<"ID: " << palavra2[0]<<" Nome de bastismo: "<< palavra2[8] << endl;
+				cout <<"ID: " << palavra2[0]<<" Nome de bastismo: "<< palavra2[8] <<"Nome cientifico: "<< palavras[2] << endl;
+				q++
 			}
 			if(stoi(palavra2[7]) == ID_temp)
 			{
@@ -1047,17 +1050,24 @@ void Programa::Consultar_funcionario_animal()
 					cout <<"o funcionario/Tratador "<< nome <<"está responsavel pelo seguintes animais: "<<endl; 
 					N = false
 				}
-				cout <<"ID: " << palavra2[0]<<" Nome de bastismo: "<< palavra2[8] << endl;
+				cout <<"ID: " << palavra2[0]<<" Nome de bastismo: "<< palavra2[8] <<"Nome cientifico: " <<palavra2[2] << endl;
+				q++;
 			}
 		}
+		animais_csv.close();
 	}
 	else 
 	{
+
 		cout << "não foi possivel abrir o ducumento animais.csv (ERRO)" << endl;
 		cout <<"verifique se ha algum animal cadastrado" << endl;
-	}
-}
 
+	}
+
+	cout<<"total de animais aos cuidados do funcionario "<< nome <<" : " << q <<endl;
+	q = 0;
+
+}
 
 /**
 * @brief Método que possibilita modificar informações de um animal ou funcionario.
