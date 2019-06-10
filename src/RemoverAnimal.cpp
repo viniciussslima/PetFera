@@ -83,6 +83,7 @@ void RemoverAnimal(JanelaPrincipal &janela_principal, map<int, AnfibioExotico> &
 		    }
 		}
 	}
+	animais_csv.close();
 	remove("Dados/animais.csv");
 	rename("Dados/temp_animais.csv", "Dados/animais.csv");
 	animais_temp.close();

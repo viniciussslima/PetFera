@@ -280,8 +280,6 @@ JanelaEditarAnimal::~JanelaEditarAnimal()
 	delete combo_box_classe;
 	delete combo_box_sexo;
 	delete combo_box_regiao;
-	delete combo_box_regiao;
-	delete combo_box_classe;
 	delete check_button_veterinario_incluso;
 	delete check_button_tratador_incluso;
 	delete button_editar;
@@ -1468,6 +1466,7 @@ void JanelaEditarAnimal::Remover()
 		    }
 		}
 	}
+	animais_csv.close();
 	remove("Dados/animais.csv");
 	rename("Dados/temp_animais.csv", "Dados/animais.csv");
 	animais_temp.close();
