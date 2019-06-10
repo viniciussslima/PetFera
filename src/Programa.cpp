@@ -995,7 +995,7 @@ void Programa::Consultar_funcionario()
 }
 void Programa::Consultar_funcionario_animal()
 {
-	
+	/*
 	vector<string> palavras2;
 	int ID_temp;
 	ifstream animais_csv;
@@ -1068,7 +1068,8 @@ void Programa::Consultar_funcionario_animal()
 	q = 0;
 
 }
-
+*/
+	
 /**
 * @brief Método que possibilita modificar informações de um animal ou funcionario.
 */
