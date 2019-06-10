@@ -180,6 +180,7 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 	button_cadastro_funcionario = new Button("Cadastrar funcionario");
 	button_editar = new Button("Editar");
 	button_buscar_animal_por_funcionario = new Button("Buscar animal por funcionario");
+	button_about = new Button;
 
 	box_principal = new VBox;
 	box_botoes = new HButtonBox;
@@ -252,6 +253,7 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 	box_botoes->pack_start(*button_cadastro_funcionario, PACK_EXPAND_PADDING, 10);
 	box_botoes->pack_start(*button_editar, PACK_EXPAND_PADDING, 10);
 	box_botoes->pack_start(*button_buscar_animal_por_funcionario, PACK_EXPAND_PADDING, 10);
+	box_botoes->pack_start(*button_about, PACK_SHRINK);
 
 	//Criando o modelo de arvore
 	list_store_tratadores = ListStore::create(model_columns_tratador);
@@ -427,6 +429,7 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 	button_remover->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::BotaoRemover));
 	button_editar->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::BotaoEditar));
 	button_buscar_animal_por_funcionario->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::BotaoBuscarAnimalPorFuncionario));
+	button_about->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::BotaoAbout));
 }
 
 JanelaPrincipal::~JanelaPrincipal()
@@ -437,6 +440,7 @@ JanelaPrincipal::~JanelaPrincipal()
 	delete button_cadastro_funcionario;
 	delete button_editar;
 	delete button_buscar_animal_por_funcionario;
+	delete button_about;
 	delete box_principal;
 	delete box_botoes;
 	delete entry_pesquisa;
@@ -1153,6 +1157,26 @@ void JanelaPrincipal::BotaoBuscarAnimalPorFuncionario()
 		dialog.set_secondary_text("Primeiro selcione um funcionario e depois aperte o butão buscar animal por funcionario.");
   		dialog.run();
 	}
+}
+
+void JanelaPrincipal::BotaoAbout()
+{
+	AboutDialog about_dialog;
+	about_dialog.set_logo(pixbuf_icone);
+	about_dialog.set_version("1.0");
+	about_dialog.set_program_name("PetFera");
+//	about_dialog.set_copyright("Murray Cumming");
+	about_dialog.set_comments("Programa de cadastro de animais para lojas de animais silvestres.");
+//	about_dialog.set_license("LGPL");
+	about_dialog.set_website("https://github.com/viniciussslima/PetFera");
+	about_dialog.set_website_label("GitHub");
+	about_dialog.set_transient_for(*window);
+	std::vector<Glib::ustring> lista_de_autores;
+	lista_de_autores.push_back("Hudson Bruno Macedo Alves");
+	lista_de_autores.push_back("João Vitor Kobata");
+	lista_de_autores.push_back("Vinicius Santos Silva de Lima");
+	about_dialog.set_authors(lista_de_autores);
+	about_dialog.run();
 }
 
 void JanelaPrincipal::AtualizarLista(int i)
