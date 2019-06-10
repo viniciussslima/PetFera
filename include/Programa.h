@@ -59,6 +59,7 @@ class Programa
 		void Consultar_animal();
 		void Consultar_funcionario();
 		void Modificar_informacoes();
+		void Consultar_funcionario_animal();
 		void Separador_csv(string, vector<string>&);
 		void Separador_data(string, vector<string> &);
 		string Verificar_id_animal(int);

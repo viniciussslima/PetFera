@@ -992,6 +992,79 @@ void Programa::Consultar_funcionario()
 			break;
 	}
 }
+void Programa::Consultar_funcionario_animal()
+{
+	vector<string> palavras2;
+	int ID_temp;
+	ifstream animais_csv;
+	ifstream funcionarios_csv;
+	vector<string> animais;
+	vector<int> IDS_animal;
+	string nome;
+	bool I = true;
+	bool N = true;
+
+	cout <<"digite o nome do funcionario que deseja visualizar os animais" << endl;
+	cin >> ID_temp;
+	funcionarios_csv.open("../Dados/funcionarios.csv");
+	animais_csv.open("../Dados/animais.csv");
+	if(funcionarios_csv.is_open()){
+		while(getline(funcionarios_csv,linha))
+		{
+			Separador_csv(linha,palavras2);
+			if(palavras2[0] == ID_temp)
+			{
+				nome = palavras2[2]; 
+			}
+
+		}
+		funcionarios_csv.close();
+	}
+	else
+	{
+		cout << "não foi possivel abrir o documento funcionarios.csv (ERRO)"<< endl; 
+		cout << "verifique se tem algum funcionario cadastrado" << endl;
+	}
+	if(animais_csv.is_open())
+	{
+		while(getline(animais_csv,linha))
+		{
+			Separador_csv(linha,palavras2);
+			if(stoi(palavras2[6]) == ID_temp)
+			{
+				if(I)
+				{
+
+					cout <<"o funcionario/veterinario "<< nome <<" está responsavel pelos seguintes animais: " << endl;
+					I = false;
+
+				}
+
+				cout <<"ID: " << palavra2[0]<<" Nome de bastismo: "<< palavra2[8] << endl;
+
+			}
+			if(stoi(palavra2[7]) == ID_temp)
+			{
+				if(N)
+				{
+
+					cout <<"o funcionario/Tratador "<< nome <<"está responsavel pelo seguintes animais: "<<endl; 
+					N = false
+
+				}
+
+				cout <<"ID: " << palavra2[0]<<" Nome de bastismo: "<< palavra2[8] << endl;
+
+
+			}
+		}
+	}
+	else 
+	{
+		cout << "não foi possivel abrir o ducumento animais.csv (ERRO)" << endl;
+		cout <<"verifique se ha algum animal cadastrado" << endl;
+	}
+}
 
 /**
 * @brief Método que possibilita modificar informações de um animal ou funcionario.
