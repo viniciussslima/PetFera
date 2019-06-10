@@ -189,6 +189,8 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 
 	notebook_consulta = new Notebook;
 
+	IconeButao = new Image("icons/icone-de-informação3.ico");
+
 	tree_view_tratadores = new TreeView;
 	tree_view_veterinarios = new TreeView;
 	tree_view_anfibios_nativos = new TreeView;
@@ -254,6 +256,8 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 	box_botoes->pack_start(*button_editar, PACK_EXPAND_PADDING, 10);
 	box_botoes->pack_start(*button_buscar_animal_por_funcionario, PACK_EXPAND_PADDING, 10);
 	box_botoes->pack_start(*button_about, PACK_SHRINK);
+
+	button_about->set_image(*IconeButao);
 
 	//Criando o modelo de arvore
 	list_store_tratadores = ListStore::create(model_columns_tratador);

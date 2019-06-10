@@ -346,6 +346,8 @@ class JanelaPrincipal : public ModelColumnsTratador, public ModelColumnsVeterina
 
 		Notebook *notebook_consulta;
 
+		Image *IconeButao;
+
 		Button *button_cadastro_animal;
 		Button *button_remocao_animal;
 		Button *button_cadastro_funcionario;
