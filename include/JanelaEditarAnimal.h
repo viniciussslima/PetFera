@@ -123,6 +123,7 @@ class JanelaEditarAnimal
 		map<int, ReptilExotico> *repteis_exoticos;
 		map<int, ReptilNativo> *repteis_nativos;
 	public:
+		JanelaEditarAnimal();
 		JanelaEditarAnimal(JanelaPrincipal&, map<int, Veterinario>&, map<int, Tratador>&, map<int, AnfibioExotico>&, 
 							 map<int, AnfibioNativo>&, map<int, AveExotico>&, map<int, AveNativo>&,
 							 map<int, MamiferoExotico>&, map<int, MamiferoNativo>&, 
