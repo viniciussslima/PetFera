@@ -210,6 +210,7 @@ JanelaEditarAnimal::JanelaEditarAnimal(JanelaPrincipal &jptemp, map<int, Veterin
 	combo_box_uf->append("SP");
 	combo_box_uf->append("SE");
 	combo_box_uf->append("TO");
+	combo_box_uf->set_active(0);
 
 	box_principal->add(*box_dados);
 	box_principal->pack_start(*button_editar, PACK_SHRINK);
@@ -1472,7 +1473,9 @@ void JanelaEditarAnimal::MudarClasse()
 	{
 		case 0: // Caso a espécie seja anfíbio.
 			valid_total_de_mudas = false;
+			entry_total_de_mudas->set_icon_from_pixbuf(pixbuf_uncheck);
 			valid_data_da_ultima_muda = false;
+			entry_data_da_ultima_muda->set_icon_from_pixbuf(pixbuf_uncheck);
 			valid_tamanho_do_bico = true;
 			valid_envergadura_das_asas = true;
 			valid_cor_dos_pelos = true;
@@ -1495,7 +1498,9 @@ void JanelaEditarAnimal::MudarClasse()
 			break;
 		case 1: // Caso a espécie seja ave.
 			valid_tamanho_do_bico = false;
+			entry_tamanho_do_bico->set_icon_from_pixbuf(pixbuf_uncheck);
 			valid_envergadura_das_asas = false;
+			entry_envergadura_das_asas->set_icon_from_pixbuf(pixbuf_uncheck);
 			valid_total_de_mudas = true;
 			valid_data_da_ultima_muda = true;
 			valid_cor_dos_pelos = true;
@@ -1510,6 +1515,7 @@ void JanelaEditarAnimal::MudarClasse()
 			entry_envergadura_das_asas->show();
 			label_envergadura_das_asas->show();
 			label_cor_dos_pelos->hide();
+			entry_cor_dos_pelos->hide();
 			check_button_venenoso->hide();
 			label_venenoso->hide();
 			entry_tipo_de_veneno->hide();
@@ -1517,6 +1523,7 @@ void JanelaEditarAnimal::MudarClasse()
 			break;
 		case 2: // Caso a espécie seja mamífero.
 			valid_cor_dos_pelos = false;
+			entry_cor_dos_pelos->set_icon_from_pixbuf(pixbuf_uncheck);
 			valid_total_de_mudas = true;
 			valid_data_da_ultima_muda = true;
 			valid_tamanho_do_bico = true;
@@ -1540,6 +1547,7 @@ void JanelaEditarAnimal::MudarClasse()
 			break;
 		case 3: // Caso a espécie seja réptil.
 			valid_tipo_veneno = false;
+			entry_tipo_de_veneno->set_icon_from_pixbuf(pixbuf_uncheck);
 			valid_total_de_mudas = true;
 			valid_data_da_ultima_muda = true;
 			valid_tamanho_do_bico = true;
@@ -1574,6 +1582,7 @@ void JanelaEditarAnimal::MudarRegiao()
 	{
 		case 0: // Caso o aniaml seja nativo.
 			valid_nacionalidade = true;
+			valid_cidade = true;
 			combo_box_uf->show();
 			label_uf->show();
 			entry_nacionalidade->hide();
@@ -1583,6 +1592,9 @@ void JanelaEditarAnimal::MudarRegiao()
 			break;
 		case 1: // Caso o animal seja exótico.
 			valid_nacionalidade = false;
+			entry_nacionalidade->set_icon_from_pixbuf(pixbuf_uncheck);
+			valid_cidade = false;
+			entry_cidade->set_icon_from_pixbuf(pixbuf_uncheck);
 			combo_box_uf->hide();
 			label_uf->hide();
 			entry_nacionalidade->show();
@@ -1680,34 +1692,65 @@ void JanelaEditarAnimal::AtualizarIconeTamanho()
 {
 	string entry_text = entry_tamanho->get_text();
 	double temp;
+	bool has_one_comma = true;
 	bool is_numeric = true;
-
+	int commas = 0;
+	unsigned int commaPos;
+	//Verificado se todos os caracteres são digitos
 	for(unsigned int i = 0; i < entry_text.length(); i++)
 	{
-		if(!isdigit(entry_text[i]))
+		if(entry_text[i] == ',')
 		{
-			is_numeric = false;
-			break;
+			commaPos = i;
+			commas++;
 		}
 	}
+	if(commas == 0)
+	{
+		for(unsigned int i = 0; i < entry_text.length(); i++)
+		{
+			if(i != commaPos && !isdigit(entry_text[i]))
+			{
+				has_one_comma = false;
+				break;
+			}
+		}
+	}
+	if(commas == 1)
+	{
+		for(unsigned int i = 0; i < entry_text.length(); i++)
+		{
+			if(i != commaPos && !isdigit(entry_text[i]))
+			{
+				is_numeric = false;
+				break;
+			}
+		}
+	}
+	else if(commas > 1)
+	{
+		has_one_comma = false;
+	}
 
+	//Tenta fazer o stod, existe a possibilidade de dar erro quando não houver nada digitado
 	try
 	{
 		temp = stod(entry_text);
 	}
-	catch(exception &ex)  // Caso o tamanho digitado for inválido.
+	catch(exception &ex)
 	{
 		valid_tamanho = false;
 		entry_tamanho->set_icon_from_pixbuf(pixbuf_uncheck);
 		entry_tamanho->set_icon_tooltip_text("Tamanho inválido");
 		return;
-	}	
-	if(temp > 0 && is_numeric)  // Caso o tamanho digitado for válido.
+	}
+	//Se o tamanho for maior que 0 e for numerico implica que é um dado válido
+	if(temp > 0 && is_numeric && has_one_comma)
 	{
 		valid_tamanho = true;
 		entry_tamanho->set_icon_from_pixbuf(pixbuf_check);
 	}
-	else  // Caso o tamanho digitado for inválido.
+	else
 	{
 		valid_tamanho = false;
 		entry_tamanho->set_icon_from_pixbuf(pixbuf_uncheck);
@@ -1981,55 +2024,141 @@ void JanelaEditarAnimal::AtualizarIconeDataDaUltimaMuda()
 
 void JanelaEditarAnimal::AtualizarIconeTamanhoDoBico()
 {
+	string entry_text = entry_tamanho_do_bico->get_text();
 	double temp;
+	bool has_one_comma = true;
+	bool is_numeric = true;
+	int commas = 0;
+	unsigned int commaPos;
+	//Verificado se todos os caracteres são digitos
+	for(unsigned int i = 0; i < entry_text.length(); i++)
+	{
+		if(entry_text[i] == ',')
+		{
+			commaPos = i;
+			commas++;
+		}
+	}
+	if(commas == 0)
+	{
+		for(unsigned int i = 0; i < entry_text.length(); i++)
+		{
+			if(i != commaPos && !isdigit(entry_text[i]))
+			{
+				has_one_comma = false;
+				break;
+			}
+		}
+	}
+	if(commas == 1)
+	{
+		for(unsigned int i = 0; i < entry_text.length(); i++)
+		{
+			if(i != commaPos && !isdigit(entry_text[i]))
+			{
+				is_numeric = false;
+				break;
+			}
+		}
+	}
+	else if(commas > 1)
+	{
+		has_one_comma = false;
+	}
+
+	//Tenta fazer o stod, existe a possibilidade de dar erro quando não houver nada digitado
 	try
 	{
-		temp = stod(entry_tamanho_do_bico->get_text());
+		temp = stod(entry_text);
 	}
-	catch(exception &ex) // Caso algo que não pode ser convertido para double seja digitado.
+	catch(exception &ex)
 	{
 		valid_tamanho_do_bico = false;
 		entry_tamanho_do_bico->set_icon_from_pixbuf(pixbuf_uncheck);
 		entry_tamanho_do_bico->set_icon_tooltip_text("Tamanho inválido");
 		return;
-	}	
-	if(temp <= 0) // Caso o tamanho do bico digitado seja menor ou igual a 0.
-	{
-		valid_tamanho_do_bico = false;
-		entry_tamanho_do_bico->set_icon_from_pixbuf(pixbuf_uncheck);
-		entry_tamanho_do_bico->set_icon_tooltip_text("O tamanho tem que ser maior que 0");
 	}
-	else // Caso o tamanho do bico seja válido.
+	//Se o tamanho for maior que 0 e for numerico implica que é um dado válido
+	if(temp > 0 && is_numeric && has_one_comma)
 	{
 		valid_tamanho_do_bico = true;
 		entry_tamanho_do_bico->set_icon_from_pixbuf(pixbuf_check);
+	}
+	else
+	{
+		valid_tamanho_do_bico = false;
+		entry_tamanho_do_bico->set_icon_from_pixbuf(pixbuf_uncheck);
+		entry_tamanho_do_bico->set_icon_tooltip_text("O tamanho tem que ser maior que 0 e ter somente numeros");
 	}
 }
 
 void JanelaEditarAnimal::AtualizarIconeEnvergaduraDasAsas()
 {
+	string entry_text = entry_envergadura_das_asas->get_text();
 	double temp;
+	bool has_one_comma = true;
+	bool is_numeric = true;
+	int commas = 0;
+	unsigned int commaPos;
+	//Verificado se todos os caracteres são digitos
+	for(unsigned int i = 0; i < entry_text.length(); i++)
+	{
+		if(entry_text[i] == ',')
+		{
+			commaPos = i;
+			commas++;
+		}
+	}
+	if(commas == 0)
+	{
+		for(unsigned int i = 0; i < entry_text.length(); i++)
+		{
+			if(i != commaPos && !isdigit(entry_text[i]))
+			{
+				has_one_comma = false;
+				break;
+			}
+		}
+	}
+	if(commas == 1)
+	{
+		for(unsigned int i = 0; i < entry_text.length(); i++)
+		{
+			if(i != commaPos && !isdigit(entry_text[i]))
+			{
+				is_numeric = false;
+				break;
+			}
+		}
+	}
+	else if(commas > 1)
+	{
+		has_one_comma = false;
+	}
+
+	//Tenta fazer o stod, existe a possibilidade de dar erro quando não houver nada digitado
 	try
 	{
-		temp = stod(entry_envergadura_das_asas->get_text());
+		temp = stod(entry_text);
 	}
-	catch(exception &ex) // Caso algo que não pode ser convertido para double seja digitado.
+	catch(exception &ex)
 	{
 		valid_envergadura_das_asas = false;
 		entry_envergadura_das_asas->set_icon_from_pixbuf(pixbuf_uncheck);
 		entry_envergadura_das_asas->set_icon_tooltip_text("Tamanho inválido");
 		return;
-	}	
-	if(temp <= 0) // Caso o tamanho da envergadura digitado seja menor ou igual a 0.
-	{
-		valid_envergadura_das_asas = false;
-		entry_envergadura_das_asas->set_icon_from_pixbuf(pixbuf_uncheck);
-		entry_envergadura_das_asas->set_icon_tooltip_text("O tamanho tem que ser maior que 0");
 	}
-	else  // Caso o tamanho da envergadura digitado seja válido.
+	//Se o tamanho for maior que 0 e for numerico implica que é um dado válido
+	if(temp > 0 && is_numeric && has_one_comma)
 	{
 		valid_envergadura_das_asas = true;
 		entry_envergadura_das_asas->set_icon_from_pixbuf(pixbuf_check);
+	}
+	else
+	{
+		valid_envergadura_das_asas = false;
+		entry_envergadura_das_asas->set_icon_from_pixbuf(pixbuf_uncheck);
+		entry_envergadura_das_asas->set_icon_tooltip_text("O tamanho tem que ser maior que 0 e ter somente numeros");
 	}
 }
 

@@ -962,16 +962,46 @@ void JanelaCadastroAnimal::AtualizarIconeTamanho()
 {
 	string entry_text = entry_tamanho->get_text();
 	double temp;
+	bool has_one_comma = true;
 	bool is_numeric = true;
+	int commas = 0;
+	unsigned int commaPos;
 	//Verificado se todos os caracteres são digitos
 	for(unsigned int i = 0; i < entry_text.length(); i++)
 	{
-		if(!isdigit(entry_text[i]))
+		if(entry_text[i] == ',')
 		{
-			is_numeric = false;
-			break;
+			commaPos = i;
+			commas++;
 		}
 	}
+	if(commas == 0)
+	{
+		for(unsigned int i = 0; i < entry_text.length(); i++)
+		{
+			if(i != commaPos && !isdigit(entry_text[i]))
+			{
+				has_one_comma = false;
+				break;
+			}
+		}
+	}
+	if(commas == 1)
+	{
+		for(unsigned int i = 0; i < entry_text.length(); i++)
+		{
+			if(i != commaPos && !isdigit(entry_text[i]))
+			{
+				is_numeric = false;
+				break;
+			}
+		}
+	}
+	else if(commas > 1)
+	{
+		has_one_comma = false;
+	}
+
 	//Tenta fazer o stod, existe a possibilidade de dar erro quando não houver nada digitado
 	try
 	{
@@ -985,7 +1015,7 @@ void JanelaCadastroAnimal::AtualizarIconeTamanho()
 		return;
 	}
 	//Se o tamanho for maior que 0 e for numerico implica que é um dado válido
-	if(temp > 0 && is_numeric)
+	if(temp > 0 && is_numeric && has_one_comma)
 	{
 		valid_tamanho = true;
 		entry_tamanho->set_icon_from_pixbuf(pixbuf_check);
@@ -1184,17 +1214,17 @@ void JanelaCadastroAnimal::AtualizarIconeTotalDeMudas()
 		entry_total_de_mudas->set_icon_from_pixbuf(pixbuf_uncheck);
 		entry_total_de_mudas->set_icon_tooltip_text("Quantidade Inválida");
 		valid_data_da_ultima_muda = false;
-		entry_data_da_ultima_muda->set_icon_from_pixbuf(pixbuf_check);
+		entry_data_da_ultima_muda->set_icon_from_pixbuf(pixbuf_uncheck);
 		return;
 	}
-	//Verifica se o total de mudas é maior ou igual a zero
+	// Verifica se o total de mudas é menor que zero.
 	if (temp < 0)
 	{
 		valid_total_de_mudas = false;
 		entry_total_de_mudas->set_icon_from_pixbuf(pixbuf_uncheck);
 		entry_total_de_mudas->set_icon_tooltip_text("Quantidade Inválida");
 		valid_data_da_ultima_muda = false;
-		entry_data_da_ultima_muda->set_icon_from_pixbuf(pixbuf_check);
+		entry_data_da_ultima_muda->set_icon_from_pixbuf(pixbuf_uncheck);
 	}
 	else if (temp == 0)
 	{
@@ -1207,6 +1237,7 @@ void JanelaCadastroAnimal::AtualizarIconeTotalDeMudas()
 	{
 		valid_total_de_mudas = true;
 		entry_total_de_mudas->set_icon_from_pixbuf(pixbuf_check);
+
 	}
 }
 
@@ -1272,11 +1303,52 @@ void JanelaCadastroAnimal::AtualizarIconeDataDaUltimaMuda()
 
 void JanelaCadastroAnimal::AtualizarIconeTamanhoDoBico()
 {
+	string entry_text = entry_tamanho_do_bico->get_text();
 	double temp;
+	bool has_one_comma = true;
+	bool is_numeric = true;
+	int commas = 0;
+	unsigned int commaPos;
+	//Verificado se todos os caracteres são digitos
+	for(unsigned int i = 0; i < entry_text.length(); i++)
+	{
+		if(entry_text[i] == ',')
+		{
+			commaPos = i;
+			commas++;
+		}
+	}
+	if(commas == 0)
+	{
+		for(unsigned int i = 0; i < entry_text.length(); i++)
+		{
+			if(i != commaPos && !isdigit(entry_text[i]))
+			{
+				has_one_comma = false;
+				break;
+			}
+		}
+	}
+	if(commas == 1)
+	{
+		for(unsigned int i = 0; i < entry_text.length(); i++)
+		{
+			if(i != commaPos && !isdigit(entry_text[i]))
+			{
+				is_numeric = false;
+				break;
+			}
+		}
+	}
+	else if(commas > 1)
+	{
+		has_one_comma = false;
+	}
+
 	//Tenta fazer o stod, existe a possibilidade de dar erro quando não houver nada digitado
 	try
 	{
-		temp = stod(entry_tamanho_do_bico->get_text());
+		temp = stod(entry_text);
 	}
 	catch(exception &ex)
 	{
@@ -1285,19 +1357,20 @@ void JanelaCadastroAnimal::AtualizarIconeTamanhoDoBico()
 		entry_tamanho_do_bico->set_icon_tooltip_text("Tamanho inválido");
 		return;
 	}
-	//Se o tamanho do bico for menor ou igual a zero implica que é um dado inválido
-	if(temp <= 0)
-	{
-		valid_tamanho_do_bico = false;
-		entry_tamanho_do_bico->set_icon_from_pixbuf(pixbuf_uncheck);
-		entry_tamanho_do_bico->set_icon_tooltip_text("O tamanho tem que ser maior que 0");
-	}
-	else
+	//Se o tamanho for maior que 0 e for numerico implica que é um dado válido
+	if(temp > 0 && is_numeric && has_one_comma)
 	{
 		valid_tamanho_do_bico = true;
 		entry_tamanho_do_bico->set_icon_from_pixbuf(pixbuf_check);
 	}
+	else
+	{
+		valid_tamanho_do_bico = false;
+		entry_tamanho_do_bico->set_icon_from_pixbuf(pixbuf_uncheck);
+		entry_tamanho_do_bico->set_icon_tooltip_text("O tamanho tem que ser maior que 0 e ter somente numeros");
+	}
 }
+
 
 /**
 * @brief Método que é responsável para atualizar o icone de válido ou inválido da envergadura das asas.
@@ -1305,11 +1378,52 @@ void JanelaCadastroAnimal::AtualizarIconeTamanhoDoBico()
 
 void JanelaCadastroAnimal::AtualizarIconeEnvergaduraDasAsas()
 {
+	string entry_text = entry_envergadura_das_asas->get_text();
 	double temp;
+	bool has_one_comma = true;
+	bool is_numeric = true;
+	int commas = 0;
+	unsigned int commaPos;
+	//Verificado se todos os caracteres são digitos
+	for(unsigned int i = 0; i < entry_text.length(); i++)
+	{
+		if(entry_text[i] == ',')
+		{
+			commaPos = i;
+			commas++;
+		}
+	}
+	if(commas == 0)
+	{
+		for(unsigned int i = 0; i < entry_text.length(); i++)
+		{
+			if(i != commaPos && !isdigit(entry_text[i]))
+			{
+				has_one_comma = false;
+				break;
+			}
+		}
+	}
+	if(commas == 1)
+	{
+		for(unsigned int i = 0; i < entry_text.length(); i++)
+		{
+			if(i != commaPos && !isdigit(entry_text[i]))
+			{
+				is_numeric = false;
+				break;
+			}
+		}
+	}
+	else if(commas > 1)
+	{
+		has_one_comma = false;
+	}
+
 	//Tenta fazer o stod, existe a possibilidade de dar erro quando não houver nada digitado
 	try
 	{
-		temp = stod(entry_envergadura_das_asas->get_text());
+		temp = stod(entry_text);
 	}
 	catch(exception &ex)
 	{
@@ -1317,18 +1431,18 @@ void JanelaCadastroAnimal::AtualizarIconeEnvergaduraDasAsas()
 		entry_envergadura_das_asas->set_icon_from_pixbuf(pixbuf_uncheck);
 		entry_envergadura_das_asas->set_icon_tooltip_text("Tamanho inválido");
 		return;
-	}	
-	//Se a envergadura das asas for menor ou igual a zero implica que é um dado inválido
-	if(temp <= 0)
-	{
-		valid_envergadura_das_asas = false;
-		entry_envergadura_das_asas->set_icon_from_pixbuf(pixbuf_uncheck);
-		entry_envergadura_das_asas->set_icon_tooltip_text("O tamanho tem que ser maior que 0");
 	}
-	else
+	//Se o tamanho for maior que 0 e for numerico implica que é um dado válido
+	if(temp > 0 && is_numeric && has_one_comma)
 	{
 		valid_envergadura_das_asas = true;
 		entry_envergadura_das_asas->set_icon_from_pixbuf(pixbuf_check);
+	}
+	else
+	{
+		valid_envergadura_das_asas = false;
+		entry_envergadura_das_asas->set_icon_from_pixbuf(pixbuf_uncheck);
+		entry_envergadura_das_asas->set_icon_tooltip_text("O tamanho tem que ser maior que 0 e ter somente numeros");
 	}
 }
 
