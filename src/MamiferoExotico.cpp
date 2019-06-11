@@ -29,6 +29,8 @@ MamiferoExotico::MamiferoExotico(){}
 * @param new_cor_pelo Palavra(s) que representa a cor do pelo do mamífero.
 * @param new_autorizacao_ibama Conjunto de caracteres que representam a autorização do ibama. 
 * @param new_pais_origem Palavra(s) que representam o país de origem do mamífero. 
+* @param new_cidade_origem Palavra(s) que representam a cidade de origem do mamífero.
+
 */
 
 MamiferoExotico::MamiferoExotico(int new_id, string new_classe,

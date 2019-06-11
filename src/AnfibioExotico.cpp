@@ -30,6 +30,7 @@ AnfibioExotico::AnfibioExotico(){}
 * @param new_ultima_muda Numeros que representam a data da última vez que o anfíbio trocou de pele. 
 * @param new_autorizacao_ibama Conjunto de caracteres que representam a autorização do ibama. 
 * @param new_pais_origem Palavra(s) que representam o país de origem do anfíbio. 
+* @param new_cidade_origem Palavra(s) que representam a cidade de origem do anfíbio.
 */
 
 AnfibioExotico::AnfibioExotico(int new_id, string new_classe,
