@@ -77,7 +77,7 @@ ostream& operator<<(ostream &o, AveExotico A)
 		<< A.m_tamanho_do_bico << ";"
 		<< A.m_evergadura_das_asas << ";"
 		<< A.m_autorizacao_ibama << ";"
-		<< A.m_m_cidade_origem << ";"
+		<< A.m_cidade_origem << ";"
 		<< A.m_pais_origem << ";";
 	return o;
 }
