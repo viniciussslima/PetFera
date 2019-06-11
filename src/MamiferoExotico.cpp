@@ -70,6 +70,7 @@ ostream& operator<<(ostream &o, MamiferoExotico M)
 		<< M.m_nome_batismo << ";"
 		<< M.m_cor_pelo << ";"
 		<< M.m_autorizacao_ibama << ";"
+		<< A.m_m_cidade_origem << ";"
 		<< M.m_pais_origem << ";";
 	return o;
 }

@@ -555,7 +555,7 @@ void JanelaCadastroAnimal::Cadastrar()
 						AnfibioExotico temp(id, classe, nome_cientifico, sexo,
 							tamanho, dieta, veterinario, tratador, 
 							nome_batismo, stoi(entry_total_de_mudas->get_text()),
-							data_date, autorizacao_ibama, nacionalidade);
+							data_date, autorizacao_ibama, nacionalidade, entry_cidade->get_text());
 
 						outfile << temp << endl;
 						anfibios_exoticos->insert(pair<int, AnfibioExotico>(id, temp));
@@ -589,7 +589,7 @@ void JanelaCadastroAnimal::Cadastrar()
 							tamanho, dieta, veterinario, tratador, 
 							nome_batismo, stod(entry_tamanho_do_bico->get_text()), 
 							stod(entry_envergadura_das_asas->get_text()), 
-							autorizacao_ibama, nacionalidade);
+							autorizacao_ibama, nacionalidade, entry_cidade->get_text());
 
 						outfile << temp << endl;
 						aves_exoticas->insert(pair<int, AveExotico>(id, temp));
@@ -621,7 +621,7 @@ void JanelaCadastroAnimal::Cadastrar()
 						MamiferoExotico temp(id, classe, nome_cientifico, sexo, 
 							tamanho, dieta, veterinario, tratador, 
 							nome_batismo, entry_cor_dos_pelos->get_text(), 
-							autorizacao_ibama, nacionalidade);
+							autorizacao_ibama, nacionalidade, entry_cidade->get_text());
 
 						outfile << temp << endl;
 						mamiferos_exoticos->insert(pair<int, MamiferoExotico>(id, temp));
@@ -655,7 +655,7 @@ void JanelaCadastroAnimal::Cadastrar()
 							tamanho, dieta, veterinario, tratador, nome_batismo, 
 							check_button_venenoso->get_active(), 
 							entry_tipo_de_veneno->get_text(), autorizacao_ibama, 
-							nacionalidade);
+							nacionalidade, entry_cidade->get_text());
 
 						outfile << temp << endl;
 						repteis_exoticos->insert(pair<int, ReptilExotico>(id, temp));

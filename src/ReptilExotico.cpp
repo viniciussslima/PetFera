@@ -74,6 +74,7 @@ ostream& operator<<(ostream &o, ReptilExotico R)
 		<< R.m_venenoso << ";"
 		<< R.m_tipo_veneno << ";"
 		<< R.m_autorizacao_ibama << ";"
+		<< A.m_m_cidade_origem << ";"
 		<< R.m_pais_origem << ";";
 	return o;
 }
