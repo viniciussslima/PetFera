@@ -1,3 +1,12 @@
+/**
+* @file Anfibio.h
+* @brief Classe que representa anfibíos.
+* @author
+* Hudson Bruno Macedo Alves,
+* João Vitor Kobata,
+* Vinicius Santos Silva de Lima.
+*/
+
 #ifndef _H_ANFIBIO_H_
 #define _H_ANFIBIO_H_
 

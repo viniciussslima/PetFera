@@ -11,11 +11,27 @@
 using namespace Gtk;
 using namespace std;
 
+/**
+* @brief construtor parametrizado da classe JanelaCadastroAnimal.
+* @param jptemp Janela principal do programa.
+* @param vtemp  Map que contém todos os veterinários cadastrados.
+* @param ttemp Map que contém todos os tratadores cadastrados.
+* @param anetemp Map que contém todos os anfíbios exóticos cadastrados.
+* @param anntemp Map que contém todos os anfíbios nativos cadastrados.
+* @param avetemp Map que contém todas as aves exóticas cadastrados.
+* @param avntemp Map que contém todas as aves nativas cadastrados.
+* @param metemp Map que contém todos os mamíferos exóticos cadastrados.
+* @param mntemp Map que contém todos os mamíferos nativos cadastrados.
+* @param retemp Map que contém todos os reptéis exóticos cadastrados.
+* @param rntemp Map que contém todos os reptéis nativos cadastrados.
+*/
+
 JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Veterinario> &vtemp, map<int, Tratador> &ttemp, map<int, AnfibioExotico> &anetemp, 
 										   map<int, AnfibioNativo> &anntemp, map<int, AveExotico> &avetemp, map<int, AveNativo> &avntemp,
 										   map<int, MamiferoExotico> &metemp, map<int, MamiferoNativo> &mntemp, 
 										   map<int, ReptilExotico> &retemp, map<int, ReptilNativo> &rntemp)
 {
+	//Colocado todas as variáveis de verificação para false
 	valid_id = false;
 	valid_nome_cientifico = false;
 	valid_tamanho = false;
@@ -31,6 +47,8 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 	valid_envergadura_das_asas = true;
 	valid_cor_dos_pelos = true;
 	valid_tipo_veneno = true;
+
+	//Atribui os endereços de memória dos maps recebidos como parâmetros para os maps da classe JanelaCadastroAnimal.
 
 	janela_principal = &jptemp;
 
@@ -52,7 +70,7 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 	Veterinario veterinario;
 	Tratador tratador;
 
-	//Inicialização
+	//Inicialização dos atributos da classe GTK.
 	window = new Window;
 
 	button_cadastrar = new Button("Cadastrar");
@@ -111,7 +129,7 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 	label_nacionalidade = new Label("Nacionalidade: ");
 	label_uf = new Label("Estado: ");
 
-	//Configuração
+	//Configuração dos atributos da classe GTK.
 	window->set_title("Cadastrar Animal");
 	window->set_resizable(false);
 	window->add(*box_principal);
@@ -183,8 +201,6 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 	combo_box_uf->append("TO");
 	combo_box_uf->set_active(0);
 
-
-
 	box_principal->add(*box_dados);
 	box_principal->pack_start(*button_cadastrar, PACK_SHRINK);
 	box_dados->add(*box_esquerda);
@@ -238,7 +254,7 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 	box_direita->pack_start(*entry_nacionalidade, PACK_SHRINK);
 	box_direita->pack_start(*combo_box_uf, PACK_SHRINK);
 
-	//Conexão
+	//Conexão dos atributos da classe GTK.
 	button_cadastrar->signal_clicked().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::Cadastrar));
 	combo_box_classe->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::MudarClasse));
 	combo_box_regiao->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::MudarRegiao));
@@ -261,6 +277,10 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 	entry_cor_dos_pelos->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeCorDosPelos));
 	entry_tipo_de_veneno->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeTipoDeVeneno));
 }
+
+/**
+* @brief Destrutor da classe JanelaCadastroAnimal.
+*/
 
 JanelaCadastroAnimal::~JanelaCadastroAnimal()
 {
@@ -316,9 +336,14 @@ JanelaCadastroAnimal::~JanelaCadastroAnimal()
 	delete label_uf;
 }
 
+/**
+* @brief Método que inicia a janela de cadastro de animais.
+*/
+
 void JanelaCadastroAnimal::Run()
 {
 	window->show_all();
+	//Escondendo os widgets que não são pertencentes a classe Amphibia e o ID do veterinario e do tratador.
 	entry_veterinario_id->hide();
 	label_veterinario_id->hide();
 	entry_tratador_id->hide();
@@ -338,8 +363,13 @@ void JanelaCadastroAnimal::Run()
 	Main::run(*window);
 }
 
+/**
+* @brief Método que é responsável pelo cadastro de animais.
+*/
+
 void JanelaCadastroAnimal::Cadastrar()
 {
+	//Verificando se os atributos são válidos.
 	if (!valid_id)
 	{
 		MessageDialog dialog(*window, "ID inválido.");
@@ -437,9 +467,10 @@ void JanelaCadastroAnimal::Cadastrar()
 		dialog.set_secondary_text("Falta preencher a nacionalidade do animal.");
   		dialog.run();
 	}
-	
+	//Caso os atributos forem válidos.
 	else
 	{
+		//Pegando os atributos do animal
 		int id = stoi(entry_id->get_text());
 		string classe = combo_box_classe->get_active_text(); 
 		for(unsigned int i = 0; i < classe.length(); i++)
@@ -461,7 +492,7 @@ void JanelaCadastroAnimal::Cadastrar()
 		{
 			case 0:
 			{
-				//anfibio
+				//Caso for anfibio
 				switch(combo_box_regiao->get_active_row_number())
 				{
 					case 0:
@@ -503,7 +534,7 @@ void JanelaCadastroAnimal::Cadastrar()
 			}
 			case 1:
 			{
-				//aves
+				//Caso for aves
 				switch(combo_box_regiao->get_active_row_number())
 				{
 					case 0:
@@ -537,7 +568,7 @@ void JanelaCadastroAnimal::Cadastrar()
 			}
 			case 2:
 			{
-				//mamifero
+				//Caso for mamifero
 				switch(combo_box_regiao->get_active_row_number())
 				{
 					case 0:
@@ -569,7 +600,7 @@ void JanelaCadastroAnimal::Cadastrar()
 			}
 			case 3:
 			{
-				//reptil
+				//Caso for reptil
 				switch(combo_box_regiao->get_active_row_number())
 				{
 					case 0:
@@ -606,10 +637,16 @@ void JanelaCadastroAnimal::Cadastrar()
 	}
 }
 
+/**
+* @brief Método que é responsável para mudar os widgets que são mostrados para sua respectiva classe selecionada.
+*/
+
 void JanelaCadastroAnimal::MudarClasse()
 {
+	//Verificando de qual classe é.
 	switch(combo_box_classe->get_active_row_number())
 	{
+		//Caso for anfibio
 		case 0:
 			valid_total_de_mudas = false;
 			valid_data_da_ultima_muda = false;
@@ -634,6 +671,7 @@ void JanelaCadastroAnimal::MudarClasse()
 			label_tipo_de_veneno->hide();
 			AtualizarIconeId();
 			break;
+		//Caso for ave
 		case 1:
 			valid_tamanho_do_bico = false;
 			valid_envergadura_das_asas = false;
@@ -657,6 +695,7 @@ void JanelaCadastroAnimal::MudarClasse()
 			label_tipo_de_veneno->hide();
 			AtualizarIconeId();
 			break;
+		//Caso for mamifero
 		case 2:
 			valid_cor_dos_pelos = false;
 			valid_total_de_mudas = true;
@@ -681,6 +720,7 @@ void JanelaCadastroAnimal::MudarClasse()
 			label_tipo_de_veneno->hide();
 			AtualizarIconeId();
 			break;
+		//Caso for reptil
 		case 3:
 			valid_tipo_veneno = true;
 			valid_total_de_mudas = true;
@@ -708,10 +748,15 @@ void JanelaCadastroAnimal::MudarClasse()
 	}
 }
 
+/**
+* @brief Método que é responsável para mudar os widgets que são mostrados para sua respectiva região selecionada.
+*/
+
 void JanelaCadastroAnimal::MudarRegiao()
 {
 	switch(combo_box_regiao->get_active_row_number())
 	{
+		//Caso for nacional
 		case 0:
 			valid_nacionalidade = true;
 			combo_box_uf->show();
@@ -720,6 +765,7 @@ void JanelaCadastroAnimal::MudarRegiao()
 			label_nacionalidade->hide();
 			AtualizarIconeId();
 			break;
+		//Caso for exótico
 		case 1:
 			valid_nacionalidade = false;
 			combo_box_uf->hide();
@@ -730,6 +776,10 @@ void JanelaCadastroAnimal::MudarRegiao()
 			break;
 	}
 }
+
+/**
+* @brief Método que é responsável para mudar os widgets que são mostrados quando o check button veterinario incluso for mudado.
+*/
 
 void JanelaCadastroAnimal::MostrarVeterinario()
 {
@@ -747,6 +797,10 @@ void JanelaCadastroAnimal::MostrarVeterinario()
 	}
 }
 
+/**
+* @brief Método que é responsável para mudar os widgets que são mostrados quando o check button tratador incluso for mudado.
+*/
+
 void JanelaCadastroAnimal::MostrarTratador()
 {
 	if(!check_button_tratador_incluso->get_active())
@@ -762,6 +816,10 @@ void JanelaCadastroAnimal::MostrarTratador()
 		label_tratador_id->show();
 	}
 }
+
+/**
+* @brief Método que é responsável para mudar os widgets que são mostrados quando o check button venenoso for mudado.
+*/
 
 void JanelaCadastroAnimal::MostrarVenenoso()
 {
@@ -779,10 +837,15 @@ void JanelaCadastroAnimal::MostrarVenenoso()
 	}
 }
 
+/**
+* @brief Método que é responsável para atualizar o icone de válido ou inválido do ID.
+*/
+
 void JanelaCadastroAnimal::AtualizarIconeId()
 {
 	string temp = entry_id->get_text();
 	bool is_numeric = true;
+	//Verificado se todos os caracteres são digitos
 	for(unsigned int i = 0; i < temp.size(); i++)
 	{
 		if(!isdigit(temp[i]))
@@ -791,6 +854,7 @@ void JanelaCadastroAnimal::AtualizarIconeId()
 			break;
 		}
 	}
+	//Se for todos numeros e não estiver vazio
 	if(is_numeric && !temp.empty())
 	{
 		int id = stoi(temp);
@@ -804,6 +868,7 @@ void JanelaCadastroAnimal::AtualizarIconeId()
 		map<int, ReptilNativo>::iterator it_r_n = repteis_nativos->find(id);
 		map<int, ReptilExotico>::iterator it_r_e = repteis_exoticos->find(id);
 
+		//Caso tenha encontrado algum animal com o ID fornecido
 		if(it_an_n != anfibios_nativos->end() || it_an_e != anfibios_exoticos->end() ||
 		   it_av_n != aves_nativas->end() || it_av_e != aves_exoticas->end() ||
 		   it_m_n != mamiferos_nativos->end() || it_m_e != mamiferos_exoticos->end() ||
@@ -820,6 +885,7 @@ void JanelaCadastroAnimal::AtualizarIconeId()
 			entry_id->set_icon_tooltip_text("ID válido");
 		}
 	}
+	//Se os dados forem inválidos
 	else
 	{
 		valid_id = false;
@@ -827,6 +893,10 @@ void JanelaCadastroAnimal::AtualizarIconeId()
 		entry_id->set_icon_tooltip_text("ID inválido");
 	}
 }
+
+/**
+* @brief Método que é responsável para atualizar o icone de válido ou inválido do nome cientifico.
+*/
 
 void JanelaCadastroAnimal::AtualizarIconeNomeCientifico()
 {
@@ -843,12 +913,16 @@ void JanelaCadastroAnimal::AtualizarIconeNomeCientifico()
 	}
 }
 
+/**
+* @brief Método que é responsável para atualizar o icone de válido ou inválido do tamanho.
+*/
+
 void JanelaCadastroAnimal::AtualizarIconeTamanho()
 {
 	string entry_text = entry_tamanho->get_text();
 	double temp;
 	bool is_numeric = true;
-
+	//Verificado se todos os caracteres são digitos
 	for(unsigned int i = 0; i < entry_text.length(); i++)
 	{
 		if(!isdigit(entry_text[i]))
@@ -857,7 +931,7 @@ void JanelaCadastroAnimal::AtualizarIconeTamanho()
 			break;
 		}
 	}
-
+	//Tenta fazer o stod, existe a possibilidade de dar erro quando não houver nada digitado
 	try
 	{
 		temp = stod(entry_text);
@@ -868,7 +942,8 @@ void JanelaCadastroAnimal::AtualizarIconeTamanho()
 		entry_tamanho->set_icon_from_pixbuf(pixbuf_uncheck);
 		entry_tamanho->set_icon_tooltip_text("Tamanho inválido");
 		return;
-	}	
+	}
+	//Se o tamanho for maior que 0 e for numerico implica que é um dado válido
 	if(temp > 0 && is_numeric)
 	{
 		valid_tamanho = true;
@@ -882,13 +957,17 @@ void JanelaCadastroAnimal::AtualizarIconeTamanho()
 	}
 }
 
+/**
+* @brief Método que é responsável para atualizar o icone de válido ou inválido da dieta.
+*/
+
 void JanelaCadastroAnimal::AtualizarIconeDieta()
 {
 	string temp = entry_dieta->get_text();
 	if(temp.empty())
 	{
-			valid_dieta = false;
-			entry_dieta->set_icon_from_pixbuf(pixbuf_uncheck);
+		valid_dieta = false;
+		entry_dieta->set_icon_from_pixbuf(pixbuf_uncheck);
 	}
 	else
 	{
@@ -897,10 +976,15 @@ void JanelaCadastroAnimal::AtualizarIconeDieta()
 	}
 }
 
+/**
+* @brief Método que é responsável para atualizar o icone de válido ou inválido do ID do tratador.
+*/
+
 void JanelaCadastroAnimal::AtualizarIconeTratadorId()
 {
 	string temp = entry_tratador_id->get_text();
 	bool is_numeric = true;
+	//Verificado se todos os caracteres são digitos
 	for(unsigned int i = 0; i < temp.size(); i++)
 	{
 		if(!isdigit(temp[i]))
@@ -909,11 +993,13 @@ void JanelaCadastroAnimal::AtualizarIconeTratadorId()
 			break;
 		}
 	}
+	//Se for todos numeros e não estiver vazio
 	if(is_numeric && !temp.empty())
 	{
 		int id = stoi(temp);
 		map<int, Tratador>::iterator it_t = tratadores->find(id);
 
+		//Caso tenha encontrado algum tratador com o ID fornecido
 		if(it_t != tratadores->end())
 		{
 			valid_tratador_id = true;
@@ -927,6 +1013,7 @@ void JanelaCadastroAnimal::AtualizarIconeTratadorId()
 			entry_tratador_id->set_icon_tooltip_text("Nenhum tratador possui esse ID");
 		}
 	}
+	//Se os dados forem inválidos
 	else
 	{
 		valid_tratador_id = false;
@@ -935,10 +1022,15 @@ void JanelaCadastroAnimal::AtualizarIconeTratadorId()
 	}
 }
 
+/**
+* @brief Método que é responsável para atualizar o icone de válido ou inválido do ID do veterinário.
+*/
+
 void JanelaCadastroAnimal::AtualizarIconeVeterinarioId()
 {
 	string temp = entry_veterinario_id->get_text();
 	bool is_numeric = true;
+	//Verificado se todos os caracteres são digitos
 	for(unsigned int i = 0; i < temp.size(); i++)
 	{
 		if(!isdigit(temp[i]))
@@ -947,11 +1039,13 @@ void JanelaCadastroAnimal::AtualizarIconeVeterinarioId()
 			break;
 		}
 	}
+	//Se for todos numeros e não estiver vazio
 	if(is_numeric && !temp.empty())
 	{
 		int id = stoi(temp);
 		map<int, Veterinario>::iterator it_t = veterinarios->find(id);
 
+		//Caso tenha encontrado algum veterinário com o ID fornecido
 		if(it_t != veterinarios->end())
 		{
 			valid_veterinario_id = true;
@@ -965,6 +1059,7 @@ void JanelaCadastroAnimal::AtualizarIconeVeterinarioId()
 			entry_veterinario_id->set_icon_tooltip_text("Nenhum veterinário possui esse ID");
 		}
 	}
+	//Se os dados forem inválidos
 	else
 	{
 		valid_veterinario_id = false;
@@ -973,13 +1068,17 @@ void JanelaCadastroAnimal::AtualizarIconeVeterinarioId()
 	}
 }
 
+/**
+* @brief Método que é responsável para atualizar o icone de válido ou inválido do nome de batismo.
+*/
+
 void JanelaCadastroAnimal::AtualizarIconeNomeBatismo()
 {
 	string temp = entry_nome_batismo->get_text();
 	if(temp.empty())
 	{
-			valid_nome_batismo = false;
-			entry_nome_batismo->set_icon_from_pixbuf(pixbuf_uncheck);
+		valid_nome_batismo = false;
+		entry_nome_batismo->set_icon_from_pixbuf(pixbuf_uncheck);
 	}
 	else
 	{
@@ -988,13 +1087,17 @@ void JanelaCadastroAnimal::AtualizarIconeNomeBatismo()
 	}
 }
 
+/**
+* @brief Método que é responsável para atualizar o icone de válido ou inválido da autorização do ibama.
+*/
+
 void JanelaCadastroAnimal::AtualizarIconeAutorizacaoIbama()
 {
 	string temp = entry_autorizacao_ibama->get_text();
 	if(temp.empty())
 	{
-			valid_autorizacao_ibama = false;
-			entry_autorizacao_ibama->set_icon_from_pixbuf(pixbuf_uncheck);
+		valid_autorizacao_ibama = false;
+		entry_autorizacao_ibama->set_icon_from_pixbuf(pixbuf_uncheck);
 	}
 	else
 	{
@@ -1003,13 +1106,17 @@ void JanelaCadastroAnimal::AtualizarIconeAutorizacaoIbama()
 	}
 }
 
+/**
+* @brief Método que é responsável para atualizar o icone de válido ou inválido da autorização do ibama.
+*/
+
 void JanelaCadastroAnimal::AtualizarIconeNacionalidade()
 {
 	string temp = entry_nacionalidade->get_text();
 	if(temp.empty())
 	{
-			valid_nacionalidade = false;
-			entry_nacionalidade->set_icon_from_pixbuf(pixbuf_uncheck);
+		valid_nacionalidade = false;
+		entry_nacionalidade->set_icon_from_pixbuf(pixbuf_uncheck);
 	}
 	else
 	{
@@ -1018,9 +1125,14 @@ void JanelaCadastroAnimal::AtualizarIconeNacionalidade()
 	}
 }
 
+/**
+* @brief Método que é responsável para atualizar o icone de válido ou inválido do total de mudas.
+*/
+
 void JanelaCadastroAnimal::AtualizarIconeTotalDeMudas()
 {
 	int temp;
+	//Tenta fazer o stoi, existe a possibilidade de dar erro quando não houver nada digitado
 	try
 	{
 		temp = stoi(entry_total_de_mudas->get_text());
@@ -1032,6 +1144,7 @@ void JanelaCadastroAnimal::AtualizarIconeTotalDeMudas()
 		entry_total_de_mudas->set_icon_tooltip_text("Quantidade Inválida");
 		return;
 	}
+	//Verifica se o total de mudas é maior ou igual a zero
 	if (temp < 0)
 	{
 		valid_total_de_mudas = false;
@@ -1045,11 +1158,16 @@ void JanelaCadastroAnimal::AtualizarIconeTotalDeMudas()
 	}
 }
 
+/**
+* @brief Método que é responsável para atualizar o icone de válido ou inválido da data da última muda.
+*/
+
 void JanelaCadastroAnimal::AtualizarIconeDataDaUltimaMuda()
 {
 	string temp1;
 	vector <int> data;
 	date data_da_ultima_muda;
+	//Tentando pegar a data
 	try
 	{
 		temp1 = entry_data_da_ultima_muda->get_text();
@@ -1064,6 +1182,7 @@ void JanelaCadastroAnimal::AtualizarIconeDataDaUltimaMuda()
 		entry_data_da_ultima_muda->set_icon_tooltip_text("Data Inválida");
 		return;
 	}
+	//Se a data for válida
 	if (data_da_ultima_muda.valid())
 	{
 		valid_data_da_ultima_muda = true;
@@ -1077,9 +1196,15 @@ void JanelaCadastroAnimal::AtualizarIconeDataDaUltimaMuda()
 	}
 }
 
+/**
+* @brief Método que é responsável para atualizar o icone de válido ou inválido do tamanho do bico.
+*/
+
+
 void JanelaCadastroAnimal::AtualizarIconeTamanhoDoBico()
 {
 	double temp;
+	//Tenta fazer o stod, existe a possibilidade de dar erro quando não houver nada digitado
 	try
 	{
 		temp = stod(entry_tamanho_do_bico->get_text());
@@ -1090,12 +1215,13 @@ void JanelaCadastroAnimal::AtualizarIconeTamanhoDoBico()
 		entry_tamanho_do_bico->set_icon_from_pixbuf(pixbuf_uncheck);
 		entry_tamanho_do_bico->set_icon_tooltip_text("Tamanho inválido");
 		return;
-	}	
+	}
+	//Se o tamanho do bico for menor ou igual a zero implica que é um dado inválido
 	if(temp <= 0)
 	{
-			valid_tamanho_do_bico = false;
-			entry_tamanho_do_bico->set_icon_from_pixbuf(pixbuf_uncheck);
-			entry_tamanho_do_bico->set_icon_tooltip_text("O tamanho tem que ser maior que 0");
+		valid_tamanho_do_bico = false;
+		entry_tamanho_do_bico->set_icon_from_pixbuf(pixbuf_uncheck);
+		entry_tamanho_do_bico->set_icon_tooltip_text("O tamanho tem que ser maior que 0");
 	}
 	else
 	{
@@ -1104,9 +1230,14 @@ void JanelaCadastroAnimal::AtualizarIconeTamanhoDoBico()
 	}
 }
 
+/**
+* @brief Método que é responsável para atualizar o icone de válido ou inválido da envergadura das asas.
+*/
+
 void JanelaCadastroAnimal::AtualizarIconeEnvergaduraDasAsas()
 {
 	double temp;
+	//Tenta fazer o stod, existe a possibilidade de dar erro quando não houver nada digitado
 	try
 	{
 		temp = stod(entry_envergadura_das_asas->get_text());
@@ -1118,11 +1249,12 @@ void JanelaCadastroAnimal::AtualizarIconeEnvergaduraDasAsas()
 		entry_envergadura_das_asas->set_icon_tooltip_text("Tamanho inválido");
 		return;
 	}	
+	//Se a envergadura das asas for menor ou igual a zero implica que é um dado inválido
 	if(temp <= 0)
 	{
-			valid_envergadura_das_asas = false;
-			entry_envergadura_das_asas->set_icon_from_pixbuf(pixbuf_uncheck);
-			entry_envergadura_das_asas->set_icon_tooltip_text("O tamanho tem que ser maior que 0");
+		valid_envergadura_das_asas = false;
+		entry_envergadura_das_asas->set_icon_from_pixbuf(pixbuf_uncheck);
+		entry_envergadura_das_asas->set_icon_tooltip_text("O tamanho tem que ser maior que 0");
 	}
 	else
 	{
@@ -1131,13 +1263,17 @@ void JanelaCadastroAnimal::AtualizarIconeEnvergaduraDasAsas()
 	}
 }
 
+/**
+* @brief Método que é responsável para atualizar o icone de válido ou inválido da cor dos pelos.
+*/
+
 void JanelaCadastroAnimal::AtualizarIconeCorDosPelos()
 {
 	string temp = entry_cor_dos_pelos->get_text();
 	if(temp.empty())
 	{
-			valid_cor_dos_pelos = false;
-			entry_cor_dos_pelos->set_icon_from_pixbuf(pixbuf_uncheck);
+		valid_cor_dos_pelos = false;
+		entry_cor_dos_pelos->set_icon_from_pixbuf(pixbuf_uncheck);
 	}
 	else
 	{
@@ -1146,13 +1282,17 @@ void JanelaCadastroAnimal::AtualizarIconeCorDosPelos()
 	}
 }
 
+/**
+* @brief Método que é responsável para atualizar o icone de válido ou inválido do tipo do veneno.
+*/
+
 void JanelaCadastroAnimal::AtualizarIconeTipoDeVeneno()
 {
 	string temp = entry_tipo_de_veneno->get_text();
 	if(temp.empty())
 	{
-			valid_tipo_veneno = false;
-			entry_tipo_de_veneno->set_icon_from_pixbuf(pixbuf_uncheck);
+		valid_tipo_veneno = false;
+		entry_tipo_de_veneno->set_icon_from_pixbuf(pixbuf_uncheck);
 	}
 	else
 	{

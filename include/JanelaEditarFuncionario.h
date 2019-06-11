@@ -1,3 +1,12 @@
+/**
+* @file JanelaEditarFuncionario.h
+* @author
+* @brief Classe que abre uma janela que possibilita editar as informações de um funcionário.
+* Hudson Bruno Macedo Alves,
+* João Vitor Kobata,
+* Vinicius Santos Silva de Lima.
+*/
+
 #ifndef _JANELA_EDITAR_FUNCIONARIO_H_
 #define _JANELA_EDITAR_FUNCIONARIO_H_
 

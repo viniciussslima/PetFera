@@ -1,6 +1,6 @@
 /**
 * @file JanelaBuscaAnimais.cpp
-* @brief Classe abre uma janela com os animais sobre a responsabilidade de um funcionário.
+* @brief Implementação da classe JanelaBuscaAnimais. 
 * @author
 * Hudson Bruno Macedo Alves,
 * João Vitor Kobata,

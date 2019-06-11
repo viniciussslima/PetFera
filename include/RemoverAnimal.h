@@ -1,3 +1,12 @@
+/**
+* @file RemoverAnimal.h
+* @brief Função que remove animais.
+* @author
+* Hudson Bruno Macedo Alves,
+* João Vitor Kobata,
+* Vinicius Santos Silva de Lima.
+*/
+
 #ifndef _REMOVER_ANIMAL_H_
 #define _REMOVER_ANIMAL_H_
 

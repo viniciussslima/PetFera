@@ -1,3 +1,12 @@
+/**
+* @file Mamifero.h
+* @brief Classe que representa mamíferos.
+* @author
+* Hudson Bruno Macedo Alves,
+* João Vitor Kobata,
+* Vinicius Santos Silva de Lima.
+*/
+
 #ifndef _H_MAMIFERO_H
 #define _H_MAMIFERO_H
 

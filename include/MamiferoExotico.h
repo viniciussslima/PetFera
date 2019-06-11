@@ -1,3 +1,12 @@
+/**
+* @file MamiferoExotico.h
+* @brief Classe que representa mamíferos exóticos.
+* @author
+* Hudson Bruno Macedo Alves,
+* João Vitor Kobata,
+* Vinicius Santos Silva de Lima.
+*/
+
 #ifndef _H_MAMIFEROEXOTICO_H_
 #define _H_MAMIFEROEXOTICO_H_
 

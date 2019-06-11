@@ -1,0 +1,8 @@
+PROJECT_NAME = "PetFera"
+PROJECT_BRIEF = "Programa de cadastro de animais para a loja de animais silvestres Pet Fera."
+OUTPUT_DIRECTORY =
+OUTPUT_LANGUAGE = Brazilian
+RECURSIVE = YES
+GENERATE_HTML = YES
+HTML_OUTPUT = docs
+GENERATE_LATEX = NO

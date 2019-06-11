@@ -1,6 +1,6 @@
 /**
 * @file Animal.cpp
-* @brief Classe que representa animais.
+* @brief Implementação da classe que representa animais.
 * @author
 * Hudson Bruno Macedo Alves,
 * João Vitor Kobata,

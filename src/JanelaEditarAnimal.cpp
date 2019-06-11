@@ -1,6 +1,6 @@
 /**
 * @file JanelaEditarAnimal.cpp
-* @brief Classe que abre uma janela que possibilita editar as informações de um animal.
+* @brief Implementação da classe JanelaEditarAnimal. 
 * @author
 * Hudson Bruno Macedo Alves,
 * João Vitor Kobata,

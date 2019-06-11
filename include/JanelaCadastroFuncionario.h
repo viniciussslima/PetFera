@@ -1,3 +1,11 @@
+/**
+* @file JanelaCadastroFuncionario.h
+* @author
+* Hudson Bruno Macedo Alves,
+* João Vitor Kobata,
+* Vinicius Santos Silva de Lima.
+*/
+
 #ifndef _JANELA_CADASTRO_FUNCIONARIO_H_
 #define _JANELA_CADASTRO_FUNCIONARIO_H_
 

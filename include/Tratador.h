@@ -1,3 +1,12 @@
+/**
+* @file Tratador.h
+* @brief Classe que representa tratadores.
+* @author
+* Hudson Bruno Macedo Alves,
+* João Vitor Kobata,
+* Vinicius Santos Silva de Lima.
+*/
+
 #ifndef _H_TRATADOR_H_
 #define _H_TRATADOR_H_
 

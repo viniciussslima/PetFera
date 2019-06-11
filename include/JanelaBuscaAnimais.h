@@ -1,3 +1,12 @@
+/**
+* @file JanelaBuscaAnimais.h
+* @brief Classe que representa uma janela com os animais sobre a responsabilidade de um funcionário.
+* @author
+* Hudson Bruno Macedo Alves,
+* João Vitor Kobata,
+* Vinicius Santos Silva de Lima.
+*/
+
 #ifndef _JANELA_BUSCA_ANIMAIS_H_
 #define _JANELA_BUSCA_ANIMAIS_H_
 

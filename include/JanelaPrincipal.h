@@ -1,3 +1,11 @@
+/**
+* @file JanelaPrincipal.h
+* @author
+* Hudson Bruno Macedo Alves,
+* João Vitor Kobata,
+* Vinicius Santos Silva de Lima.
+*/
+
 #ifndef _JANELA_PRINCIPAL_H_
 #define _JANELA_PRINCIPAL_H_
 

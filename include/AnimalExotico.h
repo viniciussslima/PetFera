@@ -1,3 +1,12 @@
+/**
+* @file AnimalExotico.h
+* @brief Classe que representa animais exóticos.
+* @author
+* Hudson Bruno Macedo Alves,
+* João Vitor Kobata,
+* Vinicius Santos Silva de Lima.
+*/
+
 #ifndef _H_ANIMAL_EXOTICO_H_
 #define _H_ANIMAL_EXOTICO_H_
 
