@@ -34,5 +34,5 @@ Caso não tenha, acesse:	https://www.gtkmm.org/pt_BR/download.html
     ```
 2)
     ```
-    ./bin/main
+    ./bin/PetFera
     ```
