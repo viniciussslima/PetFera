@@ -521,6 +521,10 @@ void JanelaPrincipal::BotaoCadastrarAnimal()
 	}
 }
 
+/**
+* @brief Método chama as funções RemoverAnimal e RemoverFuncionario quando o botão remover é clicado.
+*/
+
 void JanelaPrincipal::BotaoRemover()
 {
 	int id;
@@ -529,13 +533,13 @@ void JanelaPrincipal::BotaoRemover()
 	bool valid_row = true;
 	switch(pagina)
 	{
-		case 0:
+		case 0: // Caso a pagina for igual 0 remove um tratador.
 		{
-			//tratadores
+			// Pega a linha selecionada.
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_tratadores->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			if (row != NULL)
+			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_tratador.col_id);
 				if(!Responsabilidade(anfibios_exoticos, anfibios_nativos, aves_exoticas,
@@ -550,7 +554,7 @@ void JanelaPrincipal::BotaoRemover()
 						RemoverFuncionario(*this, veterinarios, tratadores, id);
 					}
 				}
-				else
+				else // Caso uma linha nãon tenha sido selecionada.
 				{
 					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
 					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
@@ -563,13 +567,13 @@ void JanelaPrincipal::BotaoRemover()
 			}
 			break;
 		}
-		case 1:
+		case 1: // Caso a pagina for igual 1 remove um veterinário.
 		{
-			//veterinarios
+			// Pega a linha selecionada.
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_veterinarios->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			if (row != NULL)
+			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_veterinario.col_id);	
 				if(!Responsabilidade(anfibios_exoticos, anfibios_nativos, aves_exoticas,
@@ -584,7 +588,7 @@ void JanelaPrincipal::BotaoRemover()
 						RemoverFuncionario(*this, veterinarios, tratadores, id);
 					}
 				}
-				else
+				else // Caso uma linha nãon tenha sido selecionada.
 				{
 					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
 					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
@@ -597,13 +601,13 @@ void JanelaPrincipal::BotaoRemover()
 			}
 			break;
 		}
-		case 2:
+		case 2: // Caso a pagina for igual 2 remove um anfibío nativo.
 		{
-			//anfibios nativos
+			// Pega a linha selecionada.
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_anfibios_nativos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			if (row != NULL)
+			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_anfibio_nativo.col_id);	
 				if(!Responsabilidade(anfibios_exoticos, anfibios_nativos, aves_exoticas,
@@ -620,7 +624,7 @@ void JanelaPrincipal::BotaoRemover()
 										repteis_exoticos, repteis_nativos, id);
 					}
 				}
-				else
+				else // Caso uma linha nãon tenha sido selecionada.
 				{
 					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
 					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
@@ -633,13 +637,13 @@ void JanelaPrincipal::BotaoRemover()
 			}
 			break;
 		}
-		case 3:
+		case 3: // Caso a pagina for igual 3 remove um anfibío exótico.
 		{
-			//anfibios exoticos
+			// Pega a linha selecionada.
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_anfibios_exoticos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			if (row != NULL)
+			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_anfibio_exotico.col_id);	
 				if(!Responsabilidade(anfibios_exoticos, anfibios_nativos, aves_exoticas,
@@ -656,7 +660,7 @@ void JanelaPrincipal::BotaoRemover()
 										repteis_exoticos, repteis_nativos, id);
 					}
 				}
-				else
+				else // Caso uma linha nãon tenha sido selecionada.
 				{
 					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
 					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
@@ -669,13 +673,13 @@ void JanelaPrincipal::BotaoRemover()
 			}
 			break;
 		}
-		case 4:
+		case 4: // Caso a pagina for igual 4 remove uma ave nativa.
 		{
-			//aves nativas
+			// Pega a linha selecionada.
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_aves_nativas->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			if (row != NULL)
+			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_ave_nativa.col_id);	
 				if(!Responsabilidade(anfibios_exoticos, anfibios_nativos, aves_exoticas,
@@ -692,7 +696,7 @@ void JanelaPrincipal::BotaoRemover()
 										repteis_exoticos, repteis_nativos, id);
 					}
 				}
-				else
+				else // Caso uma linha nãon tenha sido selecionada.
 				{
 					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
 					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
@@ -705,13 +709,13 @@ void JanelaPrincipal::BotaoRemover()
 			}
 			break;
 		}
-		case 5:
+		case 5: // Caso a pagina for igual 5 remove uma aves exótica.
 		{
-			//aves exoticas
+			// Pega a linha selecionada.
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_aves_exoticas->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			if (row != NULL)
+			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_ave_exotica.col_id);	
 				if(!Responsabilidade(anfibios_exoticos, anfibios_nativos, aves_exoticas,
@@ -728,7 +732,7 @@ void JanelaPrincipal::BotaoRemover()
 										repteis_exoticos, repteis_nativos, id);
 					}
 				}
-				else
+				else // Caso uma linha nãon tenha sido selecionada.
 				{
 					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
 					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
@@ -741,13 +745,13 @@ void JanelaPrincipal::BotaoRemover()
 			}
 			break;
 		}
-		case 6:
+		case 6: // Caso a pagina for igual 6 remove um mamífero nativo.
 		{
-			//mamiferos nativos
+			// Pega a linha selecionada.
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_mamiferos_nativos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			if (row != NULL)
+			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_mamifero_nativo.col_id);	
 				if(!Responsabilidade(anfibios_exoticos, anfibios_nativos, aves_exoticas,
@@ -764,7 +768,7 @@ void JanelaPrincipal::BotaoRemover()
 										repteis_exoticos, repteis_nativos, id);
 					}
 				}
-				else
+				else // Caso uma linha nãon tenha sido selecionada.
 				{
 					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
 					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
@@ -777,13 +781,13 @@ void JanelaPrincipal::BotaoRemover()
 			}
 			break;
 		}
-		case 7:
+		case 7: // Caso a pagina for igual 7 remove um mamífero exótico.
 		{
-			//mamiferos exoticos
+			// Pega a linha selecionada.
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_mamiferos_exoticos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			if (row != NULL)
+			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_mamifero_exotico.col_id);	
 				if(!Responsabilidade(anfibios_exoticos, anfibios_nativos, aves_exoticas,
@@ -800,7 +804,7 @@ void JanelaPrincipal::BotaoRemover()
 										repteis_exoticos, repteis_nativos, id);
 					}
 				}
-				else
+				else // Caso uma linha nãon tenha sido selecionada.
 				{
 					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
 					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
@@ -813,13 +817,13 @@ void JanelaPrincipal::BotaoRemover()
 			}
 			break;
 		}
-		case 8:
+		case 8: // Caso a pagina for igual 8 remove um réptil nativo.
 		{
-			//repteis nativos
+			// Pega a linha selecionada.
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_repteis_nativos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			if (row != NULL)
+			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_reptil_nativo.col_id);	
 				if(!Responsabilidade(anfibios_exoticos, anfibios_nativos, aves_exoticas,
@@ -836,7 +840,7 @@ void JanelaPrincipal::BotaoRemover()
 										repteis_exoticos, repteis_nativos, id);
 					}
 				}
-				else
+				else // Caso uma linha nãon tenha sido selecionada.
 				{
 					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
 					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
@@ -849,13 +853,13 @@ void JanelaPrincipal::BotaoRemover()
 			}
 			break;
 		}
-		case 9:
+		case 9: // Caso a pagina for igual 9 remove um répteis exóticos.
 		{
-			//repteis exoticos
+			// Pega a linha selecionada.
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_repteis_exoticos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			if (row != NULL)
+			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_reptil_exotico.col_id);	
 				if(!Responsabilidade(anfibios_exoticos, anfibios_nativos, aves_exoticas,
@@ -872,7 +876,7 @@ void JanelaPrincipal::BotaoRemover()
 										repteis_exoticos, repteis_nativos, id);
 					}
 				}
-				else
+				else // Caso uma linha nãon tenha sido selecionada.
 				{
 					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
 					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
@@ -886,13 +890,17 @@ void JanelaPrincipal::BotaoRemover()
 			break;
 		}
 	}
-	if(!valid_row)
+	if(!valid_row) // Caso nenhuam linha seja selecionada.
 	{
 		MessageDialog dialog(*window, "Nenhum animal ou funcionario selecionado.");
 		dialog.set_secondary_text("Primeiro selcione um funcionario ou um animal e depois aperte o butão remover.");
   		dialog.run();
 	}
 }
+
+/**
+* @brief Método chama as janelas EditarAnimal e EditarFuncionario quando o botão editar é clicado.
+*/
 
 void JanelaPrincipal::BotaoEditar()
 {
@@ -901,7 +909,7 @@ void JanelaPrincipal::BotaoEditar()
 	bool valid_row = true;
 	switch(pagina)
 	{
-	case 0:
+	case 0: // Caso a pagina for igual 0 edita um tratador.
 		{
 			//tratadores
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_tratadores->get_selection();
@@ -922,7 +930,7 @@ void JanelaPrincipal::BotaoEditar()
 			}
 			break;
 		}
-		case 1:
+		case 1: // Caso a pagina for igual 1 edita um tratador.
 		{
 			//veterinarios
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_veterinarios->get_selection();
@@ -943,7 +951,7 @@ void JanelaPrincipal::BotaoEditar()
 			}
 			break;
 		}
-		case 2:
+		case 2: // Caso a pagina for igual 2 edita um tratador.
 		{
 			//anfibios nativos
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_anfibios_nativos->get_selection();
@@ -964,7 +972,7 @@ void JanelaPrincipal::BotaoEditar()
 			}
 			break;
 		}
-		case 3:
+		case 3: // Caso a pagina for igual 3 edita um tratador.
 		{
 			//anfibios exoticos
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_anfibios_exoticos->get_selection();
@@ -985,7 +993,7 @@ void JanelaPrincipal::BotaoEditar()
 			}
 			break;
 		}
-		case 4:
+		case 4: // Caso a pagina for igual 4 edita um tratador.
 		{
 			//aves nativas
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_aves_nativas->get_selection();
@@ -1006,7 +1014,7 @@ void JanelaPrincipal::BotaoEditar()
 			}
 			break;
 		}
-		case 5:
+		case 5: // Caso a pagina for igual 5 edita um tratador.
 		{
 			//aves exoticas
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_aves_exoticas->get_selection();
@@ -1027,7 +1035,7 @@ void JanelaPrincipal::BotaoEditar()
 			}
 			break;
 		}
-		case 6:
+		case 6: // Caso a pagina for igual 6 edita um tratador.
 		{
 			//mamiferos nativos
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_mamiferos_nativos->get_selection();
@@ -1048,7 +1056,7 @@ void JanelaPrincipal::BotaoEditar()
 			}
 			break;
 		}
-		case 7:
+		case 7: // Caso a pagina for igual 7 edita um tratador.
 		{
 			//mamiferos exoticos
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_mamiferos_exoticos->get_selection();
@@ -1069,7 +1077,7 @@ void JanelaPrincipal::BotaoEditar()
 			}
 			break;
 		}
-		case 8:
+		case 8: // Caso a pagina for igual 8 edita um tratador.
 		{
 			//repteis nativos
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_repteis_nativos->get_selection();
@@ -1090,7 +1098,7 @@ void JanelaPrincipal::BotaoEditar()
 			}
 			break;
 		}
-		case 9:
+		case 9: // Caso a pagina for igual 9 edita um tratador.
 		{
 			//repteis exoticos
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_repteis_exoticos->get_selection();
