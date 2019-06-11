@@ -222,7 +222,7 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 	//Configuração dos atributos da classe GTK.
 	pixbuf_icone = Gdk::Pixbuf::create_from_file("icons/icone_ sem_bico.ico");
 	
-	window->set_default_size(1280, 720);
+	window->maximize();
 	window->set_resizable(true);
 	window->set_border_width(5);
 	window->set_title("PetFera");
