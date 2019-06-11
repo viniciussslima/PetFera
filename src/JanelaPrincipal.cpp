@@ -15,6 +15,7 @@
 
 #include "RemoverFuncionario.h"
 #include "RemoverAnimal.h"
+#include "Responsabilidade.h"
 
 using namespace Gtk;
 using namespace std;

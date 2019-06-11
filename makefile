@@ -10,7 +10,7 @@ LDFLAGS = `pkg-config --libs gtkmm-3.0`
 OBJS = $(BUILDDIR)main.o $(BUILDDIR)JanelaPrincipal.o $(BUILDDIR)JanelaCadastroFuncionario.o \
 $(BUILDDIR)JanelaCadastroAnimal.o $(BUILDDIR)RemoverFuncionario.o $(BUILDDIR)RemoverAnimal.o\
 $(BUILDDIR)JanelaEditarFuncionario.o $(BUILDDIR)JanelaEditarAnimal.o $(BUILDDIR)JanelaBuscaAnimais.o \
-$(BUILDDIR)date.o \
+$(BUILDDIR)Responsabilidade.o $(BUILDDIR)date.o \
 $(BUILDDIR)Funcionario.o $(BUILDDIR)Veterinario.o $(BUILDDIR)Tratador.o \
 $(BUILDDIR)Animal.o \
 $(BUILDDIR)Anfibio.o $(BUILDDIR)AnfibioNativo.o $(BUILDDIR)AnfibioExotico.o \
@@ -44,6 +44,8 @@ $(BUILDDIR)JanelaEditarAnimal.o: $(INCLUDEDIR)JanelaEditarAnimal.h
 	$(CC) $(CPPFLAGSGTK) -c $(SRCDIR)JanelaEditarAnimal.cpp -o $@
 $(BUILDDIR)JanelaBuscaAnimais.o: $(INCLUDEDIR)JanelaBuscaAnimais.h
 	$(CC) $(CPPFLAGSGTK) -c $(SRCDIR)JanelaBuscaAnimais.cpp -o $@
+$(BUILDDIR)Responsabilidade.o : $(INCLUDEDIR)Responsabilidade.h
+	$(CC) $(CPPFLAGS) -c $(SRCDIR)Responsabilidade.cpp -o $@
 $(BUILDDIR)date.o : $(INCLUDEDIR)date.h
 	$(CC) $(CPPFLAGS) -c $(SRCDIR)date.cpp -o $@
 $(BUILDDIR)Funcionario.o : $(INCLUDEDIR)Funcionario.h

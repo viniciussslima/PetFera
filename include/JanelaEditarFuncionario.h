@@ -21,6 +21,7 @@
 #include "Tratador.h"
 #include "JanelaPrincipal.h"
 #include "Separador.h"
+#include "Responsabilidade.h"
 
 using namespace Gtk;
 using namespace std;
@@ -88,6 +89,7 @@ class JanelaEditarFuncionario
 		map<int, ReptilNativo> *repteis_nativos;
 		
 	public:
+		JanelaEditarFuncionario();
 		JanelaEditarFuncionario(JanelaPrincipal&, map<int, Veterinario>&, map<int, Tratador>&, 
 			map<int, AnfibioExotico>&, map<int, AnfibioNativo>&, map<int, AveExotico>&,
 			map<int, AveNativo>&, map<int, MamiferoExotico>&, map<int, MamiferoNativo>&,
@@ -99,7 +101,7 @@ class JanelaEditarFuncionario
 		void Editar();
 		void Remover();
 		void MudarFuncionario();
-		bool Responsabilidade();
+		//bool Responsabilidade();
 		void AtualizarIconeNomeDoFuncionario();
 		void AtualizarIconeCPF();
 		void AtualizarIconeIdade();

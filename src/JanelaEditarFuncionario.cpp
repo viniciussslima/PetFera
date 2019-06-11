@@ -12,18 +12,44 @@
 using namespace Gtk;
 using namespace std;
 
+/**
+* @brief Construtor padrão da classe JanelaEditarAnimal.
+*/
+
+JanelaEditarFuncionario::JanelaEditarFuncionario(){}
+
+/**
+* @brief construtor parametrizado da classe JanelaEditarFuncionario.
+* @param jptemp Janela principal do programa.
+* @param vtemp  Map que contém todos os veterinários cadastrados.
+* @param ttemp Map que contém todos os tratadores cadastrados.
+* @param anetemp Map que contém todos os anfíbios exóticos cadastrados.
+* @param anntemp Map que contém todos os anfíbios nativos cadastrados.
+* @param avetemp Map que contém todas as aves exóticas cadastrados.
+* @param avntemp Map que contém todas as aves nativas cadastrados.
+* @param metemp Map que contém todos os mamíferos exóticos cadastrados.
+* @param mntemp Map que contém todos os mamíferos nativos cadastrados.
+* @param retemp Map que contém todos os reptéis exóticos cadastrados.
+* @param rntemp Map que contém todos os reptéis nativos cadastrados.
+* @param pagtemp Número que representa a pagina do notbook que o usuário estava vendo.
+* @param idtemp Número que representa o ID do funcionário que foi selecionado pelo o usuário.
+*/
+
 JanelaEditarFuncionario::JanelaEditarFuncionario(JanelaPrincipal &jptemp, map<int, Veterinario> &vtemp, map<int, Tratador> &ttemp, map<int, AnfibioExotico> &anetemp, 
 										   map<int, AnfibioNativo> &anntemp, map<int, AveExotico> &avetemp, map<int, AveNativo> &avntemp,
 										   map<int, MamiferoExotico> &metemp, map<int, MamiferoNativo> &mntemp, 
 										   map<int, ReptilExotico> &retemp, map<int, ReptilNativo> &rntemp, 
 										   int pagtemp, int idtemp)
 {
+	// Atribuição de true para todas as variáveis boleanas que representão 
+	// se as informações digitados sobre o funcionário são validas ou não.
 	valid_nome_do_funcionario = true;
 	valid_cpf = true;
 	valid_idade = true;
 	valid_especialidade = true;
 	valid_crmv = true;
 
+	// Atribui os endereços de memória dos maps recebidos como parâmetros para os maps da classe JanelaEditarAnimal.
 	janela_principal = &jptemp;
 
 	veterinarios = &vtemp;
@@ -41,10 +67,11 @@ JanelaEditarFuncionario::JanelaEditarFuncionario(JanelaPrincipal &jptemp, map<in
 	repteis_exoticos = &retemp;
 	repteis_nativos = &rntemp;
 
+	// Atribui os valores de pagtemp e idtemp para os atributos pagina e id da classe JanelaBuscaAnimais.
 	pagina = pagtemp;
 	id = idtemp;
 
-	//Inicialização
+	// Inicialização dos atributos da classe GTK.
 	window = new Window;
 
 	button_Editar = new Button("Editar");
@@ -77,7 +104,7 @@ JanelaEditarFuncionario::JanelaEditarFuncionario(JanelaPrincipal &jptemp, map<in
 	label_crmv = new Label("CRMV: ");
 	label_nivel_de_seguranca = new Label("Nivel de segurança: ");
 
-	//Configuração
+	// Configuração dos atributos da classe GTK.
 	window->set_title("Editar Funcionário");
 	window->set_resizable(false);
 	window->add(*box_principal);
@@ -95,7 +122,6 @@ JanelaEditarFuncionario::JanelaEditarFuncionario(JanelaPrincipal &jptemp, map<in
 	combo_box_fucao->append("Veterinario");
 	combo_box_fucao->append("Tratador");
 
-
 	combo_box_tipo_sanguineo->append("A");
 	combo_box_tipo_sanguineo->append("B");
 	combo_box_tipo_sanguineo->append("AB");
@@ -108,7 +134,6 @@ JanelaEditarFuncionario::JanelaEditarFuncionario(JanelaPrincipal &jptemp, map<in
 	combo_box_nivel_de_seguranca->append("1");
 	combo_box_nivel_de_seguranca->append("2");
 	combo_box_nivel_de_seguranca->set_active(0);
-
 
 	box_principal->add(*box_dados);
 	box_principal->pack_start(*button_Editar, PACK_SHRINK);
@@ -139,7 +164,7 @@ JanelaEditarFuncionario::JanelaEditarFuncionario(JanelaPrincipal &jptemp, map<in
 
 	SetInformacooes();
 
-	//Conexão
+	// Conexões dos atributos da classe GTK.
 	button_Editar->signal_clicked().connect(sigc::mem_fun(*this, &JanelaEditarFuncionario::Editar));
 	combo_box_fucao->signal_changed().connect(sigc::mem_fun(*this, &JanelaEditarFuncionario::MudarFuncionario));
 	entry_nome_do_funcionario->signal_changed().connect(sigc::mem_fun(*this, &JanelaEditarFuncionario::AtualizarIconeNomeDoFuncionario));
@@ -148,6 +173,10 @@ JanelaEditarFuncionario::JanelaEditarFuncionario(JanelaPrincipal &jptemp, map<in
 	entry_especialidade->signal_changed().connect(sigc::mem_fun(*this, &JanelaEditarFuncionario::AtualizarIconeEspecialidade));
 	entry_crmv->signal_changed().connect(sigc::mem_fun(*this, &JanelaEditarFuncionario::AtualizarIconeCRMV));
 }
+
+/**
+* @brief Destrutor da classe JanelaEditarFuncionario.
+*/
 
 JanelaEditarFuncionario::~JanelaEditarFuncionario()
 {
@@ -179,16 +208,25 @@ JanelaEditarFuncionario::~JanelaEditarFuncionario()
 	delete label_nivel_de_seguranca;
 }
 
+/**
+* @brief Método que inicia a janela de edição de funcionários.
+*/
+
 void JanelaEditarFuncionario::Run()
 {
 	Main::run(*window);
 }
 
+/**
+* @brief Método que escolhe os widgets que vão aparece e escreve as informações do funcionário nesse widgets 
+* de acordo com o a função do funcinário escolhido.
+*/
+
 void JanelaEditarFuncionario::SetInformacooes()
 {
 	window->show_all();
 	string tipo_sanguineo;
-	if (pagina == 0)
+	if (pagina == 0) // Se a pagina é igual a 0, o funcionário escolhido é um tratador.
 	{
 		map<int, Tratador>::iterator it_t = tratadores->find(id);
 	
@@ -245,7 +283,7 @@ void JanelaEditarFuncionario::SetInformacooes()
 				break;
 		}
 	}
-	else
+	else // Se a pagina é diferente de 0, o funcionário escolhido é um veteriário.
 	{
 		map<int, Veterinario>::iterator it_v = veterinarios->find(id);
 			
@@ -292,20 +330,30 @@ void JanelaEditarFuncionario::SetInformacooes()
 	}
 }
 
+/**
+* @brief Método que salva todas as informações escritas se elas forem válidas.
+*/
+
 void JanelaEditarFuncionario::Editar()
 {
 	map<int, Tratador>::iterator it_t = tratadores->find(id);
 	map<int, Veterinario>::iterator it_v = veterinarios->find(id);
 
-	if(Responsabilidade() && it_t != tratadores->end() && 
-		combo_box_fucao->get_active_row_number() == 0)
+	// Verificação se todas as informações são validas, caso uma delas não seja
+	// aparecerá uma tela com um aviso informando qual a informação que está incorreta.
+	if(Responsabilidade(*anfibios_exoticos, *anfibios_nativos, *aves_exoticas,
+					*aves_nativas, *mamiferos_exoticos, *mamiferos_nativos, 
+					*repteis_exoticos, *repteis_nativos, id) && 
+		it_t != tratadores->end() && combo_box_fucao->get_active_row_number() == 0)
 	{
 			MessageDialog dialog(*window, "Erro.");
 			dialog.set_secondary_text("Impossivel mudar a função desse funcionário, pois ele é responsavel por animais.");
   			dialog.run();
 	}
-	else if(Responsabilidade() && it_v != veterinarios->end() && 
-		combo_box_fucao->get_active_row_number() == 1)
+	else if(Responsabilidade(*anfibios_exoticos, *anfibios_nativos, *aves_exoticas,
+					*aves_nativas, *mamiferos_exoticos, *mamiferos_nativos, 
+					*repteis_exoticos, *repteis_nativos, id) && 
+		it_v != veterinarios->end() && combo_box_fucao->get_active_row_number() == 1)
 	{
 			MessageDialog dialog(*window, "Erro.");
 			dialog.set_secondary_text("Impossivel mudar a função desse funcionário, pois ele é responsavel por animais.");
@@ -341,6 +389,8 @@ void JanelaEditarFuncionario::Editar()
 		dialog.set_secondary_text("Falta preencher a CRMV do funcionário.");
   		dialog.run();
 	}
+	// Caso todas as informações estiverem corretas as antigas informações do funcionário são apagadas e
+	// as novas são escritas.
 	else
 	{
 		Remover();
@@ -371,12 +421,11 @@ void JanelaEditarFuncionario::Editar()
 				rh = '-';
 				break;
 		}
-
+		// Dependendo da função do funcionário a operação é diferente.
 		switch(combo_box_fucao->get_active_row_number())
 		{
 			case 0:
 			{
-				//veterinarios->erase(id);
 				Veterinario veterinario(id, entry_nome_do_funcionario->get_text(), entry_cpf->get_text(), stoi(entry_idade->get_text()), tipo_sanguineo, rh, entry_especialidade->get_text(), entry_crmv->get_text());
 				veterinarios->insert(pair<int, Veterinario>(id, veterinario));
 				outfile << veterinario << endl;
@@ -395,6 +444,10 @@ void JanelaEditarFuncionario::Editar()
 		window->close();
 	}
 }
+
+/**
+* @brief Método que remove o funcionário.
+*/
 
 void JanelaEditarFuncionario::Remover()
 {
@@ -428,6 +481,10 @@ void JanelaEditarFuncionario::Remover()
 	funcionarios_temp.close();
 }
 
+/**
+* @brief Método que decide os widgets que vão aparecer de acordo com a função do funcionário.
+*/
+
 void JanelaEditarFuncionario::MudarFuncionario()
 {
 	switch(combo_box_fucao->get_active_row_number())
@@ -457,105 +514,6 @@ void JanelaEditarFuncionario::MudarFuncionario()
 				break;
 			}
 	}
-}
-
-bool JanelaEditarFuncionario::Responsabilidade()
-{
-	bool animal_sob_responsabilidade = false;
-	for (map<int, AnfibioExotico>::iterator it = anfibios_exoticos->begin(); it != anfibios_exoticos->end(); it++)
-	{
-		if ((it->second).get_veterinario_id() == id ||
-			(it->second).get_tratador_id() == id)
-		{
-			animal_sob_responsabilidade = true;
-			break;
-		}
-	}
-	if (!animal_sob_responsabilidade)
-	{
-		for (map<int, AnfibioNativo>::iterator it = anfibios_nativos->begin(); it != anfibios_nativos->end(); it++)
-		{
-			if ((it->second).get_veterinario_id() == id ||
-				(it->second).get_tratador_id() == id)
-			{
-				animal_sob_responsabilidade = true;
-				break;
-			}
-		}
-	}
-	if (!animal_sob_responsabilidade)
-	{
-		for (map<int, AveExotico>::iterator it = aves_exoticas->begin(); it != aves_exoticas->end(); it++)
-		{
-			if ((it->second).get_veterinario_id() == id ||
-				(it->second).get_tratador_id() == id)
-			{
-				animal_sob_responsabilidade = true;
-				break;
-			}
-		}
-	}
-	if (!animal_sob_responsabilidade)
-	{
-		for (map<int, AveNativo>::iterator it = aves_nativas->begin(); it != aves_nativas->end(); it++)
-		{
-			if ((it->second).get_veterinario_id() == id ||
-				(it->second).get_tratador_id() == id)
-			{
-				animal_sob_responsabilidade = true;
-				break;
-			}
-		}
-	}
-	if (!animal_sob_responsabilidade)
-	{
-		for (map<int, MamiferoExotico>::iterator it = mamiferos_exoticos->begin(); it != mamiferos_exoticos->end(); it++)
-		{
-			if ((it->second).get_veterinario_id() == id ||
-				(it->second).get_tratador_id() == id)
-			{
-				animal_sob_responsabilidade = true;
-				break;
-			}
-		}
-	}
-	if (!animal_sob_responsabilidade)
-	{
-		for (map<int, MamiferoNativo>::iterator it = mamiferos_nativos->begin(); it != mamiferos_nativos->end(); it++)
-		{
-			if ((it->second).get_veterinario_id() == id ||
-				(it->second).get_tratador_id() == id)
-			{
-				animal_sob_responsabilidade = true;
-				break;
-			}
-		}
-	}
-	if (!animal_sob_responsabilidade)
-	{
-		for (map<int, ReptilExotico>::iterator it = repteis_exoticos->begin(); it != repteis_exoticos->end(); it++)
-		{
-			if ((it->second).get_veterinario_id() == id ||
-				(it->second).get_tratador_id() == id)
-			{
-				animal_sob_responsabilidade = true;
-				break;
-			}
-		}
-	}
-	if (!animal_sob_responsabilidade)
-	{
-		for (map<int, ReptilNativo>::iterator it = repteis_nativos->begin(); it != repteis_nativos->end(); it++)
-		{
-			if ((it->second).get_veterinario_id() == id ||
-				(it->second).get_tratador_id() == id)
-			{
-				animal_sob_responsabilidade = true;
-				break;
-			}
-		}
-	}
-	return animal_sob_responsabilidade;
 }
 
 void JanelaEditarFuncionario::AtualizarIconeNomeDoFuncionario()
