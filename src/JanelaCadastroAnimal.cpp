@@ -797,6 +797,8 @@ void JanelaCadastroAnimal::MudarRegiao()
 			label_uf->show();
 			entry_nacionalidade->hide();
 			label_nacionalidade->hide();
+			entry_cidade->hide();
+			label_cidade->hide();
 			AtualizarIconeId();
 			break;
 		//Caso for exótico
@@ -807,6 +809,8 @@ void JanelaCadastroAnimal::MudarRegiao()
 			label_uf->hide();
 			entry_nacionalidade->show();
 			label_nacionalidade->show();
+			entry_cidade->show();
+			label_cidade->show();
 			AtualizarIconeId();
 			break;
 	}

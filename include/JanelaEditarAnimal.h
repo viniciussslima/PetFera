@@ -62,6 +62,7 @@ class JanelaEditarAnimal
 		ComboBoxText *combo_box_regiao;
 		Entry *entry_nacionalidade;
 		ComboBoxText *combo_box_uf;
+		Entry *entry_cidade;
 		Button *button_editar;
 
 		Entry *entry_total_de_mudas;
@@ -95,6 +96,7 @@ class JanelaEditarAnimal
 		Label *label_regiao;
 		Label *label_nacionalidade;
 		Label *label_uf;
+		Label *label_entry;
 
 		Glib::RefPtr<Gdk::Pixbuf> pixbuf_check;
 		Glib::RefPtr<Gdk::Pixbuf> pixbuf_uncheck;
@@ -109,6 +111,7 @@ class JanelaEditarAnimal
 		bool valid_nome_batismo;
 		bool valid_autorizacao_ibama;
 		bool valid_nacionalidade;
+		bool valid_cidade;
 		bool valid_total_de_mudas;
 		bool valid_data_da_ultima_muda;
 		bool valid_tamanho_do_bico;
@@ -156,6 +159,7 @@ class JanelaEditarAnimal
 		void AtualizarIconeNomeBatismo();
 		void AtualizarIconeAutorizacaoIbama();
 		void AtualizarIconeNacionalidade();
+		void AtualizarIconeCidade();
 		void AtualizarIconeTotalDeMudas();
 		void AtualizarIconeDataDaUltimaMuda();
 		void AtualizarIconeTamanhoDoBico();

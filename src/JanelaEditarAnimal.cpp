@@ -50,6 +50,7 @@ JanelaEditarAnimal::JanelaEditarAnimal(JanelaPrincipal &jptemp, map<int, Veterin
 	valid_nome_batismo = true;
 	valid_autorizacao_ibama = true;
 	valid_nacionalidade = true;
+	valid_cidade = true;
 	valid_total_de_mudas = true;
 	valid_data_da_ultima_muda = true;
 	valid_tamanho_do_bico = true;
@@ -95,6 +96,7 @@ JanelaEditarAnimal::JanelaEditarAnimal(JanelaPrincipal &jptemp, map<int, Veterin
 	entry_veterinario_id = new Entry;
 	entry_tratador_id = new Entry;
 	entry_autorizacao_ibama = new Entry;
+	entry_cidade = new Entry;
 
 	combo_box_uf = new ComboBoxText;
 	combo_box_classe = new ComboBoxText;
@@ -140,6 +142,7 @@ JanelaEditarAnimal::JanelaEditarAnimal(JanelaPrincipal &jptemp, map<int, Veterin
 	label_regiao = new Label("Região: ");
 	label_nacionalidade = new Label("Nacionalidade: ");
 	label_uf = new Label("Estado: ");
+	label_cidade = new Label("Cidade: ");
 
 	// Configuração dos atributos da classe GTK.
 	window->set_title("Editar Animal");
@@ -159,6 +162,7 @@ JanelaEditarAnimal::JanelaEditarAnimal(JanelaPrincipal &jptemp, map<int, Veterin
 	entry_nome_batismo->set_icon_from_pixbuf(pixbuf_check);
 	entry_autorizacao_ibama->set_icon_from_pixbuf(pixbuf_check);
 	entry_nacionalidade->set_icon_from_pixbuf(pixbuf_check);
+	entry_cidade->set_icon_from_pixbuf(pixbuf_check);
 	entry_total_de_mudas->set_icon_from_pixbuf(pixbuf_check);
 	entry_data_da_ultima_muda->set_icon_from_pixbuf(pixbuf_check);
 	entry_tamanho_do_bico->set_icon_from_pixbuf(pixbuf_check);
@@ -235,6 +239,7 @@ JanelaEditarAnimal::JanelaEditarAnimal(JanelaPrincipal &jptemp, map<int, Veterin
 	box_esquerda->add(*label_regiao);
 	box_esquerda->add(*label_nacionalidade);
 	box_esquerda->add(*label_uf);
+	box_esquerda->add(*label_cidade);
 	
 	box_direita->pack_start(*label_id_numero, PACK_SHRINK);
 	box_direita->pack_start(*combo_box_classe, PACK_SHRINK);
@@ -259,6 +264,7 @@ JanelaEditarAnimal::JanelaEditarAnimal(JanelaPrincipal &jptemp, map<int, Veterin
 	box_direita->pack_start(*combo_box_regiao, PACK_SHRINK);
 	box_direita->pack_start(*entry_nacionalidade, PACK_SHRINK);
 	box_direita->pack_start(*combo_box_uf, PACK_SHRINK);
+	box_direita->pack_start(*entry_cidade, PACK_SHRINK);
 
 	SetInformacooes();
 
@@ -277,6 +283,7 @@ JanelaEditarAnimal::JanelaEditarAnimal(JanelaPrincipal &jptemp, map<int, Veterin
 	entry_nome_batismo->signal_changed().connect(sigc::mem_fun(*this, &JanelaEditarAnimal::AtualizarIconeNomeBatismo));
 	entry_autorizacao_ibama->signal_changed().connect(sigc::mem_fun(*this, &JanelaEditarAnimal::AtualizarIconeAutorizacaoIbama));
 	entry_nacionalidade->signal_changed().connect(sigc::mem_fun(*this, &JanelaEditarAnimal::AtualizarIconeNacionalidade));
+	entry_cidade->signal_changed().connect(sigc::mem_fun(*this, &JanelaEditarAnimal::AtualizarIconeCidade));
 	entry_total_de_mudas->signal_changed().connect(sigc::mem_fun(*this, &JanelaEditarAnimal::AtualizarIconeTotalDeMudas));
 	entry_data_da_ultima_muda->signal_changed().connect(sigc::mem_fun(*this, &JanelaEditarAnimal::AtualizarIconeDataDaUltimaMuda));
 	entry_tamanho_do_bico->signal_changed().connect(sigc::mem_fun(*this, &JanelaEditarAnimal::AtualizarIconeTamanhoDoBico));
@@ -1563,6 +1570,8 @@ void JanelaEditarAnimal::MudarRegiao()
 			label_uf->show();
 			entry_nacionalidade->hide();
 			label_nacionalidade->hide();
+			entry_cidade->hide();
+			label_cidade->hide();
 			break;
 		case 1: // Caso o animal seja exótico.
 			valid_nacionalidade = false;
@@ -1570,6 +1579,8 @@ void JanelaEditarAnimal::MudarRegiao()
 			label_uf->hide();
 			entry_nacionalidade->show();
 			label_nacionalidade->show();
+			entry_cidade->show();
+			label_cidade->show();
 			break;
 	}
 }
@@ -1853,6 +1864,39 @@ void JanelaEditarAnimal::AtualizarIconeNacionalidade()
 	{
 		valid_nacionalidade = true;
 		entry_nacionalidade->set_icon_from_pixbuf(pixbuf_check);
+	}
+}
+
+/**
+* @brief Método que é responsável para atualizar o icone de válido ou inválido da cidade.
+*/
+
+void JanelaEditarAnimal::AtualizarIconeCidade()
+{
+	string temp = entry_cidade->get_text();
+	bool is_numeric = true;
+	//Verificado se todos os caracteres são digitos
+	for(unsigned int i = 0; i < temp.size(); i++)
+	{
+		if(!isdigit(temp[i]))
+		{
+			is_numeric = false;
+			break;
+		}
+	}
+	//Se for todos numeros e não estiver vazio
+	if(!is_numeric && !temp.empty())
+	{
+		valid_cidade = true;
+		entry_cidade->set_icon_from_pixbuf(pixbuf_check);
+		entry_cidade->set_icon_tooltip_text("Cidade válida");
+	}
+	//Se os dados forem inválidos
+	else
+	{
+		valid_cidade = false;
+		entry_cidade->set_icon_from_pixbuf(pixbuf_uncheck);
+		entry_cidade->set_icon_tooltip_text("Cidade inválida");
 	}
 }
 
