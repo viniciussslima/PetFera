@@ -74,6 +74,7 @@ ostream& operator<<(ostream &o, AnfibioExotico A)
 		<< A.m_total_de_mudas << ";"
 		<< A.m_ultima_muda << ";"
 		<< A.m_autorizacao_ibama << ";"
+		<< A.m_m_cidade_origem << ";"
 		<< A.m_pais_origem << ";";
 	return o;
 }
