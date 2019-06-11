@@ -189,13 +189,19 @@ JanelaCadastroFuncionario::~JanelaCadastroFuncionario()
 void JanelaCadastroFuncionario::Run()
 {
 	window->show_all();
+	//Escondendo os widgets que não são pertencentes a função veterinário.
 	combo_box_nivel_de_seguranca->hide();
 	label_nivel_de_seguranca->hide();
 	Main::run(*window);
 }
 
+/**
+* @brief Método que é responsável pelo cadastro de funcionários.
+*/
+
 void JanelaCadastroFuncionario::Cadastrar()
 {
+	//Verificando se os atributos são válidos.
 	if(!valid_id)
 	{
 		MessageDialog dialog(*window, "ID inválido.");
@@ -232,11 +238,13 @@ void JanelaCadastroFuncionario::Cadastrar()
 		dialog.set_secondary_text("Falta preencher a CRMV do funcionário.");
   		dialog.run();
 	}
+	//Caso os atributos forem válidos.
 	else
 	{
 		ofstream outfile("Dados/funcionarios.csv", ios::app);
 		string tipo_sanguineo;
 		char rh;
+		//Pegando os atributos do tipo sanguineo e do rh
 		switch(combo_box_tipo_sanguineo->get_active_row_number())
 		{
 			case 0:
@@ -264,6 +272,7 @@ void JanelaCadastroFuncionario::Cadastrar()
 
 		switch(combo_box_fucao->get_active_row_number())
 		{
+			//Caso for veterinário
 			case 0:
 			{
 				Veterinario veterinario(stoi(entry_id->get_text()), entry_nome_do_funcionario->get_text(), entry_cpf->get_text(), stoi(entry_idade->get_text()), tipo_sanguineo, rh, entry_especialidade->get_text(), entry_crmv->get_text());
@@ -272,6 +281,7 @@ void JanelaCadastroFuncionario::Cadastrar()
 				janela_principal->AtualizarLista(1);
 				break;
 			}
+			//Caso for tratador
 			case 1:
 			{
 				Tratador tratador(stoi(entry_id->get_text()), entry_nome_do_funcionario->get_text(), entry_cpf->get_text(), stoi(entry_idade->get_text()), tipo_sanguineo, rh, entry_especialidade->get_text(), combo_box_nivel_de_seguranca->get_active_row_number());
@@ -284,6 +294,10 @@ void JanelaCadastroFuncionario::Cadastrar()
 		window->close();
 	}
 }
+
+/**
+* @brief Método que é responsável para mudar os widgets que são mostrados para sua respectiva função selecionada.
+*/
 
 void JanelaCadastroFuncionario::MudarFuncionario()
 {
@@ -308,10 +322,15 @@ void JanelaCadastroFuncionario::MudarFuncionario()
 	}
 }
 
+/**
+* @brief Método que é responsável para atualizar o icone de válido ou inválido do ID.
+*/
+
 void JanelaCadastroFuncionario::AtualizarIconeId()
 {
 	string temp = entry_id->get_text();
 	bool is_numeric = true;
+	//Verificado se todos os caracteres são digitos
 	for(unsigned int i = 0; i < temp.size(); i++)
 	{
 		if(!isdigit(temp[i]))
@@ -320,12 +339,14 @@ void JanelaCadastroFuncionario::AtualizarIconeId()
 			break;
 		}
 	}
+	//Se for todos numeros e não estiver vazio
 	if(is_numeric && !temp.empty())
 	{
 		int id = stoi(temp);
 		map<int, Veterinario>::iterator it_v = veterinarios->find(id);
 		map<int, Tratador>::iterator it_t = tratadores->find(id);
 
+		//Caso tenha encontrado algum funcionário com o ID fornecido
 		if(it_v != veterinarios->end() || it_t != tratadores->end())
 		{
 			valid_id = false;
@@ -339,6 +360,7 @@ void JanelaCadastroFuncionario::AtualizarIconeId()
 			entry_id->set_icon_tooltip_text("ID válido");
 		}
 	}
+	//Se os dados forem inválidos
 	else
 	{
 		valid_id = false;
@@ -346,6 +368,10 @@ void JanelaCadastroFuncionario::AtualizarIconeId()
 		entry_id->set_icon_tooltip_text("ID inválido");
 	}
 }
+
+/**
+* @brief Método que é responsável para atualizar o icone de válido ou inválido do nome do funcionário.
+*/
 
 void JanelaCadastroFuncionario::AtualizarIconeNomeDoFuncionario()
 {
@@ -362,10 +388,15 @@ void JanelaCadastroFuncionario::AtualizarIconeNomeDoFuncionario()
 	}
 }
 
+/**
+* @brief Método que é responsável para atualizar o icone de válido ou inválido do CPF.
+*/
+
 void JanelaCadastroFuncionario::AtualizarIconeCPF()
 {
 	string temp = entry_cpf->get_text();
 	bool is_cpf = true;
+	//Verificando se o texto é na formatação de um CPF
 	for(unsigned int i = 0; i < temp.size(); i++)
 	{
 		if(!isdigit(temp[i]) && (i == 0 || i == 1 || i == 2 || i == 4 || i == 5 || i == 6 || i == 8 || i == 9 || i == 10 || i == 12 || i == 13))
@@ -379,26 +410,25 @@ void JanelaCadastroFuncionario::AtualizarIconeCPF()
 			break;
 		}
 	}
-
+	//Caso o dado informado estiver na forma de um cpf
 	if(is_cpf && temp.size() == 14)
 	{
-		//string cpf = temp[0] + temp[1] + temp[2] + temp[4] + temp[5] + temp[6] + temp[8] + temp[9] + temp[10] + temp[12] + temp[13];
 		string cpf;
 		int verificador_1 = 0, verificador_2 = 0;
-
+		//Transformando a string da entry em uma string só com os numeros do CPF
 		for(int i = 0; i < 14; i++)
 		{
 			if(i != 3 && i != 7 && i != 11)
 				cpf += temp[i];
 		}
-
+		//Cálculo para validação do CPF
 		for(int i = 0; i < 10; i++)
 		{
 			if(i != 9)
 				verificador_1 += stoi(cpf.substr(i, 1)) * (10 - i);
 			verificador_2 += stoi(cpf.substr(i, 1)) * (11 - i);
 		}
-
+		//Caso o CPF for válido
 		if(verificador_1 * 10 % 11 == stoi(cpf.substr(9, 1)) && verificador_2 * 10 % 11 == stoi(cpf.substr(10, 1)))
 		{
 			valid_cpf = true;
@@ -420,12 +450,16 @@ void JanelaCadastroFuncionario::AtualizarIconeCPF()
 	}
 }
 
+/**
+* @brief Método que é responsável para atualizar o icone de válido ou inválido da idade.
+*/
+
 void JanelaCadastroFuncionario::AtualizarIconeIdade()
 {
 	string entry_text = entry_idade->get_text();
 	int temp;
 	bool is_numeric = true;
-
+	//Verificado se todos os caracteres são digitos
 	for(unsigned int i = 0; i < entry_text.length(); i++)
 	{
 		if(!isdigit(entry_text[i]))
@@ -434,7 +468,7 @@ void JanelaCadastroFuncionario::AtualizarIconeIdade()
 			break;
 		}
 	}
-
+	//Tenta fazer o stoI, existe a possibilidade de dar erro quando não houver nada digitado
 	try
 	{
 		temp = stoi(entry_text);
@@ -446,6 +480,7 @@ void JanelaCadastroFuncionario::AtualizarIconeIdade()
 		entry_idade->set_icon_tooltip_text("Idade inválida");
 		return;
 	}
+	//Se a idade for maior que 0 e for numerico implica que é um dado válido
 	if(temp > 0 && is_numeric)
 	{
 		valid_idade = true;
@@ -457,6 +492,10 @@ void JanelaCadastroFuncionario::AtualizarIconeIdade()
 		entry_idade->set_icon_from_pixbuf(pixbuf_uncheck);
 	}
 }
+
+/**
+* @brief Método que é responsável para atualizar o icone de válido ou inválido da especialidade.
+*/
 
 void JanelaCadastroFuncionario::AtualizarIconeEspecialidade()
 {
@@ -472,6 +511,10 @@ void JanelaCadastroFuncionario::AtualizarIconeEspecialidade()
 		entry_especialidade->set_icon_from_pixbuf(pixbuf_check);
 	}
 }
+
+/**
+* @brief Método que é responsável para atualizar o icone de válido ou inválido do CRMV.
+*/
 
 void JanelaCadastroFuncionario::AtualizarIconeCRMV()
 {

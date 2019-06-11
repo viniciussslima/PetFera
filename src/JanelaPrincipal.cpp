@@ -20,6 +20,10 @@
 using namespace Gtk;
 using namespace std;
 
+/**
+* @brief Construtor padrão da classe JanelaPrincipal.
+*/
+
 JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinario(),
 	ModelColumnsAnfibioNativo(), ModelColumnsAnfibioExotico(),
 	ModelColumnsAveNativa(), ModelColumnsAveExotica(),
@@ -28,7 +32,7 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 {
 	ifstream funcionarios_csv("Dados/funcionarios.csv");
 	ifstream animais_csv("Dados/animais.csv");
-
+	//Carregando os dados dos funcionários
 	if(funcionarios_csv.is_open())
 	{
 		string linha;
@@ -37,7 +41,7 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 		while(getline(funcionarios_csv, linha))
 		{
 			palavras = Separador_csv(linha);
-
+			//Carregando algumas das informações do funcionário
 			int id = stoi(palavras[0]);
 			string funcao = palavras[1];
 			string nome = palavras[2];
@@ -46,13 +50,14 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 			string tipo_sanguineo = palavras[5];
 			char fator_rh = palavras[6][0];
 			string especialidade = palavras[7];
-
+			//Caso for um tratador
 			if(funcao.compare("TRATADOR") == 0)
 			{
 				int nivel_seguranca = stoi(palavras[8]);
 				Tratador temp(id, nome, cpf, idade, tipo_sanguineo, fator_rh, especialidade, nivel_seguranca);
 				tratadores.insert(pair<int, Tratador>(id, temp));
 			}
+			//Caso for um funcionário
 			else
 			{
 				string crmv = palavras[8];
@@ -61,7 +66,7 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 			}
 		}
 	}
-
+	//Carregando os dados dos animais
 	if(animais_csv.is_open())
 	{
 		string linha;
@@ -70,7 +75,7 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 		while(getline(animais_csv, linha))
 		{
 			palavras = Separador_csv(linha);
-
+			//Carregando algumas das informações do funcionário
 			int id = stoi(palavras[0]);
 			string classe = palavras[1];
 			string nome_cientifico = palavras[2];
@@ -173,7 +178,7 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 		}
 	}
 
-	//Inicialização
+	//Inicialização dos atributos da classe GTK.
 	window = new Window;
 
 	button_cadastro_animal = new Button("Cadastrar animal");
@@ -214,7 +219,7 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 	scrolled_window_repteis_nativos = new ScrolledWindow;
 	scrolled_window_repteis_exoticos = new ScrolledWindow;
 
-	//Configuração
+	//Configuração dos atributos da classe GTK.
 	pixbuf_icone = Gdk::Pixbuf::create_from_file("icons/PetFera2.ico");
 	
 	window->set_default_size(1280, 720);
@@ -428,7 +433,7 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 		AtualizarLista(i);
 	}
 
-	//Conexão
+	//Conexões dos atributos da classe GTK.
 	button_cadastro_funcionario->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::BotaoCadastrarFuncionario));
 	button_cadastro_animal->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::BotaoCadastrarAnimal));
 	button_remover->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::BotaoRemover));
@@ -436,6 +441,10 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 	button_buscar_animal_por_funcionario->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::BotaoBuscarAnimalPorFuncionario));
 	button_about->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::BotaoAbout));
 }
+
+/**
+* @brief Destrutor da classe JanelaPrincipal.
+*/
 
 JanelaPrincipal::~JanelaPrincipal()
 {
@@ -472,17 +481,29 @@ JanelaPrincipal::~JanelaPrincipal()
 	delete scrolled_window_repteis_exoticos;
 }
 
+/**
+* @brief Método que inicia a janela principal.
+*/
+
 void JanelaPrincipal::Run()
 {
 	window->show_all();
 	Main::run(*window);
 }
 
+/**
+* @brief Método que inicia a janela cadastrar funcionário.
+*/
+
 void JanelaPrincipal::BotaoCadastrarFuncionario()
 {
 	JanelaCadastroFuncionario temp(*this, veterinarios, tratadores);
 	temp.Run();
 }
+
+/**
+* @brief Método que inicia a janela cadastrar animal.
+*/
 
 void JanelaPrincipal::BotaoCadastrarAnimal()
 {
@@ -1183,6 +1204,11 @@ void JanelaPrincipal::BotaoAbout()
 	about_dialog.set_authors(lista_de_autores);
 	about_dialog.run();
 }
+
+/**
+* @brief Método que atualiza as listas.
+* @param i Indica qual lista vai atualizar.
+*/
 
 void JanelaPrincipal::AtualizarLista(int i)
 {
