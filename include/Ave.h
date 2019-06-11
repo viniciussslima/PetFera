@@ -1,3 +1,12 @@
+/**
+* @file Ave.h
+* @brief Classe que representa aves.
+* @author
+* Hudson Bruno Macedo Alves,
+* João Vitor Kobata,
+* Vinicius Santos Silva de Lima.
+*/
+
 #ifndef _H_AVE_H
 #define _H_AVE_H
 

@@ -1,6 +1,6 @@
 /**
 * @file Funcionario.cpp
-* @brief Classe que representa funcionários.
+* @brief Implementação da classe que representa funcionários.
 * @author
 * Hudson Bruno Macedo Alves,
 * João Vitor Kobata,

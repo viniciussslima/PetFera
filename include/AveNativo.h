@@ -1,3 +1,12 @@
+/**
+* @file AveNativo.h
+* @brief Classe que representa aves nativas.
+* @author
+* Hudson Bruno Macedo Alves,
+* João Vitor Kobata,
+* Vinicius Santos Silva de Lima.
+*/
+
 #ifndef _H_AVENATIVO_H
 #define _H_AVENATIVO_H
 

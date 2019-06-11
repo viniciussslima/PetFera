@@ -1,6 +1,6 @@
 /**
 * @file date.cpp
-* @brief Classe que representa datas.
+* @brief Implementação da classe que representa datas.
 * @author Bernt A Oedegaard.
 */
 

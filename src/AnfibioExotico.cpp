@@ -1,6 +1,6 @@
 /**
 * @file AnfibioExotico.cpp
-* @brief Classe que representa anfibíos exóticos.
+* @brief Implementação da classe que representa anfibíos exóticos.
 * @author
 * Hudson Bruno Macedo Alves,
 * João Vitor Kobata,

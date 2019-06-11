@@ -1,6 +1,6 @@
 /**
 * @file JanelaEditarFuncionario.cpp
-* @brief Classe que abre uma janela que possibilita editar as informações de um funcionário.
+* @brief Implementação da classe JanelaEditarFuncionario.
 * @author
 * Hudson Bruno Macedo Alves,
 * João Vitor Kobata,

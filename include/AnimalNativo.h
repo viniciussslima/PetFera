@@ -1,3 +1,12 @@
+/**
+* @file AnimalNativo.h
+* @brief Classe que representa animais nativos.
+* @author
+* Hudson Bruno Macedo Alves,
+* João Vitor Kobata,
+* Vinicius Santos Silva de Lima.
+*/
+
 #ifndef _H_ANIMAL_NATIVO_H_
 #define _H_ANIMAL_NATIVO_H_
 

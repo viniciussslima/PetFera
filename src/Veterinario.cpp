@@ -1,6 +1,6 @@
 /**
 * @file Veterinario.cpp
-* @brief Classe que representa veterinários.
+* @brief Implementação da classe que representa veterinários.
 * @author
 * Hudson Bruno Macedo Alves,
 * João Vitor Kobata,

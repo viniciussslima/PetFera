@@ -1,5 +1,9 @@
-// file: date.h
-// author: Bernt A Oedegaard.
+/**
+* @file date.cpp
+* @brief Classe que representa datas.
+* @author Bernt A Oedegaard.
+*/
+
 #ifndef _DATE_H_
 #define _DATE_H_
 
