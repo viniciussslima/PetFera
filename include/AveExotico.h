@@ -21,7 +21,7 @@ class AveExotico : public Ave, public AnimalExotico
 		AveExotico();
 		AveExotico(int, string,	string, char, double,
 			string, Veterinario, Tratador, string, double, 
-			double, string, string);
+			double, string, string, string);
 		~AveExotico();
 		friend ostream& operator<<(ostream &, AveExotico);
 };

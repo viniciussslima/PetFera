@@ -22,7 +22,7 @@ class AnfibioExotico : public Anfibio, public AnimalExotico
 		AnfibioExotico(int, string, string, char,
 			double, string, Veterinario,
 			Tratador, string, int,
-			date, string, string);
+			date, string, string, string);
 		~AnfibioExotico();
 		friend ostream& operator<<(ostream &, AnfibioExotico);
 };

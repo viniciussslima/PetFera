@@ -21,7 +21,7 @@ class MamiferoExotico : public Mamifero, public AnimalExotico
 		MamiferoExotico();
 		MamiferoExotico(int, string, string, char,
 			double, string, Veterinario, Tratador,
-			string, string, string, string);
+			string, string, string, string, string);
 		~MamiferoExotico();
 		friend ostream& operator<<(ostream &, MamiferoExotico);
 };
