@@ -12,7 +12,7 @@ using namespace Gtk;
 using namespace std;
 
 /**
-* @brief construtor parametrizado da classe JanelaCadastroAnimal.
+* @brief Construtor parametrizado da classe JanelaCadastroAnimal.
 * @param jptemp Janela principal do programa.
 * @param vtemp  Map que contém todos os veterinários cadastrados.
 * @param ttemp Map que contém todos os tratadores cadastrados.
