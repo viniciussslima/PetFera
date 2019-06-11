@@ -189,7 +189,7 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 
 	notebook_consulta = new Notebook;
 
-	IconeButao = new Image("icons/icone-de-informação3.ico");
+	IconeButao = new Image("icons/icone_informativo.ico");
 
 	tree_view_tratadores = new TreeView;
 	tree_view_veterinarios = new TreeView;
