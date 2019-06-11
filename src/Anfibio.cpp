@@ -71,6 +71,10 @@ int Anfibio::get_total_de_mudas()
 
 string Anfibio::get_data_da_ultima_muda()
 {
+	if (m_ultima_muda.day() == 0 && m_ultima_muda.month() == 0 && m_ultima_muda.year() == 0)
+	{
+		return "Sem data";
+	}
 	string temp;
 	temp += to_string(m_ultima_muda.day());
 	temp += "/";
