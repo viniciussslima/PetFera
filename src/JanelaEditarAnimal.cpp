@@ -207,7 +207,6 @@ JanelaEditarAnimal::JanelaEditarAnimal(JanelaPrincipal &jptemp, map<int, Veterin
 	combo_box_uf->append("SE");
 	combo_box_uf->append("TO");
 
-
 	box_principal->add(*box_dados);
 	box_principal->pack_start(*button_editar, PACK_SHRINK);
 	box_dados->add(*box_esquerda);
@@ -344,7 +343,7 @@ JanelaEditarAnimal::~JanelaEditarAnimal()
 }
 
 /**
-* @brief Método que inicia a janela de editar de animais.
+* @brief Método que inicia a janela de edição de animais.
 */
 
 void JanelaEditarAnimal::Run()
@@ -1177,7 +1176,7 @@ void JanelaEditarAnimal::SetInformacooes()
 }
 
 /**
-* @brief Método que salva todas as informações escritas se elas forem validas.
+* @brief Método que salva todas as informações escritas se elas forem válidas.
 */
 
 void JanelaEditarAnimal::Editar()
@@ -1276,7 +1275,7 @@ void JanelaEditarAnimal::Editar()
   		dialog.run();
 	}
 	// Caso todas as informações estiverem corretas as antigas informações do animal são apagadas e
-	// as novas são escritas
+	// as novas são escritas.
 	else
 	{
 		Remover();
@@ -1296,7 +1295,7 @@ void JanelaEditarAnimal::Editar()
 		ofstream outfile;
 		outfile.open("Dados/animais.csv", ios::app);
 
-		// Dependendo da espécie do animal as operações são diferentes, devido as especificidades de cada espécie 
+		// Dependendo da espécie do animal as operações são diferentes, devido as especificidades de cada espécie.
 		switch(combo_box_classe->get_active_row_number())
 		{
 			case 0:
@@ -1657,13 +1656,13 @@ void JanelaEditarAnimal::MudarRegiao()
 
 void JanelaEditarAnimal::MostrarVeterinario()
 {
-	if(!check_button_veterinario_incluso->get_active()) // Caso o check button de veterinário incluso estiver selecionado
+	if(!check_button_veterinario_incluso->get_active()) // Caso o check button de veterinário incluso estiver selecionado.
 	{
 		valid_veterinario_id = true;
 		entry_veterinario_id->hide();
 		label_veterinario_id->hide();
 	}
-	else // Caso o check button de veterinário incluso não estiver selecionado
+	else // Caso o check button de veterinário incluso não estiver selecionado.
 	{
 		valid_veterinario_id = false;
 		entry_veterinario_id->show();
@@ -1677,7 +1676,7 @@ void JanelaEditarAnimal::MostrarVeterinario()
 
 void JanelaEditarAnimal::MostrarTratador()
 {
-	if(!check_button_tratador_incluso->get_active()) // Caso o check button de tratador incluso estiver selecionado
+	if(!check_button_tratador_incluso->get_active()) // Caso o check button de tratador incluso estiver selecionado.
 	{
 		valid_tratador_id = true;
 		entry_tratador_id->hide();
@@ -1944,20 +1943,20 @@ void JanelaEditarAnimal::AtualizarIconeTotalDeMudas()
 	{
 		temp = stoi(entry_total_de_mudas->get_text());
 	}
-	catch(exception &ex)
+	catch(exception &ex) // Caso algo que não pode ser convertido para inteiro seja digitado.
 	{
 		valid_total_de_mudas = false;
 		entry_total_de_mudas->set_icon_from_pixbuf(pixbuf_uncheck);
 		entry_total_de_mudas->set_icon_tooltip_text("Quantidade Inválida");
 		return;
 	}
-	if (temp < 0)
+	if (temp < 0) // Caso o total de muldas digitado seja menor que 0.
 	{
 		valid_total_de_mudas = false;
 		entry_total_de_mudas->set_icon_from_pixbuf(pixbuf_uncheck);
 		entry_total_de_mudas->set_icon_tooltip_text("Quantidade Inválida");
 	}
-	else
+	else // Caso o total de mudas seja válido.
 	{
 		valid_total_de_mudas = true;
 		entry_total_de_mudas->set_icon_from_pixbuf(pixbuf_check);
@@ -1980,19 +1979,19 @@ void JanelaEditarAnimal::AtualizarIconeDataDaUltimaMuda()
 		date temp2(data[0], data[1], data[2]);
 		data_da_ultima_muda = temp2;
 	}
-	catch(exception &ex)
+	catch(exception &ex) // Caso não seja possivel converter a data digitada para o tipo date.
 	{
 		valid_data_da_ultima_muda = false;
 		entry_data_da_ultima_muda->set_icon_from_pixbuf(pixbuf_uncheck);
 		entry_data_da_ultima_muda->set_icon_tooltip_text("Data Inválida");
 		return;
 	}
-	if (data_da_ultima_muda.valid())
+	if (data_da_ultima_muda.valid()) // Caso a data seja válida.
 	{
 		valid_data_da_ultima_muda = true;
 		entry_data_da_ultima_muda->set_icon_from_pixbuf(pixbuf_check);
 	}
-	else
+	else // Caso a data não seja válida (Ex: 01/13/2019).
 	{
 		valid_data_da_ultima_muda = false;
 		entry_data_da_ultima_muda->set_icon_from_pixbuf(pixbuf_uncheck);
@@ -2011,20 +2010,20 @@ void JanelaEditarAnimal::AtualizarIconeTamanhoDoBico()
 	{
 		temp = stod(entry_tamanho_do_bico->get_text());
 	}
-	catch(exception &ex)
+	catch(exception &ex) // Caso algo que não pode ser convertido para double seja digitado.
 	{
 		valid_tamanho_do_bico = false;
 		entry_tamanho_do_bico->set_icon_from_pixbuf(pixbuf_uncheck);
 		entry_tamanho_do_bico->set_icon_tooltip_text("Tamanho inválido");
 		return;
 	}	
-	if(temp <= 0)
+	if(temp <= 0) // Caso o tamanho do bico digitado seja menor ou igual a 0.
 	{
 			valid_tamanho_do_bico = false;
 			entry_tamanho_do_bico->set_icon_from_pixbuf(pixbuf_uncheck);
 			entry_tamanho_do_bico->set_icon_tooltip_text("O tamanho tem que ser maior que 0");
 	}
-	else
+	else // Caso o tamanho do bico seja válido.
 	{
 		valid_tamanho_do_bico = true;
 		entry_tamanho_do_bico->set_icon_from_pixbuf(pixbuf_check);
@@ -2038,20 +2037,20 @@ void JanelaEditarAnimal::AtualizarIconeEnvergaduraDasAsas()
 	{
 		temp = stod(entry_envergadura_das_asas->get_text());
 	}
-	catch(exception &ex)
+	catch(exception &ex) // Caso algo que não pode ser convertido para double seja digitado.
 	{
 		valid_envergadura_das_asas = false;
 		entry_envergadura_das_asas->set_icon_from_pixbuf(pixbuf_uncheck);
 		entry_envergadura_das_asas->set_icon_tooltip_text("Tamanho inválido");
 		return;
 	}	
-	if(temp <= 0)
+	if(temp <= 0) // Caso o tamanho da envergadura digitado seja menor ou igual a 0.
 	{
 			valid_envergadura_das_asas = false;
 			entry_envergadura_das_asas->set_icon_from_pixbuf(pixbuf_uncheck);
 			entry_envergadura_das_asas->set_icon_tooltip_text("O tamanho tem que ser maior que 0");
 	}
-	else
+	else  // Caso o tamanho da envergadura digitado seja válido.
 	{
 		valid_envergadura_das_asas = true;
 		entry_envergadura_das_asas->set_icon_from_pixbuf(pixbuf_check);
@@ -2065,12 +2064,12 @@ void JanelaEditarAnimal::AtualizarIconeEnvergaduraDasAsas()
 void JanelaEditarAnimal::AtualizarIconeCorDosPelos()
 {
 	string temp = entry_cor_dos_pelos->get_text();
-	if(temp.empty())
+	if(temp.empty()) // Caso a cor dos pelos seja inválida.
 	{
 			valid_cor_dos_pelos = false;
 			entry_cor_dos_pelos->set_icon_from_pixbuf(pixbuf_uncheck);
 	}
-	else
+	else // Caso a cor dos pelos seja válida.
 	{
 		valid_cor_dos_pelos = true;
 		entry_cor_dos_pelos->set_icon_from_pixbuf(pixbuf_check);
@@ -2084,12 +2083,12 @@ void JanelaEditarAnimal::AtualizarIconeCorDosPelos()
 void JanelaEditarAnimal::AtualizarIconeTipoDeVeneno()
 {
 	string temp = entry_tipo_de_veneno->get_text();
-	if(temp.empty())
+	if(temp.empty()) // Caso o tipo de veneno digitado seja inválido.
 	{
 			valid_tipo_veneno = false;
 			entry_tipo_de_veneno->set_icon_from_pixbuf(pixbuf_uncheck);
 	}
-	else
+	else // Caso o tipo de veneno digitado seja válido.
 	{
 		valid_tipo_veneno = true;
 		entry_tipo_de_veneno->set_icon_from_pixbuf(pixbuf_check);

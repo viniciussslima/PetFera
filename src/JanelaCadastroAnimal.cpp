@@ -497,10 +497,20 @@ void JanelaCadastroAnimal::Cadastrar()
 				{
 					case 0:
 					{
-						vector<int> data;
-						string data_string = entry_data_da_ultima_muda->get_text();
-						data = Separador_data(data_string);
-						date data_date(data[0], data[1], data[2]);
+						date data_date;
+						if (stoi(entry_total_de_mudas->get_text()) != 0)
+						{
+							vector<int> data;
+							string data_string = entry_data_da_ultima_muda->get_text();
+							data = Separador_data(data_string);
+							date data_date_temp(data[0], data[1], data[2]);
+							data_date = data_date_temp;
+						}
+						else
+						{
+							date data_date_temp(0, 0, 0);
+							data_date = data_date_temp;
+						}
 
 						AnfibioNativo temp(id, classe, nome_cientifico, sexo, 
 							tamanho, dieta, veterinario, tratador, 
@@ -514,10 +524,20 @@ void JanelaCadastroAnimal::Cadastrar()
 					}
 					case 1:
 					{
-						vector<int> data;
-						string data_string = entry_data_da_ultima_muda->get_text();
-						data = Separador_data(data_string);
-						date data_date(data[0], data[1], data[2]);
+						date data_date;
+						if (stoi(entry_total_de_mudas->get_text()) != 0)
+						{
+							vector<int> data;
+							string data_string = entry_data_da_ultima_muda->get_text();
+							data = Separador_data(data_string);
+							date data_date_temp(data[0], data[1], data[2]);
+							data_date = data_date_temp;
+						}
+						else
+						{
+							date data_date_temp(0, 0, 0);
+							data_date = data_date_temp;
+						}
 
 						AnfibioExotico temp(id, classe, nome_cientifico, sexo,
 							tamanho, dieta, veterinario, tratador, 
@@ -1142,6 +1162,8 @@ void JanelaCadastroAnimal::AtualizarIconeTotalDeMudas()
 		valid_total_de_mudas = false;
 		entry_total_de_mudas->set_icon_from_pixbuf(pixbuf_uncheck);
 		entry_total_de_mudas->set_icon_tooltip_text("Quantidade Inválida");
+		valid_data_da_ultima_muda = false;
+		entry_data_da_ultima_muda->set_icon_from_pixbuf(pixbuf_check);
 		return;
 	}
 	//Verifica se o total de mudas é maior ou igual a zero
@@ -1150,8 +1172,17 @@ void JanelaCadastroAnimal::AtualizarIconeTotalDeMudas()
 		valid_total_de_mudas = false;
 		entry_total_de_mudas->set_icon_from_pixbuf(pixbuf_uncheck);
 		entry_total_de_mudas->set_icon_tooltip_text("Quantidade Inválida");
+		valid_data_da_ultima_muda = false;
+		entry_data_da_ultima_muda->set_icon_from_pixbuf(pixbuf_check);
 	}
-	else
+	else if (temp == 0)
+	{
+		valid_total_de_mudas = true;
+		entry_total_de_mudas->set_icon_from_pixbuf(pixbuf_check);
+		valid_data_da_ultima_muda = true;
+		entry_data_da_ultima_muda->set_icon_from_pixbuf(pixbuf_check);
+	}
+	else 
 	{
 		valid_total_de_mudas = true;
 		entry_total_de_mudas->set_icon_from_pixbuf(pixbuf_check);
@@ -1167,6 +1198,23 @@ void JanelaCadastroAnimal::AtualizarIconeDataDaUltimaMuda()
 	string temp1;
 	vector <int> data;
 	date data_da_ultima_muda;
+	// Caso o total de mudas for igual a 0 não existe uma última data.
+	if (stoi(entry_total_de_mudas->get_text()) == 0)
+	{
+		temp1 = entry_data_da_ultima_muda->get_text();
+		if (temp1.empty())
+		{
+			valid_data_da_ultima_muda = true;
+			entry_data_da_ultima_muda->set_icon_from_pixbuf(pixbuf_check);
+		}
+		else
+		{
+			valid_data_da_ultima_muda = false;
+			entry_data_da_ultima_muda->set_icon_from_pixbuf(pixbuf_uncheck);
+			entry_data_da_ultima_muda->set_icon_tooltip_text("Data Inválida");
+		}
+		return;
+	}
 	//Tentando pegar a data
 	try
 	{

@@ -15,6 +15,7 @@
 
 #include "RemoverFuncionario.h"
 #include "RemoverAnimal.h"
+#include "Responsabilidade.h"
 
 using namespace Gtk;
 using namespace std;
@@ -219,7 +220,7 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 	scrolled_window_repteis_exoticos = new ScrolledWindow;
 
 	//Configuração dos atributos da classe GTK.
-	pixbuf_icone = Gdk::Pixbuf::create_from_file("icons/PetFera2.ico");
+	pixbuf_icone = Gdk::Pixbuf::create_from_file("icons/icone_ sem_bico.ico");
 	
 	window->set_default_size(1280, 720);
 	window->set_resizable(true);
@@ -1188,10 +1189,10 @@ void JanelaPrincipal::BotaoAbout()
 {
 	AboutDialog about_dialog;
 	about_dialog.set_logo(pixbuf_icone);
-	about_dialog.set_version("1.0");
+	about_dialog.set_version("Versão 1.0");
 	about_dialog.set_program_name("PetFera");
 //	about_dialog.set_copyright("Murray Cumming");
-	about_dialog.set_comments("Programa de cadastro de animais para lojas de animais silvestres.");
+	about_dialog.set_comments("Programa de cadastro de animais e funcionários para lojas de animais silvestres.");
 //	about_dialog.set_license("LGPL");
 	about_dialog.set_website("https://github.com/viniciussslima/PetFera");
 	about_dialog.set_website_label("GitHub");

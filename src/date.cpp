@@ -146,13 +146,9 @@ inline long long_date(const date& d) {
 };
 
 ostream& operator << (ostream& os, const date& d){
-	if (d.valid()) {
 	os << d.day() << "/"
 		<< d.month() << "/"
 		<< d.year();
-	}
-	else {
-	os <<  " invalid date "; };
 	return os;
 }
 
