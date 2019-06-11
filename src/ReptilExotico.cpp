@@ -38,14 +38,14 @@ ReptilExotico::ReptilExotico(int new_id, string new_classe,
 	Veterinario new_veterinario, Tratador new_tratador,
 	string new_nome_batismo, bool new_venenoso, 
 	string new_tipo_veneno, string new_autorizacao_ibama, 
-	string new_pais_origem):
+	string new_pais_origem, string new_cidade_origem):
 		Reptil(new_id, new_classe, new_nome_cientifico,
 			new_sexo, new_tamanho, new_dieta,
 			new_veterinario, new_tratador,
 			new_nome_batismo, new_venenoso, 
 			new_tipo_veneno),
 		AnimalExotico(new_autorizacao_ibama, 
-			new_pais_origem){}
+			new_pais_origem, new_cidade_origem){}
 
 /** 
 * @brief Destrutor da classe ReptilExotico.
