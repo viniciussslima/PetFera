@@ -409,6 +409,11 @@ void JanelaCadastroFuncionario::AtualizarIconeCPF()
 			is_cpf = false;
 			break;
 		}
+		if(i != 0 && temp[0] == temp[i])
+		{
+			is_cpf = false;
+			break;
+		}
 	}
 	//Caso o dado informado estiver na forma de um cpf
 	if(is_cpf && temp.size() == 14)
