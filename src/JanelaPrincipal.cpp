@@ -915,7 +915,7 @@ void JanelaPrincipal::BotaoEditar()
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_tratadores->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			if (row != NULL)
+			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_tratador.col_id);	
 				JanelaEditarFuncionario temp(*this, veterinarios, tratadores, 
@@ -936,7 +936,7 @@ void JanelaPrincipal::BotaoEditar()
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_veterinarios->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			if (row != NULL)
+			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_veterinario.col_id);	
 				JanelaEditarFuncionario temp(*this, veterinarios, tratadores, 
@@ -957,7 +957,7 @@ void JanelaPrincipal::BotaoEditar()
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_anfibios_nativos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			if (row != NULL)
+			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_anfibio_nativo.col_id);	
 				JanelaEditarAnimal temp(*this, veterinarios, tratadores, 
@@ -978,7 +978,7 @@ void JanelaPrincipal::BotaoEditar()
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_anfibios_exoticos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			if (row != NULL)
+			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_anfibio_exotico.col_id);	
 				JanelaEditarAnimal temp(*this, veterinarios, tratadores, 
@@ -1020,7 +1020,7 @@ void JanelaPrincipal::BotaoEditar()
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_aves_exoticas->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			if (row != NULL)
+			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_ave_exotica.col_id);	
 				JanelaEditarAnimal temp(*this, veterinarios, tratadores, 
@@ -1041,7 +1041,7 @@ void JanelaPrincipal::BotaoEditar()
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_mamiferos_nativos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			if (row != NULL)
+			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_mamifero_nativo.col_id);	
 				JanelaEditarAnimal temp(*this, veterinarios, tratadores, 
@@ -1062,7 +1062,7 @@ void JanelaPrincipal::BotaoEditar()
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_mamiferos_exoticos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			if (row != NULL)
+			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_mamifero_exotico.col_id);	
 				JanelaEditarAnimal temp(*this, veterinarios, tratadores, 
@@ -1083,7 +1083,7 @@ void JanelaPrincipal::BotaoEditar()
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_repteis_nativos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			if (row != NULL)
+			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_reptil_nativo.col_id);	
 				JanelaEditarAnimal temp(*this, veterinarios, tratadores, 
@@ -1104,7 +1104,7 @@ void JanelaPrincipal::BotaoEditar()
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_repteis_exoticos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
-			if (row != NULL)
+			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_reptil_exotico.col_id);	
 				JanelaEditarAnimal temp(*this, veterinarios, tratadores, 
@@ -1138,13 +1138,11 @@ void JanelaPrincipal::BotaoBuscarAnimalPorFuncionario()
 	bool valid_row = true;
 	switch(pagina)
 	{
-		case 0:
-			//tratadores
-			// Pega a linha selecionada.
+		case 0: // Caso a pagina for igual 0 busca por animais de um tratador.
 			selection = tree_view_tratadores->get_selection();
 			selectedRow = selection->get_selected();
 			row = *selectedRow;
-			if (row != NULL)
+			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_tratador.col_id);	
 				JanelaBuscaAnimais temp(veterinarios, tratadores, anfibios_exoticos, anfibios_nativos, aves_exoticas,
@@ -1152,18 +1150,17 @@ void JanelaPrincipal::BotaoBuscarAnimalPorFuncionario()
 								 repteis_exoticos, repteis_nativos, pagina, id);
 				temp.Run();
 			}
-			else
+			else // Caso uma linha não tenha sido selecionada.
 			{
 				valid_row = false;
 			}
 			break;
-		case 1:
-			//veterinarios
+		case 1:  // Caso a pagina for igual 0 busca por animais de um veterinarios.
 			// Pega a linha selecionada.
 			selection = tree_view_veterinarios->get_selection();			
 			selectedRow = selection->get_selected();
 			row = *selectedRow;
-			if (row != NULL)
+			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 			
 				id = row.get_value(model_columns_tratador.col_id);	
@@ -1172,7 +1169,7 @@ void JanelaPrincipal::BotaoBuscarAnimalPorFuncionario()
 								 repteis_exoticos, repteis_nativos, pagina, id);
 				temp.Run();
 			}
-			else
+			else // Caso uma linha não tenha sido selecionada.
 			{
 				valid_row = false;
 			}
@@ -1183,7 +1180,7 @@ void JanelaPrincipal::BotaoBuscarAnimalPorFuncionario()
 	  		dialog.run();
 	  		break;
 	}
-	if(!valid_row)
+	if(!valid_row) // Caso uma linha não tenha sido selecionada.
 	{
 		MessageDialog dialog(*window, "Nenhum funcionario selecionado.");
 		dialog.set_secondary_text("Primeiro selcione um funcionario e depois aperte o butão buscar animal por funcionario.");
