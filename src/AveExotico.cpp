@@ -1,6 +1,6 @@
 /**
 * @file AveExotico.cpp
-* @brief Classe que representa aves exóticas.
+* @brief Implementação da classe que representa aves exóticas.
 * @author
 * Hudson Bruno Macedo Alves,
 * João Vitor Kobata,

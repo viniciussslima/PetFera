@@ -1,3 +1,12 @@
+/**
+* @file Reptil.h
+* @brief Classe que representa répteis.
+* @author
+* Hudson Bruno Macedo Alves,
+* João Vitor Kobata,
+* Vinicius Santos Silva de Lima.
+*/
+
 #ifndef _H_REPTIL_H_
 #define _H_REPTIL_H_
 

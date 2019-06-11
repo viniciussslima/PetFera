@@ -1,3 +1,12 @@
+/**
+* @file MamiferoNativo.h
+* @brief Classe que representa mamíferos nativos.
+* @author
+* Hudson Bruno Macedo Alves,
+* João Vitor Kobata,
+* Vinicius Santos Silva de Lima.
+*/
+
 #ifndef _H_MAMIFERONATIVO_H_
 #define _H_MAMIFERONATIVO_H_
 

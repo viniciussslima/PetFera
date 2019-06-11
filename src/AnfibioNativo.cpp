@@ -1,6 +1,6 @@
 /**
 * @file AnfibioNativo.cpp
-* @brief Classe que representa anfibíos nativos.
+* @brief Implementação da classe que representa anfibíos nativos.
 * @author
 * Hudson Bruno Macedo Alves,
 * João Vitor Kobata,

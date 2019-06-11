@@ -1,3 +1,12 @@
+/**
+* @file AnfibioExotico.h
+* @brief Classe que representa anfibíos exóticos.
+* @author
+* Hudson Bruno Macedo Alves,
+* João Vitor Kobata,
+* Vinicius Santos Silva de Lima.
+*/
+
 #ifndef _H_ANFIBIOEXOTICO_H_
 #define _H_ANFIBIOEXOTICO_H_
 

@@ -1,3 +1,12 @@
+/**
+* @file Anfibio.h
+* @brief Classe que representa funcionários.
+* @author
+* Hudson Bruno Macedo Alves,
+* João Vitor Kobata,
+* Vinicius Santos Silva de Lima.
+*/
+
 #ifndef _H_FUNCIONARIO_H
 #define _H_FUNCIONARIO_H
 

@@ -1,3 +1,12 @@
+/**
+* @file JanelaEditarAnimal.h
+* @brief Classe que abre uma janela que possibilita editar as informações de um animal.
+* @author
+* Hudson Bruno Macedo Alves,
+* João Vitor Kobata,
+* Vinicius Santos Silva de Lima.
+*/
+
 #ifndef _JANELA_EDITAR_ANIMAL_H_
 #define _JANELA_EDITAR_ANIMAL_H_
 

@@ -1,3 +1,12 @@
+/**
+* @file ReptilExotico.h
+* @brief Classe que representa répeteis exóticos.
+* @author
+* Hudson Bruno Macedo Alves,
+* João Vitor Kobata,
+* Vinicius Santos Silva de Lima.
+*/
+
 #ifndef _H_REPTILEXOTICO_H_
 #define _H_REPTILEXOTICO_H_
 

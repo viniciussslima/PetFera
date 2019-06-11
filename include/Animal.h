@@ -1,3 +1,12 @@
+/**
+* @file Animal.h
+* @brief Classe que representa animais.
+* @author
+* Hudson Bruno Macedo Alves,
+* João Vitor Kobata,
+* Vinicius Santos Silva de Lima.
+*/
+
 #ifndef  _H_ANIMAL_H_
 #define _H_ANIMAL_H_
 

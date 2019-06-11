@@ -1,3 +1,12 @@
+/**
+* @file ReptilNativo.h
+* @brief Classe que representa répteis nativos.
+* @author
+* Hudson Bruno Macedo Alves,
+* João Vitor Kobata,
+* Vinicius Santos Silva de Lima.
+*/
+
 #ifndef _H_REPTILNATIVO_H_
 #define _H_REPTILNATIVO_H_
 

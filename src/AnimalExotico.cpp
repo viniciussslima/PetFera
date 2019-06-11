@@ -1,6 +1,6 @@
 /**
 * @file AnimalExotico.cpp
-* @brief Classe que representa animais exóticos.
+* @brief Implementação da classe que representa animais exóticos.
 * @author
 * Hudson Bruno Macedo Alves,
 * João Vitor Kobata,

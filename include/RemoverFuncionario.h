@@ -1,3 +1,12 @@
+/**
+* @file RemoverFuncionario.h
+* @brief Função que remove funcionários.
+* @author
+* Hudson Bruno Macedo Alves,
+* João Vitor Kobata,
+* Vinicius Santos Silva de Lima.
+*/
+
 #ifndef _REMOVER_FUNCIONARIO_H_
 #define _REMOVER_FUNCIONARIO_H_
 

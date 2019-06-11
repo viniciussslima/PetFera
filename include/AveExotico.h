@@ -1,3 +1,12 @@
+/**
+* @file AveExotico.h
+* @brief Classe que representa aves exóticas.
+* @author
+* Hudson Bruno Macedo Alves,
+* João Vitor Kobata,
+* Vinicius Santos Silva de Lima.
+*/
+
 #ifndef _H_AVEEXOTICO_H
 #define _H_AVEEXOTICO_H
 
