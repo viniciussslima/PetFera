@@ -467,7 +467,7 @@ void JanelaCadastroAnimal::Cadastrar()
 		dialog.set_secondary_text("Falta preencher a nacionalidade do animal.");
   		dialog.run();
 	}
-	//Caso o atributo for válido.
+	//Caso os atributos forem válidos.
 	else
 	{
 		//Pegando os atributos do animal
