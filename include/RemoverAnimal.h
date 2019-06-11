@@ -1,6 +1,6 @@
 /**
 * @file RemoverAnimal.h
-* @brief Função que remove animais.
+* @brief Declaração da fução RemoverAnimal.
 * @author
 * Hudson Bruno Macedo Alves,
 * João Vitor Kobata,

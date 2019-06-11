@@ -1,6 +1,6 @@
 /**
 * @file RemoverFuncionario.h
-* @brief Função que remove funcionários.
+* @brief Declaração da fução RemoverFuncionario.
 * @author
 * Hudson Bruno Macedo Alves,
 * João Vitor Kobata,

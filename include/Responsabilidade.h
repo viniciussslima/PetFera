@@ -1,6 +1,6 @@
 /**
 * @file Responsabilidade.h
-* @brief Função que verifica se um funcionário é responsavel por animais.
+* @brief Declaração da fução Responsabilidade.
 * @author
 * Hudson Bruno Macedo Alves,
 * João Vitor Kobata,
