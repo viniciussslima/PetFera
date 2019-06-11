@@ -40,7 +40,7 @@ AveExotico::AveExotico(int new_id, string new_classe,
 	Veterinario new_veterinario, Tratador new_tratador,
 	string new_nome_batismo, double new_tamanho_do_bico, 
 	double new_evergadura_das_asas, string new_autorizacao_ibama,
-	string new_pais_origem):
+	string new_pais_origem, string new_cidade_origem):
 		Ave(new_id, new_classe,
 			new_nome_cientifico, new_sexo,
 			new_tamanho, new_dieta,
@@ -48,7 +48,7 @@ AveExotico::AveExotico(int new_id, string new_classe,
 			new_nome_batismo, new_tamanho_do_bico,
 			new_evergadura_das_asas),
 		AnimalExotico(new_autorizacao_ibama,
-			new_pais_origem){}
+			new_pais_origem, new_cidade_origem){}
 
 /**
 * @brief Destrutor da classe AveExotico.

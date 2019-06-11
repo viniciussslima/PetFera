@@ -109,7 +109,7 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 			    {
 			    	AnfibioExotico temp(id, classe, nome_cientifico, sexo, tamanho,
 									   dieta, veterinario, tratador, nome_batismo, 
-									   total_mudas, data_ultima_muda, autorizacao_ibama, nacionalidade);
+									   total_mudas, data_ultima_muda, autorizacao_ibama, nacionalidade, palavras[12]);
 			    	anfibios_exoticos.insert(pair<int, AnfibioExotico>(id, temp));
 			    }
 		    }
@@ -130,7 +130,7 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 			    {
 					AveExotico temp(id, classe, nome_cientifico, sexo, tamanho,
 								    dieta, veterinario, tratador, nome_batismo, 
-								    tamanho_bico, envergadura_asas, autorizacao_ibama, nacionalidade);
+								    tamanho_bico, envergadura_asas, autorizacao_ibama, nacionalidade, palavras[12]);
 			    	aves_exoticas.insert(pair<int, AveExotico>(id, temp));
 			    }
 		    }
@@ -150,7 +150,7 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 			    {
 			    	MamiferoExotico temp(id, classe, nome_cientifico, sexo, tamanho,
 								   		 dieta, veterinario, tratador, nome_batismo, 
-								   		 cor_pelo, autorizacao_ibama, nacionalidade);
+								   		 cor_pelo, autorizacao_ibama, nacionalidade, palavras[11]);
 			    	mamiferos_exoticos.insert(pair<int, MamiferoExotico>(id, temp));
 			    }
 		    }
@@ -171,7 +171,7 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 			    {
 			    	ReptilExotico temp(id, classe, nome_cientifico, sexo, tamanho,
 								       dieta, veterinario, tratador, nome_batismo, 
-								       venenoso, tipo_veneno, autorizacao_ibama, nacionalidade);
+								       venenoso, tipo_veneno, autorizacao_ibama, nacionalidade, palavras[12]);
 			    	repteis_exoticos.insert(pair<int, ReptilExotico>(id, temp));
 			    }
 		    }
