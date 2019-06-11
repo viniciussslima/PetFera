@@ -569,7 +569,7 @@ void JanelaEditarAnimal::SetInformacooes()
 
 		entry_nacionalidade->set_text((it->second).get_pais_de_origem());
 
-		entry_cidade->set_text((it->seond).get_cidade_de_origem());
+		entry_cidade->set_text((it->second).get_cidade_de_origem());
 	}
 	else if (pagina == 4)  // Se a pagina é igual a 4, o animal escolhido é uma ave nativa.
 	{
@@ -768,7 +768,7 @@ void JanelaEditarAnimal::SetInformacooes()
 
 		entry_nacionalidade->set_text((it->second).get_pais_de_origem());
 
-		entry_cidade->set_text((it->seond).get_cidade_de_origem());
+		entry_cidade->set_text((it->second).get_cidade_de_origem());
 	}
 	else if (pagina == 6)  // Se a pagina é igual a 6, o animal escolhido é um mamífero nativo.
 	{
@@ -967,7 +967,7 @@ void JanelaEditarAnimal::SetInformacooes()
 
 		entry_nacionalidade->set_text((it->second).get_pais_de_origem());
 
-		entry_cidade->set_text((it->seond).get_cidade_de_origem());
+		entry_cidade->set_text((it->second).get_cidade_de_origem());
 	}
 	else if (pagina == 8) // Se a pagina é igual a 8, o animal escolhido é um reptil exótico.
 	{
@@ -1186,7 +1186,7 @@ void JanelaEditarAnimal::SetInformacooes()
 
 		entry_nacionalidade->set_text((it->second).get_pais_de_origem());
 
-		entry_cidade->set_text((it->seond).get_cidade_de_origem());
+		entry_cidade->set_text((it->second).get_cidade_de_origem());
 	}	
 }
 
