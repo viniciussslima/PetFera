@@ -31,7 +31,9 @@ AveExotico::AveExotico(){}
 * @param new_tamanho_do_bico Número que representa o tamanho do bico da ave. 
 * @param new_envergadura_das_asas Numero que representa a envergadura da ave. 
 * @param new_autorizacao_ibama Conjunto de caracteres que representam a autorização do ibama. 
-* @param new_pais_origem Palavra(s) que representam o país de origem do anfíbio. 
+* @param new_pais_origem Palavra(s) que representam o país de origem da ave. 
+* @param new_cidade_origem Palavra(s) que representam a cidade de origem da ave.
+
 */
 
 AveExotico::AveExotico(int new_id, string new_classe,

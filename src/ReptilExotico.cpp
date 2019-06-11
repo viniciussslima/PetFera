@@ -30,6 +30,7 @@ ReptilExotico::ReptilExotico(){}
 * @param m_tipo_veneno Palavra(s) que representa o tipo de veneno do réptil caso m_venenoso for igual a true.
 * @param new_autorizacao_ibama Conjunto de caracteres que representam a autorização do ibama. 
 * @param new_pais_origem Palavra(s) que representam o país de origem do réptil. 
+* @param new_cidade_origem Palavra(s) que representam a cidade de origem do réptil .
 */
 
 ReptilExotico::ReptilExotico(int new_id, string new_classe,
