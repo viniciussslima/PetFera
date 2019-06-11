@@ -18,6 +18,7 @@
 
 #include "JanelaPrincipal.h"
 #include "Separador.h"
+#include "RemoverAnimal.h"
 
 #include "Veterinario.h"
 #include "Tratador.h"
@@ -142,7 +143,6 @@ class JanelaEditarAnimal
 		void Run();
 		void SetInformacooes();
 		void Editar();
-		void Remover();
 		void MudarClasse();
 		void MudarRegiao();
 		void MostrarVeterinario();

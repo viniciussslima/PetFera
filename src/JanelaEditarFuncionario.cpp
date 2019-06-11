@@ -393,7 +393,7 @@ void JanelaEditarFuncionario::Editar()
 	// as novas são escritas.
 	else
 	{
-		Remover();
+		RemoverFuncionario(*janela_principal, *veterinarios, *tratadores, id);
 		ofstream outfile("Dados/funcionarios.csv", ios::app);
 		string tipo_sanguineo;
 		char rh;
@@ -443,42 +443,6 @@ void JanelaEditarFuncionario::Editar()
 		}
 		window->close();
 	}
-}
-
-/**
-* @brief Método que remove o funcionário.
-*/
-
-void JanelaEditarFuncionario::Remover()
-{
-
-	string linha;
-	vector<string> palavras;
-	ifstream funcionarios_csv("Dados/funcionarios.csv");
-
-	ofstream funcionarios_temp("Dados/TempFuncionario.csv");
-	while(getline(funcionarios_csv, linha))
-	{
-		palavras = Separador_csv(linha);
-		if(stoi(palavras[0]) != id)
-			funcionarios_temp << linha << endl;
-		else
-		{
-			if(palavras[1].compare("TRATADOR") == 0)
-			{
-				tratadores->erase(id);
-				janela_principal->AtualizarLista(0);
-			}
-			else
-			{
-				veterinarios->erase(id);
-				janela_principal->AtualizarLista(1);
-			}
-		}
-	}
-	remove("Dados/funcionarios.csv");
-	rename("Dados/TempFuncionario.csv", "Dados/funcionarios.csv");
-	funcionarios_temp.close();
 }
 
 /**
@@ -539,7 +503,7 @@ void JanelaEditarFuncionario::AtualizarIconeNomeDoFuncionario()
 * @brief Método que é responsável para atualizar o icone de válido ou inválido do CPF.
 */
 
-void JanelaCadastroFuncionario::AtualizarIconeCPF()
+void JanelaEditarFuncionario::AtualizarIconeCPF()
 {
 	string temp = entry_cpf->get_text();
 	bool is_cpf = true;
@@ -601,7 +565,7 @@ void JanelaCadastroFuncionario::AtualizarIconeCPF()
 * @brief Método que é responsável para atualizar o icone de válido ou inválido da idade.
 */
 
-void JanelaCadastroFuncionario::AtualizarIconeIdade()
+void JanelaEditarFuncionario::AtualizarIconeIdade()
 {
 	string entry_text = entry_idade->get_text();
 	int temp;
@@ -644,7 +608,7 @@ void JanelaCadastroFuncionario::AtualizarIconeIdade()
 * @brief Método que é responsável para atualizar o icone de válido ou inválido da especialidade.
 */
 
-void JanelaCadastroFuncionario::AtualizarIconeEspecialidade()
+void JanelaEditarFuncionario::AtualizarIconeEspecialidade()
 {
 	string temp = entry_especialidade->get_text();
 	if(temp.empty())
@@ -663,7 +627,7 @@ void JanelaCadastroFuncionario::AtualizarIconeEspecialidade()
 * @brief Método que é responsável para atualizar o icone de válido ou inválido do CRMV.
 */
 
-void JanelaCadastroFuncionario::AtualizarIconeCRMV()
+void JanelaEditarFuncionario::AtualizarIconeCRMV()
 {
 	string temp = entry_crmv->get_text();
 	if(temp.empty())
@@ -676,5 +640,4 @@ void JanelaCadastroFuncionario::AtualizarIconeCRMV()
 		valid_crmv = true;
 		entry_crmv->set_icon_from_pixbuf(pixbuf_check);
 	}
-}
 }

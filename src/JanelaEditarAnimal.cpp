@@ -1278,7 +1278,9 @@ void JanelaEditarAnimal::Editar()
 	// as novas são escritas.
 	else
 	{
-		Remover();
+		RemoverAnimal(*janela_principal, *anfibios_exoticos, *anfibios_nativos, *aves_exoticas,
+			*aves_nativas, *mamiferos_exoticos, *mamiferos_nativos, 
+			*repteis_exoticos, *repteis_nativos, id);
 		string classe = combo_box_classe->get_active_text(); 
 		for(unsigned int i = 0; i < classe.length(); i++)
 			classe[i] = toupper(classe[i]);
@@ -1443,84 +1445,6 @@ void JanelaEditarAnimal::Editar()
 		}
 	window->close();
 	}
-}
-
-/**
-* @brief Método que remove o animal.
-*/
-
-void JanelaEditarAnimal::Remover()
-{
-	string linha;
-	vector<string> palavras;
-	ifstream animais_csv("Dados/animais.csv");
-
-	ofstream animais_temp("Dados/temp_animais.csv");
-	while(getline(animais_csv, linha))
-	{
-		palavras = Separador_csv(linha);
-		if(stoi(palavras[0]) != id)
-			animais_temp << linha << endl;
-		else
-		{
-			if(palavras[1].compare("AMPHIBIA") == 0)
-		    {
-				if(palavras[palavras.size() - 1].length() == 2)
-				{
-			    	anfibios_nativos->erase(id);
-					janela_principal->AtualizarLista(2);
-				}
-			    else
-			    {
-			    	anfibios_exoticos->erase(id);
-			    	janela_principal->AtualizarLista(3);
-			    }
-		    }
-		    if(palavras[1].compare("AVES") == 0)
-		    {
-				if(palavras[palavras.size() - 1].length() == 2)
-				{
-			    	aves_nativas->erase(id);
-					janela_principal->AtualizarLista(4);
-				}
-			    else
-			    {
-			    	aves_exoticas->erase(id);
-			    	janela_principal->AtualizarLista(5);
-			    }
-		    }
-		    if(palavras[1].compare("MAMMALIA") == 0)
-		    {
-				if(palavras[palavras.size() - 1].length() == 2)
-				{
-			    	mamiferos_nativos->erase(id);
-					janela_principal->AtualizarLista(6);
-				}
-			    else
-			    {
-			    	mamiferos_exoticos->erase(id);
-			    	janela_principal->AtualizarLista(7);
-			    }
-		    }
-		    if(palavras[1].compare("REPTILIA") == 0)
-		    {
-				if(palavras[palavras.size() - 1].length() == 2)
-				{
-			    	repteis_nativos->erase(id);
-					janela_principal->AtualizarLista(8);
-				}
-			    else
-			    {
-			    	repteis_exoticos->erase(id);
-			    	janela_principal->AtualizarLista(9);
-			    }
-		    }
-		}
-	}
-	animais_csv.close();
-	remove("Dados/animais.csv");
-	rename("Dados/temp_animais.csv", "Dados/animais.csv");
-	animais_temp.close();
 }
 
 /**

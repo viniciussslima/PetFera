@@ -396,6 +396,7 @@ void JanelaCadastroFuncionario::AtualizarIconeCPF()
 {
 	string temp = entry_cpf->get_text();
 	bool is_cpf = true;
+	int count = 0;
 	//Verificando se o texto é na formatação de um CPF
 	for(unsigned int i = 0; i < temp.size(); i++)
 	{
@@ -410,6 +411,10 @@ void JanelaCadastroFuncionario::AtualizarIconeCPF()
 			break;
 		}
 		if(i != 0 && temp[0] == temp[i])
+		{
+			count += 1;
+		}
+		if (count == 11)
 		{
 			is_cpf = false;
 			break;
