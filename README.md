@@ -30,3 +30,6 @@ Caso não tenha, acesse:	https://www.gtkmm.org/pt_BR/download.html
 ### Para rodar(após compilar):
     make run
     
+### Para gerar a documentação Doxygen:
+    doxygen
+    
