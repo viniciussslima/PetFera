@@ -36,6 +36,6 @@ using namespace std;
 void RemoverAnimal(JanelaPrincipal&, map<int, AnfibioExotico>&, map<int, AnfibioNativo>&, 
 					map<int, AveExotico>&, map<int, AveNativo>&,
 					map<int, MamiferoExotico>&, map<int, MamiferoNativo>&, 
-					map<int, ReptilExotico>&, map<int, ReptilNativo>&, int, int);
+					map<int, ReptilExotico>&, map<int, ReptilNativo>&, int);
 
 #endif

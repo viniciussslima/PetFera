@@ -376,12 +376,12 @@ void JanelaCadastroFuncionario::AtualizarIconeId()
 void JanelaCadastroFuncionario::AtualizarIconeNomeDoFuncionario()
 {
 	string temp = entry_nome_do_funcionario->get_text();
-	if(temp.empty())
+	if(temp.empty()) // Caso o nome do funcionario seja inválido.
 	{
 		valid_nome_do_funcionario = false;
 		entry_nome_do_funcionario->set_icon_from_pixbuf(pixbuf_uncheck);
 	}
-	else
+	else // Caso o nome do funcionario seja válido.
 	{
 		valid_nome_do_funcionario = true;
 		entry_nome_do_funcionario->set_icon_from_pixbuf(pixbuf_check);
@@ -396,6 +396,7 @@ void JanelaCadastroFuncionario::AtualizarIconeCPF()
 {
 	string temp = entry_cpf->get_text();
 	bool is_cpf = true;
+	int count = 0;
 	//Verificando se o texto é na formatação de um CPF
 	for(unsigned int i = 0; i < temp.size(); i++)
 	{
@@ -410,6 +411,10 @@ void JanelaCadastroFuncionario::AtualizarIconeCPF()
 			break;
 		}
 		if(i != 0 && temp[0] == temp[i])
+		{
+			count += 1;
+		}
+		if (count == 11)
 		{
 			is_cpf = false;
 			break;

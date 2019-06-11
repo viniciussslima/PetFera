@@ -547,9 +547,7 @@ void JanelaPrincipal::BotaoRemover()
 					resposta = confimacao.run();
 					if (resposta == RESPONSE_OK)
 					{
-						RemoverFuncionario(*this, veterinarios, tratadores, anfibios_exoticos, anfibios_nativos, aves_exoticas,
-											aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-											repteis_exoticos, repteis_nativos, id);
+						RemoverFuncionario(*this, veterinarios, tratadores, id);
 					}
 				}
 				else
@@ -583,9 +581,7 @@ void JanelaPrincipal::BotaoRemover()
 					resposta = confimacao.run();
 					if (resposta == RESPONSE_OK)
 					{
-						RemoverFuncionario(*this, veterinarios, tratadores, anfibios_exoticos, anfibios_nativos, aves_exoticas,
-											aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-											repteis_exoticos, repteis_nativos, id);
+						RemoverFuncionario(*this, veterinarios, tratadores, id);
 					}
 				}
 				else
@@ -621,7 +617,7 @@ void JanelaPrincipal::BotaoRemover()
 					{
 						RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
 										aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-										repteis_exoticos, repteis_nativos, pagina, id);
+										repteis_exoticos, repteis_nativos, id);
 					}
 				}
 				else
@@ -657,7 +653,7 @@ void JanelaPrincipal::BotaoRemover()
 					{
 						RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
 										aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-										repteis_exoticos, repteis_nativos, pagina, id);
+										repteis_exoticos, repteis_nativos, id);
 					}
 				}
 				else
@@ -693,7 +689,7 @@ void JanelaPrincipal::BotaoRemover()
 					{
 						RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
 										aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-										repteis_exoticos, repteis_nativos, pagina, id);
+										repteis_exoticos, repteis_nativos, id);
 					}
 				}
 				else
@@ -729,7 +725,7 @@ void JanelaPrincipal::BotaoRemover()
 					{
 						RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
 										aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-										repteis_exoticos, repteis_nativos, pagina, id);
+										repteis_exoticos, repteis_nativos, id);
 					}
 				}
 				else
@@ -765,7 +761,7 @@ void JanelaPrincipal::BotaoRemover()
 					{
 						RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
 										aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-										repteis_exoticos, repteis_nativos, pagina, id);
+										repteis_exoticos, repteis_nativos, id);
 					}
 				}
 				else
@@ -801,7 +797,7 @@ void JanelaPrincipal::BotaoRemover()
 					{
 						RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
 										aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-										repteis_exoticos, repteis_nativos, pagina, id);
+										repteis_exoticos, repteis_nativos, id);
 					}
 				}
 				else
@@ -837,7 +833,7 @@ void JanelaPrincipal::BotaoRemover()
 					{
 						RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
 										aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-										repteis_exoticos, repteis_nativos, pagina, id);
+										repteis_exoticos, repteis_nativos, id);
 					}
 				}
 				else
@@ -873,7 +869,7 @@ void JanelaPrincipal::BotaoRemover()
 					{
 						RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
 										aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-										repteis_exoticos, repteis_nativos, pagina, id);
+										repteis_exoticos, repteis_nativos, id);
 					}
 				}
 				else

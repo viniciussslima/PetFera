@@ -15,7 +15,7 @@ void RemoverAnimal(JanelaPrincipal &janela_principal, map<int, AnfibioExotico> &
 										 map<int, AveExotico> &aves_exoticas, map<int, AveNativo> &aves_nativas,
 										 map<int, MamiferoExotico> &mamiferos_exoticos, map<int, MamiferoNativo> &mamiferos_nativos, 
 										 map<int, ReptilExotico> &repteis_exoticos, map<int, ReptilNativo> &repteis_nativos, 
-										 int pagina, int id)
+										 int id)
 {
 	string linha;
 	vector<string> palavras;

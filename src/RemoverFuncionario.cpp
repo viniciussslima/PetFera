@@ -11,11 +11,8 @@
 
 using namespace std;
 
-void RemoverFuncionario(JanelaPrincipal &janela_principal, map<int, Veterinario> &veterinarios, map<int, Tratador> &tratadores, 
-						map<int, AnfibioExotico> &anfibios_exoticos, map<int, AnfibioNativo> &anfibios_nativos, 
-						map<int, AveExotico> &aves_exoticas, map<int, AveNativo> &aves_nativas, 
-						map<int, MamiferoExotico> &mamiferos_exoticos, map<int, MamiferoNativo> &mamiferos_nativos, 
-						map<int, ReptilExotico> &repteis_exoticos, map<int, ReptilNativo> &repteis_nativos, int id)
+void RemoverFuncionario(JanelaPrincipal &janela_principal, map<int, Veterinario> &veterinarios, map<int, 
+							Tratador> &tratadores,  int id)
 {
 
 	string linha;

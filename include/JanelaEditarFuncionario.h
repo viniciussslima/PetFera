@@ -22,6 +22,7 @@
 #include "JanelaPrincipal.h"
 #include "Separador.h"
 #include "Responsabilidade.h"
+#include "RemoverFuncionario.h"
 
 using namespace Gtk;
 using namespace std;
@@ -99,9 +100,7 @@ class JanelaEditarFuncionario
 		void Run();
 		void SetInformacooes();
 		void Editar();
-		void Remover();
 		void MudarFuncionario();
-		//bool Responsabilidade();
 		void AtualizarIconeNomeDoFuncionario();
 		void AtualizarIconeCPF();
 		void AtualizarIconeIdade();
