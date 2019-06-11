@@ -516,25 +516,34 @@ void JanelaEditarFuncionario::MudarFuncionario()
 	}
 }
 
+/**
+* @brief Método que é responsável para atualizar o icone de válido ou inválido do nome do funcionário.
+*/
+
 void JanelaEditarFuncionario::AtualizarIconeNomeDoFuncionario()
 {
 	string temp = entry_nome_do_funcionario->get_text();
-	if(temp.empty())
+	if(temp.empty()) // Caso o nome do funcionario seja inválido.
 	{
 		valid_nome_do_funcionario = false;
 		entry_nome_do_funcionario->set_icon_from_pixbuf(pixbuf_uncheck);
 	}
-	else
+	else // Caso o nome do funcionario seja válido.
 	{
 		valid_nome_do_funcionario = true;
 		entry_nome_do_funcionario->set_icon_from_pixbuf(pixbuf_check);
 	}
 }
 
-void JanelaEditarFuncionario::AtualizarIconeCPF()
+/**
+* @brief Método que é responsável para atualizar o icone de válido ou inválido do CPF.
+*/
+
+void JanelaCadastroFuncionario::AtualizarIconeCPF()
 {
 	string temp = entry_cpf->get_text();
 	bool is_cpf = true;
+	//Verificando se o texto é na formatação de um CPF
 	for(unsigned int i = 0; i < temp.size(); i++)
 	{
 		if(!isdigit(temp[i]) && (i == 0 || i == 1 || i == 2 || i == 4 || i == 5 || i == 6 || i == 8 || i == 9 || i == 10 || i == 12 || i == 13))
@@ -548,26 +557,25 @@ void JanelaEditarFuncionario::AtualizarIconeCPF()
 			break;
 		}
 	}
-
+	//Caso o dado informado estiver na forma de um cpf
 	if(is_cpf && temp.size() == 14)
 	{
-		//string cpf = temp[0] + temp[1] + temp[2] + temp[4] + temp[5] + temp[6] + temp[8] + temp[9] + temp[10] + temp[12] + temp[13];
 		string cpf;
 		int verificador_1 = 0, verificador_2 = 0;
-
+		//Transformando a string da entry em uma string só com os numeros do CPF
 		for(int i = 0; i < 14; i++)
 		{
 			if(i != 3 && i != 7 && i != 11)
 				cpf += temp[i];
 		}
-
+		//Cálculo para validação do CPF
 		for(int i = 0; i < 10; i++)
 		{
 			if(i != 9)
 				verificador_1 += stoi(cpf.substr(i, 1)) * (10 - i);
 			verificador_2 += stoi(cpf.substr(i, 1)) * (11 - i);
 		}
-
+		//Caso o CPF for válido
 		if(verificador_1 * 10 % 11 == stoi(cpf.substr(9, 1)) && verificador_2 * 10 % 11 == stoi(cpf.substr(10, 1)))
 		{
 			valid_cpf = true;
@@ -589,12 +597,16 @@ void JanelaEditarFuncionario::AtualizarIconeCPF()
 	}
 }
 
-void JanelaEditarFuncionario::AtualizarIconeIdade()
+/**
+* @brief Método que é responsável para atualizar o icone de válido ou inválido da idade.
+*/
+
+void JanelaCadastroFuncionario::AtualizarIconeIdade()
 {
 	string entry_text = entry_idade->get_text();
 	int temp;
 	bool is_numeric = true;
-
+	//Verificado se todos os caracteres são digitos
 	for(unsigned int i = 0; i < entry_text.length(); i++)
 	{
 		if(!isdigit(entry_text[i]))
@@ -603,7 +615,7 @@ void JanelaEditarFuncionario::AtualizarIconeIdade()
 			break;
 		}
 	}
-
+	//Tenta fazer o stoI, existe a possibilidade de dar erro quando não houver nada digitado
 	try
 	{
 		temp = stoi(entry_text);
@@ -615,6 +627,7 @@ void JanelaEditarFuncionario::AtualizarIconeIdade()
 		entry_idade->set_icon_tooltip_text("Idade inválida");
 		return;
 	}
+	//Se a idade for maior que 0 e for numerico implica que é um dado válido
 	if(temp > 0 && is_numeric)
 	{
 		valid_idade = true;
@@ -627,7 +640,11 @@ void JanelaEditarFuncionario::AtualizarIconeIdade()
 	}
 }
 
-void JanelaEditarFuncionario::AtualizarIconeEspecialidade()
+/**
+* @brief Método que é responsável para atualizar o icone de válido ou inválido da especialidade.
+*/
+
+void JanelaCadastroFuncionario::AtualizarIconeEspecialidade()
 {
 	string temp = entry_especialidade->get_text();
 	if(temp.empty())
@@ -642,7 +659,11 @@ void JanelaEditarFuncionario::AtualizarIconeEspecialidade()
 	}
 }
 
-void JanelaEditarFuncionario::AtualizarIconeCRMV()
+/**
+* @brief Método que é responsável para atualizar o icone de válido ou inválido do CRMV.
+*/
+
+void JanelaCadastroFuncionario::AtualizarIconeCRMV()
 {
 	string temp = entry_crmv->get_text();
 	if(temp.empty())
@@ -655,4 +676,5 @@ void JanelaEditarFuncionario::AtualizarIconeCRMV()
 		valid_crmv = true;
 		entry_crmv->set_icon_from_pixbuf(pixbuf_check);
 	}
+}
 }

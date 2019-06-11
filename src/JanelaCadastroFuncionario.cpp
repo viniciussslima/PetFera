@@ -376,12 +376,12 @@ void JanelaCadastroFuncionario::AtualizarIconeId()
 void JanelaCadastroFuncionario::AtualizarIconeNomeDoFuncionario()
 {
 	string temp = entry_nome_do_funcionario->get_text();
-	if(temp.empty())
+	if(temp.empty()) // Caso o nome do funcionario seja inválido.
 	{
 		valid_nome_do_funcionario = false;
 		entry_nome_do_funcionario->set_icon_from_pixbuf(pixbuf_uncheck);
 	}
-	else
+	else // Caso o nome do funcionario seja válido.
 	{
 		valid_nome_do_funcionario = true;
 		entry_nome_do_funcionario->set_icon_from_pixbuf(pixbuf_check);
