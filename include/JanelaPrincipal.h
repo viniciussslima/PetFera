@@ -134,6 +134,7 @@ public:
 		add(col_data_ultima_muda);
 		add(col_autorizacao_ibama);
 		add(col_pais_origem);
+		add(col_cidade_origem);
 		}
 
 	TreeModelColumn<int> col_id;
@@ -148,6 +149,7 @@ public:
 	TreeModelColumn<string> col_data_ultima_muda;
 	TreeModelColumn<string> col_autorizacao_ibama;
 	TreeModelColumn<string> col_pais_origem;
+	TreeModelColumn<string> col_cidade_origem;
 };
 
 class ModelColumnsAveNativa : public Gtk::TreeModel::ColumnRecord
@@ -200,6 +202,7 @@ class ModelColumnsAveExotica : public Gtk::TreeModel::ColumnRecord
 			add(col_envergadura_asas);
 			add(col_autorizacao_ibama);
 			add(col_pais_origem);
+			add(col_cidade_origem);
 		}
 
 		TreeModelColumn<int> col_id;
@@ -214,6 +217,8 @@ class ModelColumnsAveExotica : public Gtk::TreeModel::ColumnRecord
 		TreeModelColumn<double> col_envergadura_asas;
 		TreeModelColumn<string> col_autorizacao_ibama;
 		TreeModelColumn<string> col_pais_origem;
+		TreeModelColumn<string> col_cidade_origem;
+
 };
 
 class ModelColumnsMamiferoNativo : public Gtk::TreeModel::ColumnRecord
@@ -263,6 +268,7 @@ class ModelColumnsMamiferoExotico : public Gtk::TreeModel::ColumnRecord
     		add(col_cor_pelo);
     		add(col_autorizacao_ibama);
     		add(col_pais_origem);
+    		add(col_cidade_origem);
     	}
 
     	TreeModelColumn<int> col_id;
@@ -276,6 +282,7 @@ class ModelColumnsMamiferoExotico : public Gtk::TreeModel::ColumnRecord
     	TreeModelColumn<string> col_cor_pelo;
     	TreeModelColumn<string> col_autorizacao_ibama;
     	TreeModelColumn<string> col_pais_origem;
+    	TreeModelColumn<string> col_cidade_origem;
 };
 
 class ModelColumnsReptilNativo : public Gtk::TreeModel::ColumnRecord
@@ -325,6 +332,7 @@ class ModelColumnsReptilExotico : public Gtk::TreeModel::ColumnRecord
     		add(col_veneno);
     		add(col_autorizacao_ibama);
     		add(col_pais_origem);
+    		add(col_cidade_origem);
     	}
 
     	TreeModelColumn<int> col_id;
@@ -338,6 +346,7 @@ class ModelColumnsReptilExotico : public Gtk::TreeModel::ColumnRecord
     	TreeModelColumn<string> col_veneno;
     	TreeModelColumn<string> col_autorizacao_ibama;
     	TreeModelColumn<string> col_pais_origem;
+    	TreeModelColumn<string> col_cidade_origem;
 };
 
 class JanelaPrincipal : public ModelColumnsTratador, public ModelColumnsVeterinario,

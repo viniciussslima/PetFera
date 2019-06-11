@@ -1716,8 +1716,8 @@ void JanelaEditarAnimal::AtualizarIconeDieta()
 	string temp = entry_dieta->get_text();
 	if(temp.empty())  // Caso a dieta digitada for inválida.
 	{
-			valid_dieta = false;
-			entry_dieta->set_icon_from_pixbuf(pixbuf_uncheck);
+		valid_dieta = false;
+		entry_dieta->set_icon_from_pixbuf(pixbuf_uncheck);
 	}
 	else  // Caso a dieta digitada for inválida.
 	{
@@ -1819,8 +1819,8 @@ void JanelaEditarAnimal::AtualizarIconeNomeBatismo()
 	string temp = entry_nome_batismo->get_text();
 	if(temp.empty()) // Caso o nome de batismo digitado for inválido.
 	{
-			valid_nome_batismo = false;
-			entry_nome_batismo->set_icon_from_pixbuf(pixbuf_uncheck);
+		valid_nome_batismo = false;
+		entry_nome_batismo->set_icon_from_pixbuf(pixbuf_uncheck);
 	}
 	else // Caso o nome de batismo digitado for válido.
 	{
@@ -1838,8 +1838,8 @@ void JanelaEditarAnimal::AtualizarIconeAutorizacaoIbama()
 	string temp = entry_autorizacao_ibama->get_text();
 	if(temp.empty())  // Caso a autorização do ibama digitada for inválida.
 	{
-			valid_autorizacao_ibama = false;
-			entry_autorizacao_ibama->set_icon_from_pixbuf(pixbuf_uncheck);
+		valid_autorizacao_ibama = false;
+		entry_autorizacao_ibama->set_icon_from_pixbuf(pixbuf_uncheck);
 	}
 	else // Caso a autorização do ibama digitada for válida.
 	{
@@ -1857,8 +1857,8 @@ void JanelaEditarAnimal::AtualizarIconeNacionalidade()
 	string temp = entry_nacionalidade->get_text();
 	if(temp.empty())  // Caso a nacionalidade digitadoa for inválida.
 	{
-			valid_nacionalidade = false;
-			entry_nacionalidade->set_icon_from_pixbuf(pixbuf_uncheck);
+		valid_nacionalidade = false;
+		entry_nacionalidade->set_icon_from_pixbuf(pixbuf_uncheck);
 	}
 	else  // Caso a nacionalidade digitada for válida.
 	{
@@ -1987,9 +1987,9 @@ void JanelaEditarAnimal::AtualizarIconeTamanhoDoBico()
 	}	
 	if(temp <= 0) // Caso o tamanho do bico digitado seja menor ou igual a 0.
 	{
-			valid_tamanho_do_bico = false;
-			entry_tamanho_do_bico->set_icon_from_pixbuf(pixbuf_uncheck);
-			entry_tamanho_do_bico->set_icon_tooltip_text("O tamanho tem que ser maior que 0");
+		valid_tamanho_do_bico = false;
+		entry_tamanho_do_bico->set_icon_from_pixbuf(pixbuf_uncheck);
+		entry_tamanho_do_bico->set_icon_tooltip_text("O tamanho tem que ser maior que 0");
 	}
 	else // Caso o tamanho do bico seja válido.
 	{
@@ -2014,9 +2014,9 @@ void JanelaEditarAnimal::AtualizarIconeEnvergaduraDasAsas()
 	}	
 	if(temp <= 0) // Caso o tamanho da envergadura digitado seja menor ou igual a 0.
 	{
-			valid_envergadura_das_asas = false;
-			entry_envergadura_das_asas->set_icon_from_pixbuf(pixbuf_uncheck);
-			entry_envergadura_das_asas->set_icon_tooltip_text("O tamanho tem que ser maior que 0");
+		valid_envergadura_das_asas = false;
+		entry_envergadura_das_asas->set_icon_from_pixbuf(pixbuf_uncheck);
+		entry_envergadura_das_asas->set_icon_tooltip_text("O tamanho tem que ser maior que 0");
 	}
 	else  // Caso o tamanho da envergadura digitado seja válido.
 	{
@@ -2034,8 +2034,8 @@ void JanelaEditarAnimal::AtualizarIconeCorDosPelos()
 	string temp = entry_cor_dos_pelos->get_text();
 	if(temp.empty()) // Caso a cor dos pelos seja inválida.
 	{
-			valid_cor_dos_pelos = false;
-			entry_cor_dos_pelos->set_icon_from_pixbuf(pixbuf_uncheck);
+		valid_cor_dos_pelos = false;
+		entry_cor_dos_pelos->set_icon_from_pixbuf(pixbuf_uncheck);
 	}
 	else // Caso a cor dos pelos seja válida.
 	{
@@ -2053,8 +2053,8 @@ void JanelaEditarAnimal::AtualizarIconeTipoDeVeneno()
 	string temp = entry_tipo_de_veneno->get_text();
 	if(temp.empty()) // Caso o tipo de veneno digitado seja inválido.
 	{
-			valid_tipo_veneno = false;
-			entry_tipo_de_veneno->set_icon_from_pixbuf(pixbuf_uncheck);
+		valid_tipo_veneno = false;
+		entry_tipo_de_veneno->set_icon_from_pixbuf(pixbuf_uncheck);
 	}
 	else // Caso o tipo de veneno digitado seja válido.
 	{

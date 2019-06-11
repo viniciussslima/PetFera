@@ -189,6 +189,7 @@ JanelaBuscaAnimais::JanelaBuscaAnimais(map<int, Veterinario> &vtemp, map<int, Tr
 	tree_view_anfibios_exoticos->append_column("Data da última muda", model_columns_anfibio_exotico.col_data_ultima_muda);
 	tree_view_anfibios_exoticos->append_column("Autorização do ibama", model_columns_anfibio_exotico.col_autorizacao_ibama);
 	tree_view_anfibios_exoticos->append_column("Nacionalidade", model_columns_anfibio_exotico.col_pais_origem);
+	tree_view_anfibios_exoticos->append_column("Cidade", model_columns_anfibio_exotico.col_cidade_origem);
 
 	tree_view_aves_nativas->append_column("ID", model_columns_ave_nativa.col_id);
 	tree_view_aves_nativas->append_column("Nome Científico", model_columns_ave_nativa.col_nome_cientifico);
@@ -215,6 +216,7 @@ JanelaBuscaAnimais::JanelaBuscaAnimais(map<int, Veterinario> &vtemp, map<int, Tr
 	tree_view_aves_exoticas->append_column("Envergadura das asas", model_columns_ave_exotica.col_envergadura_asas);
 	tree_view_aves_exoticas->append_column("Autorização do ibama", model_columns_ave_exotica.col_autorizacao_ibama);
 	tree_view_aves_exoticas->append_column("Nacionalidade", model_columns_ave_exotica.col_pais_origem);
+	tree_view_aves_exoticas->append_column("Cidade", model_columns_ave_exotica.col_cidade_origem);
 
 	tree_view_mamiferos_nativos->append_column("ID", model_columns_mamifero_nativo.col_id);
 	tree_view_mamiferos_nativos->append_column("Nome Científico", model_columns_mamifero_nativo.col_nome_cientifico);
@@ -239,6 +241,7 @@ JanelaBuscaAnimais::JanelaBuscaAnimais(map<int, Veterinario> &vtemp, map<int, Tr
 	tree_view_mamiferos_exoticos->append_column("Cor do pelo", model_columns_mamifero_exotico.col_cor_pelo);
 	tree_view_mamiferos_exoticos->append_column("Autorização do ibama", model_columns_mamifero_exotico.col_autorizacao_ibama);
 	tree_view_mamiferos_exoticos->append_column("Nacionalidade", model_columns_mamifero_exotico.col_pais_origem);
+	tree_view_mamiferos_exoticos->append_column("Cidade", model_columns_mamifero_exotico.col_cidade_origem);
 
 	tree_view_repteis_nativos->append_column("ID", model_columns_reptil_nativo.col_id);
 	tree_view_repteis_nativos->append_column("Nome Científico", model_columns_reptil_nativo.col_nome_cientifico);
@@ -263,6 +266,7 @@ JanelaBuscaAnimais::JanelaBuscaAnimais(map<int, Veterinario> &vtemp, map<int, Tr
 	tree_view_repteis_exoticos->append_column("Veneno", model_columns_reptil_exotico.col_veneno);
 	tree_view_repteis_exoticos->append_column("Autorização do ibama", model_columns_reptil_exotico.col_autorizacao_ibama);
 	tree_view_repteis_exoticos->append_column("Nacionalidade", model_columns_reptil_exotico.col_pais_origem);
+	tree_view_repteis_exoticos->append_column("Cidade", model_columns_reptil_exotico.col_cidade_origem);
 
 	//Preenchendo o modelo de árvore.
 	ProcurarAnimalPorFuncionario();
@@ -335,6 +339,7 @@ void JanelaBuscaAnimais::ProcurarAnimalPorFuncionario()
 				row[model_columns_anfibio_exotico.col_data_ultima_muda] = it->second.get_data_da_ultima_muda();
 				row[model_columns_anfibio_exotico.col_autorizacao_ibama] = it->second.get_autorizacao_ibama();
 				row[model_columns_anfibio_exotico.col_pais_origem] = it->second.get_pais_de_origem();
+				row[model_columns_anfibio_exotico.col_cidade_origem] = it->second.get_cidade_de_origem();
 			}
 		}
 		for (map<int, AnfibioNativo>::iterator it = anfibios_nativos->begin(); it != anfibios_nativos->end(); it++)
@@ -397,6 +402,7 @@ void JanelaBuscaAnimais::ProcurarAnimalPorFuncionario()
 				row[model_columns_ave_exotica.col_envergadura_asas] = it->second.get_envergadura_das_asas();
 				row[model_columns_ave_exotica.col_autorizacao_ibama] = it->second.get_autorizacao_ibama();
 				row[model_columns_ave_exotica.col_pais_origem] = it->second.get_pais_de_origem();
+				row[model_columns_ave_exotica.col_cidade_origem] = it->second.get_cidade_de_origem();
 			}
 		}
 
@@ -460,6 +466,7 @@ void JanelaBuscaAnimais::ProcurarAnimalPorFuncionario()
 				row[model_columns_mamifero_exotico.col_cor_pelo] = it->second.get_cor_do_pelo();
 				row[model_columns_mamifero_exotico.col_autorizacao_ibama] = it->second.get_autorizacao_ibama();
 				row[model_columns_mamifero_exotico.col_pais_origem] = it->second.get_pais_de_origem();
+				row[model_columns_mamifero_exotico.col_cidade_origem] = it->second.get_cidade_de_origem();
 			}
 		}
 
@@ -522,6 +529,7 @@ void JanelaBuscaAnimais::ProcurarAnimalPorFuncionario()
 				row[model_columns_reptil_exotico.col_veneno] = it->second.get_tipo_de_veneno();
 				row[model_columns_reptil_exotico.col_autorizacao_ibama] = it->second.get_autorizacao_ibama();
 				row[model_columns_reptil_exotico.col_pais_origem] = it->second.get_pais_de_origem();
+				row[model_columns_reptil_exotico.col_cidade_origem] = it->second.get_cidade_de_origem();
 			}
 		}
 
@@ -587,6 +595,7 @@ void JanelaBuscaAnimais::ProcurarAnimalPorFuncionario()
 				row[model_columns_anfibio_exotico.col_data_ultima_muda] = it->second.get_data_da_ultima_muda();
 				row[model_columns_anfibio_exotico.col_autorizacao_ibama] = it->second.get_autorizacao_ibama();
 				row[model_columns_anfibio_exotico.col_pais_origem] = it->second.get_pais_de_origem();
+				row[model_columns_anfibio_exotico.col_cidade_origem] = it->second.get_cidade_de_origem();
 			}
 		}
 		for (map<int, AnfibioNativo>::iterator it = anfibios_nativos->begin(); it != anfibios_nativos->end(); it++)
@@ -649,6 +658,7 @@ void JanelaBuscaAnimais::ProcurarAnimalPorFuncionario()
 				row[model_columns_ave_exotica.col_envergadura_asas] = it->second.get_envergadura_das_asas();
 				row[model_columns_ave_exotica.col_autorizacao_ibama] = it->second.get_autorizacao_ibama();
 				row[model_columns_ave_exotica.col_pais_origem] = it->second.get_pais_de_origem();
+				row[model_columns_ave_exotica.col_cidade_origem] = it->second.get_cidade_de_origem();
 			}
 		}
 
@@ -712,6 +722,7 @@ void JanelaBuscaAnimais::ProcurarAnimalPorFuncionario()
 				row[model_columns_mamifero_exotico.col_cor_pelo] = it->second.get_cor_do_pelo();
 				row[model_columns_mamifero_exotico.col_autorizacao_ibama] = it->second.get_autorizacao_ibama();
 				row[model_columns_mamifero_exotico.col_pais_origem] = it->second.get_pais_de_origem();
+				row[model_columns_mamifero_exotico.col_cidade_origem] = it->second.get_cidade_de_origem();
 			}
 		}
 
@@ -774,6 +785,7 @@ void JanelaBuscaAnimais::ProcurarAnimalPorFuncionario()
 				row[model_columns_reptil_exotico.col_veneno] = it->second.get_tipo_de_veneno();
 				row[model_columns_reptil_exotico.col_autorizacao_ibama] = it->second.get_autorizacao_ibama();
 				row[model_columns_reptil_exotico.col_pais_origem] = it->second.get_pais_de_origem();
+				row[model_columns_reptil_exotico.col_cidade_origem] = it->second.get_cidade_de_origem();
 			}
 		}
 
