@@ -1198,9 +1198,9 @@ void JanelaPrincipal::BotaoAbout()
 	about_dialog.set_logo(pixbuf_icone);
 	about_dialog.set_version("Versão 1.0");
 	about_dialog.set_program_name("PetFera");
-//	about_dialog.set_copyright("Murray Cumming");
+	about_dialog.set_copyright("Vinicius Santos Silva de Lima");
 	about_dialog.set_comments("Programa de cadastro de animais e funcionários para lojas de animais silvestres.");
-//	about_dialog.set_license("LGPL");
+	about_dialog.set_license("MIT");
 	about_dialog.set_website("https://github.com/viniciussslima/PetFera");
 	about_dialog.set_website_label("GitHub");
 	about_dialog.set_transient_for(*window);

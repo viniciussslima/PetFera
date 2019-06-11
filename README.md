@@ -28,11 +28,5 @@ Caso não tenha, acesse:	https://www.gtkmm.org/pt_BR/download.html
     make cleanall
     
 ### Para rodar(após compilar):
-1)
-    ```
     make run
-    ```
-2)
-    ```
-    ./bin/PetFera
-    ```
+    
