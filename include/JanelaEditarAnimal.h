@@ -96,7 +96,7 @@ class JanelaEditarAnimal
 		Label *label_regiao;
 		Label *label_nacionalidade;
 		Label *label_uf;
-		Label *label_entry;
+		Label *label_cidade;
 
 		Glib::RefPtr<Gdk::Pixbuf> pixbuf_check;
 		Glib::RefPtr<Gdk::Pixbuf> pixbuf_uncheck;
