@@ -346,12 +346,15 @@ class JanelaPrincipal : public ModelColumnsTratador, public ModelColumnsVeterina
 
 		Notebook *notebook_consulta;
 
+		Image *IconeButao;
+
 		Button *button_cadastro_animal;
 		Button *button_remocao_animal;
 		Button *button_cadastro_funcionario;
 		Button *button_remover;
 		Button *button_editar;
 		Button *button_buscar_animal_por_funcionario;
+		Button *button_about;
 
 		Glib::RefPtr<Gdk::Pixbuf> pixbuf_icone;
 
@@ -425,6 +428,7 @@ class JanelaPrincipal : public ModelColumnsTratador, public ModelColumnsVeterina
 		void BotaoRemover();
 		void BotaoEditar();
 		void BotaoBuscarAnimalPorFuncionario();
+		void BotaoAbout();
 		void AtualizarLista(int);
 };
 
