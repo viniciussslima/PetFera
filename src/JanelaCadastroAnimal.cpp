@@ -367,6 +367,8 @@ void JanelaCadastroAnimal::Run()
 	label_venenoso->hide();
 	entry_tipo_de_veneno->hide();
 	label_tipo_de_veneno->hide();
+	entry_cidade->hide();
+	label_cidade->hide();
 	Main::run(*window);
 }
 
