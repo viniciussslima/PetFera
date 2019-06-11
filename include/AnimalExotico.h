@@ -18,11 +18,13 @@ class AnimalExotico : public AnimalSilvestre
 {
 	protected:
 		string m_pais_origem;
+		string m_cidade_origem;
 	public:
 		AnimalExotico();
-		AnimalExotico(string, string);
+		AnimalExotico(string, string, string);
 		~AnimalExotico();
 		string get_pais_de_origem();
+		string get_cidade_de_origem();
 };
 
 #endif

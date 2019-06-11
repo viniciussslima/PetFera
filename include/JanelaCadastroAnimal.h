@@ -62,6 +62,7 @@ class JanelaCadastroAnimal
 		ComboBoxText *combo_box_regiao;
 		Entry *entry_nacionalidade;
 		ComboBoxText *combo_box_uf;
+		Entry *entry_cidade;
 		Button *button_cadastrar;
 
 		Entry *entry_total_de_mudas;
@@ -94,6 +95,7 @@ class JanelaCadastroAnimal
 		Label *label_regiao;
 		Label *label_nacionalidade;
 		Label *label_uf;
+		Label *label_cidade;
 
 		Glib::RefPtr<Gdk::Pixbuf> pixbuf_check;
 		Glib::RefPtr<Gdk::Pixbuf> pixbuf_uncheck;
@@ -109,6 +111,7 @@ class JanelaCadastroAnimal
 		bool valid_nome_batismo;
 		bool valid_autorizacao_ibama;
 		bool valid_nacionalidade;
+		bool valid_cidade;
 		bool valid_total_de_mudas;
 		bool valid_data_da_ultima_muda;
 		bool valid_tamanho_do_bico;
@@ -159,6 +162,7 @@ class JanelaCadastroAnimal
 		void AtualizarIconeEnvergaduraDasAsas();
 		void AtualizarIconeCorDosPelos();
 		void AtualizarIconeTipoDeVeneno();
+		void AtualizarIconeCidade();
 };
 
 #endif

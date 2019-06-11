@@ -41,6 +41,7 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 	valid_nome_batismo = false;
 	valid_autorizacao_ibama = false;
 	valid_nacionalidade = true;
+	valid_cidade = true;
 	valid_total_de_mudas = false;
 	valid_data_da_ultima_muda = false;
 	valid_tamanho_do_bico = true;
@@ -84,6 +85,7 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 	entry_veterinario_id = new Entry;
 	entry_tratador_id = new Entry;
 	entry_autorizacao_ibama = new Entry;
+	entry_cidade = new Entry;
 
 	combo_box_uf = new ComboBoxText;
 	combo_box_classe = new ComboBoxText;
@@ -128,6 +130,7 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 	label_regiao = new Label("Região: ");
 	label_nacionalidade = new Label("Nacionalidade: ");
 	label_uf = new Label("Estado: ");
+	label_cidade = new Label("Cidade: ");
 
 	//Configuração dos atributos da classe GTK.
 	window->set_title("Cadastrar Animal");
@@ -149,6 +152,7 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 	entry_nome_batismo->set_icon_from_pixbuf(pixbuf_uncheck);
 	entry_autorizacao_ibama->set_icon_from_pixbuf(pixbuf_uncheck);
 	entry_nacionalidade->set_icon_from_pixbuf(pixbuf_uncheck);
+	entry_cidade->set_icon_from_pixbuf(pixbuf_uncheck);
 	entry_total_de_mudas->set_icon_from_pixbuf(pixbuf_uncheck);
 	entry_data_da_ultima_muda->set_icon_from_pixbuf(pixbuf_uncheck);
 	entry_tamanho_do_bico->set_icon_from_pixbuf(pixbuf_uncheck);
@@ -229,6 +233,7 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 	box_esquerda->add(*label_regiao);
 	box_esquerda->add(*label_nacionalidade);
 	box_esquerda->add(*label_uf);
+	box_esquerda->add(*label_cidade);
 	
 	box_direita->pack_start(*entry_id, PACK_SHRINK);
 	box_direita->pack_start(*combo_box_classe, PACK_SHRINK);
@@ -253,6 +258,7 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 	box_direita->pack_start(*combo_box_regiao, PACK_SHRINK);
 	box_direita->pack_start(*entry_nacionalidade, PACK_SHRINK);
 	box_direita->pack_start(*combo_box_uf, PACK_SHRINK);
+	box_direita->pack_start(*entry_cidade, PACK_SHRINK);
 
 	//Conexão dos atributos da classe GTK.
 	button_cadastrar->signal_clicked().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::Cadastrar));
@@ -276,6 +282,7 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 	entry_envergadura_das_asas->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeEnvergaduraDasAsas));
 	entry_cor_dos_pelos->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeCorDosPelos));
 	entry_tipo_de_veneno->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeTipoDeVeneno));
+	entry_cidade->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeCidade));
 }
 
 /**
@@ -465,6 +472,12 @@ void JanelaCadastroAnimal::Cadastrar()
 	{
 		MessageDialog dialog(*window, "Nacionalidade inválida.");
 		dialog.set_secondary_text("Falta preencher a nacionalidade do animal.");
+  		dialog.run();
+	}
+	else if (!valid_cidade)
+	{
+		MessageDialog dialog(*window, "Cidade inválida.");
+		dialog.set_secondary_text("Falta preencher a cidade do animal e também não pode ter numeros.");
   		dialog.run();
 	}
 	//Caso os atributos forem válidos.
@@ -779,6 +792,7 @@ void JanelaCadastroAnimal::MudarRegiao()
 		//Caso for nacional
 		case 0:
 			valid_nacionalidade = true;
+			valid_cidade = true;
 			combo_box_uf->show();
 			label_uf->show();
 			entry_nacionalidade->hide();
@@ -788,6 +802,7 @@ void JanelaCadastroAnimal::MudarRegiao()
 		//Caso for exótico
 		case 1:
 			valid_nacionalidade = false;
+			valid_cidade = false;
 			combo_box_uf->hide();
 			label_uf->hide();
 			entry_nacionalidade->show();
@@ -1346,5 +1361,38 @@ void JanelaCadastroAnimal::AtualizarIconeTipoDeVeneno()
 	{
 		valid_tipo_veneno = true;
 		entry_tipo_de_veneno->set_icon_from_pixbuf(pixbuf_check);
+	}
+}
+
+/**
+* @brief Método que é responsável para atualizar o icone de válido ou inválido da cidade.
+*/
+
+void JanelaCadastroAnimal::AtualizarIconeCidade()
+{
+	string temp = entry_cidade->get_text();
+	bool is_numeric = true;
+	//Verificado se todos os caracteres são digitos
+	for(unsigned int i = 0; i < temp.size(); i++)
+	{
+		if(!isdigit(temp[i]))
+		{
+			is_numeric = false;
+			break;
+		}
+	}
+	//Se for todos numeros e não estiver vazio
+	if(!is_numeric && !temp.empty())
+	{
+		valid_cidade = true;
+		entry_cidade->set_icon_from_pixbuf(pixbuf_check);
+		entry_cidade->set_icon_tooltip_text("Cidade válida");
+	}
+	//Se os dados forem inválidos
+	else
+	{
+		valid_cidade = false;
+		entry_cidade->set_icon_from_pixbuf(pixbuf_uncheck);
+		entry_cidade->set_icon_tooltip_text("Cidade inválida");
 	}
 }
