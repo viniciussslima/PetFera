@@ -554,7 +554,7 @@ void JanelaPrincipal::BotaoRemover()
 						RemoverFuncionario(*this, veterinarios, tratadores, id);
 					}
 				}
-				else // Caso uma linha nãon tenha sido selecionada.
+				else // Caso uma linha não tenha sido selecionada.
 				{
 					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
 					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
@@ -588,7 +588,7 @@ void JanelaPrincipal::BotaoRemover()
 						RemoverFuncionario(*this, veterinarios, tratadores, id);
 					}
 				}
-				else // Caso uma linha nãon tenha sido selecionada.
+				else // Caso uma linha não tenha sido selecionada.
 				{
 					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
 					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
@@ -624,7 +624,7 @@ void JanelaPrincipal::BotaoRemover()
 										repteis_exoticos, repteis_nativos, id);
 					}
 				}
-				else // Caso uma linha nãon tenha sido selecionada.
+				else // Caso uma linha não tenha sido selecionada.
 				{
 					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
 					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
@@ -660,7 +660,7 @@ void JanelaPrincipal::BotaoRemover()
 										repteis_exoticos, repteis_nativos, id);
 					}
 				}
-				else // Caso uma linha nãon tenha sido selecionada.
+				else // Caso uma linha não tenha sido selecionada.
 				{
 					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
 					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
@@ -696,7 +696,7 @@ void JanelaPrincipal::BotaoRemover()
 										repteis_exoticos, repteis_nativos, id);
 					}
 				}
-				else // Caso uma linha nãon tenha sido selecionada.
+				else // Caso uma linha não tenha sido selecionada.
 				{
 					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
 					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
@@ -732,7 +732,7 @@ void JanelaPrincipal::BotaoRemover()
 										repteis_exoticos, repteis_nativos, id);
 					}
 				}
-				else // Caso uma linha nãon tenha sido selecionada.
+				else // Caso uma linha não tenha sido selecionada.
 				{
 					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
 					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
@@ -768,7 +768,7 @@ void JanelaPrincipal::BotaoRemover()
 										repteis_exoticos, repteis_nativos, id);
 					}
 				}
-				else // Caso uma linha nãon tenha sido selecionada.
+				else // Caso uma linha não tenha sido selecionada.
 				{
 					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
 					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
@@ -804,7 +804,7 @@ void JanelaPrincipal::BotaoRemover()
 										repteis_exoticos, repteis_nativos, id);
 					}
 				}
-				else // Caso uma linha nãon tenha sido selecionada.
+				else // Caso uma linha não tenha sido selecionada.
 				{
 					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
 					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
@@ -840,7 +840,7 @@ void JanelaPrincipal::BotaoRemover()
 										repteis_exoticos, repteis_nativos, id);
 					}
 				}
-				else // Caso uma linha nãon tenha sido selecionada.
+				else // Caso uma linha não tenha sido selecionada.
 				{
 					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
 					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
@@ -876,7 +876,7 @@ void JanelaPrincipal::BotaoRemover()
 										repteis_exoticos, repteis_nativos, id);
 					}
 				}
-				else // Caso uma linha nãon tenha sido selecionada.
+				else // Caso uma linha não tenha sido selecionada.
 				{
 					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
 					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
@@ -911,7 +911,7 @@ void JanelaPrincipal::BotaoEditar()
 	{
 	case 0: // Caso a pagina for igual 0 edita um tratador.
 		{
-			//tratadores
+			// Pega a linha selecionada.
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_tratadores->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
@@ -924,7 +924,7 @@ void JanelaPrincipal::BotaoEditar()
 					repteis_exoticos, repteis_nativos, pagina, id);
 				temp.Run();
 			}
-			else // Caso uma linha nãon tenha sido selecionada.
+			else // Caso uma linha não tenha sido selecionada.
 			{
 				valid_row = false;
 			}
@@ -932,7 +932,7 @@ void JanelaPrincipal::BotaoEditar()
 		}
 		case 1: // Caso a pagina for igual 1 edita um veterinário.
 		{
-			//veterinarios
+			// Pega a linha selecionada.
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_veterinarios->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
@@ -945,7 +945,7 @@ void JanelaPrincipal::BotaoEditar()
 					repteis_exoticos, repteis_nativos, pagina, id);
 				temp.Run();
 			}
-			else // Caso uma linha nãon tenha sido selecionada.
+			else // Caso uma linha não tenha sido selecionada.
 			{
 				valid_row = false;
 			}
@@ -953,7 +953,7 @@ void JanelaPrincipal::BotaoEditar()
 		}
 		case 2: // Caso a pagina for igual 2 edita um anfíbio nativo.
 		{
-			//anfibios nativos
+			// Pega a linha selecionada.
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_anfibios_nativos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
@@ -966,7 +966,7 @@ void JanelaPrincipal::BotaoEditar()
 					repteis_exoticos, repteis_nativos, pagina, id);
 				temp.Run();
 			}
-			else // Caso uma linha nãon tenha sido selecionada.
+			else // Caso uma linha não tenha sido selecionada.
 			{
 				valid_row = false;
 			}
@@ -974,7 +974,7 @@ void JanelaPrincipal::BotaoEditar()
 		}
 		case 3: // Caso a pagina for igual 3 edita um anfíbio exótico.
 		{
-			//anfibios exoticos
+			// Pega a linha selecionada.
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_anfibios_exoticos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
@@ -987,7 +987,7 @@ void JanelaPrincipal::BotaoEditar()
 					repteis_exoticos, repteis_nativos, pagina, id);
 				temp.Run();
 			}
-			else // Caso uma linha nãon tenha sido selecionada.
+			else // Caso uma linha não tenha sido selecionada.
 			{
 				valid_row = false;
 			}
@@ -995,7 +995,7 @@ void JanelaPrincipal::BotaoEditar()
 		}
 		case 4: // Caso a pagina for igual 4 edita uma ave nativa.
 		{
-			//aves nativas
+			// Pega a linha selecionada.
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_aves_nativas->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
@@ -1008,7 +1008,7 @@ void JanelaPrincipal::BotaoEditar()
 					repteis_exoticos, repteis_nativos, pagina, id);
 				temp.Run();
 			}
-			else // Caso uma linha nãon tenha sido selecionada.
+			else // Caso uma linha não tenha sido selecionada.
 			{
 				valid_row = false;
 			}
@@ -1016,7 +1016,7 @@ void JanelaPrincipal::BotaoEditar()
 		}
 		case 5: // Caso a pagina for igual 5 edita um ave exótica.
 		{
-			//aves exoticas
+			// Pega a linha selecionada.
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_aves_exoticas->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
@@ -1029,7 +1029,7 @@ void JanelaPrincipal::BotaoEditar()
 					repteis_exoticos, repteis_nativos, pagina, id);
 				temp.Run();
 			}
-			else // Caso uma linha nãon tenha sido selecionada.
+			else // Caso uma linha não tenha sido selecionada.
 			{
 				valid_row = false;
 			}
@@ -1037,7 +1037,7 @@ void JanelaPrincipal::BotaoEditar()
 		}
 		case 6: // Caso a pagina for igual 6 edita um mamífero nativo.
 		{
-			//mamiferos nativos
+			// Pega a linha selecionada.
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_mamiferos_nativos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
@@ -1050,7 +1050,7 @@ void JanelaPrincipal::BotaoEditar()
 					repteis_exoticos, repteis_nativos, pagina, id);
 				temp.Run();
 			}
-			else // Caso uma linha nãon tenha sido selecionada.
+			else // Caso uma linha não tenha sido selecionada.
 			{
 				valid_row = false;
 			}
@@ -1058,7 +1058,7 @@ void JanelaPrincipal::BotaoEditar()
 		}
 		case 7: // Caso a pagina for igual 7 edita um mamífero exótico.
 		{
-			//mamiferos exoticos
+			// Pega a linha selecionada.
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_mamiferos_exoticos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
@@ -1071,7 +1071,7 @@ void JanelaPrincipal::BotaoEditar()
 					repteis_exoticos, repteis_nativos, pagina, id);
 				temp.Run();
 			}
-			else // Caso uma linha nãon tenha sido selecionada.
+			else // Caso uma linha não tenha sido selecionada.
 			{
 				valid_row = false;
 			}
@@ -1079,7 +1079,7 @@ void JanelaPrincipal::BotaoEditar()
 		}
 		case 8: // Caso a pagina for igual 8 edita um réptel nativo.
 		{
-			//repteis nativos
+			// Pega a linha selecionada.
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_repteis_nativos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
@@ -1092,7 +1092,7 @@ void JanelaPrincipal::BotaoEditar()
 					repteis_exoticos, repteis_nativos, pagina, id);
 				temp.Run();
 			}
-			else // Caso uma linha nãon tenha sido selecionada.
+			else // Caso uma linha não tenha sido selecionada.
 			{
 				valid_row = false;
 			}
@@ -1100,7 +1100,7 @@ void JanelaPrincipal::BotaoEditar()
 		}
 		case 9: // Caso a pagina for igual 9 edita um réptil exótico.
 		{
-			//repteis exoticos
+			// Pega a linha selecionada.
 			Glib::RefPtr<Gtk::TreeSelection> selection = tree_view_repteis_exoticos->get_selection();
 			Gtk::TreeModel::iterator selectedRow = selection->get_selected();
 			Gtk::TreeModel::Row row = *selectedRow;
@@ -1113,7 +1113,7 @@ void JanelaPrincipal::BotaoEditar()
 					repteis_exoticos, repteis_nativos, pagina, id);
 				temp.Run();
 			}
-			else // Caso uma linha nãon tenha sido selecionada.
+			else // Caso uma linha não tenha sido selecionada.
 			{
 				valid_row = false;
 			}
@@ -1140,6 +1140,7 @@ void JanelaPrincipal::BotaoBuscarAnimalPorFuncionario()
 	{
 		case 0:
 			//tratadores
+			// Pega a linha selecionada.
 			selection = tree_view_tratadores->get_selection();
 			selectedRow = selection->get_selected();
 			row = *selectedRow;
@@ -1158,6 +1159,7 @@ void JanelaPrincipal::BotaoBuscarAnimalPorFuncionario()
 			break;
 		case 1:
 			//veterinarios
+			// Pega a linha selecionada.
 			selection = tree_view_veterinarios->get_selection();			
 			selectedRow = selection->get_selected();
 			row = *selectedRow;

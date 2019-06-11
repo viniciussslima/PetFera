@@ -21,6 +21,7 @@ AnimalExotico::AnimalExotico(){}
 * @brief construtor parametrizado da classe AnimalExotico.
 * @param new_autorizacao_ibama Conjunto de caracteres que representam a autorização do ibama. 
 * @param new_pais_origem Palavra(s) que representam o país de origem do animal exótico. 
+* @param m_cidade_origem Palavra(s) que representam q cidade de origem do animal exótico.
 */
 
 AnimalExotico::AnimalExotico(string new_autorizacao_ibama, 
