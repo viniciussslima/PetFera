@@ -1,6 +1,6 @@
 /**
 * @file ReptilExotico.cpp
-* @brief Implementação da classe que representa répteis exóticos.
+* @brief Implementação da classe ReptilExotico.
 * @author
 * Hudson Bruno Macedo Alves,
 * João Vitor Kobata,

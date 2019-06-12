@@ -1,5 +1,5 @@
 /**
-* @file date.cpp
+* @file date.h
 * @brief Classe que representa datas.
 * @author Bernt A Oedegaard.
 */

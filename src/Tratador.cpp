@@ -1,7 +1,7 @@
 /**
 * @file Tratador.cpp
+* @brief Implementação da classe Tratador.
 * @author
-* @brief Implementação da classe que representa tratadores.
 * Hudson Bruno Macedo Alves,
 * João Vitor Kobata,
 * Vinicius Santos Silva de Lima.

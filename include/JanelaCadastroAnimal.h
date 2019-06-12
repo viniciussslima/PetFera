@@ -1,5 +1,6 @@
 /**
 * @file JanelaCadastroAnimal.h
+* @brief Classe que abre uma juanela que possibibilita cadastrar um animal.
 * @author
 * Hudson Bruno Macedo Alves,
 * João Vitor Kobata,
@@ -50,7 +51,7 @@ class JanelaCadastroAnimal
 		Entry *entry_id;
 		ComboBoxText *combo_box_classe;
 		Entry *entry_nome_cientifico;
-		ComboBoxText *combo_box_sexo; //
+		ComboBoxText *combo_box_sexo;
 		Entry *entry_tamanho;
 		Entry *entry_dieta;
 		CheckButton *check_button_veterinario_incluso;

@@ -1,6 +1,6 @@
 /**
 * @file MamiferoNativo.cpp
-* @brief Implementação da classe que representa mamíferos nativos.
+* @brief Implementação da classe MamiferoNativo.
 * @author
 * Hudson Bruno Macedo Alves,
 * João Vitor Kobata,

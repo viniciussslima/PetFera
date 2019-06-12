@@ -1,18 +1,29 @@
 /**
 * @file date.cpp
-* @brief Implementação da classe que representa datas.
+* @brief Implementação da classe date.
 * @author Bernt A Oedegaard.
 */
 
 #include "date.h"
-///////////////////////////// construction //////////
+
+/**
+* @brief Construtor padrão da classe date.
+*/
+
+date::date(){ year_ = 0; month_ = 0; day_ = 0;};
+
+/**
+* @brief construtor parametrizado da classe date.
+* @param d Número que representa o dia de uma data. 
+* @param m Número que representa o mês de uma data. 
+* @param y Número que representa o ano de uma data. 
+*/
+
 date::date(const int& d, const int& m, const int& y) {
 	day_ = d;
 	month_ = m;
 	year_ = y; // this assumes year is given fully, not Y2K corrections
 };
-///////////////////////////// inline definitions //////////
-date::date(){ year_ = 0; month_ = 0; day_ = 0;};
 
 int date::day() const { return day_ ; };
 int date::month() const { return month_ ; };

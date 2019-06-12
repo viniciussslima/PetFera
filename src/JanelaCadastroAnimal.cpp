@@ -1,5 +1,6 @@
 /**
 * @file JanelaCadastroAnimal.cpp
+* @brief Implementação da classe JanelaCadastroAnimal.
 * @author
 * Hudson Bruno Macedo Alves,
 * João Vitor Kobata,

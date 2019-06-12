@@ -1,5 +1,6 @@
 /**
 * @file JanelaCadastroFuncionario.cpp
+* @brief Implementação da classe JanelaCadastroFuncionario.
 * @author
 * Hudson Bruno Macedo Alves,
 * João Vitor Kobata,

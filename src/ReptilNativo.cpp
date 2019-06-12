@@ -1,6 +1,6 @@
 /**
 * @file ReptilNativo.cpp
-* @brief Implementação da classe que representa répteis nativos.
+* @brief Implementação da classe ReptilNativo.
 * @author
 * Hudson Bruno Macedo Alves,
 * João Vitor Kobata,

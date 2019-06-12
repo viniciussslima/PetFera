@@ -1,6 +1,6 @@
 /**
 * @file AnimalSilvestre.cpp
-* @brief Implementação da classe que representa animais silvestres.
+* @brief Implementação da classe AnimalSilvestre.
 * @author
 * Hudson Bruno Macedo Alves,
 * João Vitor Kobata,

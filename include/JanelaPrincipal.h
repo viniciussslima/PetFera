@@ -1,5 +1,6 @@
 /**
 * @file JanelaPrincipal.h
+* @brief Classe que abre uma janela que possibilita vizualizar todos os animais e funcionários cadastrados.
 * @author
 * Hudson Bruno Macedo Alves,
 * João Vitor Kobata,

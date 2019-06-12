@@ -1,6 +1,6 @@
 /**
 * @file MamiferoExotico.cpp
-* @brief Implementação da classe que representa mamíferos exóticos.
+* @brief Implementação da classe MamiferoExotico.
 * @author
 * Hudson Bruno Macedo Alves,
 * João Vitor Kobata,

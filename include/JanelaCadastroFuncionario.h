@@ -1,5 +1,6 @@
 /**
 * @file JanelaCadastroFuncionario.h
+* @brief Classe que abre uma juanela que possibibilita cadastrar um funcionário.
 * @author
 * Hudson Bruno Macedo Alves,
 * João Vitor Kobata,

@@ -2092,6 +2092,10 @@ void JanelaEditarAnimal::AtualizarIconeTamanhoDoBico()
 	}
 }
 
+/**
+* @brief Método que verifica se a emvergadura das asas digitada é válida.
+*/
+
 void JanelaEditarAnimal::AtualizarIconeEnvergaduraDasAsas()
 {
 	string entry_text = entry_envergadura_das_asas->get_text();

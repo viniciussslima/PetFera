@@ -1,6 +1,6 @@
 /**
 * @file Ave.cpp
-* @brief Implementação da classe que representa aves.
+* @brief Implementação da classe Ave.
 * @author
 * Hudson Bruno Macedo Alves,
 * João Vitor Kobata,

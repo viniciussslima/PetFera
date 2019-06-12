@@ -1,5 +1,5 @@
 /**
-* @file Anfibio.h
+* @file Funcionario.h
 * @brief Classe que representa funcionários.
 * @author
 * Hudson Bruno Macedo Alves,

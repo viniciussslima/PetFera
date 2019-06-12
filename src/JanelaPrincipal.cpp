@@ -1,5 +1,6 @@
 /**
 * @file JanelaPrincipal.cpp
+* @brief Implementação da classe JanelaPrincipal.
 * @author
 * Hudson Bruno Macedo Alves,
 * João Vitor Kobata,
@@ -1132,6 +1133,10 @@ void JanelaPrincipal::BotaoEditar()
 	}
 }
 
+/**
+* @brief Método chama a janela JanelaBuscaAnimais quando o botão buscar é clicado.
+*/
+
 void JanelaPrincipal::BotaoBuscarAnimalPorFuncionario()
 {
 	int id;
@@ -1191,6 +1196,10 @@ void JanelaPrincipal::BotaoBuscarAnimalPorFuncionario()
   		dialog.run();
 	}
 }
+
+/**
+* @brief Método qu abre uma AboutDialog que contém as informações do programa, como a versão e o link do github.
+*/
 
 void JanelaPrincipal::BotaoAbout()
 {

@@ -1,6 +1,6 @@
 /**
 * @file AveNativo.cpp
-* @brief Implementação da classe que representa aves nativas.
+* @brief Implementação da classe AveNativo.
 * @author
 * Hudson Bruno Macedo Alves,
 * João Vitor Kobata,

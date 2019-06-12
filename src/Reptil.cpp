@@ -1,6 +1,6 @@
 /**
 * @file Reptil.cpp
-* @brief Implementação da classe que representa répteis.
+* @brief Implementação da classe Reptil.
 * @author
 * Hudson Bruno Macedo Alves,
 * João Vitor Kobata,

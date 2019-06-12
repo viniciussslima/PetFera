@@ -1,6 +1,6 @@
 /**
 * @file AnimalNativo.cpp
-* @brief Implementação da classe que representa animais nativos.
+* @brief Implementação da classe AnimalNativo.
 * @author
 * Hudson Bruno Macedo Alves,
 * João Vitor Kobata,

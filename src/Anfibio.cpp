@@ -1,6 +1,6 @@
 /**
 * @file Anfibio.cpp
-* @brief Implementação da classe que representa anfibíos.
+* @brief Implementação da classe Anfibio.
 * @author
 * Hudson Bruno Macedo Alves,
 * João Vitor Kobata,

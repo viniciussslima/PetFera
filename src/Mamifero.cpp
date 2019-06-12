@@ -1,6 +1,6 @@
 /**
 * @file Mamifero.cpp
-* @brief Implementação da classe que representa mamíferos.
+* @brief Implementação da classe Mamifero.
 * @author
 * Hudson Bruno Macedo Alves,
 * João Vitor Kobata,
