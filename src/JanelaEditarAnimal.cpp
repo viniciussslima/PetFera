@@ -148,6 +148,7 @@ JanelaEditarAnimal::JanelaEditarAnimal(JanelaPrincipal &jptemp, map<int, Veterin
 	window->set_title("Editar Animal");
 	window->set_resizable(false);
 	window->add(*box_principal);
+	window->set_transient_for(*janela_principal->window);
 
 	pixbuf_check = Gdk::Pixbuf::create_from_file("icons/check.ico");
 	pixbuf_uncheck = Gdk::Pixbuf::create_from_file("icons/uncheck.ico");
