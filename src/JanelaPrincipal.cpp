@@ -1207,17 +1207,12 @@ void JanelaPrincipal::BotaoAbout()
 	about_dialog.set_logo(pixbuf_icone);
 	about_dialog.set_version("Versão 1.0");
 	about_dialog.set_program_name("PetFera");
-	about_dialog.set_copyright("Vinicius Santos Silva de Lima");
+	about_dialog.set_copyright("Hudson Bruno Macedo Alves\nJoão Vitor Kobata\nVinicius Santos Silva de Lima");
 	about_dialog.set_comments("Programa de cadastro de animais e funcionários para lojas de animais silvestres.");
 	about_dialog.set_license("MIT");
 	about_dialog.set_website("https://github.com/viniciussslima/PetFera");
 	about_dialog.set_website_label("GitHub");
 	about_dialog.set_transient_for(*window);
-	std::vector<Glib::ustring> lista_de_autores;
-	lista_de_autores.push_back("Hudson Bruno Macedo Alves");
-	lista_de_autores.push_back("João Vitor Kobata");
-	lista_de_autores.push_back("Vinicius Santos Silva de Lima");
-	about_dialog.set_authors(lista_de_autores);
 	about_dialog.run();
 }
 
