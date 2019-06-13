@@ -184,9 +184,9 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 
 	button_cadastro_animal = new Button("Cadastrar animal");
 	button_remover = new Button("Remover");
-	button_cadastro_funcionario = new Button("Cadastrar funcionario");
+	button_cadastro_funcionario = new Button("Cadastrar funcionário");
 	button_editar = new Button("Editar");
-	button_buscar_animal_por_funcionario = new Button("Buscar animal por funcionario");
+	button_buscar_animal_por_funcionario = new Button("Buscar animal por funcionário");
 	button_about = new Button;
 
 	box_principal = new VBox;
@@ -515,7 +515,7 @@ void JanelaPrincipal::BotaoCadastrarAnimal()
 	if (tratadores.empty() && veterinarios.empty())
 	{
 		MessageDialog dialog(*window, "Impossivel cadastrar um animal.");
-		dialog.set_secondary_text("Não existem funcionarios cadastrados.");
+		dialog.set_secondary_text("Não existe(m) funcionário(s) cadastrado(s).");
   		dialog.run();
 	}
 	else
@@ -551,7 +551,7 @@ void JanelaPrincipal::BotaoRemover()
 					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
 					repteis_exoticos, repteis_nativos, id))
 				{
-					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionario? ");
+					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionário? ");
 					confimacao.add_button("Não", 1);
 					resposta = confimacao.run();
 					if (resposta == RESPONSE_OK)
@@ -561,8 +561,8 @@ void JanelaPrincipal::BotaoRemover()
 				}
 				else // Caso uma linha não tenha sido selecionada.
 				{
-					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
-					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
+					MessageDialog dialog(*window, "Impossível remover esse funcionário.");
+					dialog.set_secondary_text("Esse funcionário é responsável por um ou mais animais.");
 			  		dialog.run();
 				}
 			}
@@ -585,7 +585,7 @@ void JanelaPrincipal::BotaoRemover()
 					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
 					repteis_exoticos, repteis_nativos, id))
 				{
-					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionario? ");
+					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionário? ");
 					confimacao.add_button("Não", 1);
 					resposta = confimacao.run();
 					if (resposta == RESPONSE_OK)
@@ -595,8 +595,8 @@ void JanelaPrincipal::BotaoRemover()
 				}
 				else // Caso uma linha não tenha sido selecionada.
 				{
-					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
-					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
+					MessageDialog dialog(*window, "Impossível remover esse funcionário.");
+					dialog.set_secondary_text("Esse funcionário é responsável por um ou mais animais.");
 			  		dialog.run();
 				}
 			}
@@ -619,7 +619,7 @@ void JanelaPrincipal::BotaoRemover()
 					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
 					repteis_exoticos, repteis_nativos, id))
 				{
-					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionario? ");
+					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionário? ");
 					confimacao.add_button("Não", 1);
 					resposta = confimacao.run();
 					if (resposta == RESPONSE_OK)
@@ -631,8 +631,8 @@ void JanelaPrincipal::BotaoRemover()
 				}
 				else // Caso uma linha não tenha sido selecionada.
 				{
-					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
-					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
+					MessageDialog dialog(*window, "Impossível remover esse funcionário.");
+					dialog.set_secondary_text("Esse funcionário é responsável por um ou mais animais.");
 			  		dialog.run();
 				}
 			}
@@ -655,7 +655,7 @@ void JanelaPrincipal::BotaoRemover()
 					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
 					repteis_exoticos, repteis_nativos, id))
 				{
-					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionario? ");
+					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionário? ");
 					confimacao.add_button("Não", 1);
 					resposta = confimacao.run();
 					if (resposta == RESPONSE_OK)
@@ -667,8 +667,8 @@ void JanelaPrincipal::BotaoRemover()
 				}
 				else // Caso uma linha não tenha sido selecionada.
 				{
-					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
-					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
+					MessageDialog dialog(*window, "Impossível remover esse funcionário.");
+					dialog.set_secondary_text("Esse funcionário é responsável por um ou mais animais.");
 			  		dialog.run();
 				}
 			}
@@ -691,7 +691,7 @@ void JanelaPrincipal::BotaoRemover()
 					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
 					repteis_exoticos, repteis_nativos, id))
 				{
-					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionario? ");
+					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionário? ");
 					confimacao.add_button("Não", 1);
 					resposta = confimacao.run();
 					if (resposta == RESPONSE_OK)
@@ -703,8 +703,8 @@ void JanelaPrincipal::BotaoRemover()
 				}
 				else // Caso uma linha não tenha sido selecionada.
 				{
-					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
-					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
+					MessageDialog dialog(*window, "Impossível remover esse funcionário.");
+					dialog.set_secondary_text("Esse funcionário é responsável por um ou mais animais.");
 			  		dialog.run();
 				}
 			}
@@ -727,7 +727,7 @@ void JanelaPrincipal::BotaoRemover()
 					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
 					repteis_exoticos, repteis_nativos, id))
 				{
-					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionario? ");
+					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionário? ");
 					confimacao.add_button("Não", 1);
 					resposta = confimacao.run();
 					if (resposta == RESPONSE_OK)
@@ -739,8 +739,8 @@ void JanelaPrincipal::BotaoRemover()
 				}
 				else // Caso uma linha não tenha sido selecionada.
 				{
-					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
-					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
+					MessageDialog dialog(*window, "Impossível remover esse funcionário.");
+					dialog.set_secondary_text("Esse funcionário é responsável por um ou mais animais.");
 			  		dialog.run();
 				}
 			}
@@ -763,7 +763,7 @@ void JanelaPrincipal::BotaoRemover()
 					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
 					repteis_exoticos, repteis_nativos, id))
 				{
-					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionario? ");
+					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionário? ");
 					confimacao.add_button("Não", 1);
 					resposta = confimacao.run();
 					if (resposta == RESPONSE_OK)
@@ -775,8 +775,8 @@ void JanelaPrincipal::BotaoRemover()
 				}
 				else // Caso uma linha não tenha sido selecionada.
 				{
-					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
-					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
+					MessageDialog dialog(*window, "Impossível remover esse funcionário.");
+					dialog.set_secondary_text("Esse funcionário é responsável por um ou mais animais.");
 			  		dialog.run();
 				}
 			}
@@ -799,7 +799,7 @@ void JanelaPrincipal::BotaoRemover()
 					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
 					repteis_exoticos, repteis_nativos, id))
 				{
-					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionario? ");
+					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionário? ");
 					confimacao.add_button("Não", 1);
 					resposta = confimacao.run();
 					if (resposta == RESPONSE_OK)
@@ -811,8 +811,8 @@ void JanelaPrincipal::BotaoRemover()
 				}
 				else // Caso uma linha não tenha sido selecionada.
 				{
-					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
-					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
+					MessageDialog dialog(*window, "Impossível remover esse funcionário.");
+					dialog.set_secondary_text("Esse funcionário é responsável por um ou mais animais.");
 			  		dialog.run();
 				}
 			}
@@ -835,7 +835,7 @@ void JanelaPrincipal::BotaoRemover()
 					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
 					repteis_exoticos, repteis_nativos, id))
 				{
-					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionario? ");
+					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionário? ");
 					confimacao.add_button("Não", 1);
 					resposta = confimacao.run();
 					if (resposta == RESPONSE_OK)
@@ -847,8 +847,8 @@ void JanelaPrincipal::BotaoRemover()
 				}
 				else // Caso uma linha não tenha sido selecionada.
 				{
-					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
-					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
+					MessageDialog dialog(*window, "Impossível remover esse funcionário.");
+					dialog.set_secondary_text("Esse funcionário é responsável por um ou mais animais.");
 			  		dialog.run();
 				}
 			}
@@ -871,7 +871,7 @@ void JanelaPrincipal::BotaoRemover()
 					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
 					repteis_exoticos, repteis_nativos, id))
 				{
-					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionario? ");
+					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionário? ");
 					confimacao.add_button("Não", 1);
 					resposta = confimacao.run();
 					if (resposta == RESPONSE_OK)
@@ -883,8 +883,8 @@ void JanelaPrincipal::BotaoRemover()
 				}
 				else // Caso uma linha não tenha sido selecionada.
 				{
-					MessageDialog dialog(*window, "Impossivel remover esse funcionario.");
-					dialog.set_secondary_text("Esses funcionario é responsavel por um ou mais animais.");
+					MessageDialog dialog(*window, "Impossível remover esse funcionário.");
+					dialog.set_secondary_text("Esse funcionário é responsável por um ou mais animais.");
 			  		dialog.run();
 				}
 			}
@@ -897,8 +897,8 @@ void JanelaPrincipal::BotaoRemover()
 	}
 	if(!valid_row) // Caso nenhuam linha seja selecionada é aberta uma janela de aviso.
 	{
-		MessageDialog dialog(*window, "Nenhum animal ou funcionario selecionado.");
-		dialog.set_secondary_text("Primeiro selcione um funcionario ou um animal e depois aperte o butão remover.");
+		MessageDialog dialog(*window, "Nenhum animal ou funcionário selecionado.");
+		dialog.set_secondary_text("Primeiro selecione um funcionário ou um animal e depois aperte o botão remover.");
   		dialog.run();
 	}
 }
@@ -1127,8 +1127,8 @@ void JanelaPrincipal::BotaoEditar()
 	}
 	if(!valid_row) // Caso uma linha nãon tenha sido selecionada é aberta uma janela de aviso.
 	{
-		MessageDialog dialog(*window, "Nenhum animal ou funcionario selecionado.");
-		dialog.set_secondary_text("Primeiro selcione um funcionario ou um animal e depois aperte o butão editar.");
+		MessageDialog dialog(*window, "Nenhum animal ou funcionário selecionado.");
+		dialog.set_secondary_text("Primeiro selecione um funcionário ou um animal e depois aperte o botão editar.");
   		dialog.run();
 	}
 }
@@ -1184,15 +1184,15 @@ void JanelaPrincipal::BotaoBuscarAnimalPorFuncionario()
 			}
 			break;
 		default:
-			MessageDialog dialog(*window, "Impossivel fazer a busca.");
-			dialog.set_secondary_text("O item selecionado não é um funcionario.");
+			MessageDialog dialog(*window, "Impossível fazer a busca.");
+			dialog.set_secondary_text("O item selecionado não é um funcionário.");
 	  		dialog.run();
 	  		break;
 	}
 	if(!valid_row) // Caso uma linha não tenha sido selecionada.
 	{
-		MessageDialog dialog(*window, "Nenhum funcionario selecionado.");
-		dialog.set_secondary_text("Primeiro selcione um funcionario e depois aperte o butão buscar animal por funcionario.");
+		MessageDialog dialog(*window, "Nenhum funcionário selecionado.");
+		dialog.set_secondary_text("Primeiro selecione um funcionário e depois aperte o botão buscar animal por funcionário.");
   		dialog.run();
 	}
 }
@@ -1285,7 +1285,7 @@ void JanelaPrincipal::AtualizarLista(int i)
 				row[model_columns_anfibio_nativo.col_dieta] = it->second.get_dieta();
 
 				if (it->second.get_veterinario_id() == 0)
-					row[model_columns_anfibio_nativo.col_veterinario] = "Sem veterinario";
+					row[model_columns_anfibio_nativo.col_veterinario] = "Sem veterinário";
 				else
 					row[model_columns_anfibio_nativo.col_veterinario] = to_string((it->second).get_veterinario_id());
 
@@ -1319,7 +1319,7 @@ void JanelaPrincipal::AtualizarLista(int i)
 				row[model_columns_anfibio_exotico.col_dieta] = it->second.get_dieta();
 
 				if (it->second.get_veterinario_id() == 0)
-					row[model_columns_anfibio_exotico.col_veterinario] = "Sem veterinario";
+					row[model_columns_anfibio_exotico.col_veterinario] = "Sem veterinário";
 				else
 					row[model_columns_anfibio_exotico.col_veterinario] = to_string((it->second).get_veterinario_id());
 				
@@ -1354,7 +1354,7 @@ void JanelaPrincipal::AtualizarLista(int i)
 				row[model_columns_ave_nativa.col_dieta] = it->second.get_dieta();
 				
 				if (it->second.get_veterinario_id() == 0)
-					row[model_columns_ave_nativa.col_veterinario] = "Sem veterinario";
+					row[model_columns_ave_nativa.col_veterinario] = "Sem veterinário";
 				else
 					row[model_columns_ave_nativa.col_veterinario] = to_string((it->second).get_veterinario_id());
 				
@@ -1388,7 +1388,7 @@ void JanelaPrincipal::AtualizarLista(int i)
 				row[model_columns_ave_exotica.col_dieta] = it->second.get_dieta();
 				
 				if (it->second.get_veterinario_id() == 0)
-					row[model_columns_ave_exotica.col_veterinario] = "Sem veterinario";
+					row[model_columns_ave_exotica.col_veterinario] = "Sem veterinário";
 				else
 					row[model_columns_ave_exotica.col_veterinario] = to_string((it->second).get_veterinario_id());
 				
@@ -1423,7 +1423,7 @@ void JanelaPrincipal::AtualizarLista(int i)
 				row[model_columns_mamifero_nativo.col_dieta] = it->second.get_dieta();
 				
 				if (it->second.get_veterinario_id() == 0)
-					row[model_columns_mamifero_nativo.col_veterinario] = "Sem veterinario";
+					row[model_columns_mamifero_nativo.col_veterinario] = "Sem veterinário";
 				else
 					row[model_columns_mamifero_nativo.col_veterinario] = to_string((it->second).get_veterinario_id());
 				
@@ -1456,7 +1456,7 @@ void JanelaPrincipal::AtualizarLista(int i)
 				row[model_columns_mamifero_exotico.col_dieta] = it->second.get_dieta();
 				
 				if (it->second.get_veterinario_id() == 0)
-					row[model_columns_mamifero_exotico.col_veterinario] = "Sem veterinario";
+					row[model_columns_mamifero_exotico.col_veterinario] = "Sem veterinário";
 				else
 					row[model_columns_mamifero_exotico.col_veterinario] = to_string((it->second).get_veterinario_id());
 				
@@ -1490,7 +1490,7 @@ void JanelaPrincipal::AtualizarLista(int i)
 				row[model_columns_reptil_nativo.col_dieta] = it->second.get_dieta();
 				
 				if (it->second.get_veterinario_id() == 0)
-					row[model_columns_reptil_nativo.col_veterinario] = "Sem veterinario";
+					row[model_columns_reptil_nativo.col_veterinario] = "Sem veterinário";
 				else
 					row[model_columns_reptil_nativo.col_veterinario] = to_string((it->second).get_veterinario_id());
 				
@@ -1523,7 +1523,7 @@ void JanelaPrincipal::AtualizarLista(int i)
 				row[model_columns_reptil_exotico.col_dieta] = it->second.get_dieta();
 				
 				if (it->second.get_veterinario_id() == 0)
-					row[model_columns_reptil_exotico.col_veterinario] = "Sem veterinario";
+					row[model_columns_reptil_exotico.col_veterinario] = "Sem veterinário";
 				else
 					row[model_columns_reptil_exotico.col_veterinario] = to_string((it->second).get_veterinario_id());
 				
