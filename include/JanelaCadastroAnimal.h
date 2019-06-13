@@ -48,6 +48,7 @@ class JanelaCadastroAnimal
 		VBox *box_esquerda;
 		VBox *box_direita;
 		HBox *box_sexo;
+		HBox *box_regiao;
 
 		Entry *entry_id;
 		ComboBoxText *combo_box_classe;
@@ -62,7 +63,8 @@ class JanelaCadastroAnimal
 		Entry *entry_tratador_id;
 		Entry *entry_nome_batismo;
 		Entry *entry_autorizacao_ibama;
-		ComboBoxText *combo_box_regiao;
+		RadioButton *radio_button_regiao_nativo;
+		RadioButton *radio_button_regiao_exotico;
 		Entry *entry_nacionalidade;
 		ComboBoxText *combo_box_uf;
 		Entry *entry_cidade;
