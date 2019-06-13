@@ -108,6 +108,7 @@ JanelaEditarFuncionario::JanelaEditarFuncionario(JanelaPrincipal &jptemp, map<in
 	window->set_title("Editar Funcionário");
 	window->set_resizable(false);
 	window->add(*box_principal);
+	window->set_transient_for(*janela_principal->window);
 
 	pixbuf_check = Gdk::Pixbuf::create_from_file("icons/check.ico");
 	pixbuf_uncheck = Gdk::Pixbuf::create_from_file("icons/uncheck.ico");
