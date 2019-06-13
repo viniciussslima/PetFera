@@ -357,8 +357,6 @@ class JanelaPrincipal : public ModelColumnsTratador, public ModelColumnsVeterina
 	public ModelColumnsReptilNativo, public ModelColumnsReptilExotico
 {
 	private:
-		Window *window;
-
 		VBox *box_principal;
 		HButtonBox *box_botoes;
 
@@ -422,6 +420,8 @@ class JanelaPrincipal : public ModelColumnsTratador, public ModelColumnsVeterina
 	  	Glib::RefPtr<ListStore> list_store_repteis_nativos;
 	  	Glib::RefPtr<ListStore> list_store_repteis_exoticos;
 	public:
+		Window *window;
+		
 		map<int, Veterinario> veterinarios;
 		map<int, Tratador> tratadores;
 
