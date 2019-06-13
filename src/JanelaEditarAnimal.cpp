@@ -370,6 +370,7 @@ void JanelaEditarAnimal::SetInformacooes()
 
 	int id_veterinario;
 	int id_tratador;
+	string data_da_ultima_muda;
 	string uf;
 	bool venenoso;
 
@@ -436,7 +437,12 @@ void JanelaEditarAnimal::SetInformacooes()
 
 		entry_total_de_mudas->set_text(to_string((it->second).get_total_de_mudas()));
 
-		entry_data_da_ultima_muda->set_text((it->second).get_data_da_ultima_muda());
+		data_da_ultima_muda = (it->second).get_data_da_ultima_muda();
+		
+		if (data_da_ultima_muda.compare("Sem data") == 0)
+			entry_data_da_ultima_muda->hide();
+		else
+			entry_data_da_ultima_muda->set_text(data_da_ultima_muda);
 
 		entry_autorizacao_ibama->set_text((it->second).get_autorizacao_ibama());
 
@@ -560,7 +566,12 @@ void JanelaEditarAnimal::SetInformacooes()
 
 		entry_total_de_mudas->set_text(to_string((it->second).get_total_de_mudas()));
 
-		entry_data_da_ultima_muda->set_text((it->second).get_data_da_ultima_muda());
+		data_da_ultima_muda = (it->second).get_data_da_ultima_muda();
+		
+		if (data_da_ultima_muda.compare("Sem data") == 0)
+			entry_data_da_ultima_muda->hide();
+		else
+			entry_data_da_ultima_muda->set_text(data_da_ultima_muda);
 
 		entry_autorizacao_ibama->set_text((it->second).get_autorizacao_ibama());
 
@@ -1958,27 +1969,46 @@ void JanelaEditarAnimal::AtualizarIconeCidade()
 void JanelaEditarAnimal::AtualizarIconeTotalDeMudas()
 {
 	int temp;
+	//Tenta fazer o stoi, existe a possibilidade de dar erro quando não houver nada digitado
 	try
 	{
 		temp = stoi(entry_total_de_mudas->get_text());
 	}
-	catch(exception &ex) // Caso algo que não pode ser convertido para inteiro seja digitado.
+	catch(exception &ex)
 	{
 		valid_total_de_mudas = false;
 		entry_total_de_mudas->set_icon_from_pixbuf(pixbuf_uncheck);
 		entry_total_de_mudas->set_icon_tooltip_text("Quantidade Inválida");
+		valid_data_da_ultima_muda = false;
+		label_data_da_ultima_muda->hide();
+		entry_data_da_ultima_muda->hide();
 		return;
 	}
-	if (temp < 0) // Caso o total de muldas digitado seja menor que 0.
+	// Verifica se o total de mudas é menor que zero.
+	if (temp < 0)
 	{
 		valid_total_de_mudas = false;
 		entry_total_de_mudas->set_icon_from_pixbuf(pixbuf_uncheck);
 		entry_total_de_mudas->set_icon_tooltip_text("Quantidade Inválida");
+		valid_data_da_ultima_muda = false;
+		label_data_da_ultima_muda->hide();
+		entry_data_da_ultima_muda->hide();
 	}
-	else // Caso o total de mudas seja válido.
+	else if (temp == 0)
 	{
 		valid_total_de_mudas = true;
 		entry_total_de_mudas->set_icon_from_pixbuf(pixbuf_check);
+		valid_data_da_ultima_muda = true;
+		label_data_da_ultima_muda->hide();
+		entry_data_da_ultima_muda->hide();
+	}
+	else 
+	{
+		valid_total_de_mudas = true;
+		entry_total_de_mudas->set_icon_from_pixbuf(pixbuf_check);
+		label_data_da_ultima_muda->show();
+		entry_data_da_ultima_muda->show();
+
 	}
 }
 

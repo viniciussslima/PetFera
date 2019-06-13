@@ -358,6 +358,8 @@ void JanelaCadastroAnimal::Run()
 	label_tratador_id->hide();
 	entry_nacionalidade->hide();
 	label_nacionalidade->hide();
+	label_data_da_ultima_muda->hide();
+	entry_data_da_ultima_muda->hide();
 	entry_tamanho_do_bico->hide();
 	label_tamanho_do_bico->hide();
 	entry_envergadura_das_asas->hide();
@@ -1215,7 +1217,8 @@ void JanelaCadastroAnimal::AtualizarIconeTotalDeMudas()
 		entry_total_de_mudas->set_icon_from_pixbuf(pixbuf_uncheck);
 		entry_total_de_mudas->set_icon_tooltip_text("Quantidade Inválida");
 		valid_data_da_ultima_muda = false;
-		entry_data_da_ultima_muda->set_icon_from_pixbuf(pixbuf_uncheck);
+		label_data_da_ultima_muda->hide();
+		entry_data_da_ultima_muda->hide();
 		return;
 	}
 	// Verifica se o total de mudas é menor que zero.
@@ -1225,19 +1228,23 @@ void JanelaCadastroAnimal::AtualizarIconeTotalDeMudas()
 		entry_total_de_mudas->set_icon_from_pixbuf(pixbuf_uncheck);
 		entry_total_de_mudas->set_icon_tooltip_text("Quantidade Inválida");
 		valid_data_da_ultima_muda = false;
-		entry_data_da_ultima_muda->set_icon_from_pixbuf(pixbuf_uncheck);
+		label_data_da_ultima_muda->hide();
+		entry_data_da_ultima_muda->hide();
 	}
 	else if (temp == 0)
 	{
 		valid_total_de_mudas = true;
 		entry_total_de_mudas->set_icon_from_pixbuf(pixbuf_check);
 		valid_data_da_ultima_muda = true;
-		entry_data_da_ultima_muda->set_icon_from_pixbuf(pixbuf_check);
+		label_data_da_ultima_muda->hide();
+		entry_data_da_ultima_muda->hide();
 	}
 	else 
 	{
 		valid_total_de_mudas = true;
 		entry_total_de_mudas->set_icon_from_pixbuf(pixbuf_check);
+		label_data_da_ultima_muda->show();
+		entry_data_da_ultima_muda->show();
 
 	}
 }
