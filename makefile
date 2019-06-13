@@ -20,7 +20,7 @@ $(BUILDDIR)Ave.o $(BUILDDIR)AveNativo.o $(BUILDDIR)AveExotico.o \
 $(BUILDDIR)AnimalSilvestre.o $(BUILDDIR)AnimalNativo.o $(BUILDDIR)AnimalExotico.o \
 $(BUILDDIR)Separador.o
 
-$(PROG): folder clean $(OBJS)
+$(PROG): folder $(OBJS)
 	$(CC) -o $(PROG) $(OBJS) $(LDFLAGS)
 folder :
 	mkdir -p $(BINDIR)
@@ -96,3 +96,4 @@ run :
 	./$(PROG)
 gdb:
 	gdb $(PROG)	
+remake: cleanall $(PROG)
