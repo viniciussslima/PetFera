@@ -32,14 +32,18 @@ class JanelaCadastroFuncionario
 		HBox *box_dados;
 		VBox *box_esquerda;
 		VBox *box_direita;
+		HBox *box_funcao;
+		HBox *box_rh;
 
 		Entry *entry_id;
-		ComboBoxText *combo_box_fucao;
+		RadioButton *radio_button_veterinario;
+		RadioButton *radio_button_tratador;
 		Entry *entry_nome_do_funcionario;
 		Entry *entry_cpf;
 		Entry *entry_idade;
 		ComboBoxText *combo_box_tipo_sanguineo;
-		ComboBoxText *combo_box_rh;
+		RadioButton *radio_button_rh_positivo;
+		RadioButton *radio_button_rh_negativo;
 		Entry *entry_especialidade;
 		Entry *entry_crmv;
 		ComboBoxText *combo_box_nivel_de_seguranca;

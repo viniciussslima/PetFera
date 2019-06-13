@@ -54,15 +54,20 @@ JanelaCadastroFuncionario::JanelaCadastroFuncionario(JanelaPrincipal &jptemp, ma
 	entry_especialidade = new Entry;
 	entry_crmv = new Entry;
 
-	combo_box_fucao = new ComboBoxText;
+	radio_button_veterinario = new RadioButton("Veterinário");
+	radio_button_tratador = new RadioButton("Tratador");
+	radio_button_rh_negativo = new RadioButton("-");
+	radio_button_rh_positivo = new RadioButton("+");
+
 	combo_box_tipo_sanguineo = new ComboBoxText;
-	combo_box_rh = new ComboBoxText;
 	combo_box_nivel_de_seguranca = new ComboBoxText;
 
 	box_principal = new VBox;
 	box_dados = new HBox;
 	box_esquerda = new VBox(true);
 	box_direita = new VBox(true);
+	box_funcao = new HBox(true);
+	box_rh = new HBox(true);
 
 	label_id = new Label("ID: ");
 	label_funcao = new Label("Função: ");
@@ -92,19 +97,14 @@ JanelaCadastroFuncionario::JanelaCadastroFuncionario(JanelaPrincipal &jptemp, ma
 	entry_especialidade->set_icon_from_pixbuf(pixbuf_uncheck);
 	entry_crmv->set_icon_from_pixbuf(pixbuf_uncheck);
 
-	combo_box_fucao->append("Veterinario");
-	combo_box_fucao->append("Tratador");
-	combo_box_fucao->set_active(0);
+	radio_button_tratador->join_group(*radio_button_veterinario);
+	radio_button_rh_negativo->join_group(*radio_button_rh_positivo);
 
 	combo_box_tipo_sanguineo->append("A");
 	combo_box_tipo_sanguineo->append("B");
 	combo_box_tipo_sanguineo->append("AB");
 	combo_box_tipo_sanguineo->append("O");
 	combo_box_tipo_sanguineo->set_active(0);
-
-	combo_box_rh->append("+");
-	combo_box_rh->append("-");
-	combo_box_rh->set_active(0);
 
 	combo_box_nivel_de_seguranca->append("0");
 	combo_box_nivel_de_seguranca->append("1");
@@ -128,19 +128,25 @@ JanelaCadastroFuncionario::JanelaCadastroFuncionario(JanelaPrincipal &jptemp, ma
 	box_esquerda->add(*label_nivel_de_seguranca);
 	
 	box_direita->pack_start(*entry_id, PACK_SHRINK);
-	box_direita->pack_start(*combo_box_fucao, PACK_SHRINK);
+	box_direita->pack_start(*box_funcao, PACK_SHRINK);
 	box_direita->pack_start(*entry_nome_do_funcionario, PACK_SHRINK);
 	box_direita->pack_start(*entry_cpf, PACK_SHRINK);
 	box_direita->pack_start(*entry_idade, PACK_SHRINK);
 	box_direita->pack_start(*combo_box_tipo_sanguineo, PACK_SHRINK);
-	box_direita->pack_start(*combo_box_rh, PACK_SHRINK);
+	box_direita->pack_start(*box_rh, PACK_SHRINK);
 	box_direita->pack_start(*entry_especialidade, PACK_SHRINK);
 	box_direita->pack_start(*entry_crmv, PACK_SHRINK);
 	box_direita->pack_start(*combo_box_nivel_de_seguranca, PACK_SHRINK);
 
+	box_funcao->pack_start(*radio_button_veterinario, PACK_SHRINK);
+	box_funcao->pack_start(*radio_button_tratador, PACK_SHRINK);
+
+	box_rh->pack_start(*radio_button_rh_positivo, PACK_SHRINK);
+	box_rh->pack_start(*radio_button_rh_negativo, PACK_SHRINK);
+
 	// Conexões dos atributos da classe GTK.
 	button_cadastrar->signal_clicked().connect(sigc::mem_fun(*this, &JanelaCadastroFuncionario::Cadastrar));
-	combo_box_fucao->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroFuncionario::MudarFuncionario));
+	radio_button_veterinario->signal_toggled().connect(sigc::mem_fun(*this, &JanelaCadastroFuncionario::MudarFuncionario));
 	entry_id->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroFuncionario::AtualizarIconeId));
 	entry_nome_do_funcionario->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroFuncionario::AtualizarIconeNomeDoFuncionario));
 	entry_idade->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroFuncionario::AtualizarIconeIdade));
@@ -162,15 +168,19 @@ JanelaCadastroFuncionario::~JanelaCadastroFuncionario()
 	delete entry_idade;
 	delete entry_especialidade;
 	delete entry_crmv;
-	delete combo_box_fucao;
+	delete radio_button_veterinario;
+	delete radio_button_tratador;
 	delete combo_box_tipo_sanguineo;
-	delete combo_box_rh;
+	delete radio_button_rh_negativo;
+	delete radio_button_rh_positivo;
 	delete combo_box_nivel_de_seguranca;
 	delete button_cadastrar;
 	delete box_principal;
 	delete box_dados;
 	delete box_esquerda;
 	delete box_direita;
+	delete box_funcao;
+	delete box_rh;
 	delete label_id;
 	delete label_funcao;
 	delete label_nome_do_funcionario;
@@ -261,37 +271,26 @@ void JanelaCadastroFuncionario::Cadastrar()
 				tipo_sanguineo = "O";
 				break;
 		}
-		switch(combo_box_rh->get_active_row_number())
+		if(radio_button_rh_positivo->get_active())
+			rh = '+';
+		else
+			rh = '-';
+
+		if(radio_button_veterinario->get_active())
 		{
-			case 0:
-				rh = '+';
-				break;
-			case 1:
-				rh = '-';
-				break;
+			Veterinario veterinario(stoi(entry_id->get_text()), entry_nome_do_funcionario->get_text(), entry_cpf->get_text(), stoi(entry_idade->get_text()), tipo_sanguineo, rh, entry_especialidade->get_text(), entry_crmv->get_text());
+			veterinarios->insert(pair<int, Veterinario>(stoi(entry_id->get_text()), veterinario));
+			outfile << veterinario << endl;
+			janela_principal->AtualizarLista(1);
+		}
+		else
+		{
+			Tratador tratador(stoi(entry_id->get_text()), entry_nome_do_funcionario->get_text(), entry_cpf->get_text(), stoi(entry_idade->get_text()), tipo_sanguineo, rh, entry_especialidade->get_text(), combo_box_nivel_de_seguranca->get_active_row_number());
+			tratadores->insert(pair<int, Tratador>(stoi(entry_id->get_text()), tratador));
+			outfile << tratador << endl;
+			janela_principal->AtualizarLista(0);
 		}
 
-		switch(combo_box_fucao->get_active_row_number())
-		{
-			//Caso for veterinário
-			case 0:
-			{
-				Veterinario veterinario(stoi(entry_id->get_text()), entry_nome_do_funcionario->get_text(), entry_cpf->get_text(), stoi(entry_idade->get_text()), tipo_sanguineo, rh, entry_especialidade->get_text(), entry_crmv->get_text());
-				veterinarios->insert(pair<int, Veterinario>(stoi(entry_id->get_text()), veterinario));
-				outfile << veterinario << endl;
-				janela_principal->AtualizarLista(1);
-				break;
-			}
-			//Caso for tratador
-			case 1:
-			{
-				Tratador tratador(stoi(entry_id->get_text()), entry_nome_do_funcionario->get_text(), entry_cpf->get_text(), stoi(entry_idade->get_text()), tipo_sanguineo, rh, entry_especialidade->get_text(), combo_box_nivel_de_seguranca->get_active_row_number());
-				tratadores->insert(pair<int, Tratador>(stoi(entry_id->get_text()), tratador));
-				outfile << tratador << endl;
-				janela_principal->AtualizarLista(0);
-				break;
-			}
-		}
 		window->close();
 	}
 }
@@ -302,24 +301,23 @@ void JanelaCadastroFuncionario::Cadastrar()
 
 void JanelaCadastroFuncionario::MudarFuncionario()
 {
-	switch(combo_box_fucao->get_active_row_number())
+	if(radio_button_veterinario->get_active())
 	{
-		case 0:
-			valid_crmv = false;
-			combo_box_nivel_de_seguranca->hide();
-			label_nivel_de_seguranca->hide();
-			entry_crmv->show();
-			label_crmv->show();
-			AtualizarIconeId();
-			break;
-		case 1:
-			valid_crmv = true;
-			combo_box_nivel_de_seguranca->show();
-			label_nivel_de_seguranca->show();
-			entry_crmv->hide();
-			label_crmv->hide();
-			AtualizarIconeId();
-			break;
+		valid_crmv = false;
+		combo_box_nivel_de_seguranca->hide();
+		label_nivel_de_seguranca->hide();
+		entry_crmv->show();
+		label_crmv->show();
+		AtualizarIconeId();
+	}
+	else
+	{
+		valid_crmv = true;
+		combo_box_nivel_de_seguranca->show();
+		label_nivel_de_seguranca->show();
+		entry_crmv->hide();
+		label_crmv->hide();
+		AtualizarIconeId();
 	}
 }
 
