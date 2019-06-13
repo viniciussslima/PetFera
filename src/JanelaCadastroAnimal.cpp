@@ -90,11 +90,13 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 
 	combo_box_uf = new ComboBoxText;
 	combo_box_classe = new ComboBoxText;
-	combo_box_sexo = new ComboBoxText;
 	combo_box_regiao = new ComboBoxText;
 
 	check_button_veterinario_incluso = new CheckButton;
 	check_button_tratador_incluso = new CheckButton;
+
+	radio_button_sexo_m = new RadioButton("Masculino");
+	radio_button_sexo_f = new RadioButton("Feminino");
 
 	entry_total_de_mudas = new Entry;
 	entry_data_da_ultima_muda = new Entry;
@@ -108,6 +110,7 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 	box_dados = new HBox;
 	box_esquerda = new VBox(true);
 	box_direita = new VBox(true);
+	box_sexo = new HBox(true);
 
 	label_id = new Label("ID: ");
 	label_classe = new Label("Classe: ");
@@ -167,9 +170,7 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 	combo_box_classe->append("Reptilia");
 	combo_box_classe->set_active(0);
 
-	combo_box_sexo->append("Masculino");
-	combo_box_sexo->append("Feminino");
-	combo_box_sexo->set_active(0);
+	radio_button_sexo_f->join_group(*radio_button_sexo_m);
 
 	combo_box_regiao->append("Brasileiro");
 	combo_box_regiao->append("Outra Nacionalidade");
@@ -239,7 +240,7 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 	box_direita->pack_start(*entry_id, PACK_SHRINK);
 	box_direita->pack_start(*combo_box_classe, PACK_SHRINK);
 	box_direita->pack_start(*entry_nome_cientifico, PACK_SHRINK);
-	box_direita->pack_start(*combo_box_sexo, PACK_SHRINK);
+	box_direita->pack_start(*box_sexo, PACK_SHRINK);
 	box_direita->pack_start(*entry_tamanho, PACK_SHRINK);
 	box_direita->pack_start(*entry_dieta, PACK_SHRINK);
 	box_direita->pack_start(*check_button_veterinario_incluso, PACK_SHRINK);
@@ -260,6 +261,9 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 	box_direita->pack_start(*entry_nacionalidade, PACK_SHRINK);
 	box_direita->pack_start(*combo_box_uf, PACK_SHRINK);
 	box_direita->pack_start(*entry_cidade, PACK_SHRINK);
+
+	box_sexo->pack_start(*radio_button_sexo_m, PACK_SHRINK);
+	box_sexo->pack_start(*radio_button_sexo_f, PACK_SHRINK);
 
 	//Conexão dos atributos da classe GTK.
 	button_cadastrar->signal_clicked().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::Cadastrar));
@@ -310,7 +314,8 @@ JanelaCadastroAnimal::~JanelaCadastroAnimal()
 	delete entry_tipo_de_veneno;
 	delete combo_box_uf;
 	delete combo_box_classe;
-	delete combo_box_sexo;
+	delete radio_button_sexo_m;
+	delete radio_button_sexo_f;
 	delete combo_box_regiao;
 	delete check_button_veterinario_incluso;
 	delete check_button_tratador_incluso;
@@ -320,6 +325,7 @@ JanelaCadastroAnimal::~JanelaCadastroAnimal()
 	delete box_dados;
 	delete box_esquerda;
 	delete box_direita;
+	delete box_sexo;
 	delete label_id;
 	delete label_classe;
 	delete label_nome_cientifico;
@@ -494,7 +500,7 @@ void JanelaCadastroAnimal::Cadastrar()
 		for(unsigned int i = 0; i < classe.length(); i++)
 			classe[i] = toupper(classe[i]);
 		string nome_cientifico = entry_nome_cientifico->get_text();
-		char sexo = combo_box_sexo->get_active_text()[0];
+		char sexo = radio_button_sexo_m->get_active() ? 'M' : 'F';
 		double tamanho = stod(entry_tamanho->get_text());
 		string dieta = entry_dieta->get_text();
 		Veterinario veterinario = check_button_veterinario_incluso->get_active() ? (veterinarios->find(stoi(entry_veterinario_id->get_text())))->second : Veterinario();

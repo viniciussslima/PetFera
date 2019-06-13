@@ -47,11 +47,13 @@ class JanelaCadastroAnimal
 		HBox *box_dados;
 		VBox *box_esquerda;
 		VBox *box_direita;
+		HBox *box_sexo;
 
 		Entry *entry_id;
 		ComboBoxText *combo_box_classe;
 		Entry *entry_nome_cientifico;
-		ComboBoxText *combo_box_sexo;
+		RadioButton *radio_button_sexo_m;
+		RadioButton *radio_button_sexo_f;
 		Entry *entry_tamanho;
 		Entry *entry_dieta;
 		CheckButton *check_button_veterinario_incluso;
