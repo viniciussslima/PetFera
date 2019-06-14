@@ -16,6 +16,7 @@
 #include <map>
 #include <gtkmm.h>
 
+#include "Funcionario.h"
 #include "Veterinario.h"
 #include "Tratador.h"
 #include "JanelaPrincipal.h"
@@ -72,12 +73,11 @@ class JanelaCadastroFuncionario
 		bool valid_especialidade;
 		bool valid_crmv;
 
+		map<int, Funcionario*> *funcionarios;
 
-		map<int, Veterinario> *veterinarios;
-		map<int, Tratador> *tratadores;
 	public:
 		JanelaCadastroFuncionario();
-		JanelaCadastroFuncionario(JanelaPrincipal&, map<int, Veterinario>&, map<int, Tratador>&);
+		JanelaCadastroFuncionario(JanelaPrincipal&, map<int, Funcionario*>&);
 		~JanelaCadastroFuncionario();
 
 		void Run();

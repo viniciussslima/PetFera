@@ -1,3 +1,4 @@
+
 /**
 * @file Funcionario.h
 * @brief Classe que representa funcionários.
@@ -28,8 +29,7 @@ class Funcionario
 	public:
 		Funcionario();
 		Funcionario(int, string, string,
-			short, string, char ,
-			string);
+			short, string, char, string);
 		virtual ~Funcionario() = 0;
 		int get_id();
 		string get_nome();
@@ -41,19 +41,3 @@ class Funcionario
 };
 
 #endif
-
-/*
-friend ostream& operator<< (ostream &o, 
-	Funcionario const F)
-{
-	o << F.m_id << endl
-		<< F.m_id << endl
-		<< F.m_nome << endl
-		<< F.m_cpf << endl
-		<< F.m_idade << endl
-		<< F.m_tipo_sanguineo << endl
-		<< F.m_fator_rh << endl
-		<< F.m_especialidade << endl;
-	return o;
-}
-*/

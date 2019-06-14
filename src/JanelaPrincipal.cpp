@@ -55,15 +55,15 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 			if(funcao.compare("TRATADOR") == 0)
 			{
 				int nivel_seguranca = stoi(palavras[8]);
-				Tratador temp(id, nome, cpf, idade, tipo_sanguineo, fator_rh, especialidade, nivel_seguranca);
-				tratadores.insert(pair<int, Tratador>(id, temp));
+				Funcionario *temp = new Tratador(id, funcao, nome, cpf, idade, tipo_sanguineo, fator_rh, especialidade, nivel_seguranca);
+				funcionarios.insert(pair<int, Funcionario*>(id, temp));
 			}
 			//Caso for um funcionário
 			else
 			{
 				string crmv = palavras[8];
-				Veterinario temp(id, nome, cpf, idade, tipo_sanguineo, fator_rh, especialidade, crmv);
-				veterinarios.insert(pair<int, Veterinario>(id, temp));
+				Funcionario *temp = new Veterinario(id, funcao, nome, cpf, idade, tipo_sanguineo, fator_rh, especialidade, crmv);
+				funcionarios.insert(pair<int, Funcionario*>(id, temp));
 			}
 		}
 	}
@@ -83,12 +83,12 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 			char sexo = palavras[3][0];
 			double tamanho = stod(palavras[4]);
 			string dieta = palavras[5];
-			Veterinario veterinario;
+			Veterinario *veterinario;
 			if (stoi(palavras[6]) != 0)
-				veterinario = veterinarios.find(stoi(palavras[6]))->second;
-			Tratador tratador;
+				veterinario = dynamic_cast<Veterinario*>(funcionarios.find(stoi(palavras[6]))->second);
+			Tratador *tratador;
 			if (stoi(palavras[7]) != 0)
-				tratador = tratadores.find(stoi(palavras[7]))->second;
+				tratador = dynamic_cast<Tratador*>(funcionarios.find(stoi(palavras[7]))->second);
 			string nome_batismo = palavras[8];
 			string nacionalidade = palavras[palavras.size() - 1];
 
@@ -98,20 +98,21 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 		    	vector<int> data = Separador_data(palavras[10]);
 		    	date data_ultima_muda(data[0], data[1], data[2]);
 		    	string autorizacao_ibama = palavras[11];
+		    	string cidade_de_origem = palavras[12];
 
 				if(nacionalidade.length() == 2)
 				{
-					AnfibioNativo temp(id, classe, nome_cientifico, sexo, tamanho,
-									   dieta, veterinario, tratador, nome_batismo, 
+					Animal *temp = new AnfibioNativo(id, classe, nome_cientifico, sexo, tamanho,
+									   dieta, *veterinario, *tratador, nome_batismo, 
 									   total_mudas, data_ultima_muda, autorizacao_ibama, nacionalidade);
-			    	anfibios_nativos.insert(pair<int, AnfibioNativo>(id, temp));
+			    	animais.insert(pair<int, Animal*>(id, temp));
 				}
 			    else
 			    {
-			    	AnfibioExotico temp(id, classe, nome_cientifico, sexo, tamanho,
-									   dieta, veterinario, tratador, nome_batismo, 
-									   total_mudas, data_ultima_muda, autorizacao_ibama, nacionalidade, palavras[12]);
-			    	anfibios_exoticos.insert(pair<int, AnfibioExotico>(id, temp));
+			    	Animal *temp = new AnfibioExotico(id, classe, nome_cientifico, sexo, tamanho,
+									   dieta, *veterinario, *tratador, nome_batismo, 
+									   total_mudas, data_ultima_muda, autorizacao_ibama, nacionalidade, cidade_de_origem);
+			    	animais.insert(pair<int, Animal*>(id, temp));
 			    }
 		    }
 		    if(classe.compare("AVES") == 0)
@@ -119,40 +120,42 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 		    	double tamanho_bico = stod(palavras[9]);
 		    	double envergadura_asas = stod(palavras[10]);
 		    	string autorizacao_ibama = palavras[11];
+		    	string cidade_de_origem = palavras[12];
 
 				if(nacionalidade.length() == 2)
 				{
-					AveNativo temp(id, classe, nome_cientifico, sexo, tamanho,
-								   dieta, veterinario, tratador, nome_batismo, 
+					Animal *temp = new AveNativo(id, classe, nome_cientifico, sexo, tamanho,
+								   dieta, *veterinario, *tratador, nome_batismo, 
 								   tamanho_bico, envergadura_asas, autorizacao_ibama, nacionalidade);
-			    	aves_nativas.insert(pair<int, AveNativo>(id, temp));
+			    	animais.insert(pair<int, Animal*>(id, temp));
 				}
 			    else
 			    {
-					AveExotico temp(id, classe, nome_cientifico, sexo, tamanho,
-								    dieta, veterinario, tratador, nome_batismo, 
-								    tamanho_bico, envergadura_asas, autorizacao_ibama, nacionalidade, palavras[12]);
-			    	aves_exoticas.insert(pair<int, AveExotico>(id, temp));
+					Animal *temp = new AveExotico(id, classe, nome_cientifico, sexo, tamanho,
+								    dieta, *veterinario, *tratador, nome_batismo, 
+								    tamanho_bico, envergadura_asas, autorizacao_ibama, nacionalidade, cidade_de_origem);
+			    	animais.insert(pair<int, Animal*>(id, temp));
 			    }
 		    }
 		    if(classe.compare("MAMMALIA") == 0)
 		    {
 		    	string cor_pelo = palavras[9];
 		    	string autorizacao_ibama = palavras[10];
+		    	string cidade_de_origem = palavras[11];
 
 				if(nacionalidade.length() == 2)
 				{
-					MamiferoNativo temp(id, classe, nome_cientifico, sexo, tamanho,
-								        dieta, veterinario, tratador, nome_batismo, 
+					Animal *temp = new MamiferoNativo(id, classe, nome_cientifico, sexo, tamanho,
+								        dieta, *veterinario, *tratador, nome_batismo, 
 								   		cor_pelo, autorizacao_ibama, nacionalidade);
-			    	mamiferos_nativos.insert(pair<int, MamiferoNativo>(id, temp));
+			    	animais.insert(pair<int, Animal*>(id, temp));
 				}
 			    else
 			    {
-			    	MamiferoExotico temp(id, classe, nome_cientifico, sexo, tamanho,
-								   		 dieta, veterinario, tratador, nome_batismo, 
-								   		 cor_pelo, autorizacao_ibama, nacionalidade, palavras[11]);
-			    	mamiferos_exoticos.insert(pair<int, MamiferoExotico>(id, temp));
+			    	Animal *temp = new MamiferoExotico(id, classe, nome_cientifico, sexo, tamanho,
+								   		 dieta, *veterinario, *tratador, nome_batismo, 
+								   		 cor_pelo, autorizacao_ibama, nacionalidade, cidade_de_origem);
+			    	animais.insert(pair<int, Animal*>(id, temp));
 			    }
 		    }
 		    if(classe.compare("REPTILIA") == 0)
@@ -160,20 +163,21 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 		    	bool venenoso = palavras[9].compare("1") == 0 ? true : false;
 		    	string tipo_veneno = palavras[10];
 		    	string autorizacao_ibama = palavras[11];
+		    	string cidade_de_origem = palavras[12];
 
 				if(nacionalidade.length() == 2)
 				{
-					ReptilNativo temp(id, classe, nome_cientifico, sexo, tamanho,
-								       dieta, veterinario, tratador, nome_batismo, 
+					Animal *temp = new ReptilNativo(id, classe, nome_cientifico, sexo, tamanho,
+								       dieta, *veterinario, *tratador, nome_batismo, 
 								       venenoso, tipo_veneno, autorizacao_ibama, nacionalidade);
-			    	repteis_nativos.insert(pair<int, ReptilNativo>(id, temp));
+			    	animais.insert(pair<int, Animal*>(id, temp));
 				}
 			    else
 			    {
-			    	ReptilExotico temp(id, classe, nome_cientifico, sexo, tamanho,
-								       dieta, veterinario, tratador, nome_batismo, 
-								       venenoso, tipo_veneno, autorizacao_ibama, nacionalidade, palavras[12]);
-			    	repteis_exoticos.insert(pair<int, ReptilExotico>(id, temp));
+			    	Animal *temp = new ReptilExotico(id, classe, nome_cientifico, sexo, tamanho,
+								       dieta, *veterinario, *tratador, nome_batismo, 
+								       venenoso, tipo_veneno, autorizacao_ibama, nacionalidade, cidade_de_origem);
+			    	animais.insert(pair<int, Animal*>(id, temp));
 			    }
 		    }
 		}
@@ -433,7 +437,7 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 
 	//Preenchendo o modelo de arvore
 
-	for(int i = 0; i < 10; i++)
+	/*for(int i = 0; i < 10; i++)
 	{
 		AtualizarLista(i);
 	}
@@ -444,7 +448,7 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 	button_remover->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::BotaoRemover));
 	button_editar->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::BotaoEditar));
 	button_buscar_animal_por_funcionario->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::BotaoBuscarAnimalPorFuncionario));
-	button_about->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::BotaoAbout));
+	button_about->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::BotaoAbout));*/
 }
 
 /**
@@ -512,7 +516,7 @@ void JanelaPrincipal::BotaoCadastrarFuncionario()
 
 void JanelaPrincipal::BotaoCadastrarAnimal()
 {
-	if (tratadores.empty() && veterinarios.empty())
+	if (funcionarios.empty())
 	{
 		MessageDialog dialog(*window, "Impossivel cadastrar um animal.");
 		dialog.set_secondary_text("Não existe(m) funcionário(s) cadastrado(s).");
@@ -520,8 +524,7 @@ void JanelaPrincipal::BotaoCadastrarAnimal()
 	}
 	else
 	{
-		JanelaCadastroAnimal temp(*this, veterinarios, tratadores, anfibios_exoticos, anfibios_nativos, aves_exoticas,
-								  aves_nativas, mamiferos_exoticos, mamiferos_nativos, repteis_exoticos, repteis_nativos);
+		JanelaCadastroAnimal temp(*this, funcionarios, animais);
 		temp.Run();
 	}
 }
@@ -547,26 +550,18 @@ void JanelaPrincipal::BotaoRemover()
 			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_tratador.col_id);
-				if(!Responsabilidade(anfibios_exoticos, anfibios_nativos, aves_exoticas,
-					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-					repteis_exoticos, repteis_nativos, id))
+				if(!Responsabilidade(animais, id))
 				{
-					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionário? ");
-					confimacao.add_button("Não", 1);
-					resposta = confimacao.run();
+					MessageDialog confirmacao(*window, "Tem certeza que quer remover esse funcionário? ");
+					confirmacao.add_button("Não", 1);
+					resposta = confirmacao.run();
 					if (resposta == RESPONSE_OK)
 					{
-						RemoverFuncionario(*this, veterinarios, tratadores, id);
+						RemoverFuncionario(*this, funcionarios, id);
 					}
 				}
-				else // Caso uma linha não tenha sido selecionada.
-				{
-					MessageDialog dialog(*window, "Impossível remover esse funcionário.");
-					dialog.set_secondary_text("Esse funcionário é responsável por um ou mais animais.");
-			  		dialog.run();
-				}
 			}
-			else
+			else // Caso uma linha não tenha sido selecionada.
 			{
 				valid_row = false;
 			}
@@ -581,26 +576,18 @@ void JanelaPrincipal::BotaoRemover()
 			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_veterinario.col_id);	
-				if(!Responsabilidade(anfibios_exoticos, anfibios_nativos, aves_exoticas,
-					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-					repteis_exoticos, repteis_nativos, id))
+				if(!Responsabilidade(animais, id))
 				{
-					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionário? ");
-					confimacao.add_button("Não", 1);
-					resposta = confimacao.run();
+					MessageDialog confirmacao(*window, "Tem certeza que quer remover esse funcionário? ");
+					confirmacao.add_button("Não", 1);
+					resposta = confirmacao.run();
 					if (resposta == RESPONSE_OK)
 					{
-						RemoverFuncionario(*this, veterinarios, tratadores, id);
+						RemoverFuncionario(*this, funcionarios, id);
 					}
 				}
-				else // Caso uma linha não tenha sido selecionada.
-				{
-					MessageDialog dialog(*window, "Impossível remover esse funcionário.");
-					dialog.set_secondary_text("Esse funcionário é responsável por um ou mais animais.");
-			  		dialog.run();
-				}
 			}
-			else
+			else // Caso uma linha não tenha sido selecionada.
 			{
 				valid_row = false;
 			}
@@ -615,28 +602,15 @@ void JanelaPrincipal::BotaoRemover()
 			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_anfibio_nativo.col_id);	
-				if(!Responsabilidade(anfibios_exoticos, anfibios_nativos, aves_exoticas,
-					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-					repteis_exoticos, repteis_nativos, id))
+				MessageDialog confirmacao(*window, "Tem certeza que quer remover esse animal? ");
+				confirmacao.add_button("Não", 1);
+				resposta = confirmacao.run();
+				if (resposta == RESPONSE_OK)
 				{
-					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionário? ");
-					confimacao.add_button("Não", 1);
-					resposta = confimacao.run();
-					if (resposta == RESPONSE_OK)
-					{
-						RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
-										aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-										repteis_exoticos, repteis_nativos, id);
-					}
-				}
-				else // Caso uma linha não tenha sido selecionada.
-				{
-					MessageDialog dialog(*window, "Impossível remover esse funcionário.");
-					dialog.set_secondary_text("Esse funcionário é responsável por um ou mais animais.");
-			  		dialog.run();
+					RemoverAnimal(*this, animais, id);
 				}
 			}
-			else
+			else // Caso uma linha não tenha sido selecionada.
 			{
 				valid_row = false;
 			}
@@ -651,28 +625,15 @@ void JanelaPrincipal::BotaoRemover()
 			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_anfibio_exotico.col_id);	
-				if(!Responsabilidade(anfibios_exoticos, anfibios_nativos, aves_exoticas,
-					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-					repteis_exoticos, repteis_nativos, id))
+				MessageDialog confirmacao(*window, "Tem certeza que quer remover esse animal? ");
+				confirmacao.add_button("Não", 1);
+				resposta = confirmacao.run();
+				if (resposta == RESPONSE_OK)
 				{
-					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionário? ");
-					confimacao.add_button("Não", 1);
-					resposta = confimacao.run();
-					if (resposta == RESPONSE_OK)
-					{
-						RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
-										aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-										repteis_exoticos, repteis_nativos, id);
-					}
-				}
-				else // Caso uma linha não tenha sido selecionada.
-				{
-					MessageDialog dialog(*window, "Impossível remover esse funcionário.");
-					dialog.set_secondary_text("Esse funcionário é responsável por um ou mais animais.");
-			  		dialog.run();
+					RemoverAnimal(*this, animais, id);
 				}
 			}
-			else
+			else // Caso uma linha não tenha sido selecionada.
 			{
 				valid_row = false;
 			}
@@ -687,28 +648,15 @@ void JanelaPrincipal::BotaoRemover()
 			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_ave_nativa.col_id);	
-				if(!Responsabilidade(anfibios_exoticos, anfibios_nativos, aves_exoticas,
-					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-					repteis_exoticos, repteis_nativos, id))
+				MessageDialog confirmacao(*window, "Tem certeza que quer remover esse animal? ");
+				confirmacao.add_button("Não", 1);
+				resposta = confirmacao.run();
+				if (resposta == RESPONSE_OK)
 				{
-					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionário? ");
-					confimacao.add_button("Não", 1);
-					resposta = confimacao.run();
-					if (resposta == RESPONSE_OK)
-					{
-						RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
-										aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-										repteis_exoticos, repteis_nativos, id);
-					}
-				}
-				else // Caso uma linha não tenha sido selecionada.
-				{
-					MessageDialog dialog(*window, "Impossível remover esse funcionário.");
-					dialog.set_secondary_text("Esse funcionário é responsável por um ou mais animais.");
-			  		dialog.run();
+					RemoverAnimal(*this, animais, id);
 				}
 			}
-			else
+			else // Caso uma linha não tenha sido selecionada.
 			{
 				valid_row = false;
 			}
@@ -723,28 +671,15 @@ void JanelaPrincipal::BotaoRemover()
 			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_ave_exotica.col_id);	
-				if(!Responsabilidade(anfibios_exoticos, anfibios_nativos, aves_exoticas,
-					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-					repteis_exoticos, repteis_nativos, id))
+				MessageDialog confirmacao(*window, "Tem certeza que quer remover esse animal? ");
+				confirmacao.add_button("Não", 1);
+				resposta = confirmacao.run();
+				if (resposta == RESPONSE_OK)
 				{
-					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionário? ");
-					confimacao.add_button("Não", 1);
-					resposta = confimacao.run();
-					if (resposta == RESPONSE_OK)
-					{
-						RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
-										aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-										repteis_exoticos, repteis_nativos, id);
-					}
-				}
-				else // Caso uma linha não tenha sido selecionada.
-				{
-					MessageDialog dialog(*window, "Impossível remover esse funcionário.");
-					dialog.set_secondary_text("Esse funcionário é responsável por um ou mais animais.");
-			  		dialog.run();
+					RemoverAnimal(*this, animais, id);
 				}
 			}
-			else
+			else // Caso uma linha não tenha sido selecionada.
 			{
 				valid_row = false;
 			}
@@ -759,28 +694,15 @@ void JanelaPrincipal::BotaoRemover()
 			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_mamifero_nativo.col_id);	
-				if(!Responsabilidade(anfibios_exoticos, anfibios_nativos, aves_exoticas,
-					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-					repteis_exoticos, repteis_nativos, id))
+				MessageDialog confirmacao(*window, "Tem certeza que quer remover esse animal? ");
+				confirmacao.add_button("Não", 1);
+				resposta = confirmacao.run();
+				if (resposta == RESPONSE_OK)
 				{
-					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionário? ");
-					confimacao.add_button("Não", 1);
-					resposta = confimacao.run();
-					if (resposta == RESPONSE_OK)
-					{
-						RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
-										aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-										repteis_exoticos, repteis_nativos, id);
-					}
-				}
-				else // Caso uma linha não tenha sido selecionada.
-				{
-					MessageDialog dialog(*window, "Impossível remover esse funcionário.");
-					dialog.set_secondary_text("Esse funcionário é responsável por um ou mais animais.");
-			  		dialog.run();
+					RemoverAnimal(*this, animais, id);
 				}
 			}
-			else
+			else // Caso uma linha não tenha sido selecionada.
 			{
 				valid_row = false;
 			}
@@ -795,28 +717,15 @@ void JanelaPrincipal::BotaoRemover()
 			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_mamifero_exotico.col_id);	
-				if(!Responsabilidade(anfibios_exoticos, anfibios_nativos, aves_exoticas,
-					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-					repteis_exoticos, repteis_nativos, id))
+				MessageDialog confirmacao(*window, "Tem certeza que quer remover esse animal? ");
+				confirmacao.add_button("Não", 1);
+				resposta = confirmacao.run();
+				if (resposta == RESPONSE_OK)
 				{
-					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionário? ");
-					confimacao.add_button("Não", 1);
-					resposta = confimacao.run();
-					if (resposta == RESPONSE_OK)
-					{
-						RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
-										aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-										repteis_exoticos, repteis_nativos, id);
-					}
-				}
-				else // Caso uma linha não tenha sido selecionada.
-				{
-					MessageDialog dialog(*window, "Impossível remover esse funcionário.");
-					dialog.set_secondary_text("Esse funcionário é responsável por um ou mais animais.");
-			  		dialog.run();
+					RemoverAnimal(*this, animais, id);
 				}
 			}
-			else
+			else // Caso uma linha não tenha sido selecionada.
 			{
 				valid_row = false;
 			}
@@ -831,28 +740,15 @@ void JanelaPrincipal::BotaoRemover()
 			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_reptil_nativo.col_id);	
-				if(!Responsabilidade(anfibios_exoticos, anfibios_nativos, aves_exoticas,
-					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-					repteis_exoticos, repteis_nativos, id))
+				MessageDialog confirmacao(*window, "Tem certeza que quer remover esse animal? ");
+				confirmacao.add_button("Não", 1);
+				resposta = confirmacao.run();
+				if (resposta == RESPONSE_OK)
 				{
-					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionário? ");
-					confimacao.add_button("Não", 1);
-					resposta = confimacao.run();
-					if (resposta == RESPONSE_OK)
-					{
-						RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
-										aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-										repteis_exoticos, repteis_nativos, id);
-					}
-				}
-				else // Caso uma linha não tenha sido selecionada.
-				{
-					MessageDialog dialog(*window, "Impossível remover esse funcionário.");
-					dialog.set_secondary_text("Esse funcionário é responsável por um ou mais animais.");
-			  		dialog.run();
+					RemoverAnimal(*this, animais, id);
 				}
 			}
-			else
+			else // Caso uma linha não tenha sido selecionada.
 			{
 				valid_row = false;
 			}
@@ -867,28 +763,15 @@ void JanelaPrincipal::BotaoRemover()
 			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_reptil_exotico.col_id);	
-				if(!Responsabilidade(anfibios_exoticos, anfibios_nativos, aves_exoticas,
-					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-					repteis_exoticos, repteis_nativos, id))
+				MessageDialog confirmacao(*window, "Tem certeza que quer remover esse animal? ");
+				confirmacao.add_button("Não", 1);
+				resposta = confirmacao.run();
+				if (resposta == RESPONSE_OK)
 				{
-					MessageDialog confimacao(*window, "Tem certeza que quer remover esse funcionário? ");
-					confimacao.add_button("Não", 1);
-					resposta = confimacao.run();
-					if (resposta == RESPONSE_OK)
-					{
-						RemoverAnimal(*this, anfibios_exoticos, anfibios_nativos, aves_exoticas,
-										aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-										repteis_exoticos, repteis_nativos, id);
-					}
-				}
-				else // Caso uma linha não tenha sido selecionada.
-				{
-					MessageDialog dialog(*window, "Impossível remover esse funcionário.");
-					dialog.set_secondary_text("Esse funcionário é responsável por um ou mais animais.");
-			  		dialog.run();
+					RemoverAnimal(*this, animais, id);
 				}
 			}
-			else
+			else // Caso uma linha não tenha sido selecionada.
 			{
 				valid_row = false;
 			}
@@ -923,10 +806,7 @@ void JanelaPrincipal::BotaoEditar()
 			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_tratador.col_id);	
-				JanelaEditarFuncionario temp(*this, veterinarios, tratadores, 
-					anfibios_exoticos, anfibios_nativos, aves_exoticas,
-					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-					repteis_exoticos, repteis_nativos, pagina, id);
+				JanelaEditarFuncionario temp(*this, funcionarios, animais, pagina, id);
 				temp.Run();
 			}
 			else // Caso uma linha não tenha sido selecionada.
@@ -944,10 +824,7 @@ void JanelaPrincipal::BotaoEditar()
 			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_veterinario.col_id);	
-				JanelaEditarFuncionario temp(*this, veterinarios, tratadores, 
-					anfibios_exoticos, anfibios_nativos, aves_exoticas,
-					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-					repteis_exoticos, repteis_nativos, pagina, id);
+				JanelaEditarFuncionario temp(*this, funcionarios, animais, pagina, id);
 				temp.Run();
 			}
 			else // Caso uma linha não tenha sido selecionada.
@@ -965,10 +842,7 @@ void JanelaPrincipal::BotaoEditar()
 			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_anfibio_nativo.col_id);	
-				JanelaEditarAnimal temp(*this, veterinarios, tratadores, 
-					anfibios_exoticos, anfibios_nativos, aves_exoticas,
-					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-					repteis_exoticos, repteis_nativos, pagina, id);
+				JanelaEditarAnimal temp(*this, funcionarios, animais, pagina, id);
 				temp.Run();
 			}
 			else // Caso uma linha não tenha sido selecionada.
@@ -986,10 +860,7 @@ void JanelaPrincipal::BotaoEditar()
 			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_anfibio_exotico.col_id);	
-				JanelaEditarAnimal temp(*this, veterinarios, tratadores, 
-					anfibios_exoticos, anfibios_nativos, aves_exoticas,
-					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-					repteis_exoticos, repteis_nativos, pagina, id);
+				JanelaEditarAnimal temp(*this, funcionarios, animais, pagina, id);
 				temp.Run();
 			}
 			else // Caso uma linha não tenha sido selecionada.
@@ -1007,10 +878,7 @@ void JanelaPrincipal::BotaoEditar()
 			if (row != NULL)
 			{
 				id = row.get_value(model_columns_ave_nativa.col_id);	
-				JanelaEditarAnimal temp(*this, veterinarios, tratadores, 
-					anfibios_exoticos, anfibios_nativos, aves_exoticas,
-					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-					repteis_exoticos, repteis_nativos, pagina, id);
+				JanelaEditarAnimal temp(*this, funcionarios, animais, pagina, id);
 				temp.Run();
 			}
 			else // Caso uma linha não tenha sido selecionada.
@@ -1028,10 +896,7 @@ void JanelaPrincipal::BotaoEditar()
 			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_ave_exotica.col_id);	
-				JanelaEditarAnimal temp(*this, veterinarios, tratadores, 
-					anfibios_exoticos, anfibios_nativos, aves_exoticas,
-					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-					repteis_exoticos, repteis_nativos, pagina, id);
+				JanelaEditarAnimal temp(*this, funcionarios, animais, pagina, id);
 				temp.Run();
 			}
 			else // Caso uma linha não tenha sido selecionada.
@@ -1049,10 +914,7 @@ void JanelaPrincipal::BotaoEditar()
 			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_mamifero_nativo.col_id);	
-				JanelaEditarAnimal temp(*this, veterinarios, tratadores, 
-					anfibios_exoticos, anfibios_nativos, aves_exoticas,
-					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-					repteis_exoticos, repteis_nativos, pagina, id);
+				JanelaEditarAnimal temp(*this, funcionarios, animais, pagina, id);
 				temp.Run();
 			}
 			else // Caso uma linha não tenha sido selecionada.
@@ -1070,10 +932,7 @@ void JanelaPrincipal::BotaoEditar()
 			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_mamifero_exotico.col_id);	
-				JanelaEditarAnimal temp(*this, veterinarios, tratadores, 
-					anfibios_exoticos, anfibios_nativos, aves_exoticas,
-					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-					repteis_exoticos, repteis_nativos, pagina, id);
+				JanelaEditarAnimal temp(*this, funcionarios, animais, pagina, id);
 				temp.Run();
 			}
 			else // Caso uma linha não tenha sido selecionada.
@@ -1091,10 +950,7 @@ void JanelaPrincipal::BotaoEditar()
 			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_reptil_nativo.col_id);	
-				JanelaEditarAnimal temp(*this, veterinarios, tratadores, 
-					anfibios_exoticos, anfibios_nativos, aves_exoticas,
-					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-					repteis_exoticos, repteis_nativos, pagina, id);
+				JanelaEditarAnimal temp(*this, funcionarios, animais, pagina, id);
 				temp.Run();
 			}
 			else // Caso uma linha não tenha sido selecionada.
@@ -1112,10 +968,7 @@ void JanelaPrincipal::BotaoEditar()
 			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_reptil_exotico.col_id);	
-				JanelaEditarAnimal temp(*this, veterinarios, tratadores, 
-					anfibios_exoticos, anfibios_nativos, aves_exoticas,
-					aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-					repteis_exoticos, repteis_nativos, pagina, id);
+				JanelaEditarAnimal temp(*this, funcionarios, animais, pagina, id);
 				temp.Run();
 			}
 			else // Caso uma linha não tenha sido selecionada.
@@ -1221,7 +1074,7 @@ void JanelaPrincipal::BotaoAbout()
 * @param i Indica qual lista vai atualizar.
 */
 
-void JanelaPrincipal::AtualizarLista(int i)
+/*void JanelaPrincipal::AtualizarLista(int i)
 {
 	TreeModel::Row row;
 	switch(i)
@@ -1541,4 +1394,4 @@ void JanelaPrincipal::AtualizarLista(int i)
 			break;
 		}
 	}
-}
+}*/

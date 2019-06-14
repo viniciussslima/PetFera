@@ -36,6 +36,7 @@ class Animal
 			Tratador, string);
 		~Animal();
 		int get_id();
+		string get_classe();
 		string get_nome_cientifico();
 		char get_sexo();
 		double get_tamanho();

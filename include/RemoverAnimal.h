@@ -17,25 +17,12 @@
 
 #include "JanelaPrincipal.h"
 
-#include "AnfibioExotico.h"
-#include "AnfibioNativo.h"
-
-#include "AveExotico.h"
-#include "AveNativo.h"
-
-#include "MamiferoExotico.h"
-#include "MamiferoNativo.h"
-
-#include "ReptilExotico.h"
-#include "ReptilNativo.h"
+#include "Animal.h"
 
 #include "Separador.h"
 
 using namespace std;
 
-void RemoverAnimal(JanelaPrincipal&, map<int, AnfibioExotico>&, map<int, AnfibioNativo>&, 
-					map<int, AveExotico>&, map<int, AveNativo>&,
-					map<int, MamiferoExotico>&, map<int, MamiferoNativo>&, 
-					map<int, ReptilExotico>&, map<int, ReptilNativo>&, int);
+void RemoverAnimal(JanelaPrincipal&, map<int, Animal*>&, int);
 
 #endif

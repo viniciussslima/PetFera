@@ -11,8 +11,7 @@
 
 using namespace std;
 
-void RemoverFuncionario(JanelaPrincipal &janela_principal, map<int, Veterinario> &veterinarios, map<int, 
-							Tratador> &tratadores,  int id)
+void RemoverFuncionario(JanelaPrincipal &janela_principal, map<int, Funcionario*> &funcionarios, int id)
 {
 
 	string linha;
@@ -28,16 +27,17 @@ void RemoverFuncionario(JanelaPrincipal &janela_principal, map<int, Veterinario>
 		{
 			if(palavras[1].compare("TRATADOR") == 0)
 			{
-				tratadores.erase(id);
+				funcionarios.erase(id);
 				janela_principal.AtualizarLista(0);
 			}
 			else
 			{
-				veterinarios.erase(id);
+				funcionarios.erase(id);
 				janela_principal.AtualizarLista(1);
 			}
 		}
 	}
+	funcionarios_csv.close();
 	remove("Dados/funcionarios.csv");
 	rename("Dados/TempFuncionario.csv", "Dados/funcionarios.csv");
 	funcionarios_temp.close();

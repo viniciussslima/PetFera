@@ -21,25 +21,11 @@ JanelaEditarFuncionario::JanelaEditarFuncionario(){}
 /**
 * @brief construtor parametrizado da classe JanelaEditarFuncionario.
 * @param jptemp Janela principal do programa.
-* @param vtemp  Map que contém todos os veterinários cadastrados.
-* @param ttemp Map que contém todos os tratadores cadastrados.
-* @param anetemp Map que contém todos os anfíbios exóticos cadastrados.
-* @param anntemp Map que contém todos os anfíbios nativos cadastrados.
-* @param avetemp Map que contém todas as aves exóticas cadastrados.
-* @param avntemp Map que contém todas as aves nativas cadastrados.
-* @param metemp Map que contém todos os mamíferos exóticos cadastrados.
-* @param mntemp Map que contém todos os mamíferos nativos cadastrados.
-* @param retemp Map que contém todos os reptéis exóticos cadastrados.
-* @param rntemp Map que contém todos os reptéis nativos cadastrados.
-* @param pagtemp Número que representa a pagina do notbook que o usuário estava vendo.
-* @param idtemp Número que representa o ID do funcionário que foi selecionado pelo o usuário.
+* @param funtemp  Map que contém todos os funcinários cadastrados.
+* @param anitemp Map que contém todos os animais cadastrados.
 */
 
-JanelaEditarFuncionario::JanelaEditarFuncionario(JanelaPrincipal &jptemp, map<int, Veterinario> &vtemp, map<int, Tratador> &ttemp, map<int, AnfibioExotico> &anetemp, 
-										   map<int, AnfibioNativo> &anntemp, map<int, AveExotico> &avetemp, map<int, AveNativo> &avntemp,
-										   map<int, MamiferoExotico> &metemp, map<int, MamiferoNativo> &mntemp, 
-										   map<int, ReptilExotico> &retemp, map<int, ReptilNativo> &rntemp, 
-										   int pagtemp, int idtemp)
+JanelaEditarFuncionario::JanelaEditarFuncionario(JanelaPrincipal &jptemp, map<int, Funcionario*> &funtemp, map<int, Animal*> &anitemp, int pagtemp, int idtemp)
 {
 	// Atribuição de true para todas as variáveis boleanas que representão 
 	// se as informações digitados sobre o funcionário são validas ou não.
@@ -52,20 +38,8 @@ JanelaEditarFuncionario::JanelaEditarFuncionario(JanelaPrincipal &jptemp, map<in
 	// Atribui os endereços de memória dos maps recebidos como parâmetros para os maps da classe JanelaEditarAnimal.
 	janela_principal = &jptemp;
 
-	veterinarios = &vtemp;
-	tratadores = &ttemp;
-
-	anfibios_exoticos = &anetemp;
-	anfibios_nativos = &anntemp;
-
-	aves_exoticas = &avetemp;
-	aves_nativas = &avntemp;
-
-	mamiferos_exoticos = &metemp;
-	mamiferos_nativos = &mntemp;
-
-	repteis_exoticos = &retemp;
-	repteis_nativos = &rntemp;
+	funcionarios = &funtemp;
+	animais = &anitemp;
 
 	// Atribui os valores de pagtemp e idtemp para os atributos pagina e id da classe JanelaBuscaAnimais.
 	pagina = pagtemp;
@@ -226,108 +200,70 @@ void JanelaEditarFuncionario::Run()
 void JanelaEditarFuncionario::SetInformacooes()
 {
 	window->show_all();
-	string tipo_sanguineo;
+	
+	map<int, Funcionario*>::iterator it = funcionarios->find(id);
+	
+	entry_nome_do_funcionario->set_text((it->second).get_nome());
+
+	entry_cpf->set_text((it->second).get_cpf());
+
+	entry_idade->set_text(to_string((it->second).get_idade()));
+
+	string tipo_sanguineo = (it->second).get_tipo_sanguineo();
+	if (tipo_sanguineo.compare("A") == 0)
+	{
+		combo_box_tipo_sanguineo->set_active(0);
+	}
+	else if (tipo_sanguineo.compare("B") == 0)
+	{
+		combo_box_tipo_sanguineo->set_active(1);
+	}
+	else if (tipo_sanguineo.compare("AB") == 0)
+	{
+		combo_box_tipo_sanguineo->set_active(2);
+	}
+	else if (tipo_sanguineo.compare("O") == 0)
+	{
+		combo_box_tipo_sanguineo->set_active(3);
+	}
+
+	switch((it->second).get_rh())
+	{
+		case '+':
+			combo_box_rh->set_active(0);
+			break;
+		case '-':
+			combo_box_rh->set_active(1);
+			break;
+	}
+
+	entry_especialidade->set_text((it->second).get_especialidade());
+
 	if (pagina == 0) // Se a pagina é igual a 0, o funcionário escolhido é um tratador.
 	{
-		map<int, Tratador>::iterator it_t = tratadores->find(id);
-	
-		entry_nome_do_funcionario->set_text((it_t->second).get_nome());
-
-		entry_cpf->set_text((it_t->second).get_cpf());
-
-		entry_idade->set_text(to_string((it_t->second).get_idade()));
-
-		entry_especialidade->set_text((it_t->second).get_especialidade());
-
 		combo_box_fucao->set_active(1);
 		MudarFuncionario();
 
-
-		tipo_sanguineo = (it_t->second).get_tipo_sanguineo();
-		if (tipo_sanguineo.compare("A") == 0)
+		switch((it->second).get_nivel_de_seguranca())
 		{
-			combo_box_tipo_sanguineo->set_active(0);
+		case 0:
+			combo_box_nivel_de_seguranca->set_active(0);
+			break;
+		case 1:
+			combo_box_nivel_de_seguranca->set_active(1);
+			break;
+		case 2:
+			combo_box_nivel_de_seguranca->set_active(2);
+			break;
 		}
-		else if (tipo_sanguineo.compare("B") == 0)
-		{
-			combo_box_tipo_sanguineo->set_active(1);
-		}
-		else if (tipo_sanguineo.compare("AB") == 0)
-		{
-			combo_box_tipo_sanguineo->set_active(2);
-		}
-		else if (tipo_sanguineo.compare("O") == 0)
-		{
-			combo_box_tipo_sanguineo->set_active(3);
-		}
-
-		switch((it_t->second).get_rh())
-		{
-			case '+':
-				combo_box_rh->set_active(0);
-				break;
-			case '-':
-				combo_box_rh->set_active(1);
-				break;
-		}
-
-		switch((it_t->second).get_nivel_de_seguranca())
-		{
-			case 0:
-				combo_box_nivel_de_seguranca->set_active(0);
-				break;
-			case 1:
-				combo_box_nivel_de_seguranca->set_active(1);
-				break;
-			case 2:
-				combo_box_nivel_de_seguranca->set_active(2);
-				break;
-		}
+	
 	}
 	else // Se a pagina é diferente de 0, o funcionário escolhido é um veteriário.
 	{
-		map<int, Veterinario>::iterator it_v = veterinarios->find(id);
-			
-		entry_nome_do_funcionario->set_text((it_v->second).get_nome());
-
-		entry_cpf->set_text((it_v->second).get_cpf());
-
-		entry_idade->set_text(to_string((it_v->second).get_idade()));
-
-		entry_especialidade->set_text((it_v->second).get_especialidade());
-
-		entry_crmv->set_text((it_v->second).get_crmv());
-
 		combo_box_fucao->set_active(0);
 		MudarFuncionario();
 
-		tipo_sanguineo = (it_v->second).get_tipo_sanguineo();
-		if (tipo_sanguineo.compare("A") == 0)
-		{
-			combo_box_tipo_sanguineo->set_active(0);
-		}
-		else if (tipo_sanguineo.compare("B") == 0)
-		{
-			combo_box_tipo_sanguineo->set_active(1);
-		}
-		else if (tipo_sanguineo.compare("AB") == 0)
-		{
-			combo_box_tipo_sanguineo->set_active(2);
-		}
-		else if (tipo_sanguineo.compare("O") == 0)
-		{
-			combo_box_tipo_sanguineo->set_active(3);
-		}
-
-		switch((it_v->second).get_rh())
-		{
-			case '+':
-				combo_box_rh->set_active(0);
-				break;
-			case '-':
-				combo_box_rh->set_active(1);
-				break;
-		}
+		entry_crmv->set_text((it_v->second).get_crmv());
 	}
 }
 
@@ -337,24 +273,17 @@ void JanelaEditarFuncionario::SetInformacooes()
 
 void JanelaEditarFuncionario::Editar()
 {
-	map<int, Tratador>::iterator it_t = tratadores->find(id);
-	map<int, Veterinario>::iterator it_v = veterinarios->find(id);
-
 	// Verificação se todas as informações são validas, caso uma delas não seja
 	// aparecerá uma tela com um aviso informando qual a informação que está incorreta.
-	if(Responsabilidade(*anfibios_exoticos, *anfibios_nativos, *aves_exoticas,
-					*aves_nativas, *mamiferos_exoticos, *mamiferos_nativos, 
-					*repteis_exoticos, *repteis_nativos, id) && 
-		it_t != tratadores->end() && combo_box_fucao->get_active_row_number() == 0)
+	if(Responsabilidade(*animais, id) && 
+		pagina == 0 && combo_box_fucao->get_active_row_number() == 0)
 	{
 			MessageDialog dialog(*window, "Erro.");
 			dialog.set_secondary_text("Impossivel mudar a função desse funcionário, pois ele é responsavel por animais.");
   			dialog.run();
 	}
-	else if(Responsabilidade(*anfibios_exoticos, *anfibios_nativos, *aves_exoticas,
-					*aves_nativas, *mamiferos_exoticos, *mamiferos_nativos, 
-					*repteis_exoticos, *repteis_nativos, id) && 
-		it_v != veterinarios->end() && combo_box_fucao->get_active_row_number() == 1)
+	else if(Responsabilidade(*animais, id) && 
+		pagina == 1 && combo_box_fucao->get_active_row_number() == 1)
 	{
 			MessageDialog dialog(*window, "Erro.");
 			dialog.set_secondary_text("Impossivel mudar a função desse funcionário, pois ele é responsavel por animais.");
@@ -394,7 +323,7 @@ void JanelaEditarFuncionario::Editar()
 	// as novas são escritas.
 	else
 	{
-		RemoverFuncionario(*janela_principal, *veterinarios, *tratadores, id);
+		RemoverFuncionario(*janela_principal, *funcionarios, id);
 		ofstream outfile("Dados/funcionarios.csv", ios::app);
 		string tipo_sanguineo;
 		char rh;
@@ -427,17 +356,17 @@ void JanelaEditarFuncionario::Editar()
 		{
 			case 0:
 			{
-				Veterinario veterinario(id, entry_nome_do_funcionario->get_text(), entry_cpf->get_text(), stoi(entry_idade->get_text()), tipo_sanguineo, rh, entry_especialidade->get_text(), entry_crmv->get_text());
-				veterinarios->insert(pair<int, Veterinario>(id, veterinario));
-				outfile << veterinario << endl;
+				Funcionario *veterinario = new Veterinario(id, entry_nome_do_funcionario->get_text(), entry_cpf->get_text(), stoi(entry_idade->get_text()), tipo_sanguineo, rh, entry_especialidade->get_text(), entry_crmv->get_text());
+				funcionarios->insert(pair<int, Funcionario*>(id, veterinario));
+				outfile << *veterinario << endl;
 				janela_principal->AtualizarLista(1);
 				break;
 			}
 			case 1:
 			{
-				Tratador tratador(id, entry_nome_do_funcionario->get_text(), entry_cpf->get_text(), stoi(entry_idade->get_text()), tipo_sanguineo, rh, entry_especialidade->get_text(), combo_box_nivel_de_seguranca->get_active_row_number());
-				tratadores->insert(pair<int, Tratador>(id, tratador));
-				outfile << tratador << endl;
+				Funcionario tratador = new Tratador(id, entry_nome_do_funcionario->get_text(), entry_cpf->get_text(), stoi(entry_idade->get_text()), tipo_sanguineo, rh, entry_especialidade->get_text(), combo_box_nivel_de_seguranca->get_active_row_number());
+				funcionarios->insert(pair<int, Funcionario*>(id, tratador));
+				outfile << *tratador << endl;
 				janela_principal->AtualizarLista(0);
 				break;
 			}
@@ -456,8 +385,7 @@ void JanelaEditarFuncionario::MudarFuncionario()
 	{
 		case 0:
 			{
-			map<int, Tratador>::iterator it_t = tratadores->find(id);
-			if (it_t != tratadores->end())
+			if (pagina == 0)
 			{
 				valid_crmv = false;
 				entry_crmv->set_icon_from_pixbuf(pixbuf_uncheck);

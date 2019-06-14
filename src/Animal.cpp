@@ -64,6 +64,16 @@ int Animal::get_id()
 }
 
 /**
+* @brief Método que retorna a classe do animal.
+* @return Retorna a classe do animal.
+*/
+
+string Animal::get_classe()
+{
+	return m_classe;
+}
+
+/**
 * @brief Método que retorna o nome científico do animal.
 * @return Retorna o nome científico do animal.
 */

@@ -17,9 +17,11 @@
 #include "Separador.h"
 #include "date.h"
 
+#include "Funcionario.h"
 #include "Veterinario.h"
 #include "Tratador.h"
 
+#include "Animal.h"
 #include "AnfibioExotico.h"
 #include "AnfibioNativo.h"
 
@@ -120,70 +122,70 @@ class ModelColumnsAnfibioNativo : public Gtk::TreeModel::ColumnRecord
 
 class ModelColumnsAnfibioExotico : public Gtk::TreeModel::ColumnRecord
 {
-public:
-		ModelColumnsAnfibioExotico()
-		{ 
-		add(col_id); 
-		add(col_nome_cientifico); 
-		add(col_sexo); 
-		add(col_tamanho);
-		add(col_dieta);
-		add(col_veterinario);
-		add(col_tratador);
-		add(col_nome_batismo);
-		add(col_total_mudas);
-		add(col_data_ultima_muda);
-		add(col_autorizacao_ibama);
-		add(col_pais_origem);
-		add(col_cidade_origem);
-		}
+	public:
+			ModelColumnsAnfibioExotico()
+			{ 
+			add(col_id); 
+			add(col_nome_cientifico); 
+			add(col_sexo); 
+			add(col_tamanho);
+			add(col_dieta);
+			add(col_veterinario);
+			add(col_tratador);
+			add(col_nome_batismo);
+			add(col_total_mudas);
+			add(col_data_ultima_muda);
+			add(col_autorizacao_ibama);
+			add(col_pais_origem);
+			add(col_cidade_origem);
+			}
 
-	TreeModelColumn<int> col_id;
-	TreeModelColumn<string> col_nome_cientifico;
-	TreeModelColumn<string> col_sexo;
-	TreeModelColumn<double> col_tamanho;
-	TreeModelColumn<string> col_dieta;
-	TreeModelColumn<string> col_veterinario;
-	TreeModelColumn<string> col_tratador;
-	TreeModelColumn<string> col_nome_batismo;
-	TreeModelColumn<int> col_total_mudas;
-	TreeModelColumn<string> col_data_ultima_muda;
-	TreeModelColumn<string> col_autorizacao_ibama;
-	TreeModelColumn<string> col_pais_origem;
-	TreeModelColumn<string> col_cidade_origem;
+		TreeModelColumn<int> col_id;
+		TreeModelColumn<string> col_nome_cientifico;
+		TreeModelColumn<string> col_sexo;
+		TreeModelColumn<double> col_tamanho;
+		TreeModelColumn<string> col_dieta;
+		TreeModelColumn<string> col_veterinario;
+		TreeModelColumn<string> col_tratador;
+		TreeModelColumn<string> col_nome_batismo;
+		TreeModelColumn<int> col_total_mudas;
+		TreeModelColumn<string> col_data_ultima_muda;
+		TreeModelColumn<string> col_autorizacao_ibama;
+		TreeModelColumn<string> col_pais_origem;
+		TreeModelColumn<string> col_cidade_origem;
 };
 
 class ModelColumnsAveNativa : public Gtk::TreeModel::ColumnRecord
 {
-public:
-		ModelColumnsAveNativa()
-		{ 
-		add(col_id); 
-		add(col_nome_cientifico); 
-		add(col_sexo); 
-		add(col_tamanho);
-		add(col_dieta);
-		add(col_veterinario);
-		add(col_tratador);
-		add(col_nome_batismo);
-		add(col_tamanho_bico);
-		add(col_envergadura_asas);
-		add(col_autorizacao_ibama);
-		add(col_uf_origem);
-		}
+	public:
+			ModelColumnsAveNativa()
+			{ 
+			add(col_id); 
+			add(col_nome_cientifico); 
+			add(col_sexo); 
+			add(col_tamanho);
+			add(col_dieta);
+			add(col_veterinario);
+			add(col_tratador);
+			add(col_nome_batismo);
+			add(col_tamanho_bico);
+			add(col_envergadura_asas);
+			add(col_autorizacao_ibama);
+			add(col_uf_origem);
+			}
 
-	TreeModelColumn<int> col_id;
-	TreeModelColumn<string> col_nome_cientifico;
-	TreeModelColumn<string> col_sexo;
-	TreeModelColumn<double> col_tamanho;
-	TreeModelColumn<string> col_dieta;
-	TreeModelColumn<string> col_veterinario;
-	TreeModelColumn<string> col_tratador;
-	TreeModelColumn<string> col_nome_batismo;
-	TreeModelColumn<double> col_tamanho_bico;
-	TreeModelColumn<double> col_envergadura_asas;
-	TreeModelColumn<string> col_autorizacao_ibama;
-	TreeModelColumn<string> col_uf_origem;
+		TreeModelColumn<int> col_id;
+		TreeModelColumn<string> col_nome_cientifico;
+		TreeModelColumn<string> col_sexo;
+		TreeModelColumn<double> col_tamanho;
+		TreeModelColumn<string> col_dieta;
+		TreeModelColumn<string> col_veterinario;
+		TreeModelColumn<string> col_tratador;
+		TreeModelColumn<string> col_nome_batismo;
+		TreeModelColumn<double> col_tamanho_bico;
+		TreeModelColumn<double> col_envergadura_asas;
+		TreeModelColumn<string> col_autorizacao_ibama;
+		TreeModelColumn<string> col_uf_origem;
 };
 
 class ModelColumnsAveExotica : public Gtk::TreeModel::ColumnRecord
@@ -422,32 +424,21 @@ class JanelaPrincipal : public ModelColumnsTratador, public ModelColumnsVeterina
 	public:
 		Window *window;
 		
-		map<int, Veterinario> veterinarios;
-		map<int, Tratador> tratadores;
+		map<int, Funcionario*> funcionarios;
 
-		map<int, AnfibioExotico> anfibios_exoticos;
-		map<int, AnfibioNativo> anfibios_nativos;
-
-		map<int, AveExotico> aves_exoticas;
-		map<int, AveNativo> aves_nativas;
-
-		map<int, MamiferoExotico> mamiferos_exoticos;
-		map<int, MamiferoNativo> mamiferos_nativos;
-
-		map<int, ReptilExotico> repteis_exoticos;
-		map<int, ReptilNativo> repteis_nativos;
+		map<int, Animal*> animais;
 		
 		JanelaPrincipal();
 		~JanelaPrincipal();
 
 		void Run();
 		void BotaoCadastrarFuncionario();
-		void BotaoCadastrarAnimal();
+		void BotaoCadastrarAnimal();/*
 		void BotaoRemover();
 		void BotaoEditar();
-		void BotaoBuscarAnimalPorFuncionario();
-		void BotaoAbout();
-		void AtualizarLista(int);
+		void BotaoBuscarAnimalPorFuncionario();*/
+		void BotaoAbout();/*
+		void AtualizarLista(int);*/
 };
 
 #endif

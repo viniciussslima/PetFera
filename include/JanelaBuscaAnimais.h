@@ -17,17 +17,8 @@
 
 #include "JanelaPrincipal.h"
 
-#include "AnfibioExotico.h"
-#include "AnfibioNativo.h"
-
-#include "AveExotico.h"
-#include "AveNativo.h"
-
-#include "MamiferoExotico.h"
-#include "MamiferoNativo.h"
-
-#include "ReptilExotico.h"
-#include "ReptilNativo.h"
+#include "Funcionario.h"
+#include "Animal.h"
 
 #include "Separador.h"
 
@@ -101,25 +92,12 @@ class JanelaBuscaAnimais : public ModelColumnsTratador, public ModelColumnsVeter
 		int pagina;
 		int id;
 
-		map<int, Veterinario> *veterinarios;
-		map<int, Tratador> *tratadores;
-		
-		map<int, AnfibioExotico> *anfibios_exoticos;
-		map<int, AnfibioNativo> *anfibios_nativos;
+		map<int, Funcionario*> *Funcionarios;
+		map<int, Animal*> *animais;
 
-		map<int, AveExotico> *aves_exoticas;
-		map<int, AveNativo> *aves_nativas;
-
-		map<int, MamiferoExotico> *mamiferos_exoticos;
-		map<int, MamiferoNativo> *mamiferos_nativos;
-
-		map<int, ReptilExotico> *repteis_exoticos;
-		map<int, ReptilNativo> *repteis_nativos;
 	public:
 		JanelaBuscaAnimais();
-		JanelaBuscaAnimais(map<int, Veterinario>&, map<int, Tratador>&, map<int, AnfibioExotico>&, map<int, AnfibioNativo>&, 
-							map<int, AveExotico>&, map<int, AveNativo>&, map<int, MamiferoExotico>&, map<int, MamiferoNativo>&, 
-							map<int, ReptilExotico>&, map<int, ReptilNativo>&, int, int);
+		JanelaBuscaAnimais(map<int, Funcionario>&, map<int, Animal*>&, int, int);
 		~JanelaBuscaAnimais();
 
 		void ProcurarAnimalPorFuncionario();

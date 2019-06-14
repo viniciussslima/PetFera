@@ -21,11 +21,10 @@ JanelaCadastroFuncionario::JanelaCadastroFuncionario(){}
 /**
 * @brief construtor parametrizado da classe JanelaCadastroFuncionario.
 * @param jptemp Janela principal do programa.
-* @param vtemp  Map que contém todos os veterinários cadastrados.
-* @param ttemp Map que contém todos os tratadores cadastrados.
+* @param funtemp  Map que contém todos os funcionários cadastrados.
 */
 
-JanelaCadastroFuncionario::JanelaCadastroFuncionario(JanelaPrincipal &jptemp, map<int, Veterinario> &vtemp, map<int, Tratador> &ttemp)
+JanelaCadastroFuncionario::JanelaCadastroFuncionario(JanelaPrincipal &jptemp, map<int, Funcionario*> &funtemp)
 {
 	// Atribuição de false para todas as variáveis boleanas que representão 
 	// se as informações digitados sobre o funcionário são validas ou não. 
@@ -39,8 +38,7 @@ JanelaCadastroFuncionario::JanelaCadastroFuncionario(JanelaPrincipal &jptemp, ma
 	// Atribui os endereços de memória dos maps recebidos como parâmetros para os maps da classe JanelaCadastroFuncionario.
 	janela_principal = &jptemp;
 
-	veterinarios = &vtemp;
-	tratadores = &ttemp;
+	funcionarios = &funtemp;
 
 	// Inicialização dos atributos da classe GTK.
 	window = new Window;
@@ -279,17 +277,17 @@ void JanelaCadastroFuncionario::Cadastrar()
 
 		if(radio_button_veterinario->get_active())
 		{
-			Veterinario veterinario(stoi(entry_id->get_text()), entry_nome_do_funcionario->get_text(), entry_cpf->get_text(), stoi(entry_idade->get_text()), tipo_sanguineo, rh, entry_especialidade->get_text(), entry_crmv->get_text());
-			veterinarios->insert(pair<int, Veterinario>(stoi(entry_id->get_text()), veterinario));
-			outfile << veterinario << endl;
-			janela_principal->AtualizarLista(1);
+			Funcionario *veterinario = new Veterinario(stoi(entry_id->get_text()), "VETERINARIO", entry_nome_do_funcionario->get_text(), entry_cpf->get_text(), stoi(entry_idade->get_text()), tipo_sanguineo, rh, entry_especialidade->get_text(), entry_crmv->get_text());
+			funcionarios->insert(pair<int, Funcionario*>(stoi(entry_id->get_text()), veterinario));
+			outfile << *veterinario << endl;
+			//janela_principal->AtualizarLista(1);
 		}
 		else
 		{
-			Tratador tratador(stoi(entry_id->get_text()), entry_nome_do_funcionario->get_text(), entry_cpf->get_text(), stoi(entry_idade->get_text()), tipo_sanguineo, rh, entry_especialidade->get_text(), combo_box_nivel_de_seguranca->get_active_row_number());
-			tratadores->insert(pair<int, Tratador>(stoi(entry_id->get_text()), tratador));
-			outfile << tratador << endl;
-			janela_principal->AtualizarLista(0);
+			Funcionario *tratador = new Tratador(stoi(entry_id->get_text()), "TRATADOR", entry_nome_do_funcionario->get_text(), entry_cpf->get_text(), stoi(entry_idade->get_text()), tipo_sanguineo, rh, entry_especialidade->get_text(), combo_box_nivel_de_seguranca->get_active_row_number());
+			funcionarios->insert(pair<int, Tratador>(stoi(entry_id->get_text()), tratador));
+			outfile << *tratador << endl;
+			//janela_principal->AtualizarLista(0);
 		}
 
 		window->close();
@@ -343,11 +341,10 @@ void JanelaCadastroFuncionario::AtualizarIconeId()
 	if(is_numeric && !temp.empty())
 	{
 		int id = stoi(temp);
-		map<int, Veterinario>::iterator it_v = veterinarios->find(id);
-		map<int, Tratador>::iterator it_t = tratadores->find(id);
+		map<int, Funcionario*>::iterator it = funcionarios->find(id);
 
 		//Caso tenha encontrado algum funcionário com o ID fornecido
-		if(it_v != veterinarios->end() || it_t != tratadores->end())
+		if(it != funcionarios->end())
 		{
 			valid_id = false;
 			entry_id->set_icon_from_pixbuf(pixbuf_uncheck);

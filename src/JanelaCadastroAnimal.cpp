@@ -15,22 +15,11 @@ using namespace std;
 /**
 * @brief Construtor parametrizado da classe JanelaCadastroAnimal.
 * @param jptemp Janela principal do programa.
-* @param vtemp  Map que contém todos os veterinários cadastrados.
-* @param ttemp Map que contém todos os tratadores cadastrados.
-* @param anetemp Map que contém todos os anfíbios exóticos cadastrados.
-* @param anntemp Map que contém todos os anfíbios nativos cadastrados.
-* @param avetemp Map que contém todas as aves exóticas cadastrados.
-* @param avntemp Map que contém todas as aves nativas cadastrados.
-* @param metemp Map que contém todos os mamíferos exóticos cadastrados.
-* @param mntemp Map que contém todos os mamíferos nativos cadastrados.
-* @param retemp Map que contém todos os reptéis exóticos cadastrados.
-* @param rntemp Map que contém todos os reptéis nativos cadastrados.
+* @param funtemp  Map que contém todos os funcinários cadastrados.
+* @param anitemp Map que contém todos os animais cadastrados.
 */
 
-JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Veterinario> &vtemp, map<int, Tratador> &ttemp, map<int, AnfibioExotico> &anetemp, 
-										   map<int, AnfibioNativo> &anntemp, map<int, AveExotico> &avetemp, map<int, AveNativo> &avntemp,
-										   map<int, MamiferoExotico> &metemp, map<int, MamiferoNativo> &mntemp, 
-										   map<int, ReptilExotico> &retemp, map<int, ReptilNativo> &rntemp)
+JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Funcionario*> &funtemp, map<int, Animal*> &anitemp)
 {
 	//Colocado todas as variáveis de verificação para false
 	valid_id = false;
@@ -50,27 +39,11 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Vet
 	valid_cor_dos_pelos = true;
 	valid_tipo_veneno = true;
 
-	//Atribui os endereços de memória dos maps recebidos como parâmetros para os maps da classe JanelaCadastroAnimal.
-
+	// Atribui os endereços de memória dos maps recebidos como parâmetros para os maps da classe JanelaCadastroFuncionario.
 	janela_principal = &jptemp;
 
-	veterinarios = &vtemp;
-	tratadores = &ttemp;
-
-	anfibios_exoticos = &anetemp;
-	anfibios_nativos = &anntemp;
-
-	aves_exoticas = &avetemp;
-	aves_nativas = &avntemp;
-
-	mamiferos_exoticos = &metemp;
-	mamiferos_nativos = &mntemp;
-
-	repteis_exoticos = &retemp;
-	repteis_nativos = &rntemp;
-
-	Veterinario veterinario;
-	Tratador tratador;
+	funcionarios = &funtemp;
+	animais = &anitemp;
 
 	//Inicialização dos atributos da classe GTK.
 	window = new Window;
@@ -505,8 +478,8 @@ void JanelaCadastroAnimal::Cadastrar()
 		char sexo = radio_button_sexo_m->get_active() ? 'M' : 'F';
 		double tamanho = stod(entry_tamanho->get_text());
 		string dieta = entry_dieta->get_text();
-		Veterinario veterinario = check_button_veterinario_incluso->get_active() ? (veterinarios->find(stoi(entry_veterinario_id->get_text())))->second : Veterinario();
-		Tratador tratador = check_button_tratador_incluso->get_active() ? (tratadores->find(stoi(entry_tratador_id->get_text())))->second : Tratador();
+		Veterinario *veterinario = check_button_veterinario_incluso->get_active() ? dynamic_cast<Veterinario*>((Funcionarios->find(stoi(entry_veterinario_id->get_text())))->second) : Funcionario();
+		Tratador *tratador = check_button_tratador_incluso->get_active() ? dynamic_cast<Tratador*>((tratadores->find(stoi(entry_tratador_id->get_text())))->second) : Funcionario();
 		string nome_batismo = entry_nome_batismo->get_text();
 		string autorizacao_ibama = entry_autorizacao_ibama->get_text();
 		string nacionalidade = radio_button_regiao_nativo->get_active() ? combo_box_uf->get_active_text() : entry_nacionalidade->get_text();
@@ -536,14 +509,14 @@ void JanelaCadastroAnimal::Cadastrar()
 						data_date = data_date_temp;
 					}
 
-					AnfibioNativo temp(id, classe, nome_cientifico, sexo, 
-						tamanho, dieta, veterinario, tratador, 
+					Aniaml *temp = new AnfibioNativo(id, classe, nome_cientifico, sexo, 
+						tamanho, dieta, *veterinario, *tratador, 
 						nome_batismo, stoi(entry_total_de_mudas->get_text()), 
 						data_date, autorizacao_ibama, nacionalidade);
 
-					outfile << temp << endl;
-					anfibios_nativos->insert(pair<int, AnfibioNativo>(id, temp));
-					janela_principal->AtualizarLista(2);
+					outfile << *temp << endl;
+					animais->insert(pair<int, Aniaml*>(id, temp));
+					//janela_principal->AtualizarLista(2);
 				}
 				else
 				{
@@ -562,14 +535,14 @@ void JanelaCadastroAnimal::Cadastrar()
 						data_date = data_date_temp;
 					}
 
-					AnfibioExotico temp(id, classe, nome_cientifico, sexo,
-						tamanho, dieta, veterinario, tratador, 
+					Aniaml *temp = new AnfibioExotico(id, classe, nome_cientifico, sexo,
+						tamanho, dieta, *veterinario, *tratador, 
 						nome_batismo, stoi(entry_total_de_mudas->get_text()),
 						data_date, autorizacao_ibama, nacionalidade, entry_cidade->get_text());
 
-					outfile << temp << endl;
-					anfibios_exoticos->insert(pair<int, AnfibioExotico>(id, temp));
-					janela_principal->AtualizarLista(3);
+					outfile << *temp << endl;
+					animais->insert(pair<int, Aniaml*>(id, temp));
+					//janela_principal->AtualizarLista(3);
 				}
 
 				break;
@@ -579,27 +552,27 @@ void JanelaCadastroAnimal::Cadastrar()
 				//Caso for aves
 				if(radio_button_regiao_nativo->get_active())
 				{
-					AveNativo temp(id, classe, nome_cientifico, sexo, 
-						tamanho, dieta, veterinario, tratador, 
+					Aniaml *temp = new AveNativo(id, classe, nome_cientifico, sexo, 
+						tamanho, dieta, *veterinario, *tratador, 
 						nome_batismo, stod(entry_tamanho_do_bico->get_text()), 
 						stod(entry_envergadura_das_asas->get_text()), 
 						autorizacao_ibama, nacionalidade);
 
 					outfile << temp << endl;
-					aves_nativas->insert(pair<int, AveNativo>(id, temp));
-					janela_principal->AtualizarLista(4);
+					animais->insert(pair<int, Aniaml*>(id, temp));
+					//janela_principal->AtualizarLista(4);
 				}
 				else
 				{
-					AveExotico temp(id, classe, nome_cientifico, sexo, 
-						tamanho, dieta, veterinario, tratador, 
+					Aniaml *temp = new AveExotico(id, classe, nome_cientifico, sexo, 
+						tamanho, dieta, *veterinario, *tratador, 
 						nome_batismo, stod(entry_tamanho_do_bico->get_text()), 
 						stod(entry_envergadura_das_asas->get_text()), 
 						autorizacao_ibama, nacionalidade, entry_cidade->get_text());
 
-					outfile << temp << endl;
-					aves_exoticas->insert(pair<int, AveExotico>(id, temp));
-					janela_principal->AtualizarLista(5);
+					outfile << *temp << endl;
+					animais->insert(pair<int, Aniaml*>(id, temp));
+					//janela_principal->AtualizarLista(5);
 				}
 
 				break;
@@ -609,25 +582,25 @@ void JanelaCadastroAnimal::Cadastrar()
 				//Caso for mamifero
 				if(radio_button_regiao_nativo->get_active())
 				{
-					MamiferoNativo temp(id, classe, nome_cientifico, sexo, 
-						tamanho, dieta, veterinario, tratador, 
+					Aniaml *temp = new MamiferoNativo(id, classe, nome_cientifico, sexo, 
+						tamanho, dieta, *veterinario, *tratador, 
 						nome_batismo, entry_cor_dos_pelos->get_text(), 
 						autorizacao_ibama, nacionalidade);
 
-					outfile << temp << endl;
-					mamiferos_nativos->insert(pair<int, MamiferoNativo>(id, temp));
-					janela_principal->AtualizarLista(6);
+					outfile << *temp << endl;
+					animais->insert(pair<int, Aniaml*>(id, temp));
+					//janela_principal->AtualizarLista(6);
 				}
 				else
 				{
-					MamiferoExotico temp(id, classe, nome_cientifico, sexo, 
-						tamanho, dieta, veterinario, tratador, 
+					Aniaml *temp = new MamiferoExotico(id, classe, nome_cientifico, sexo, 
+						tamanho, dieta, *veterinario, *tratador, 
 						nome_batismo, entry_cor_dos_pelos->get_text(), 
 						autorizacao_ibama, nacionalidade, entry_cidade->get_text());
 
-					outfile << temp << endl;
-					mamiferos_exoticos->insert(pair<int, MamiferoExotico>(id, temp));
-					janela_principal->AtualizarLista(7);
+					outfile << *temp << endl;
+					animais->insert(pair<int, Aniaml*>(id, temp));
+					//janela_principal->AtualizarLista(7);
 				}
 
 				break;
@@ -637,27 +610,27 @@ void JanelaCadastroAnimal::Cadastrar()
 				//Caso for reptil
 				if(radio_button_regiao_nativo->get_active())
 				{
-					ReptilNativo temp(id, classe, nome_cientifico, sexo, 
-						tamanho, dieta, veterinario, tratador, 
+					Aniaml *temp = new ReptilNativo(id, classe, nome_cientifico, sexo, 
+						tamanho, dieta, *veterinario, *tratador, 
 						nome_batismo, check_button_venenoso->get_active(), 
 						entry_tipo_de_veneno->get_text(), autorizacao_ibama, 
 						nacionalidade);
 
-					outfile << temp << endl;
-					repteis_nativos->insert(pair<int, ReptilNativo>(id, temp));
-					janela_principal->AtualizarLista(8);
+					outfile << *temp << endl;
+					animais->insert(pair<int, Aniaml*>(id, temp));
+					//janela_principal->AtualizarLista(8);
 				}
 				else
 				{
-					ReptilExotico temp(id, classe, nome_cientifico, sexo, 
-						tamanho, dieta, veterinario, tratador, nome_batismo, 
+					Aniaml *temp = new ReptilExotico(id, classe, nome_cientifico, sexo, 
+						tamanho, dieta, *veterinario, *tratador, nome_batismo, 
 						check_button_venenoso->get_active(), 
 						entry_tipo_de_veneno->get_text(), autorizacao_ibama, 
 						nacionalidade, entry_cidade->get_text());
 
-					outfile << temp << endl;
-					repteis_exoticos->insert(pair<int, ReptilExotico>(id, temp));
-					janela_principal->AtualizarLista(9);
+					outfile << *temp << endl;
+					animais->insert(pair<int, Aniaml*>(id, temp));
+					//janela_principal->AtualizarLista(9);
 				}
 
 				break;
@@ -892,20 +865,10 @@ void JanelaCadastroAnimal::AtualizarIconeId()
 	{
 		int id = stoi(temp);
 
-		map<int, AnfibioNativo>::iterator it_an_n = anfibios_nativos->find(id);
-		map<int, AnfibioExotico>::iterator it_an_e = anfibios_exoticos->find(id);
-		map<int, AveNativo>::iterator it_av_n = aves_nativas->find(id);
-		map<int, AveExotico>::iterator it_av_e = aves_exoticas->find(id);
-		map<int, MamiferoNativo>::iterator it_m_n = mamiferos_nativos->find(id);
-		map<int, MamiferoExotico>::iterator it_m_e = mamiferos_exoticos->find(id);
-		map<int, ReptilNativo>::iterator it_r_n = repteis_nativos->find(id);
-		map<int, ReptilExotico>::iterator it_r_e = repteis_exoticos->find(id);
+		map<int, Animal>::iterator it = animais->find(id);
 
 		//Caso tenha encontrado algum animal com o ID fornecido
-		if(it_an_n != anfibios_nativos->end() || it_an_e != anfibios_exoticos->end() ||
-		   it_av_n != aves_nativas->end() || it_av_e != aves_exoticas->end() ||
-		   it_m_n != mamiferos_nativos->end() || it_m_e != mamiferos_exoticos->end() ||
-		   it_r_n != repteis_nativos->end() || it_r_e != repteis_exoticos->end())
+		if(it != animais->end())
 		{
 			valid_id = false;
 			entry_id->set_icon_from_pixbuf(pixbuf_uncheck);
@@ -1060,10 +1023,10 @@ void JanelaCadastroAnimal::AtualizarIconeTratadorId()
 	if(is_numeric && !temp.empty())
 	{
 		int id = stoi(temp);
-		map<int, Tratador>::iterator it_t = tratadores->find(id);
+		map<int, Funcionario>::iterator it = funcionarios->find(id);
 
-		//Caso tenha encontrado algum tratador com o ID fornecido
-		if(it_t != tratadores->end())
+		//Caso tenha encontrado algum funcionário com o ID fornecido
+		if(it_t != funcionarios->end())
 		{
 			valid_tratador_id = true;
 			entry_tratador_id->set_icon_from_pixbuf(pixbuf_check);
@@ -1106,10 +1069,10 @@ void JanelaCadastroAnimal::AtualizarIconeVeterinarioId()
 	if(is_numeric && !temp.empty())
 	{
 		int id = stoi(temp);
-		map<int, Veterinario>::iterator it_t = veterinarios->find(id);
+		map<int, Funcionario>::iterator it_t = funcionarios->find(id);
 
-		//Caso tenha encontrado algum veterinário com o ID fornecido
-		if(it_t != veterinarios->end())
+		//Caso tenha encontrado algum funcionário com o ID fornecido
+		if(it_t != funcionarios->end())
 		{
 			valid_veterinario_id = true;
 			entry_veterinario_id->set_icon_from_pixbuf(pixbuf_check);

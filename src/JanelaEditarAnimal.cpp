@@ -21,24 +21,11 @@ JanelaEditarAnimal::JanelaEditarAnimal(){}
 /**
 * @brief construtor parametrizado da classe JanelaEditarAnimal.
 * @param jptemp Janela principal do programa.
-* @param vtemp  Map que contém todos os veterinários cadastrados.
-* @param ttemp Map que contém todos os tratadores cadastrados.
-* @param anetemp Map que contém todos os anfíbios exóticos cadastrados.
-* @param anntemp Map que contém todos os anfíbios nativos cadastrados.
-* @param avetemp Map que contém todas as aves exóticas cadastrados.
-* @param avntemp Map que contém todas as aves nativas cadastrados.
-* @param metemp Map que contém todos os mamíferos exóticos cadastrados.
-* @param mntemp Map que contém todos os mamíferos nativos cadastrados.
-* @param retemp Map que contém todos os reptéis exóticos cadastrados.
-* @param rntemp Map que contém todos os reptéis nativos cadastrados.
-* @param pagtemp Número que representa a pagina do notbook que o usuário estava vendo.
-* @param idtemp Número que representa o ID do funcionário que foi selecionado pelo o usuário.
+* @param funtemp  Map que contém todos os funcinários cadastrados.
+* @param anitemp Map que contém todos os animais cadastrados.
 */
 
-JanelaEditarAnimal::JanelaEditarAnimal(JanelaPrincipal &jptemp, map<int, Veterinario> &vtemp, map<int, Tratador> &ttemp, map<int, AnfibioExotico> &anetemp, 
-										   map<int, AnfibioNativo> &anntemp, map<int, AveExotico> &avetemp, map<int, AveNativo> &avntemp,
-										   map<int, MamiferoExotico> &metemp, map<int, MamiferoNativo> &mntemp, 
-										   map<int, ReptilExotico> &retemp, map<int, ReptilNativo> &rntemp, int pagtemp, int idtemp)
+JanelaEditarAnimal::JanelaEditarAnimal(JanelaPrincipal &jptemp, map<int, Funcionario*> &funtemp, map<int, Animal*> &anitemp, int pagtemp, int idtemp)
 {
 	// Atribuição de true para todas as variáveis boleanas que representão 
 	// se as informações digitados sobre o funcionário são validas ou não.
@@ -61,23 +48,8 @@ JanelaEditarAnimal::JanelaEditarAnimal(JanelaPrincipal &jptemp, map<int, Veterin
 	// Atribui os endereços de memória dos maps recebidos como parâmetros para os maps da classe JanelaEditarAnimal.
 	janela_principal = &jptemp;
 
-	veterinarios = &vtemp;
-	tratadores = &ttemp;
-
-	anfibios_exoticos = &anetemp;
-	anfibios_nativos = &anntemp;
-
-	aves_exoticas = &avetemp;
-	aves_nativas = &avntemp;
-
-	mamiferos_exoticos = &metemp;
-	mamiferos_nativos = &mntemp;
-
-	repteis_exoticos = &retemp;
-	repteis_nativos = &rntemp;
-
-	Veterinario veterinario;
-	Tratador tratador;
+	funcionarios = &funtemp;
+	animais = &anitemp;
 
 	// Atribui os valores de pagtemp e idtemp para os atributos pagina e id da classe JanelaBuscaAnimais.
 	pagina = pagtemp;
@@ -369,11 +341,123 @@ void JanelaEditarAnimal::SetInformacooes()
 {
 	window->show_all();
 
-	int id_veterinario;
-	int id_tratador;
 	string data_da_ultima_muda;
 	string uf;
 	bool venenoso;
+
+	map <int, Animal*>::iterator it = animais->find(id);
+
+	entry_nome_cientifico->set_text((it->second).get_nome_cientifico());
+	
+	if ((it->second).get_sexo() == 'M')
+		combo_box_sexo->set_active(0);
+	else
+		combo_box_sexo->set_active(1);
+
+	entry_tamanho->set_text(to_string((it->second).get_tamanho()));
+
+	entry_dieta->set_text((it->second).get_dieta());
+
+	int id_veterinario = (it->second).get_veterinario_id(); 
+	if (id_veterinario != 0)
+	{
+		check_button_veterinario_incluso->set_active(true);
+		entry_veterinario_id->set_text(to_string(id_veterinario));
+		MostrarVeterinario();
+		valid_veterinario_id = true;
+	}
+	else
+	{
+		MostrarVeterinario();
+		entry_veterinario_id->set_icon_from_pixbuf(pixbuf_uncheck);
+
+	}
+
+	int id_tratador = (it->second).get_tratador_id();
+	if (id_tratador != 0)
+	{
+		check_button_tratador_incluso->set_active(true);
+		entry_tratador_id->set_text(to_string(id_tratador));
+		MostrarTratador();
+		valid_tratador_id = true;
+	}
+	else
+	{
+		entry_tratador_id->set_icon_from_pixbuf(pixbuf_uncheck);
+		MostrarTratador();
+	}
+
+	entry_nome_batismo->set_text((it->second).get_nome_de_batismo());
+
+	entry_autorizacao_ibama->set_text((it->second).get_autorizacao_ibama());
+
+	if (pagina % 2 == 0)
+	{
+		combo_box_regiao->set_active(0);
+		MudarRegiao();
+
+		uf = (it->second).get_uf_de_origem();
+		if (uf.compare("AC") == 0)
+			combo_box_uf->set_active(0);
+		else if (uf.compare("AL") == 0)
+			combo_box_uf->set_active(1);
+		else if (uf.compare("AP") == 0)
+			combo_box_uf->set_active(2);
+		else if (uf.compare("AM") == 0)
+			combo_box_uf->set_active(3);
+		else if (uf.compare("BA") == 0)
+			combo_box_uf->set_active(4);
+		else if (uf.compare("CE") == 0)
+			combo_box_uf->set_active(5);
+		else if (uf.compare("DF") == 0)
+			combo_box_uf->set_active(6);
+		else if (uf.compare("ES") == 0)
+			combo_box_uf->set_active(7);
+		else if (uf.compare("GO") == 0)
+			combo_box_uf->set_active(8);
+		else if (uf.compare("MA") == 0)
+			combo_box_uf->set_active(9);
+		else if (uf.compare("MT") == 0)
+			combo_box_uf->set_active(10);
+		else if (uf.compare("MS") == 0)
+			combo_box_uf->set_active(11);
+		else if (uf.compare("MG") == 0)
+			combo_box_uf->set_active(12);
+		else if (uf.compare("PA") == 0)
+			combo_box_uf->set_active(13);
+		else if (uf.compare("PB") == 0)
+			combo_box_uf->set_active(14);
+		else if (uf.compare("PR") == 0)
+			combo_box_uf->set_active(15);
+		else if (uf.compare("PE") == 0)
+			combo_box_uf->set_active(16);
+		else if (uf.compare("PI") == 0)
+			combo_box_uf->set_active(17);
+		else if (uf.compare("RJ") == 0)
+			combo_box_uf->set_active(18);
+		else if (uf.compare("RN") == 0)
+			combo_box_uf->set_active(19);
+		else if (uf.compare("RS") == 0)
+			combo_box_uf->set_active(20);
+		else if (uf.compare("RO") == 0)
+			combo_box_uf->set_active(21);
+		else if (uf.compare("RR") == 0)
+			combo_box_uf->set_active(22);
+		else if (uf.compare("SC") == 0)
+			combo_box_uf->set_active(23);
+		else if (uf.compare("SP") == 0)
+			combo_box_uf->set_active(24);
+		else if (uf.compare("SE") == 0)
+			combo_box_uf->set_active(25);
+		else if (uf.compare("TO") == 0)
+			combo_box_uf->set_active(26);
+	}
+	else
+	{
+		entry_nacionalidade->set_text((it->second).get_pais_de_origem());
+
+		entry_cidade->set_text((it->second).get_cidade_de_origem());
+	}
 
 	if (pagina == 2) // Se a pagina é igual a 2, o animal escolhido é um anfíbio nativo.
 	{
@@ -389,52 +473,8 @@ void JanelaEditarAnimal::SetInformacooes()
 		label_venenoso->hide();
 		entry_tipo_de_veneno->hide();
 		label_tipo_de_veneno->hide();
-
-		map <int, AnfibioNativo>::iterator it = anfibios_nativos->find(id);
 		
 		combo_box_classe->set_active(0);
-
-		entry_nome_cientifico->set_text((it->second).get_nome_cientifico());
-		
-		if ((it->second).get_sexo() == 'M')
-			combo_box_sexo->set_active(0);
-		else
-			combo_box_sexo->set_active(1);
-
-		entry_tamanho->set_text(to_string((it->second).get_tamanho()));
-
-		entry_dieta->set_text((it->second).get_dieta());
-
-		id_veterinario = (it->second).get_veterinario_id(); 
-		if (id_veterinario != 0)
-		{
-			check_button_veterinario_incluso->set_active(true);
-			entry_veterinario_id->set_text(to_string(id_veterinario));
-			MostrarVeterinario();
-			valid_veterinario_id = true;
-		}
-		else
-		{
-			MostrarVeterinario();
-			entry_veterinario_id->set_icon_from_pixbuf(pixbuf_uncheck);
-
-		}
-
-		id_tratador = (it->second).get_tratador_id();
-		if (id_tratador != 0)
-		{
-			check_button_tratador_incluso->set_active(true);
-			entry_tratador_id->set_text(to_string(id_tratador));
-			MostrarTratador();
-			valid_tratador_id = true;
-		}
-		else
-		{
-			entry_tratador_id->set_icon_from_pixbuf(pixbuf_uncheck);
-			MostrarTratador();
-		}
-
-		entry_nome_batismo->set_text((it->second).get_nome_de_batismo());
 
 		entry_total_de_mudas->set_text(to_string((it->second).get_total_de_mudas()));
 
@@ -444,67 +484,6 @@ void JanelaEditarAnimal::SetInformacooes()
 			entry_data_da_ultima_muda->hide();
 		else
 			entry_data_da_ultima_muda->set_text(data_da_ultima_muda);
-
-		entry_autorizacao_ibama->set_text((it->second).get_autorizacao_ibama());
-
-		combo_box_regiao->set_active(0);
-		MudarRegiao();
-
-		uf = (it->second).get_uf_de_origem();
-		if (uf.compare("AC") == 0)
-			combo_box_uf->set_active(0);
-		else if (uf.compare("AL") == 0)
-			combo_box_uf->set_active(1);
-		else if (uf.compare("AP") == 0)
-			combo_box_uf->set_active(2);
-		else if (uf.compare("AM") == 0)
-			combo_box_uf->set_active(3);
-		else if (uf.compare("BA") == 0)
-			combo_box_uf->set_active(4);
-		else if (uf.compare("CE") == 0)
-			combo_box_uf->set_active(5);
-		else if (uf.compare("DF") == 0)
-			combo_box_uf->set_active(6);
-		else if (uf.compare("ES") == 0)
-			combo_box_uf->set_active(7);
-		else if (uf.compare("GO") == 0)
-			combo_box_uf->set_active(8);
-		else if (uf.compare("MA") == 0)
-			combo_box_uf->set_active(9);
-		else if (uf.compare("MT") == 0)
-			combo_box_uf->set_active(10);
-		else if (uf.compare("MS") == 0)
-			combo_box_uf->set_active(11);
-		else if (uf.compare("MG") == 0)
-			combo_box_uf->set_active(12);
-		else if (uf.compare("PA") == 0)
-			combo_box_uf->set_active(13);
-		else if (uf.compare("PB") == 0)
-			combo_box_uf->set_active(14);
-		else if (uf.compare("PR") == 0)
-			combo_box_uf->set_active(15);
-		else if (uf.compare("PE") == 0)
-			combo_box_uf->set_active(16);
-		else if (uf.compare("PI") == 0)
-			combo_box_uf->set_active(17);
-		else if (uf.compare("RJ") == 0)
-			combo_box_uf->set_active(18);
-		else if (uf.compare("RN") == 0)
-			combo_box_uf->set_active(19);
-		else if (uf.compare("RS") == 0)
-			combo_box_uf->set_active(20);
-		else if (uf.compare("RO") == 0)
-			combo_box_uf->set_active(21);
-		else if (uf.compare("RR") == 0)
-			combo_box_uf->set_active(22);
-		else if (uf.compare("SC") == 0)
-			combo_box_uf->set_active(23);
-		else if (uf.compare("SP") == 0)
-			combo_box_uf->set_active(24);
-		else if (uf.compare("SE") == 0)
-			combo_box_uf->set_active(25);
-		else if (uf.compare("TO") == 0)
-			combo_box_uf->set_active(26);
 	}
 	else if (pagina == 3) // Se a pagina é igual a 3, o animal escolhido é um anfibío exótico.
 	{
@@ -518,52 +497,8 @@ void JanelaEditarAnimal::SetInformacooes()
 		label_venenoso->hide();
 		entry_tipo_de_veneno->hide();
 		label_tipo_de_veneno->hide();
-		
-		map <int, AnfibioExotico>::iterator it = anfibios_exoticos->find(id);
-		
+				
 		combo_box_classe->set_active(0);
-
-		entry_nome_cientifico->set_text((it->second).get_nome_cientifico());
-		
-		if ((it->second).get_sexo() == 'M')
-			combo_box_sexo->set_active(0);
-		else
-			combo_box_sexo->set_active(1);
-
-		entry_tamanho->set_text(to_string((it->second).get_tamanho()));
-
-		entry_dieta->set_text((it->second).get_dieta());
-
-		id_veterinario = (it->second).get_veterinario_id(); 
-		if (id_veterinario != 0)
-		{
-			check_button_veterinario_incluso->set_active(true);
-			entry_veterinario_id->set_text(to_string(id_veterinario));
-			MostrarVeterinario();
-			valid_veterinario_id = true;
-		}
-		else
-		{
-			MostrarVeterinario();
-			entry_veterinario_id->set_icon_from_pixbuf(pixbuf_uncheck);
-
-		}
-
-		id_tratador = (it->second).get_tratador_id();
-		if (id_tratador != 0)
-		{
-			check_button_tratador_incluso->set_active(true);
-			entry_tratador_id->set_text(to_string(id_tratador));
-			MostrarTratador();
-			valid_tratador_id = true;
-		}
-		else
-		{
-			entry_tratador_id->set_icon_from_pixbuf(pixbuf_uncheck);
-			MostrarTratador();
-		}
-
-		entry_nome_batismo->set_text((it->second).get_nome_de_batismo());
 
 		entry_total_de_mudas->set_text(to_string((it->second).get_total_de_mudas()));
 
@@ -574,15 +509,9 @@ void JanelaEditarAnimal::SetInformacooes()
 		else
 			entry_data_da_ultima_muda->set_text(data_da_ultima_muda);
 
-		entry_autorizacao_ibama->set_text((it->second).get_autorizacao_ibama());
-
 		combo_box_regiao->set_active(1);
 		MudarRegiao();
 		valid_nacionalidade = true;
-
-		entry_nacionalidade->set_text((it->second).get_pais_de_origem());
-
-		entry_cidade->set_text((it->second).get_cidade_de_origem());
 	}
 	else if (pagina == 4)  // Se a pagina é igual a 4, o animal escolhido é uma ave nativa.
 	{
@@ -598,117 +527,12 @@ void JanelaEditarAnimal::SetInformacooes()
 		label_venenoso->hide();
 		entry_tipo_de_veneno->hide();
 		label_tipo_de_veneno->hide();
-
-		map <int, AveNativo>::iterator it = aves_nativas->find(id);
 		
 		combo_box_classe->set_active(1);
-
-		entry_nome_cientifico->set_text((it->second).get_nome_cientifico());
-		
-		if ((it->second).get_sexo() == 'M')
-			combo_box_sexo->set_active(0);
-		else
-			combo_box_sexo->set_active(1);
-
-		entry_tamanho->set_text(to_string((it->second).get_tamanho()));
-
-		entry_dieta->set_text((it->second).get_dieta());
-
-		id_veterinario = (it->second).get_veterinario_id(); 
-		if (id_veterinario != 0)
-		{
-			check_button_veterinario_incluso->set_active(true);
-			entry_veterinario_id->set_text(to_string(id_veterinario));
-			MostrarVeterinario();
-			valid_veterinario_id = true;
-		}
-		else
-		{
-			MostrarVeterinario();
-			entry_veterinario_id->set_icon_from_pixbuf(pixbuf_uncheck);
-
-		}
-
-		id_tratador = (it->second).get_tratador_id();
-		if (id_tratador != 0)
-		{
-			check_button_tratador_incluso->set_active(true);
-			entry_tratador_id->set_text(to_string(id_tratador));
-			MostrarTratador();
-			valid_tratador_id = true;
-		}
-		else
-		{
-			entry_tratador_id->set_icon_from_pixbuf(pixbuf_uncheck);
-			MostrarTratador();
-		}
-
-		entry_nome_batismo->set_text((it->second).get_nome_de_batismo());
 
 		entry_tamanho_do_bico->set_text(to_string((it->second).get_tamanho_do_bico()));
 
 		entry_envergadura_das_asas->set_text(to_string((it->second).get_envergadura_das_asas()));
-
-		entry_autorizacao_ibama->set_text((it->second).get_autorizacao_ibama());
-
-		combo_box_regiao->set_active(0);
-		MudarRegiao();
-
-		uf = (it->second).get_uf_de_origem();
-		if (uf.compare("AC") == 0)
-			combo_box_uf->set_active(0);
-		else if (uf.compare("AL") == 0)
-			combo_box_uf->set_active(1);
-		else if (uf.compare("AP") == 0)
-			combo_box_uf->set_active(2);
-		else if (uf.compare("AM") == 0)
-			combo_box_uf->set_active(3);
-		else if (uf.compare("BA") == 0)
-			combo_box_uf->set_active(4);
-		else if (uf.compare("CE") == 0)
-			combo_box_uf->set_active(5);
-		else if (uf.compare("DF") == 0)
-			combo_box_uf->set_active(6);
-		else if (uf.compare("ES") == 0)
-			combo_box_uf->set_active(7);
-		else if (uf.compare("GO") == 0)
-			combo_box_uf->set_active(8);
-		else if (uf.compare("MA") == 0)
-			combo_box_uf->set_active(9);
-		else if (uf.compare("MT") == 0)
-			combo_box_uf->set_active(10);
-		else if (uf.compare("MS") == 0)
-			combo_box_uf->set_active(11);
-		else if (uf.compare("MG") == 0)
-			combo_box_uf->set_active(12);
-		else if (uf.compare("PA") == 0)
-			combo_box_uf->set_active(13);
-		else if (uf.compare("PB") == 0)
-			combo_box_uf->set_active(14);
-		else if (uf.compare("PR") == 0)
-			combo_box_uf->set_active(15);
-		else if (uf.compare("PE") == 0)
-			combo_box_uf->set_active(16);
-		else if (uf.compare("PI") == 0)
-			combo_box_uf->set_active(17);
-		else if (uf.compare("RJ") == 0)
-			combo_box_uf->set_active(18);
-		else if (uf.compare("RN") == 0)
-			combo_box_uf->set_active(19);
-		else if (uf.compare("RS") == 0)
-			combo_box_uf->set_active(20);
-		else if (uf.compare("RO") == 0)
-			combo_box_uf->set_active(21);
-		else if (uf.compare("RR") == 0)
-			combo_box_uf->set_active(22);
-		else if (uf.compare("SC") == 0)
-			combo_box_uf->set_active(23);
-		else if (uf.compare("SP") == 0)
-			combo_box_uf->set_active(24);
-		else if (uf.compare("SE") == 0)
-			combo_box_uf->set_active(25);
-		else if (uf.compare("TO") == 0)
-			combo_box_uf->set_active(26);
 	}
 	else if (pagina == 5) // Se a pagina é igual a 5, o animal escolhido é uma aves exótica.
 	{
@@ -722,66 +546,17 @@ void JanelaEditarAnimal::SetInformacooes()
 		label_venenoso->hide();
 		entry_tipo_de_veneno->hide();
 		label_tipo_de_veneno->hide();
-
-		map <int, AveExotico>::iterator it = aves_exoticas->find(id);
 		
 		combo_box_classe->set_active(1);
 
-		entry_nome_cientifico->set_text((it->second).get_nome_cientifico());
-		
-		if ((it->second).get_sexo() == 'M')
-			combo_box_sexo->set_active(0);
-		else
-			combo_box_sexo->set_active(1);
-
-		entry_tamanho->set_text(to_string((it->second).get_tamanho()));
-
-		entry_dieta->set_text((it->second).get_dieta());
-
-		id_veterinario = (it->second).get_veterinario_id(); 
-		if (id_veterinario != 0)
-		{
-			check_button_veterinario_incluso->set_active(true);
-			entry_veterinario_id->set_text(to_string(id_veterinario));
-			MostrarVeterinario();
-			valid_veterinario_id = true;
-		}
-		else
-		{
-			MostrarVeterinario();
-			entry_veterinario_id->set_icon_from_pixbuf(pixbuf_uncheck);
-
-		}
-
-		id_tratador = (it->second).get_tratador_id();
-		if (id_tratador != 0)
-		{
-			check_button_tratador_incluso->set_active(true);
-			entry_tratador_id->set_text(to_string(id_tratador));
-			MostrarTratador();
-			valid_tratador_id = true;
-		}
-		else
-		{
-			entry_tratador_id->set_icon_from_pixbuf(pixbuf_uncheck);
-			MostrarTratador();
-		}
-
-		entry_nome_batismo->set_text((it->second).get_nome_de_batismo());
 
 		entry_tamanho_do_bico->set_text(to_string((it->second).get_tamanho_do_bico()));
 
 		entry_envergadura_das_asas->set_text(to_string((it->second).get_envergadura_das_asas()));
 
-		entry_autorizacao_ibama->set_text((it->second).get_autorizacao_ibama());
-
 		combo_box_regiao->set_active(1);
 		MudarRegiao();
 		valid_nacionalidade = true;
-
-		entry_nacionalidade->set_text((it->second).get_pais_de_origem());
-
-		entry_cidade->set_text((it->second).get_cidade_de_origem());
 	}
 	else if (pagina == 6)  // Se a pagina é igual a 6, o animal escolhido é um mamífero nativo.
 	{
@@ -799,115 +574,13 @@ void JanelaEditarAnimal::SetInformacooes()
 		label_venenoso->hide();
 		entry_tipo_de_veneno->hide();
 		label_tipo_de_veneno->hide();
-
-		map <int, MamiferoNativo>::iterator it = mamiferos_nativos->find(id);
 		
 		combo_box_classe->set_active(2);
 
-		entry_nome_cientifico->set_text((it->second).get_nome_cientifico());
-		
-		if ((it->second).get_sexo() == 'M')
-			combo_box_sexo->set_active(0);
-		else
-			combo_box_sexo->set_active(1);
-
-		entry_tamanho->set_text(to_string((it->second).get_tamanho()));
-
-		entry_dieta->set_text((it->second).get_dieta());
-
-		id_veterinario = (it->second).get_veterinario_id(); 
-		if (id_veterinario != 0)
-		{
-			check_button_veterinario_incluso->set_active(true);
-			entry_veterinario_id->set_text(to_string(id_veterinario));
-			MostrarVeterinario();
-			valid_veterinario_id = true;
-		}
-		else
-		{
-			MostrarVeterinario();
-			entry_veterinario_id->set_icon_from_pixbuf(pixbuf_uncheck);
-
-		}
-
-		id_tratador = (it->second).get_tratador_id();
-		if (id_tratador != 0)
-		{
-			check_button_tratador_incluso->set_active(true);
-			entry_tratador_id->set_text(to_string(id_tratador));
-			MostrarTratador();
-			valid_tratador_id = true;
-		}
-		else
-		{
-			entry_tratador_id->set_icon_from_pixbuf(pixbuf_uncheck);
-			MostrarTratador();
-		}
-
-		entry_nome_batismo->set_text((it->second).get_nome_de_batismo());
-
 		entry_cor_dos_pelos->set_text((it->second).get_cor_do_pelo());
-
-		entry_autorizacao_ibama->set_text((it->second).get_autorizacao_ibama());
 
 		combo_box_regiao->set_active(0);
 		MudarRegiao();
-
-		uf = (it->second).get_uf_de_origem();
-		if (uf.compare("AC") == 0)
-			combo_box_uf->set_active(0);
-		else if (uf.compare("AL") == 0)
-			combo_box_uf->set_active(1);
-		else if (uf.compare("AP") == 0)
-			combo_box_uf->set_active(2);
-		else if (uf.compare("AM") == 0)
-			combo_box_uf->set_active(3);
-		else if (uf.compare("BA") == 0)
-			combo_box_uf->set_active(4);
-		else if (uf.compare("CE") == 0)
-			combo_box_uf->set_active(5);
-		else if (uf.compare("DF") == 0)
-			combo_box_uf->set_active(6);
-		else if (uf.compare("ES") == 0)
-			combo_box_uf->set_active(7);
-		else if (uf.compare("GO") == 0)
-			combo_box_uf->set_active(8);
-		else if (uf.compare("MA") == 0)
-			combo_box_uf->set_active(9);
-		else if (uf.compare("MT") == 0)
-			combo_box_uf->set_active(10);
-		else if (uf.compare("MS") == 0)
-			combo_box_uf->set_active(11);
-		else if (uf.compare("MG") == 0)
-			combo_box_uf->set_active(12);
-		else if (uf.compare("PA") == 0)
-			combo_box_uf->set_active(13);
-		else if (uf.compare("PB") == 0)
-			combo_box_uf->set_active(14);
-		else if (uf.compare("PR") == 0)
-			combo_box_uf->set_active(15);
-		else if (uf.compare("PE") == 0)
-			combo_box_uf->set_active(16);
-		else if (uf.compare("PI") == 0)
-			combo_box_uf->set_active(17);
-		else if (uf.compare("RJ") == 0)
-			combo_box_uf->set_active(18);
-		else if (uf.compare("RN") == 0)
-			combo_box_uf->set_active(19);
-		else if (uf.compare("RS") == 0)
-			combo_box_uf->set_active(20);
-		else if (uf.compare("RO") == 0)
-			combo_box_uf->set_active(21);
-		else if (uf.compare("RR") == 0)
-			combo_box_uf->set_active(22);
-		else if (uf.compare("SC") == 0)
-			combo_box_uf->set_active(23);
-		else if (uf.compare("SP") == 0)
-			combo_box_uf->set_active(24);
-		else if (uf.compare("SE") == 0)
-			combo_box_uf->set_active(25);
-		else if (uf.compare("TO") == 0)
-			combo_box_uf->set_active(26);
 	}
 	else if (pagina == 7)  // Se a pagina é igual a 7, o animal escolhido é um mamífero exótico.
 	{
@@ -923,64 +596,14 @@ void JanelaEditarAnimal::SetInformacooes()
 		label_venenoso->hide();
 		entry_tipo_de_veneno->hide();
 		label_tipo_de_veneno->hide();
-
-		map <int, MamiferoExotico>::iterator it = mamiferos_exoticos->find(id);
 		
 		combo_box_classe->set_active(2);
 
-		entry_nome_cientifico->set_text((it->second).get_nome_cientifico());
-		
-		if ((it->second).get_sexo() == 'M')
-			combo_box_sexo->set_active(0);
-		else
-			combo_box_sexo->set_active(1);
-
-		entry_tamanho->set_text(to_string((it->second).get_tamanho()));
-
-		entry_dieta->set_text((it->second).get_dieta());
-
-		id_veterinario = (it->second).get_veterinario_id(); 
-		if (id_veterinario != 0)
-		{
-			check_button_veterinario_incluso->set_active(true);
-			entry_veterinario_id->set_text(to_string(id_veterinario));
-			MostrarVeterinario();
-			valid_veterinario_id = true;
-		}
-		else
-		{
-			MostrarVeterinario();
-			entry_veterinario_id->set_icon_from_pixbuf(pixbuf_uncheck);
-
-		}
-
-		id_tratador = (it->second).get_tratador_id();
-		if (id_tratador != 0)
-		{
-			check_button_tratador_incluso->set_active(true);
-			entry_tratador_id->set_text(to_string(id_tratador));
-			MostrarTratador();
-			valid_tratador_id = true;
-		}
-		else
-		{
-			entry_tratador_id->set_icon_from_pixbuf(pixbuf_uncheck);
-			MostrarTratador();
-		}
-
-		entry_nome_batismo->set_text((it->second).get_nome_de_batismo());
-
 		entry_cor_dos_pelos->set_text((it->second).get_cor_do_pelo());
-
-		entry_autorizacao_ibama->set_text((it->second).get_autorizacao_ibama());
 
 		combo_box_regiao->set_active(1);
 		MudarRegiao();
 		valid_nacionalidade = true;
-
-		entry_nacionalidade->set_text((it->second).get_pais_de_origem());
-
-		entry_cidade->set_text((it->second).get_cidade_de_origem());
 	}
 	else if (pagina == 8) // Se a pagina é igual a 8, o animal escolhido é um reptil exótico.
 	{
@@ -996,52 +619,8 @@ void JanelaEditarAnimal::SetInformacooes()
 		label_envergadura_das_asas->hide();
 		entry_cor_dos_pelos->hide();
 		label_cor_dos_pelos->hide();
-
-		map <int, ReptilNativo>::iterator it = repteis_nativos->find(id);
 		
 		combo_box_classe->set_active(3);
-
-		entry_nome_cientifico->set_text((it->second).get_nome_cientifico());
-		
-		if ((it->second).get_sexo() == 'M')
-			combo_box_sexo->set_active(0);
-		else
-			combo_box_sexo->set_active(1);
-
-		entry_tamanho->set_text(to_string((it->second).get_tamanho()));
-
-		entry_dieta->set_text((it->second).get_dieta());
-
-		id_veterinario = (it->second).get_veterinario_id(); 
-		if (id_veterinario != 0)
-		{
-			check_button_veterinario_incluso->set_active(true);
-			entry_veterinario_id->set_text(to_string(id_veterinario));
-			MostrarVeterinario();
-			valid_veterinario_id = true;
-		}
-		else
-		{
-			MostrarVeterinario();
-			entry_veterinario_id->set_icon_from_pixbuf(pixbuf_uncheck);
-
-		}
-
-		id_tratador = (it->second).get_tratador_id();
-		if (id_tratador != 0)
-		{
-			check_button_tratador_incluso->set_active(true);
-			entry_tratador_id->set_text(to_string(id_tratador));
-			MostrarTratador();
-			valid_tratador_id = true;
-		}
-		else
-		{
-			entry_tratador_id->set_icon_from_pixbuf(pixbuf_uncheck);
-			MostrarTratador();
-		}
-
-		entry_nome_batismo->set_text((it->second).get_nome_de_batismo());
 
 		venenoso = (it->second).get_venenoso();
 		if (venenoso)
@@ -1056,67 +635,6 @@ void JanelaEditarAnimal::SetInformacooes()
 			entry_tipo_de_veneno->set_icon_from_pixbuf(pixbuf_uncheck);
 			MostrarVenenoso();
 		}
-
-		entry_autorizacao_ibama->set_text((it->second).get_autorizacao_ibama());
-
-		combo_box_regiao->set_active(0);
-		MudarRegiao();
-
-		uf = (it->second).get_uf_de_origem();
-		if (uf.compare("AC") == 0)
-			combo_box_uf->set_active(0);
-		else if (uf.compare("AL") == 0)
-			combo_box_uf->set_active(1);
-		else if (uf.compare("AP") == 0)
-			combo_box_uf->set_active(2);
-		else if (uf.compare("AM") == 0)
-			combo_box_uf->set_active(3);
-		else if (uf.compare("BA") == 0)
-			combo_box_uf->set_active(4);
-		else if (uf.compare("CE") == 0)
-			combo_box_uf->set_active(5);
-		else if (uf.compare("DF") == 0)
-			combo_box_uf->set_active(6);
-		else if (uf.compare("ES") == 0)
-			combo_box_uf->set_active(7);
-		else if (uf.compare("GO") == 0)
-			combo_box_uf->set_active(8);
-		else if (uf.compare("MA") == 0)
-			combo_box_uf->set_active(9);
-		else if (uf.compare("MT") == 0)
-			combo_box_uf->set_active(10);
-		else if (uf.compare("MS") == 0)
-			combo_box_uf->set_active(11);
-		else if (uf.compare("MG") == 0)
-			combo_box_uf->set_active(12);
-		else if (uf.compare("PA") == 0)
-			combo_box_uf->set_active(13);
-		else if (uf.compare("PB") == 0)
-			combo_box_uf->set_active(14);
-		else if (uf.compare("PR") == 0)
-			combo_box_uf->set_active(15);
-		else if (uf.compare("PE") == 0)
-			combo_box_uf->set_active(16);
-		else if (uf.compare("PI") == 0)
-			combo_box_uf->set_active(17);
-		else if (uf.compare("RJ") == 0)
-			combo_box_uf->set_active(18);
-		else if (uf.compare("RN") == 0)
-			combo_box_uf->set_active(19);
-		else if (uf.compare("RS") == 0)
-			combo_box_uf->set_active(20);
-		else if (uf.compare("RO") == 0)
-			combo_box_uf->set_active(21);
-		else if (uf.compare("RR") == 0)
-			combo_box_uf->set_active(22);
-		else if (uf.compare("SC") == 0)
-			combo_box_uf->set_active(23);
-		else if (uf.compare("SP") == 0)
-			combo_box_uf->set_active(24);
-		else if (uf.compare("SE") == 0)
-			combo_box_uf->set_active(25);
-		else if (uf.compare("TO") == 0)
-			combo_box_uf->set_active(26);
 	}
 	else if (pagina == 9) // Se a pagina é igual a 9, o animal escolhido é um reptil exótico.
 	{
@@ -1130,52 +648,8 @@ void JanelaEditarAnimal::SetInformacooes()
 		label_envergadura_das_asas->hide();
 		entry_cor_dos_pelos->hide();
 		label_cor_dos_pelos->hide();
-
-		map <int, ReptilExotico>::iterator it = repteis_exoticos->find(id);
 		
 		combo_box_classe->set_active(3);
-
-		entry_nome_cientifico->set_text((it->second).get_nome_cientifico());
-		
-		if ((it->second).get_sexo() == 'M')
-			combo_box_sexo->set_active(0);
-		else
-			combo_box_sexo->set_active(1);
-
-		entry_tamanho->set_text(to_string((it->second).get_tamanho()));
-
-		entry_dieta->set_text((it->second).get_dieta());
-
-		id_veterinario = (it->second).get_veterinario_id(); 
-		if (id_veterinario != 0)
-		{
-			check_button_veterinario_incluso->set_active(true);
-			entry_veterinario_id->set_text(to_string(id_veterinario));
-			MostrarVeterinario();
-			valid_veterinario_id = true;
-		}
-		else
-		{
-			MostrarVeterinario();
-			entry_veterinario_id->set_icon_from_pixbuf(pixbuf_uncheck);
-
-		}
-
-		id_tratador = (it->second).get_tratador_id();
-		if (id_tratador != 0)
-		{
-			check_button_tratador_incluso->set_active(true);
-			entry_tratador_id->set_text(to_string(id_tratador));
-			MostrarTratador();
-			valid_tratador_id = true;
-		}
-		else
-		{
-			entry_tratador_id->set_icon_from_pixbuf(pixbuf_uncheck);
-			MostrarTratador();
-		}
-
-		entry_nome_batismo->set_text((it->second).get_nome_de_batismo());
 
 		venenoso = (it->second).get_venenoso();
 		if (venenoso)
@@ -1191,15 +665,9 @@ void JanelaEditarAnimal::SetInformacooes()
 			MostrarVenenoso();
 		}
 
-		entry_autorizacao_ibama->set_text((it->second).get_autorizacao_ibama());
-
 		combo_box_regiao->set_active(1);
 		MudarRegiao();
 		valid_nacionalidade = true;
-
-		entry_nacionalidade->set_text((it->second).get_pais_de_origem());
-
-		entry_cidade->set_text((it->second).get_cidade_de_origem());
 	}	
 }
 
@@ -1306,9 +774,7 @@ void JanelaEditarAnimal::Editar()
 	// as novas são escritas.
 	else
 	{
-		RemoverAnimal(*janela_principal, *anfibios_exoticos, *anfibios_nativos, *aves_exoticas,
-			*aves_nativas, *mamiferos_exoticos, *mamiferos_nativos, 
-			*repteis_exoticos, *repteis_nativos, id);
+		RemoverAnimal(*janela_principal, *animais, id);
 		string classe = combo_box_classe->get_active_text(); 
 		for(unsigned int i = 0; i < classe.length(); i++)
 			classe[i] = toupper(classe[i]);
@@ -1316,8 +782,8 @@ void JanelaEditarAnimal::Editar()
 		char sexo = combo_box_sexo->get_active_text()[0];
 		double tamanho = stod(entry_tamanho->get_text());
 		string dieta = entry_dieta->get_text();
-		Veterinario veterinario = check_button_veterinario_incluso->get_active() ? (veterinarios->find(stoi(entry_veterinario_id->get_text())))->second : Veterinario();
-		Tratador tratador = check_button_tratador_incluso->get_active() ? (tratadores->find(stoi(entry_tratador_id->get_text())))->second : Tratador();
+		Veterinario *veterinario = check_button_veterinario_incluso->get_active() ? dynamic_cast<Veterinario*>((veterinarios->find(stoi(entry_veterinario_id->get_text())))->second) : Funcionario();
+		Tratador *tratador = check_button_tratador_incluso->get_active() ? dynamic_cast<Tratador*>((tratadores->find(stoi(entry_tratador_id->get_text())))->second) : Funcionario();
 		string nome_batismo = entry_nome_batismo->get_text();
 		string autorizacao_ibama = entry_autorizacao_ibama->get_text();
 		string nacionalidade = combo_box_regiao->get_active_row_number() == 0 ? combo_box_uf->get_active_text() : entry_nacionalidade->get_text();
@@ -1340,13 +806,13 @@ void JanelaEditarAnimal::Editar()
 						data = Separador_data(data_string);
 						date data_date(data[0], data[1], data[2]);
 
-						AnfibioNativo temp(id, classe, nome_cientifico, sexo, 
-							tamanho, dieta, veterinario, tratador, 
+						Animal *temp = new AnfibioNativo(id, classe, nome_cientifico, sexo, 
+							tamanho, dieta, *veterinario, *tratador, 
 							nome_batismo, stoi(entry_total_de_mudas->get_text()), 
 							data_date, autorizacao_ibama, nacionalidade);
 
-						outfile << temp << endl;
-						anfibios_nativos->insert(pair<int, AnfibioNativo>(id, temp));
+						outfile << *temp << endl;
+						animais->insert(pair<int, Animal*>(id, temp));
 						janela_principal->AtualizarLista(2);
 						break;
 					}
@@ -1357,13 +823,13 @@ void JanelaEditarAnimal::Editar()
 						data = Separador_data(data_string);
 						date data_date(data[0], data[1], data[2]);
 
-						AnfibioExotico temp(id, classe, nome_cientifico, sexo,
-							tamanho, dieta, veterinario, tratador, 
+						Animal *temp = AnfibioExotico(id, classe, nome_cientifico, sexo,
+							tamanho, dieta, *veterinario, *tratador, 
 							nome_batismo, stoi(entry_total_de_mudas->get_text()),
 							data_date, autorizacao_ibama, nacionalidade, entry_cidade->get_text());
 
-						outfile << temp << endl;
-						anfibios_exoticos->insert(pair<int, AnfibioExotico>(id, temp));
+						outfile << *temp << endl;
+						animais->insert(pair<int, Animal*>(id, temp));
 						janela_principal->AtualizarLista(3);
 						break;
 					}
@@ -1377,27 +843,27 @@ void JanelaEditarAnimal::Editar()
 				{
 					case 0:
 					{
-						AveNativo temp(id, classe, nome_cientifico, sexo, 
-							tamanho, dieta, veterinario, tratador, 
+						Animal *temp = new AveNativo(id, classe, nome_cientifico, sexo, 
+							tamanho, dieta, *veterinario, *tratador, 
 							nome_batismo, stod(entry_tamanho_do_bico->get_text()), 
 							stod(entry_envergadura_das_asas->get_text()), 
 							autorizacao_ibama, nacionalidade);
 
-						outfile << temp << endl;
-						aves_nativas->insert(pair<int, AveNativo>(id, temp));
+						outfile << *temp << endl;
+						animais->insert(pair<int, Animal*>(id, temp));
 						janela_principal->AtualizarLista(4);
 						break;
 					}
 					case 1:
 					{
-						AveExotico temp(id, classe, nome_cientifico, sexo, 
-							tamanho, dieta, veterinario, tratador, 
+						Animal *temp = new AveExotico(id, classe, nome_cientifico, sexo, 
+							tamanho, dieta, *veterinario, *tratador, 
 							nome_batismo, stod(entry_tamanho_do_bico->get_text()), 
 							stod(entry_envergadura_das_asas->get_text()), 
 							autorizacao_ibama, nacionalidade, entry_cidade->get_text());
 
-						outfile << temp << endl;
-						aves_exoticas->insert(pair<int, AveExotico>(id, temp));
+						outfile << *temp << endl;
+						animais->insert(pair<int, Animal*>(id, temp));
 						janela_principal->AtualizarLista(5);
 						break;
 					}
@@ -1411,25 +877,25 @@ void JanelaEditarAnimal::Editar()
 				{
 					case 0:
 					{
-						MamiferoNativo temp(id, classe, nome_cientifico, sexo, 
-							tamanho, dieta, veterinario, tratador, 
+						Animal *temp = new MamiferoNativo(id, classe, nome_cientifico, sexo, 
+							tamanho, dieta, *veterinario, *tratador, 
 							nome_batismo, entry_cor_dos_pelos->get_text(), 
 							autorizacao_ibama, nacionalidade);
 
-						outfile << temp << endl;
-						mamiferos_nativos->insert(pair<int, MamiferoNativo>(id, temp));
+						outfile << *temp << endl;
+						animais->insert(pair<int, Animal*>(id, temp));
 						janela_principal->AtualizarLista(6);
 						break;
 					}
 					case 1:
 					{
-						MamiferoExotico temp(id, classe, nome_cientifico, sexo, 
-							tamanho, dieta, veterinario, tratador, 
+						Animal *temp = MamiferoExotico(id, classe, nome_cientifico, sexo, 
+							tamanho, dieta, *veterinario, *tratador, 
 							nome_batismo, entry_cor_dos_pelos->get_text(), 
 							autorizacao_ibama, nacionalidade, entry_cidade->get_text());
 
-						outfile << temp << endl;
-						mamiferos_exoticos->insert(pair<int, MamiferoExotico>(id, temp));
+						outfile << *temp << endl;
+						animais->insert(pair<int, Animal*>(id, temp));
 						janela_principal->AtualizarLista(7);
 						break;
 					}
@@ -1443,27 +909,27 @@ void JanelaEditarAnimal::Editar()
 				{
 					case 0:
 					{
-						ReptilNativo temp(id, classe, nome_cientifico, sexo, 
-							tamanho, dieta, veterinario, tratador, 
+						Animal *temp = new ReptilNativo(id, classe, nome_cientifico, sexo, 
+							tamanho, dieta, *veterinario, *tratador, 
 							nome_batismo, check_button_venenoso->get_active(), 
 							entry_tipo_de_veneno->get_text(), autorizacao_ibama, 
 							nacionalidade);
 
-						outfile << temp << endl;
-						repteis_nativos->insert(pair<int, ReptilNativo>(id, temp));
+						outfile << *temp << endl;
+						animais->insert(pair<int, Animal*>(id, temp));
 						janela_principal->AtualizarLista(8);
 						break;
 					}
 					case 1:
 					{
-						ReptilExotico temp(id, classe, nome_cientifico, sexo, 
-							tamanho, dieta, veterinario, tratador, nome_batismo, 
+						Animal *temp = new ReptilExotico(id, classe, nome_cientifico, sexo, 
+							tamanho, dieta, *veterinario, *tratador, nome_batismo, 
 							check_button_venenoso->get_active(), 
 							entry_tipo_de_veneno->get_text(), autorizacao_ibama, 
 							nacionalidade, entry_cidade->get_text());
 
-						outfile << temp << endl;
-						repteis_exoticos->insert(pair<int, ReptilExotico>(id, temp));
+						outfile << *temp << endl;
+						animais->insert(pair<int, Animal*>(id, temp));
 						janela_principal->AtualizarLista(9);
 						break;
 					}
@@ -1805,12 +1271,12 @@ void JanelaEditarAnimal::AtualizarIconeTratadorId()
 			break;
 		}
 	}
-	if(is_numeric && !temp.empty()) // Caso o ID do tratador digitado for inválido.
+	if(is_numeric && !temp.empty()) // Caso o ID do tratador digitado for válido.
 	{
 		int id = stoi(temp);
-		map<int, Tratador>::iterator it_t = tratadores->find(id);
+		map<int, Funcionario*>::iterator it = funcionarios->find(id);
 
-		if(it_t != tratadores->end()) // Caso o ID de tratador digitado existir.
+		if(it != funcionarios->end()) // Caso o ID de tratador digitado existir.
 		{
 			valid_tratador_id = true;
 			entry_tratador_id->set_icon_from_pixbuf(pixbuf_check);
@@ -1850,9 +1316,9 @@ void JanelaEditarAnimal::AtualizarIconeVeterinarioId()
 	if(is_numeric && !temp.empty()) // Caso o ID do veterinário digitado for inválido.
 	{
 		int id = stoi(temp);
-		map<int, Veterinario>::iterator it_t = veterinarios->find(id);
+		map<int, Funcionario*>::iterator it = funcionarios->find(id);
 
-		if(it_t != veterinarios->end()) // Caso o ID do veterinário digitado existir.
+		if(it_t != funcionarios->end()) // Caso o ID do veterinário digitado existir.
 		{
 			valid_veterinario_id = true;
 			entry_veterinario_id->set_icon_from_pixbuf(pixbuf_check);
