@@ -433,12 +433,12 @@ class JanelaPrincipal : public ModelColumnsTratador, public ModelColumnsVeterina
 
 		void Run();
 		void BotaoCadastrarFuncionario();
-		void BotaoCadastrarAnimal();/*
+		void BotaoCadastrarAnimal();
 		void BotaoRemover();
 		void BotaoEditar();
-		void BotaoBuscarAnimalPorFuncionario();*/
-		void BotaoAbout();/*
-		void AtualizarLista(int);*/
+		void BotaoBuscarAnimalPorFuncionario();
+		void BotaoAbout();
+		//void AtualizarLista(int);
 };
 
 #endif

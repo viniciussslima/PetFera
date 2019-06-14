@@ -28,12 +28,12 @@ void RemoverFuncionario(JanelaPrincipal &janela_principal, map<int, Funcionario*
 			if(palavras[1].compare("TRATADOR") == 0)
 			{
 				funcionarios.erase(id);
-				janela_principal.AtualizarLista(0);
+				//janela_principal.AtualizarLista(0);
 			}
 			else
 			{
 				funcionarios.erase(id);
-				janela_principal.AtualizarLista(1);
+				//janela_principal.AtualizarLista(1);
 			}
 		}
 	}
