@@ -478,8 +478,8 @@ void JanelaCadastroAnimal::Cadastrar()
 		char sexo = radio_button_sexo_m->get_active() ? 'M' : 'F';
 		double tamanho = stod(entry_tamanho->get_text());
 		string dieta = entry_dieta->get_text();
-		Veterinario *veterinario = check_button_veterinario_incluso->get_active() ? dynamic_cast<Veterinario*>((funcionarios->find(stoi(entry_veterinario_id->get_text())))->second) : Veterinario();
-		Tratador *tratador = check_button_tratador_incluso->get_active() ? dynamic_cast<Tratador*>((funcionarios->find(stoi(entry_tratador_id->get_text())))->second) : Tratador();
+		Veterinario *veterinario = check_button_veterinario_incluso->get_active() ? dynamic_cast<Veterinario*>((funcionarios->find(stoi(entry_veterinario_id->get_text())))->second) : new Veterinario();
+		Tratador *tratador = check_button_tratador_incluso->get_active() ? dynamic_cast<Tratador*>((funcionarios->find(stoi(entry_tratador_id->get_text())))->second) : new Tratador();
 		string nome_batismo = entry_nome_batismo->get_text();
 		string autorizacao_ibama = entry_autorizacao_ibama->get_text();
 		string nacionalidade = radio_button_regiao_nativo->get_active() ? combo_box_uf->get_active_text() : entry_nacionalidade->get_text();
