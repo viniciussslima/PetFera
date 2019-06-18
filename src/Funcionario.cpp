@@ -53,7 +53,7 @@ Funcionario::~Funcionario(){}
 * @return Retorna o ID do funcionário.
 */
 
-int Funcionario::get_id()
+int Funcionario::get_id() const
 {
 	return m_id;
 }

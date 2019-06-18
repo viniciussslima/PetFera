@@ -33,7 +33,7 @@ class Funcionario
 		Funcionario(int, string, string,
 			short, string, char, string);
 		virtual ~Funcionario() = 0;
-		int get_id();
+		int get_id() const;
 		string get_nome();
 		string get_cpf();
 		short get_idade();
