@@ -51,28 +51,3 @@ MamiferoExotico::MamiferoExotico(int new_id, string new_classe,
 */
 
 MamiferoExotico::~MamiferoExotico(){}
-
-/**
-* @brief Sobrecarga do operador de extração.
-* @param o Parametro do tipo stream que recebe todas as informçãoes do MamiferoExotico.
-* @param M Mamífero exótico que vai ter todas as suas infomações passadas para a variavel o;
-* @return Retorna todas as infomações do mamífero exótico em forma de stream.
-*/
-
-ostream& operator<<(ostream &o, MamiferoExotico M)
-{
-	o << M.m_id << ";"
-		<< M.m_classe << ";"
-		<< M.m_nome_cientifico << ";"
-		<< M.m_sexo << ";"
-		<< M.m_tamanho << ";"
-		<< M.m_dieta << ";"
-		<< M.m_veterinario.get_id() << ";"
-		<< M.m_tratador.get_id() << ";"
-		<< M.m_nome_batismo << ";"
-		<< M.m_cor_pelo << ";"
-		<< M.m_autorizacao_ibama << ";"
-		<< M.m_cidade_origem << ";"
-		<< M.m_pais_origem << ";";
-	return o;
-}

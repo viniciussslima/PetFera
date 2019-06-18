@@ -53,28 +53,3 @@ AnfibioNativo::AnfibioNativo(int new_id, string new_classe,
 */
 
 AnfibioNativo::~AnfibioNativo(){}
-
-/**
-* @brief Sobrecarga do operador de extração.
-* @param o Parametro do tipo stream que recebe todas as informçãoes do anfíbio.
-* @param A Anfíbio nativo que vai ter todas as suas infomações passadas para a variavel o;
-* @return Retorna todas as infomações do anfíbio nativo em forma de stream.
-*/
-
-ostream& operator<<(ostream &o, AnfibioNativo A)
-{
-	o << A.m_id << ";"
-		<< A.m_classe << ";"
-		<< A.m_nome_cientifico << ";"
-		<< A.m_sexo << ";"
-		<< A.m_tamanho << ";"
-		<< A.m_dieta << ";"
-		<< A.m_veterinario.get_id() << ";"
-		<< A.m_tratador.get_id() << ";"
-		<< A.m_nome_batismo << ";"
-		<< A.m_total_de_mudas << ";"
-		<< A.m_ultima_muda << ";"
-		<< A.m_autorizacao_ibama << ";"
-		<< A.m_uf_origem << ";";
-	return o;
-}

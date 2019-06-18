@@ -18,6 +18,8 @@ using namespace std;
 
 class Funcionario
 {
+	private:
+		virtual ostream& print(ostream&) const = 0;
 	protected:
 		int m_id;
 		string m_nome;
@@ -37,7 +39,8 @@ class Funcionario
 		short get_idade();
 		string get_tipo_sanguineo();
 		char get_rh();
-		string get_especialidade();		
+		string get_especialidade();
+		friend ostream& operator << (ostream& os, const Funcionario& b) {return b.print(os);}
 };
 
 #endif

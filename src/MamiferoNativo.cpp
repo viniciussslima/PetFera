@@ -49,27 +49,3 @@ MamiferoNativo::MamiferoNativo(int new_id, string new_classe,
 */
 
 MamiferoNativo::~MamiferoNativo(){}
-
-/**
-* @brief Sobrecarga do operador de extração.
-* @param o Parametro do tipo stream que recebe todas as informçãoes do MamiferoNativo.
-* @param M Mamífero nativo que vai ter todas as suas infomações passadas para a variavel o;
-* @return Retorna todas as infomações do mamífero nativo em forma de stream.
-*/
-
-ostream& operator<<(ostream &o, MamiferoNativo M)
-{
-	o << M.m_id << ";"
-		<< M.m_classe << ";"
-		<< M.m_nome_cientifico << ";"
-		<< M.m_sexo << ";"
-		<< M.m_tamanho << ";"
-		<< M.m_dieta << ";"
-		<< M.m_veterinario.get_id() << ";"
-		<< M.m_tratador.get_id() << ";"
-		<< M.m_nome_batismo << ";"
-		<< M.m_cor_pelo << ";"
-		<< M.m_autorizacao_ibama << ";"
-		<< M.m_uf_origem << ";";
-	return o;
-}

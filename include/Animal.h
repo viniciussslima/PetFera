@@ -19,6 +19,8 @@ using namespace std;
 
 class Animal
 {
+	private:
+		virtual std::ostream& print(std::ostream&) const = 0;
 	protected:
 		int m_id;
 		string m_classe;
@@ -44,6 +46,7 @@ class Animal
 		int get_veterinario_id();
 		int get_tratador_id();
 		string get_nome_de_batismo();
+		friend std::ostream& operator << (std::ostream& os, const Animal& b) {return b.print(os);}
 };
 
 #endif

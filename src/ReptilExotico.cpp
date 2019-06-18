@@ -53,29 +53,3 @@ ReptilExotico::ReptilExotico(int new_id, string new_classe,
 */
 
 ReptilExotico::~ReptilExotico(){}
-
-/**
-* @brief Sobrecarga do operador de extração.
-* @param o Parametro do tipo stream que recebe todas as informçãoes do ReptilExotico.
-* @param R Réptil nativo que vai ter todas as suas infomações passadas para a variavel o;
-* @return Retorna todas as infomações do réptil nativo em forma de stream.
-*/
-
-ostream& operator<<(ostream &o, ReptilExotico R)
-{
-	o << R.m_id << ";"
-		<< R.m_classe << ";"
-		<< R.m_nome_cientifico << ";"
-		<< R.m_sexo << ";"
-		<< R.m_tamanho << ";"
-		<< R.m_dieta << ";"
-		<< R.m_veterinario.get_id() << ";"
-		<< R.m_tratador.get_id() << ";"
-		<< R.m_nome_batismo << ";"
-		<< R.m_venenoso << ";"
-		<< R.m_tipo_veneno << ";"
-		<< R.m_autorizacao_ibama << ";"
-		<< R.m_cidade_origem << ";"
-		<< R.m_pais_origem << ";";
-	return o;
-}

@@ -17,13 +17,30 @@ using namespace std;
 
 class ReptilExotico : public Reptil, public AnimalExotico
 {
+	private:
+		ostream& print(ostream& os) const 
+		{
+			return os << m_id << ";"
+						<< m_classe << ";"
+						<< m_nome_cientifico << ";"
+						<< m_sexo << ";"
+						<< m_tamanho << ";"
+						<< m_dieta << ";"
+						<< m_veterinario.get_id() << ";"
+						<< m_tratador.get_id() << ";"
+						<< m_nome_batismo << ";"
+						<< m_venenoso << ";"
+						<< m_tipo_veneno << ";"
+						<< m_autorizacao_ibama << ";"
+						<< m_cidade_origem << ";"
+						<< m_pais_origem << ";";
+		}
 	public:
 		ReptilExotico();
 		ReptilExotico(int, string, string, char,
 			double, string, Veterinario, Tratador,
 			string, bool, string, string, string, string);
 		~ReptilExotico();
-		friend ostream& operator<<(ostream &, ReptilExotico);
 };
 
 #endif

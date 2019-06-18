@@ -17,13 +17,28 @@ using namespace std;
 
 class MamiferoNativo : public Mamifero, public AnimalNativo
 {
+	private:
+		ostream& print(ostream& os) const 
+		{
+			return os << m_id << ";"
+						<< m_classe << ";"
+						<< m_nome_cientifico << ";"
+						<< m_sexo << ";"
+						<< m_tamanho << ";"
+						<< m_dieta << ";"
+						<< m_veterinario.get_id() << ";"
+						<< m_tratador.get_id() << ";"
+						<< m_nome_batismo << ";"
+						<< m_cor_pelo << ";"
+						<< m_autorizacao_ibama << ";"
+						<< m_uf_origem << ";";
+		}
 	public:
 		MamiferoNativo();
 		MamiferoNativo(int, string, string, char,
 			double, string, Veterinario, Tratador,
 			string, string, string, string);
 		~MamiferoNativo();
-		friend ostream& operator<<(ostream &, MamiferoNativo);
 };
 
 #endif

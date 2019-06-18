@@ -53,28 +53,3 @@ AveNativo::AveNativo(int new_id, string new_classe,
 */
 
 AveNativo::~AveNativo(){}
-
-/**
-* @brief Sobrecarga do operador de extração.
-* @param o Parametro do tipo stream que recebe todas as informçãoes da ave.
-* @param A Ave exótica que vai ter todas as suas infomações passadas para a variavel o;
-* @return Retorna todas as infomações da ave nativa em forma de stream.
-*/
-
-ostream& operator<<(ostream &o, AveNativo A)
-{
-	o << A.m_id << ";"
-		<< A.m_classe << ";"
-		<< A.m_nome_cientifico << ";"
-		<< A.m_sexo << ";"
-		<< A.m_tamanho << ";"
-		<< A.m_dieta << ";"
-		<< A.m_veterinario.get_id() << ";"
-		<< A.m_tratador.get_id() << ";"
-		<< A.m_nome_batismo << ";"
-		<< A.m_tamanho_do_bico << ";"
-		<< A.m_evergadura_das_asas << ";"
-		<< A.m_autorizacao_ibama << ";"
-		<< A.m_uf_origem << ";";
-	return o;
-}
