@@ -55,14 +55,14 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 			if(funcao.compare("TRATADOR") == 0)
 			{
 				int nivel_seguranca = stoi(palavras[8]);
-				Funcionario *temp = new Tratador(id, funcao, nome, cpf, idade, tipo_sanguineo, fator_rh, especialidade, nivel_seguranca);
+				Funcionario *temp = new Tratador(id, nome, cpf, idade, tipo_sanguineo, fator_rh, especialidade, nivel_seguranca);
 				funcionarios.insert(pair<int, Funcionario*>(id, temp));
 			}
 			//Caso for um funcionário
 			else
 			{
 				string crmv = palavras[8];
-				Funcionario *temp = new Veterinario(id, funcao, nome, cpf, idade, tipo_sanguineo, fator_rh, especialidade, crmv);
+				Funcionario *temp = new Veterinario(id, nome, cpf, idade, tipo_sanguineo, fator_rh, especialidade, crmv);
 				funcionarios.insert(pair<int, Funcionario*>(id, temp));
 			}
 		}
@@ -506,7 +506,7 @@ void JanelaPrincipal::Run()
 
 void JanelaPrincipal::BotaoCadastrarFuncionario()
 {
-	JanelaCadastroFuncionario temp(*this, veterinarios, tratadores);
+	JanelaCadastroFuncionario temp(*this, funcionarios);
 	temp.Run();
 }
 
@@ -1007,9 +1007,7 @@ void JanelaPrincipal::BotaoBuscarAnimalPorFuncionario()
 			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_tratador.col_id);	
-				JanelaBuscaAnimais temp(veterinarios, tratadores, anfibios_exoticos, anfibios_nativos, aves_exoticas,
-								 aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-								 repteis_exoticos, repteis_nativos, pagina, id);
+				JanelaBuscaAnimais temp(funcionarios, animais, pagina, id);
 				temp.Run();
 			}
 			else // Caso uma linha não tenha sido selecionada.
@@ -1026,9 +1024,7 @@ void JanelaPrincipal::BotaoBuscarAnimalPorFuncionario()
 			{
 			
 				id = row.get_value(model_columns_tratador.col_id);	
-				JanelaBuscaAnimais temp(veterinarios, tratadores, anfibios_exoticos, anfibios_nativos, aves_exoticas,
-								 aves_nativas, mamiferos_exoticos, mamiferos_nativos, 
-								 repteis_exoticos, repteis_nativos, pagina, id);
+				JanelaBuscaAnimais temp(funcionarios, animais, pagina, id);
 				temp.Run();
 			}
 			else // Caso uma linha não tenha sido selecionada.

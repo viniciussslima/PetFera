@@ -285,7 +285,7 @@ void JanelaCadastroFuncionario::Cadastrar()
 		else
 		{
 			Funcionario *tratador = new Tratador(stoi(entry_id->get_text()), "TRATADOR", entry_nome_do_funcionario->get_text(), entry_cpf->get_text(), stoi(entry_idade->get_text()), tipo_sanguineo, rh, entry_especialidade->get_text(), combo_box_nivel_de_seguranca->get_active_row_number());
-			funcionarios->insert(pair<int, Tratador>(stoi(entry_id->get_text()), tratador));
+			funcionarios->insert(pair<int, Funcionario*>(stoi(entry_id->get_text()), tratador));
 			outfile << *tratador << endl;
 			//janela_principal->AtualizarLista(0);
 		}

@@ -97,7 +97,7 @@ class JanelaBuscaAnimais : public ModelColumnsTratador, public ModelColumnsVeter
 
 	public:
 		JanelaBuscaAnimais();
-		JanelaBuscaAnimais(map<int, Funcionario>&, map<int, Animal*>&, int, int);
+		JanelaBuscaAnimais(map<int, Funcionario*>&, map<int, Animal*>&, int, int);
 		~JanelaBuscaAnimais();
 
 		void ProcurarAnimalPorFuncionario();
