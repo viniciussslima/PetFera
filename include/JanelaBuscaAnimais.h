@@ -12,8 +12,9 @@
 
 #include <iostream>
 #include <fstream>
-#include <gtkmm.h>
 #include <map>
+#include <exception>
+#include <gtkmm.h>
 
 #include "JanelaPrincipal.h"
 
@@ -92,12 +93,12 @@ class JanelaBuscaAnimais : public ModelColumnsTratador, public ModelColumnsVeter
 		int pagina;
 		int id;
 
-		map<int, Funcionario*> *Funcionarios;
+		map<int, Funcionario*> *funcionarios;
 		map<int, Animal*> *animais;
 
 	public:
 		JanelaBuscaAnimais();
-		JanelaBuscaAnimais(map<int, Funcionario*>&, map<int, Animal*>&, int, int);
+		JanelaBuscaAnimais(JanelaPrincipal&, map<int, Funcionario*>&, map<int, Animal*>&, int, int);
 		~JanelaBuscaAnimais();
 
 		void ProcurarAnimalPorFuncionario();

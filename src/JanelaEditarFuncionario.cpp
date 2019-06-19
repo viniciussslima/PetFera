@@ -203,13 +203,13 @@ void JanelaEditarFuncionario::SetInformacooes()
 	
 	map<int, Funcionario*>::iterator it = funcionarios->find(id);
 	
-	entry_nome_do_funcionario->set_text((it->second).get_nome());
+	entry_nome_do_funcionario->set_text((it->second)->get_nome());
 
-	entry_cpf->set_text((it->second).get_cpf());
+	entry_cpf->set_text((it->second)->get_cpf());
 
-	entry_idade->set_text(to_string((it->second).get_idade()));
+	entry_idade->set_text(to_string((it->second)->get_idade()));
 
-	string tipo_sanguineo = (it->second).get_tipo_sanguineo();
+	string tipo_sanguineo = (it->second)->get_tipo_sanguineo();
 	if (tipo_sanguineo.compare("A") == 0)
 	{
 		combo_box_tipo_sanguineo->set_active(0);
@@ -227,7 +227,7 @@ void JanelaEditarFuncionario::SetInformacooes()
 		combo_box_tipo_sanguineo->set_active(3);
 	}
 
-	switch((it->second).get_rh())
+	switch((it->second)->get_rh())
 	{
 		case '+':
 			combo_box_rh->set_active(0);
@@ -237,14 +237,14 @@ void JanelaEditarFuncionario::SetInformacooes()
 			break;
 	}
 
-	entry_especialidade->set_text((it->second).get_especialidade());
+	entry_especialidade->set_text((it->second)->get_especialidade());
 
 	if (pagina == 0) // Se a pagina é igual a 0, o funcionário escolhido é um tratador.
 	{
 		combo_box_fucao->set_active(1);
 		MudarFuncionario();
 
-		switch((it->second).get_nivel_de_seguranca())
+		switch(dynamic_cast<Tratador*>(it->second)->get_nivel_de_seguranca())
 		{
 		case 0:
 			combo_box_nivel_de_seguranca->set_active(0);
@@ -263,7 +263,7 @@ void JanelaEditarFuncionario::SetInformacooes()
 		combo_box_fucao->set_active(0);
 		MudarFuncionario();
 
-		entry_crmv->set_text((it_v->second).get_crmv());
+		entry_crmv->set_text(dynamic_cast<Veterinario*>(it->second)->get_crmv());
 	}
 }
 
@@ -364,7 +364,7 @@ void JanelaEditarFuncionario::Editar()
 			}
 			case 1:
 			{
-				Funcionario tratador = new Tratador(id, entry_nome_do_funcionario->get_text(), entry_cpf->get_text(), stoi(entry_idade->get_text()), tipo_sanguineo, rh, entry_especialidade->get_text(), combo_box_nivel_de_seguranca->get_active_row_number());
+				Funcionario *tratador = new Tratador(id, entry_nome_do_funcionario->get_text(), entry_cpf->get_text(), stoi(entry_idade->get_text()), tipo_sanguineo, rh, entry_especialidade->get_text(), combo_box_nivel_de_seguranca->get_active_row_number());
 				funcionarios->insert(pair<int, Funcionario*>(id, tratador));
 				outfile << *tratador << endl;
 				//janela_principal->AtualizarLista(0);

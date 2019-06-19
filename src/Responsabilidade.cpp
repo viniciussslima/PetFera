@@ -14,8 +14,8 @@ bool Responsabilidade(map<int, Animal*> &animais, int id)
 	bool animal_sob_responsabilidade = false;
 	for (map<int, Animal*>::iterator it = animais.begin(); it != animais.end(); it++)
 	{
-		if ((it->second).get_veterinario_id() == id ||
-			(it->second).get_tratador_id() == id)
+		if ((it->second)->get_veterinario_id() == id ||
+			(it->second)->get_tratador_id() == id)
 		{
 			animal_sob_responsabilidade = true;
 			break;

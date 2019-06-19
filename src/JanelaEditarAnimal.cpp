@@ -347,18 +347,18 @@ void JanelaEditarAnimal::SetInformacooes()
 
 	map <int, Animal*>::iterator it = animais->find(id);
 
-	entry_nome_cientifico->set_text((it->second).get_nome_cientifico());
+	entry_nome_cientifico->set_text((it->second)->get_nome_cientifico());
 	
-	if ((it->second).get_sexo() == 'M')
+	if ((it->second)->get_sexo() == 'M')
 		combo_box_sexo->set_active(0);
 	else
 		combo_box_sexo->set_active(1);
 
-	entry_tamanho->set_text(to_string((it->second).get_tamanho()));
+	entry_tamanho->set_text(to_string((it->second)->get_tamanho()));
 
-	entry_dieta->set_text((it->second).get_dieta());
+	entry_dieta->set_text((it->second)->get_dieta());
 
-	int id_veterinario = (it->second).get_veterinario_id(); 
+	int id_veterinario = (it->second)->get_veterinario_id(); 
 	if (id_veterinario != 0)
 	{
 		check_button_veterinario_incluso->set_active(true);
@@ -373,7 +373,7 @@ void JanelaEditarAnimal::SetInformacooes()
 
 	}
 
-	int id_tratador = (it->second).get_tratador_id();
+	int id_tratador = (it->second)->get_tratador_id();
 	if (id_tratador != 0)
 	{
 		check_button_tratador_incluso->set_active(true);
@@ -387,16 +387,16 @@ void JanelaEditarAnimal::SetInformacooes()
 		MostrarTratador();
 	}
 
-	entry_nome_batismo->set_text((it->second).get_nome_de_batismo());
+	entry_nome_batismo->set_text((it->second)->get_nome_de_batismo());
 
-	entry_autorizacao_ibama->set_text((it->second).get_autorizacao_ibama());
+	entry_autorizacao_ibama->set_text(dynamic_cast<AnimalSilvestre*>(it->second)->get_autorizacao_ibama());
 
 	if (pagina % 2 == 0)
 	{
 		combo_box_regiao->set_active(0);
 		MudarRegiao();
 
-		uf = (it->second).get_uf_de_origem();
+		uf = dynamic_cast<AnimalNativo*>(it->second)->get_uf_de_origem();
 		if (uf.compare("AC") == 0)
 			combo_box_uf->set_active(0);
 		else if (uf.compare("AL") == 0)
@@ -454,9 +454,9 @@ void JanelaEditarAnimal::SetInformacooes()
 	}
 	else
 	{
-		entry_nacionalidade->set_text((it->second).get_pais_de_origem());
+		entry_nacionalidade->set_text(dynamic_cast<AnimalExotico*>(it->second)->get_pais_de_origem());
 
-		entry_cidade->set_text((it->second).get_cidade_de_origem());
+		entry_cidade->set_text(dynamic_cast<AnimalExotico*>(it->second)->get_cidade_de_origem());
 	}
 
 	if (pagina == 2) // Se a pagina é igual a 2, o animal escolhido é um anfíbio nativo.
@@ -476,9 +476,9 @@ void JanelaEditarAnimal::SetInformacooes()
 		
 		combo_box_classe->set_active(0);
 
-		entry_total_de_mudas->set_text(to_string((it->second).get_total_de_mudas()));
+		entry_total_de_mudas->set_text(to_string(dynamic_cast<Anfibio*>(it->second)->get_total_de_mudas()));
 
-		data_da_ultima_muda = (it->second).get_data_da_ultima_muda();
+		data_da_ultima_muda = dynamic_cast<Anfibio*>(it->second)->get_data_da_ultima_muda();
 		
 		if (data_da_ultima_muda.compare("Sem data") == 0)
 			entry_data_da_ultima_muda->hide();
@@ -500,9 +500,9 @@ void JanelaEditarAnimal::SetInformacooes()
 				
 		combo_box_classe->set_active(0);
 
-		entry_total_de_mudas->set_text(to_string((it->second).get_total_de_mudas()));
+		entry_total_de_mudas->set_text(to_string(dynamic_cast<Anfibio*>(it->second)->get_total_de_mudas()));
 
-		data_da_ultima_muda = (it->second).get_data_da_ultima_muda();
+		data_da_ultima_muda = dynamic_cast<Anfibio*>(it->second)->get_data_da_ultima_muda();
 		
 		if (data_da_ultima_muda.compare("Sem data") == 0)
 			entry_data_da_ultima_muda->hide();
@@ -530,9 +530,9 @@ void JanelaEditarAnimal::SetInformacooes()
 		
 		combo_box_classe->set_active(1);
 
-		entry_tamanho_do_bico->set_text(to_string((it->second).get_tamanho_do_bico()));
+		entry_tamanho_do_bico->set_text(to_string(dynamic_cast<Ave*>(it->second)->get_tamanho_do_bico()));
 
-		entry_envergadura_das_asas->set_text(to_string((it->second).get_envergadura_das_asas()));
+		entry_envergadura_das_asas->set_text(to_string(dynamic_cast<Ave*>(it->second)->get_envergadura_das_asas()));
 	}
 	else if (pagina == 5) // Se a pagina é igual a 5, o animal escolhido é uma aves exótica.
 	{
@@ -550,9 +550,9 @@ void JanelaEditarAnimal::SetInformacooes()
 		combo_box_classe->set_active(1);
 
 
-		entry_tamanho_do_bico->set_text(to_string((it->second).get_tamanho_do_bico()));
+		entry_tamanho_do_bico->set_text(to_string(dynamic_cast<Ave*>(it->second)->get_tamanho_do_bico()));
 
-		entry_envergadura_das_asas->set_text(to_string((it->second).get_envergadura_das_asas()));
+		entry_envergadura_das_asas->set_text(to_string(dynamic_cast<Ave*>(it->second)->get_envergadura_das_asas()));
 
 		combo_box_regiao->set_active(1);
 		MudarRegiao();
@@ -577,7 +577,7 @@ void JanelaEditarAnimal::SetInformacooes()
 		
 		combo_box_classe->set_active(2);
 
-		entry_cor_dos_pelos->set_text((it->second).get_cor_do_pelo());
+		entry_cor_dos_pelos->set_text(dynamic_cast<Mamifero*>(it->second)->get_cor_do_pelo());
 
 		combo_box_regiao->set_active(0);
 		MudarRegiao();
@@ -599,7 +599,7 @@ void JanelaEditarAnimal::SetInformacooes()
 		
 		combo_box_classe->set_active(2);
 
-		entry_cor_dos_pelos->set_text((it->second).get_cor_do_pelo());
+		entry_cor_dos_pelos->set_text(dynamic_cast<Mamifero*>(it->second)->get_cor_do_pelo());
 
 		combo_box_regiao->set_active(1);
 		MudarRegiao();
@@ -622,11 +622,11 @@ void JanelaEditarAnimal::SetInformacooes()
 		
 		combo_box_classe->set_active(3);
 
-		venenoso = (it->second).get_venenoso();
+		venenoso = dynamic_cast<Reptil*>(it->second)->get_venenoso();
 		if (venenoso)
 		{
 			check_button_venenoso->set_active(true);
-			entry_tipo_de_veneno->set_text((it->second).get_tipo_de_veneno());
+			entry_tipo_de_veneno->set_text(dynamic_cast<Reptil*>(it->second)->get_tipo_de_veneno());
 			MostrarVenenoso();
 			valid_tipo_veneno = true;
 		}
@@ -651,11 +651,11 @@ void JanelaEditarAnimal::SetInformacooes()
 		
 		combo_box_classe->set_active(3);
 
-		venenoso = (it->second).get_venenoso();
+		venenoso = dynamic_cast<Reptil*>(it->second)->get_venenoso();
 		if (venenoso)
 		{
 			check_button_venenoso->set_active(true);
-			entry_tipo_de_veneno->set_text((it->second).get_tipo_de_veneno());
+			entry_tipo_de_veneno->set_text(dynamic_cast<Reptil*>(it->second)->get_tipo_de_veneno());
 			MostrarVenenoso();
 			valid_tipo_veneno = true;
 		}
@@ -782,8 +782,8 @@ void JanelaEditarAnimal::Editar()
 		char sexo = combo_box_sexo->get_active_text()[0];
 		double tamanho = stod(entry_tamanho->get_text());
 		string dieta = entry_dieta->get_text();
-		Veterinario *veterinario = check_button_veterinario_incluso->get_active() ? dynamic_cast<Veterinario*>((veterinarios->find(stoi(entry_veterinario_id->get_text())))->second) : Funcionario();
-		Tratador *tratador = check_button_tratador_incluso->get_active() ? dynamic_cast<Tratador*>((tratadores->find(stoi(entry_tratador_id->get_text())))->second) : Funcionario();
+		Veterinario *veterinario = check_button_veterinario_incluso->get_active() ? dynamic_cast<Veterinario*>((funcionarios->find(stoi(entry_veterinario_id->get_text())))->second) : new Veterinario();
+		Tratador *tratador = check_button_tratador_incluso->get_active() ? dynamic_cast<Tratador*>((funcionarios->find(stoi(entry_tratador_id->get_text())))->second) : new Tratador();
 		string nome_batismo = entry_nome_batismo->get_text();
 		string autorizacao_ibama = entry_autorizacao_ibama->get_text();
 		string nacionalidade = combo_box_regiao->get_active_row_number() == 0 ? combo_box_uf->get_active_text() : entry_nacionalidade->get_text();
@@ -823,7 +823,7 @@ void JanelaEditarAnimal::Editar()
 						data = Separador_data(data_string);
 						date data_date(data[0], data[1], data[2]);
 
-						Animal *temp = AnfibioExotico(id, classe, nome_cientifico, sexo,
+						Animal *temp = new AnfibioExotico(id, classe, nome_cientifico, sexo,
 							tamanho, dieta, *veterinario, *tratador, 
 							nome_batismo, stoi(entry_total_de_mudas->get_text()),
 							data_date, autorizacao_ibama, nacionalidade, entry_cidade->get_text());
@@ -889,7 +889,7 @@ void JanelaEditarAnimal::Editar()
 					}
 					case 1:
 					{
-						Animal *temp = MamiferoExotico(id, classe, nome_cientifico, sexo, 
+						Animal *temp = new MamiferoExotico(id, classe, nome_cientifico, sexo, 
 							tamanho, dieta, *veterinario, *tratador, 
 							nome_batismo, entry_cor_dos_pelos->get_text(), 
 							autorizacao_ibama, nacionalidade, entry_cidade->get_text());
@@ -1318,7 +1318,7 @@ void JanelaEditarAnimal::AtualizarIconeVeterinarioId()
 		int id = stoi(temp);
 		map<int, Funcionario*>::iterator it = funcionarios->find(id);
 
-		if(it_t != funcionarios->end()) // Caso o ID do veterinário digitado existir.
+		if(it != funcionarios->end()) // Caso o ID do veterinário digitado existir.
 		{
 			valid_veterinario_id = true;
 			entry_veterinario_id->set_icon_from_pixbuf(pixbuf_check);

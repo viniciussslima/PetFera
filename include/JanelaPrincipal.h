@@ -438,7 +438,7 @@ class JanelaPrincipal : public ModelColumnsTratador, public ModelColumnsVeterina
 		void BotaoEditar();
 		void BotaoBuscarAnimalPorFuncionario();
 		void BotaoAbout();
-		//void AtualizarLista(int);
+		void AtualizarLista(int);
 };
 
 #endif

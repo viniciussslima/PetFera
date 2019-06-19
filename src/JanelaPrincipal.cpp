@@ -437,10 +437,10 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 
 	//Preenchendo o modelo de arvore
 
-	/*for(int i = 0; i < 10; i++)
+	for(int i = 0; i < 10; i++)
 	{
 		AtualizarLista(i);
-	}*/
+	}
 
 	//Conexões dos atributos da classe GTK.
 	button_cadastro_funcionario->signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::BotaoCadastrarFuncionario));
@@ -1007,7 +1007,7 @@ void JanelaPrincipal::BotaoBuscarAnimalPorFuncionario()
 			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
 				id = row.get_value(model_columns_tratador.col_id);	
-				JanelaBuscaAnimais temp(funcionarios, animais, pagina, id);
+				JanelaBuscaAnimais temp(*this, funcionarios, animais, pagina, id);
 				temp.Run();
 			}
 			else // Caso uma linha não tenha sido selecionada.
@@ -1024,7 +1024,7 @@ void JanelaPrincipal::BotaoBuscarAnimalPorFuncionario()
 			{
 			
 				id = row.get_value(model_columns_tratador.col_id);	
-				JanelaBuscaAnimais temp(funcionarios, animais, pagina, id);
+				JanelaBuscaAnimais temp(*this, funcionarios, animais, pagina, id);
 				temp.Run();
 			}
 			else // Caso uma linha não tenha sido selecionada.
@@ -1070,7 +1070,7 @@ void JanelaPrincipal::BotaoAbout()
 * @param i Indica qual lista vai atualizar.
 */
 
-/*void JanelaPrincipal::AtualizarLista(int i)
+void JanelaPrincipal::AtualizarLista(int i)
 {
 	TreeModel::Row row;
 	switch(i)
@@ -1080,19 +1080,31 @@ void JanelaPrincipal::BotaoAbout()
 			//tratadores
 			notebook_consulta->set_current_page(0);
 			list_store_tratadores->clear();
-			for(map<int, Tratador>::iterator it = tratadores.begin(); it != tratadores.end(); it++)
+			for(map<int, Funcionario*>::iterator it = funcionarios.begin(); it != funcionarios.end(); it++)
 			{
-				row = *(list_store_tratadores->append());
-				row[model_columns_tratador.col_id] = it->second.get_id();
-				row[model_columns_tratador.col_nome] = it->second.get_nome();
-				row[model_columns_tratador.col_cpf] = it->second.get_cpf();
-				row[model_columns_tratador.col_idade] = it->second.get_idade();
-				row[model_columns_tratador.col_tipo_sanguineo] = it->second.get_tipo_sanguineo();
-				string temp;
-				temp.push_back(it->second.get_rh());
-				row[model_columns_tratador.col_rh] = temp;
-				row[model_columns_tratador.col_especialidade] = it->second.get_especialidade();
-				row[model_columns_tratador.col_nivel_seguranca] = it->second.get_nivel_de_seguranca();
+				bool is_tratador = true;
+				try
+				{
+					dynamic_cast<Tratador*>(it->second)->get_nivel_de_seguranca();
+				}
+				catch(exception &ex)
+				{
+					is_tratador = false;
+				}
+				if(is_tratador)
+				{
+					row = *(list_store_tratadores->append());
+					row[model_columns_tratador.col_id] = it->second->get_id();
+					row[model_columns_tratador.col_nome] = it->second->get_nome();
+					row[model_columns_tratador.col_cpf] = it->second->get_cpf();
+					row[model_columns_tratador.col_idade] = it->second->get_idade();
+					row[model_columns_tratador.col_tipo_sanguineo] = it->second->get_tipo_sanguineo();
+					string temp;
+					temp.push_back(it->second->get_rh());
+					row[model_columns_tratador.col_rh] = temp;
+					row[model_columns_tratador.col_especialidade] = it->second->get_especialidade();
+					row[model_columns_tratador.col_nivel_seguranca] = dynamic_cast<Tratador*>(it->second)->get_nivel_de_seguranca();
+				}
 			}
 			break;
 		}
@@ -1101,19 +1113,19 @@ void JanelaPrincipal::BotaoAbout()
 			//veterinarios
 			notebook_consulta->set_current_page(1);
 			list_store_veterinarios->clear();
-			for(map<int, Veterinario>::iterator it = veterinarios.begin(); it != veterinarios.end(); it++)
+			for(map<int, Funcionario*>::iterator it = funcionarios.begin(); it != funcionarios.end(); it++)
 			{
 				row = *(list_store_veterinarios->append());
-				row[model_columns_veterinario.col_id] = it->second.get_id();
-				row[model_columns_veterinario.col_nome] = it->second.get_nome();
-				row[model_columns_veterinario.col_cpf] = it->second.get_cpf();
-				row[model_columns_veterinario.col_idade] = it->second.get_idade();
-				row[model_columns_veterinario.col_tipo_sanguineo] = it->second.get_tipo_sanguineo();
+				row[model_columns_veterinario.col_id] = it->second->get_id();
+				row[model_columns_veterinario.col_nome] = it->second->get_nome();
+				row[model_columns_veterinario.col_cpf] = it->second->get_cpf();
+				row[model_columns_veterinario.col_idade] = it->second->get_idade();
+				row[model_columns_veterinario.col_tipo_sanguineo] = it->second->get_tipo_sanguineo();
 				string temp;
-				temp.push_back(it->second.get_rh());
+				temp.push_back(it->second->get_rh());
 				row[model_columns_veterinario.col_rh] = temp;
-				row[model_columns_veterinario.col_especialidade] = it->second.get_especialidade();
-				row[model_columns_veterinario.col_crmv] = it->second.get_crmv();
+				row[model_columns_veterinario.col_especialidade] = it->second->get_especialidade();
+				row[model_columns_veterinario.col_crmv] = dynamic_cast<Veterinario*>(it->second)->get_crmv();
 			}
 			break;
 		}
@@ -1122,32 +1134,32 @@ void JanelaPrincipal::BotaoAbout()
 			//anfibios nativos
 			notebook_consulta->set_current_page(2);
 			list_store_anfibios_nativos->clear();
-			for(map<int, AnfibioNativo>::iterator it = anfibios_nativos.begin(); it != anfibios_nativos.end(); it++)
+			for(map<int, Animal*>::iterator it = animais.begin(); it != animais.end(); it++)
 			{
 				row = *(list_store_anfibios_nativos->append());
-				row[model_columns_anfibio_nativo.col_id] = it->second.get_id();
-				row[model_columns_anfibio_nativo.col_nome_cientifico] = it->second.get_nome_cientifico();
+				row[model_columns_anfibio_nativo.col_id] = it->second->get_id();
+				row[model_columns_anfibio_nativo.col_nome_cientifico] = it->second->get_nome_cientifico();
 				string temp;
-				temp.push_back(it->second.get_sexo());
+				temp.push_back(it->second->get_sexo());
 				row[model_columns_anfibio_nativo.col_sexo] = temp;
-				row[model_columns_anfibio_nativo.col_tamanho] = it->second.get_tamanho();
-				row[model_columns_anfibio_nativo.col_dieta] = it->second.get_dieta();
-
-				if (it->second.get_veterinario_id() == 0)
-					row[model_columns_anfibio_nativo.col_veterinario] = "Sem veterinário";
+				row[model_columns_anfibio_nativo.col_tamanho] = it->second->get_tamanho();
+				row[model_columns_anfibio_nativo.col_dieta] = it->second->get_dieta();
+				
+				if (it->second->get_veterinario_id() == 0)
+					row[model_columns_anfibio_nativo.col_veterinario] = "Sem veterinario";
 				else
-					row[model_columns_anfibio_nativo.col_veterinario] = to_string((it->second).get_veterinario_id());
+					row[model_columns_anfibio_nativo.col_veterinario] = to_string((it->second)->get_veterinario_id());
 
-				if (it->second.get_tratador_id() == 0)
+				if (it->second->get_tratador_id() == 0)
 					row[model_columns_anfibio_nativo.col_tratador] = "Sem tratador";
 				else
-					row[model_columns_anfibio_nativo.col_tratador] = to_string((it->second).get_tratador_id());
-
-				row[model_columns_anfibio_nativo.col_nome_batismo] = it->second.get_nome_de_batismo();
-				row[model_columns_anfibio_nativo.col_total_mudas] = it->second.get_total_de_mudas();
-				row[model_columns_anfibio_nativo.col_data_ultima_muda] = it->second.get_data_da_ultima_muda();
-				row[model_columns_anfibio_nativo.col_autorizacao_ibama] = it->second.get_autorizacao_ibama();
-				row[model_columns_anfibio_nativo.col_uf_origem] = it->second.get_uf_de_origem();
+					row[model_columns_anfibio_nativo.col_tratador] = to_string((it->second)->get_tratador_id());
+				
+				row[model_columns_anfibio_nativo.col_nome_batismo] = it->second->get_nome_de_batismo();
+				row[model_columns_anfibio_nativo.col_total_mudas] = dynamic_cast<Anfibio*>(it->second)->get_total_de_mudas();
+				row[model_columns_anfibio_nativo.col_data_ultima_muda] = dynamic_cast<Anfibio*>(it->second)->get_data_da_ultima_muda();
+				row[model_columns_anfibio_nativo.col_autorizacao_ibama] = dynamic_cast<AnimalSilvestre*>(it->second)->get_autorizacao_ibama();
+				row[model_columns_anfibio_nativo.col_uf_origem] = dynamic_cast<AnimalNativo*>(it->second)->get_uf_de_origem();
 			}
 			break;
 		}
@@ -1156,33 +1168,33 @@ void JanelaPrincipal::BotaoAbout()
 			//anfibios exoticos
 			notebook_consulta->set_current_page(3);
 			list_store_anfibios_exoticos->clear();
-			for(map<int, AnfibioExotico>::iterator it = anfibios_exoticos.begin(); it != anfibios_exoticos.end(); it++)
+			for(map<int, Animal*>::iterator it = animais.begin(); it != animais.end(); it++)
 			{
 				row = *(list_store_anfibios_exoticos->append());
-				row[model_columns_anfibio_exotico.col_id] = it->second.get_id();
-				row[model_columns_anfibio_exotico.col_nome_cientifico] = it->second.get_nome_cientifico();
+				row[model_columns_anfibio_exotico.col_id] = it->second->get_id();
+				row[model_columns_anfibio_exotico.col_nome_cientifico] = it->second->get_nome_cientifico();
 				string temp;
-				temp.push_back(it->second.get_sexo());
+				temp.push_back(it->second->get_sexo());
 				row[model_columns_anfibio_exotico.col_sexo] = temp;
-				row[model_columns_anfibio_exotico.col_tamanho] = it->second.get_tamanho();
-				row[model_columns_anfibio_exotico.col_dieta] = it->second.get_dieta();
-
-				if (it->second.get_veterinario_id() == 0)
-					row[model_columns_anfibio_exotico.col_veterinario] = "Sem veterinário";
-				else
-					row[model_columns_anfibio_exotico.col_veterinario] = to_string((it->second).get_veterinario_id());
+				row[model_columns_anfibio_exotico.col_tamanho] = it->second->get_tamanho();
+				row[model_columns_anfibio_exotico.col_dieta] = it->second->get_dieta();
 				
-				if (it->second.get_tratador_id() == 0)
+				if (it->second->get_veterinario_id() == 0)
+					row[model_columns_anfibio_exotico.col_veterinario] = "Sem veterinario";
+				else
+					row[model_columns_anfibio_exotico.col_veterinario] = to_string((it->second)->get_veterinario_id());
+
+				if (it->second->get_tratador_id() == 0)
 					row[model_columns_anfibio_exotico.col_tratador] = "Sem tratador";
 				else
-					row[model_columns_anfibio_exotico.col_tratador] = to_string((it->second).get_tratador_id());
+					row[model_columns_anfibio_exotico.col_tratador] = to_string((it->second)->get_tratador_id());
 				
-				row[model_columns_anfibio_exotico.col_nome_batismo] = it->second.get_nome_de_batismo();
-				row[model_columns_anfibio_exotico.col_total_mudas] = it->second.get_total_de_mudas();
-				row[model_columns_anfibio_exotico.col_data_ultima_muda] = it->second.get_data_da_ultima_muda();
-				row[model_columns_anfibio_exotico.col_autorizacao_ibama] = it->second.get_autorizacao_ibama();
-				row[model_columns_anfibio_exotico.col_pais_origem] = it->second.get_pais_de_origem();
-				row[model_columns_anfibio_exotico.col_cidade_origem] = it->second.get_cidade_de_origem();
+				row[model_columns_anfibio_exotico.col_nome_batismo] = it->second->get_nome_de_batismo();
+				row[model_columns_anfibio_exotico.col_total_mudas] = dynamic_cast<Anfibio*>(it->second)->get_total_de_mudas();
+				row[model_columns_anfibio_exotico.col_data_ultima_muda] = dynamic_cast<Anfibio*>(it->second)->get_data_da_ultima_muda();
+				row[model_columns_anfibio_exotico.col_autorizacao_ibama] = dynamic_cast<AnimalSilvestre*>(it->second)->get_autorizacao_ibama();
+				row[model_columns_anfibio_exotico.col_pais_origem] = dynamic_cast<AnimalExotico*>(it->second)->get_pais_de_origem();
+				row[model_columns_anfibio_exotico.col_cidade_origem] = dynamic_cast<AnimalExotico*>(it->second)->get_cidade_de_origem();
 			}
 			break;
 		}
@@ -1191,32 +1203,32 @@ void JanelaPrincipal::BotaoAbout()
 			//aves nativas
 			notebook_consulta->set_current_page(4);
 			list_store_aves_nativas->clear();
-			for(map<int, AveNativo>::iterator it = aves_nativas.begin(); it != aves_nativas.end(); it++)
+			for(map<int, Animal*>::iterator it = animais.begin(); it != animais.end(); it++)
 			{
 				row = *(list_store_aves_nativas->append());
-				row[model_columns_ave_nativa.col_id] = it->second.get_id();
-				row[model_columns_ave_nativa.col_nome_cientifico] = it->second.get_nome_cientifico();
+				row[model_columns_ave_nativa.col_id] = it->second->get_id();
+				row[model_columns_ave_nativa.col_nome_cientifico] = it->second->get_nome_cientifico();
 				string temp;
-				temp.push_back(it->second.get_sexo());
+				temp.push_back(it->second->get_sexo());
 				row[model_columns_ave_nativa.col_sexo] = temp;
-				row[model_columns_ave_nativa.col_tamanho] = it->second.get_tamanho();
-				row[model_columns_ave_nativa.col_dieta] = it->second.get_dieta();
+				row[model_columns_ave_nativa.col_tamanho] = it->second->get_tamanho();
+				row[model_columns_ave_nativa.col_dieta] = it->second->get_dieta();
 				
-				if (it->second.get_veterinario_id() == 0)
-					row[model_columns_ave_nativa.col_veterinario] = "Sem veterinário";
+				if (it->second->get_veterinario_id() == 0)
+					row[model_columns_ave_nativa.col_veterinario] = "Sem veterinario";
 				else
-					row[model_columns_ave_nativa.col_veterinario] = to_string((it->second).get_veterinario_id());
-				
-				if (it->second.get_tratador_id() == 0)
+					row[model_columns_ave_nativa.col_veterinario] = to_string((it->second)->get_veterinario_id());
+
+				if (it->second->get_tratador_id() == 0)
 					row[model_columns_ave_nativa.col_tratador] = "Sem tratador";
 				else
-					row[model_columns_ave_nativa.col_tratador] = to_string((it->second).get_tratador_id());
+					row[model_columns_ave_nativa.col_tratador] = to_string((it->second)->get_tratador_id());
 				
-				row[model_columns_ave_nativa.col_nome_batismo] = it->second.get_nome_de_batismo();
-				row[model_columns_ave_nativa.col_tamanho_bico] = it->second.get_tamanho_do_bico();
-				row[model_columns_ave_nativa.col_envergadura_asas] = it->second.get_envergadura_das_asas();
-				row[model_columns_ave_nativa.col_autorizacao_ibama] = it->second.get_autorizacao_ibama();
-				row[model_columns_ave_nativa.col_uf_origem] = it->second.get_uf_de_origem();
+				row[model_columns_ave_nativa.col_nome_batismo] = it->second->get_nome_de_batismo();
+				row[model_columns_ave_nativa.col_tamanho_bico] = dynamic_cast<Ave*>(it->second)->get_tamanho_do_bico();
+				row[model_columns_ave_nativa.col_envergadura_asas] = dynamic_cast<Ave*>(it->second)->get_envergadura_das_asas();
+				row[model_columns_ave_nativa.col_autorizacao_ibama] = dynamic_cast<AnimalSilvestre*>(it->second)->get_autorizacao_ibama();
+				row[model_columns_ave_nativa.col_uf_origem] = dynamic_cast<AnimalNativo*>(it->second)->get_uf_de_origem();
 			}
 			break;
 		}
@@ -1225,33 +1237,33 @@ void JanelaPrincipal::BotaoAbout()
 			//aves exoticas
 			notebook_consulta->set_current_page(5);
 			list_store_aves_exoticas->clear();
-			for(map<int, AveExotico>::iterator it = aves_exoticas.begin(); it != aves_exoticas.end(); it++)
+			for(map<int, Animal*>::iterator it = animais.begin(); it != animais.end(); it++)
 			{
 				row = *(list_store_aves_exoticas->append());
-				row[model_columns_ave_exotica.col_id] = it->second.get_id();
-				row[model_columns_ave_exotica.col_nome_cientifico] = it->second.get_nome_cientifico();
+				row[model_columns_ave_exotica.col_id] = it->second->get_id();
+				row[model_columns_ave_exotica.col_nome_cientifico] = it->second->get_nome_cientifico();
 				string temp;
-				temp.push_back(it->second.get_sexo());
+				temp.push_back(it->second->get_sexo());
 				row[model_columns_ave_exotica.col_sexo] = temp;
-				row[model_columns_ave_exotica.col_tamanho] = it->second.get_tamanho();
-				row[model_columns_ave_exotica.col_dieta] = it->second.get_dieta();
+				row[model_columns_ave_exotica.col_tamanho] = it->second->get_tamanho();
+				row[model_columns_ave_exotica.col_dieta] = it->second->get_dieta();
 				
-				if (it->second.get_veterinario_id() == 0)
-					row[model_columns_ave_exotica.col_veterinario] = "Sem veterinário";
+				if (it->second->get_veterinario_id() == 0)
+					row[model_columns_ave_exotica.col_veterinario] = "Sem veterinario";
 				else
-					row[model_columns_ave_exotica.col_veterinario] = to_string((it->second).get_veterinario_id());
-				
-				if (it->second.get_tratador_id() == 0)
+					row[model_columns_ave_exotica.col_veterinario] = to_string((it->second)->get_veterinario_id());
+
+				if (it->second->get_tratador_id() == 0)
 					row[model_columns_ave_exotica.col_tratador] = "Sem tratador";
 				else
-					row[model_columns_ave_exotica.col_tratador] = to_string((it->second).get_tratador_id());
+					row[model_columns_ave_exotica.col_tratador] = to_string((it->second)->get_tratador_id());
 				
-				row[model_columns_ave_exotica.col_nome_batismo] = it->second.get_nome_de_batismo();
-				row[model_columns_ave_exotica.col_tamanho_bico] = it->second.get_tamanho_do_bico();
-				row[model_columns_ave_exotica.col_envergadura_asas] = it->second.get_envergadura_das_asas();
-				row[model_columns_ave_exotica.col_autorizacao_ibama] = it->second.get_autorizacao_ibama();
-				row[model_columns_ave_exotica.col_pais_origem] = it->second.get_pais_de_origem();
-				row[model_columns_ave_exotica.col_cidade_origem] = it->second.get_cidade_de_origem();
+				row[model_columns_ave_exotica.col_nome_batismo] = it->second->get_nome_de_batismo();
+				row[model_columns_ave_exotica.col_tamanho_bico] = dynamic_cast<Ave*>(it->second)->get_tamanho_do_bico();
+				row[model_columns_ave_exotica.col_envergadura_asas] = dynamic_cast<Ave*>(it->second)->get_envergadura_das_asas();
+				row[model_columns_ave_exotica.col_autorizacao_ibama] = dynamic_cast<AnimalSilvestre*>(it->second)->get_autorizacao_ibama();
+				row[model_columns_ave_exotica.col_pais_origem] = dynamic_cast<AnimalExotico*>(it->second)->get_pais_de_origem();
+				row[model_columns_ave_exotica.col_cidade_origem] = dynamic_cast<AnimalExotico*>((it->second))->get_cidade_de_origem();
 			}
 			break;
 		}
@@ -1260,31 +1272,31 @@ void JanelaPrincipal::BotaoAbout()
 			//mamiferos nativos
 			notebook_consulta->set_current_page(6);
 			list_store_mamiferos_nativos->clear();
-			for(map<int, MamiferoNativo>::iterator it = mamiferos_nativos.begin(); it != mamiferos_nativos.end(); it++)
+			for(map<int, Animal*>::iterator it = animais.begin(); it != animais.end(); it++)
 			{
 				row = *(list_store_mamiferos_nativos->append());
-				row[model_columns_mamifero_nativo.col_id] = it->second.get_id();
-				row[model_columns_mamifero_nativo.col_nome_cientifico] = it->second.get_nome_cientifico();
+				row[model_columns_mamifero_nativo.col_id] = it->second->get_id();
+				row[model_columns_mamifero_nativo.col_nome_cientifico] = it->second->get_nome_cientifico();
 				string temp;
-				temp.push_back(it->second.get_sexo());
+				temp.push_back(it->second->get_sexo());
 				row[model_columns_mamifero_nativo.col_sexo] = temp;
-				row[model_columns_mamifero_nativo.col_tamanho] = it->second.get_tamanho();
-				row[model_columns_mamifero_nativo.col_dieta] = it->second.get_dieta();
+				row[model_columns_mamifero_nativo.col_tamanho] = it->second->get_tamanho();
+				row[model_columns_mamifero_nativo.col_dieta] = it->second->get_dieta();
 				
-				if (it->second.get_veterinario_id() == 0)
-					row[model_columns_mamifero_nativo.col_veterinario] = "Sem veterinário";
+				if (it->second->get_veterinario_id() == 0)
+					row[model_columns_mamifero_nativo.col_veterinario] = "Sem veterinario";
 				else
-					row[model_columns_mamifero_nativo.col_veterinario] = to_string((it->second).get_veterinario_id());
-				
-				if (it->second.get_tratador_id() == 0)
+					row[model_columns_mamifero_nativo.col_veterinario] = to_string((it->second)->get_veterinario_id());
+
+				if (it->second->get_tratador_id() == 0)
 					row[model_columns_mamifero_nativo.col_tratador] = "Sem tratador";
 				else
-					row[model_columns_mamifero_nativo.col_tratador] = to_string((it->second).get_tratador_id());
+					row[model_columns_mamifero_nativo.col_tratador] = to_string((it->second)->get_tratador_id());
 				
-				row[model_columns_mamifero_nativo.col_nome_batismo] = it->second.get_nome_de_batismo();
-				row[model_columns_mamifero_nativo.col_cor_pelo] = it->second.get_cor_do_pelo();
-				row[model_columns_mamifero_nativo.col_autorizacao_ibama] = it->second.get_autorizacao_ibama();
-				row[model_columns_mamifero_nativo.col_uf_origem] = it->second.get_uf_de_origem();
+				row[model_columns_mamifero_nativo.col_nome_batismo] = it->second->get_nome_de_batismo();
+				row[model_columns_mamifero_nativo.col_cor_pelo] = dynamic_cast<Mamifero*>(it->second)->get_cor_do_pelo();
+				row[model_columns_mamifero_nativo.col_autorizacao_ibama] = dynamic_cast<AnimalSilvestre*>(it->second)->get_autorizacao_ibama();
+				row[model_columns_mamifero_nativo.col_uf_origem] = dynamic_cast<AnimalNativo*>(it->second)->get_uf_de_origem();
 			}
 			break;
 		}
@@ -1293,32 +1305,32 @@ void JanelaPrincipal::BotaoAbout()
 			//mamiferos exoticos
 			notebook_consulta->set_current_page(7);
 			list_store_mamiferos_exoticos->clear();
-			for(map<int, MamiferoExotico>::iterator it = mamiferos_exoticos.begin(); it != mamiferos_exoticos.end(); it++)
+			for(map<int, Animal*>::iterator it = animais.begin(); it != animais.end(); it++)
 			{
 				row = *(list_store_mamiferos_exoticos->append());
-				row[model_columns_mamifero_exotico.col_id] = it->second.get_id();
-				row[model_columns_mamifero_exotico.col_nome_cientifico] = it->second.get_nome_cientifico();
+				row[model_columns_mamifero_exotico.col_id] = it->second->get_id();
+				row[model_columns_mamifero_exotico.col_nome_cientifico] = it->second->get_nome_cientifico();
 				string temp;
-				temp.push_back(it->second.get_sexo());
+				temp.push_back(it->second->get_sexo());
 				row[model_columns_mamifero_exotico.col_sexo] = temp;
-				row[model_columns_mamifero_exotico.col_tamanho] = it->second.get_tamanho();
-				row[model_columns_mamifero_exotico.col_dieta] = it->second.get_dieta();
+				row[model_columns_mamifero_exotico.col_tamanho] = it->second->get_tamanho();
+				row[model_columns_mamifero_exotico.col_dieta] = it->second->get_dieta();
 				
-				if (it->second.get_veterinario_id() == 0)
-					row[model_columns_mamifero_exotico.col_veterinario] = "Sem veterinário";
+				if (it->second->get_veterinario_id() == 0)
+					row[model_columns_mamifero_exotico.col_veterinario] = "Sem veterinario";
 				else
-					row[model_columns_mamifero_exotico.col_veterinario] = to_string((it->second).get_veterinario_id());
-				
-				if (it->second.get_tratador_id() == 0)
+					row[model_columns_mamifero_exotico.col_veterinario] = to_string((it->second)->get_veterinario_id());
+
+				if (it->second->get_tratador_id() == 0)
 					row[model_columns_mamifero_exotico.col_tratador] = "Sem tratador";
 				else
-					row[model_columns_mamifero_exotico.col_tratador] = to_string((it->second).get_tratador_id());
+					row[model_columns_mamifero_exotico.col_tratador] = to_string((it->second)->get_tratador_id());
 				
-				row[model_columns_mamifero_exotico.col_nome_batismo] = it->second.get_nome_de_batismo();
-				row[model_columns_mamifero_exotico.col_cor_pelo] = it->second.get_cor_do_pelo();
-				row[model_columns_mamifero_exotico.col_autorizacao_ibama] = it->second.get_autorizacao_ibama();
-				row[model_columns_mamifero_exotico.col_pais_origem] = it->second.get_pais_de_origem();
-				row[model_columns_mamifero_exotico.col_cidade_origem] = it->second.get_cidade_de_origem();
+				row[model_columns_mamifero_exotico.col_nome_batismo] = it->second->get_nome_de_batismo();
+				row[model_columns_mamifero_exotico.col_cor_pelo] = dynamic_cast<Mamifero*>(it->second)->get_cor_do_pelo();
+				row[model_columns_mamifero_exotico.col_autorizacao_ibama] = dynamic_cast<AnimalSilvestre*>(it->second)->get_autorizacao_ibama();
+				row[model_columns_mamifero_exotico.col_pais_origem] = dynamic_cast<AnimalExotico*>(it->second)->get_pais_de_origem();
+				row[model_columns_mamifero_exotico.col_cidade_origem] = dynamic_cast<AnimalExotico*>(it->second)->get_cidade_de_origem();
 			}
 			break;
 		}
@@ -1327,31 +1339,31 @@ void JanelaPrincipal::BotaoAbout()
 			//repteis nativos
 			notebook_consulta->set_current_page(8);
 			list_store_repteis_nativos->clear();
-			for(map<int, ReptilNativo>::iterator it = repteis_nativos.begin(); it != repteis_nativos.end(); it++)
+			for(map<int, Animal*>::iterator it = animais.begin(); it != animais.end(); it++)
 			{
 				row = *(list_store_repteis_nativos->append());
-				row[model_columns_reptil_nativo.col_id] = it->second.get_id();
-				row[model_columns_reptil_nativo.col_nome_cientifico] = it->second.get_nome_cientifico();
+				row[model_columns_reptil_nativo.col_id] = it->second->get_id();
+				row[model_columns_reptil_nativo.col_nome_cientifico] = it->second->get_nome_cientifico();
 				string temp;
-				temp.push_back(it->second.get_sexo());
+				temp.push_back(it->second->get_sexo());
 				row[model_columns_reptil_nativo.col_sexo] = temp;
-				row[model_columns_reptil_nativo.col_tamanho] = it->second.get_tamanho();
-				row[model_columns_reptil_nativo.col_dieta] = it->second.get_dieta();
+				row[model_columns_reptil_nativo.col_tamanho] = it->second->get_tamanho();
+				row[model_columns_reptil_nativo.col_dieta] = it->second->get_dieta();
 				
-				if (it->second.get_veterinario_id() == 0)
-					row[model_columns_reptil_nativo.col_veterinario] = "Sem veterinário";
+				if (it->second->get_veterinario_id() == 0)
+					row[model_columns_reptil_nativo.col_veterinario] = "Sem veterinario";
 				else
-					row[model_columns_reptil_nativo.col_veterinario] = to_string((it->second).get_veterinario_id());
-				
-				if (it->second.get_tratador_id() == 0)
+					row[model_columns_reptil_nativo.col_veterinario] = to_string((it->second)->get_veterinario_id());
+
+				if (it->second->get_tratador_id() == 0)
 					row[model_columns_reptil_nativo.col_tratador] = "Sem tratador";
 				else
-					row[model_columns_reptil_nativo.col_tratador] = to_string((it->second).get_tratador_id());
+					row[model_columns_reptil_nativo.col_tratador] = to_string((it->second)->get_tratador_id());
 				
-				row[model_columns_reptil_nativo.col_nome_batismo] = it->second.get_nome_de_batismo();
-				row[model_columns_reptil_nativo.col_veneno] = it->second.get_tipo_de_veneno();
-				row[model_columns_reptil_nativo.col_autorizacao_ibama] = it->second.get_autorizacao_ibama();
-				row[model_columns_reptil_nativo.col_uf_origem] = it->second.get_uf_de_origem();
+				row[model_columns_reptil_nativo.col_nome_batismo] = it->second->get_nome_de_batismo();
+				row[model_columns_reptil_nativo.col_veneno] = dynamic_cast<Reptil*>(it->second)->get_tipo_de_veneno();
+				row[model_columns_reptil_nativo.col_autorizacao_ibama] = dynamic_cast<AnimalSilvestre*>(it->second)->get_autorizacao_ibama();
+				row[model_columns_reptil_nativo.col_uf_origem] = dynamic_cast<AnimalNativo*>(it->second)->get_uf_de_origem();
 			}
 			break;
 		}
@@ -1360,34 +1372,34 @@ void JanelaPrincipal::BotaoAbout()
 			//repteis exoticos
 			notebook_consulta->set_current_page(9);
 			list_store_repteis_exoticos->clear();
-			for(map<int, ReptilExotico>::iterator it = repteis_exoticos.begin(); it != repteis_exoticos.end(); it++)
+			for(map<int, Animal*>::iterator it = animais.begin(); it != animais.end(); it++)
 			{
 				row = *(list_store_repteis_exoticos->append());
-				row[model_columns_reptil_exotico.col_id] = it->second.get_id();
-				row[model_columns_reptil_exotico.col_nome_cientifico] = it->second.get_nome_cientifico();
+				row[model_columns_reptil_exotico.col_id] = it->second->get_id();
+				row[model_columns_reptil_exotico.col_nome_cientifico] = it->second->get_nome_cientifico();
 				string temp;
-				temp.push_back(it->second.get_sexo());
+				temp.push_back(it->second->get_sexo());
 				row[model_columns_reptil_exotico.col_sexo] = temp;
-				row[model_columns_reptil_exotico.col_tamanho] = it->second.get_tamanho();
-				row[model_columns_reptil_exotico.col_dieta] = it->second.get_dieta();
+				row[model_columns_reptil_exotico.col_tamanho] = it->second->get_tamanho();
+				row[model_columns_reptil_exotico.col_dieta] = it->second->get_dieta();
 				
-				if (it->second.get_veterinario_id() == 0)
-					row[model_columns_reptil_exotico.col_veterinario] = "Sem veterinário";
+				if (it->second->get_veterinario_id() == 0)
+					row[model_columns_reptil_exotico.col_veterinario] = "Sem veterinario";
 				else
-					row[model_columns_reptil_exotico.col_veterinario] = to_string((it->second).get_veterinario_id());
-				
-				if (it->second.get_tratador_id() == 0)
+					row[model_columns_reptil_exotico.col_veterinario] = to_string((it->second)->get_veterinario_id());
+
+				if (it->second->get_tratador_id() == 0)
 					row[model_columns_reptil_exotico.col_tratador] = "Sem tratador";
 				else
-					row[model_columns_reptil_exotico.col_tratador] = to_string((it->second).get_tratador_id());
+					row[model_columns_reptil_exotico.col_tratador] = to_string((it->second)->get_tratador_id());
 				
-				row[model_columns_reptil_exotico.col_nome_batismo] = it->second.get_nome_de_batismo();
-				row[model_columns_reptil_exotico.col_veneno] = it->second.get_tipo_de_veneno();
-				row[model_columns_reptil_exotico.col_autorizacao_ibama] = it->second.get_autorizacao_ibama();
-				row[model_columns_reptil_exotico.col_pais_origem] = it->second.get_pais_de_origem();
-				row[model_columns_reptil_exotico.col_cidade_origem] = it->second.get_cidade_de_origem();
+				row[model_columns_reptil_exotico.col_nome_batismo] = it->second->get_nome_de_batismo();
+				row[model_columns_reptil_exotico.col_veneno] = dynamic_cast<Reptil*>(it->second)->get_tipo_de_veneno();
+				row[model_columns_reptil_exotico.col_autorizacao_ibama] = dynamic_cast<AnimalSilvestre*>(it->second)->get_autorizacao_ibama();
+				row[model_columns_reptil_exotico.col_pais_origem] = dynamic_cast<AnimalExotico*>(it->second)->get_pais_de_origem();
+				row[model_columns_reptil_exotico.col_cidade_origem] = dynamic_cast<AnimalExotico*>(it->second)->get_cidade_de_origem();
 			}
 			break;
 		}
 	}
-}*/
+}
