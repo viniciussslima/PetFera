@@ -4,8 +4,8 @@ BUILDDIR = build/
 BINDIR = bin/
 CC = g++
 PROG = $(BINDIR)PetFera
-CPPFLAGSGTK = `pkg-config --cflags gtkmm-3.0` -Wall -std=c++11 -I$(INCLUDEDIR)
-CPPFLAGS = -Wall -std=c++11 -I$(INCLUDEDIR)
+CPPFLAGSGTK = `pkg-config --cflags gtkmm-3.0` -g -O0 -Wall -std=c++11 -I$(INCLUDEDIR)
+CPPFLAGS = -g -O0 -Wall -std=c++11 -I$(INCLUDEDIR)
 LDFLAGS = `pkg-config --libs gtkmm-3.0`
 OBJS = $(BUILDDIR)main.o $(BUILDDIR)JanelaPrincipal.o $(BUILDDIR)JanelaCadastroFuncionario.o \
 $(BUILDDIR)JanelaCadastroAnimal.o $(BUILDDIR)RemoverFuncionario.o $(BUILDDIR)RemoverAnimal.o\
