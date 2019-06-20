@@ -26,8 +26,6 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Fun
 	valid_nome_cientifico = false;
 	valid_tamanho = false;
 	valid_dieta = false;
-	valid_tratador_id = true;
-	valid_veterinario_id = true;
 	valid_nome_batismo = false;
 	valid_autorizacao_ibama = false;
 	valid_nacionalidade = true;
@@ -56,11 +54,11 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Fun
 	entry_dieta = new Entry;
 	entry_nome_batismo = new Entry;
 	entry_nacionalidade = new Entry;
-	entry_veterinario_id = new Entry;
-	entry_tratador_id = new Entry;
 	entry_autorizacao_ibama = new Entry;
 	entry_cidade = new Entry;
 
+	combo_box_veterinario_id = new ComboBoxText;
+	combo_box_tratador_id = new ComboBoxText;
 	combo_box_uf = new ComboBoxText;
 	combo_box_classe = new ComboBoxText;
 
@@ -125,10 +123,6 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Fun
 	entry_nome_cientifico->set_icon_from_pixbuf(pixbuf_uncheck);
 	entry_tamanho->set_icon_from_pixbuf(pixbuf_uncheck);
 	entry_dieta->set_icon_from_pixbuf(pixbuf_uncheck);
-	entry_veterinario_id->set_icon_from_pixbuf(pixbuf_uncheck);
-	entry_veterinario_id->set_icon_tooltip_text("ID inválido");
-	entry_tratador_id->set_icon_from_pixbuf(pixbuf_uncheck);
-	entry_tratador_id->set_icon_tooltip_text("ID inválido");
 	entry_nome_batismo->set_icon_from_pixbuf(pixbuf_uncheck);
 	entry_autorizacao_ibama->set_icon_from_pixbuf(pixbuf_uncheck);
 	entry_nacionalidade->set_icon_from_pixbuf(pixbuf_uncheck);
@@ -148,6 +142,20 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Fun
 	combo_box_classe->append("Mammalia");
 	combo_box_classe->append("Reptilia");
 	combo_box_classe->set_active(0);
+
+	for(map<int, Funcionario*>::iterator it = funcionarios->begin(); it != funcionarios->end(); it++)
+	{
+		if (dynamic_cast<Tratador*>(it->second) == NULL)
+		{
+			combo_box_veterinario_id->append(to_string((it->second)->get_id()), (to_string((it->second)->get_id()) + " - " + (it->second)->get_nome()));
+		}
+		else
+		{
+			combo_box_tratador_id->append(to_string((it->second)->get_id()), (to_string((it->second)->get_id()) + " - " + (it->second)->get_nome()));
+		}
+	}
+	combo_box_tratador_id->set_active(0);
+	combo_box_veterinario_id->set_active(0);
 
 	combo_box_uf->set_wrap_width(27);
 	combo_box_uf->append("AC");
@@ -216,9 +224,9 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Fun
 	box_direita->pack_start(*entry_tamanho, PACK_SHRINK);
 	box_direita->pack_start(*entry_dieta, PACK_SHRINK);
 	box_direita->pack_start(*check_button_veterinario_incluso, PACK_SHRINK);
-	box_direita->pack_start(*entry_veterinario_id, PACK_SHRINK);
+	box_direita->pack_start(*combo_box_veterinario_id, PACK_SHRINK);
 	box_direita->pack_start(*check_button_tratador_incluso, PACK_SHRINK);
-	box_direita->pack_start(*entry_tratador_id, PACK_SHRINK);
+	box_direita->pack_start(*combo_box_tratador_id, PACK_SHRINK);
 	box_direita->pack_start(*entry_nome_batismo, PACK_SHRINK);
 	box_direita->pack_start(*entry_total_de_mudas, PACK_SHRINK);
 	box_direita->pack_start(*entry_data_da_ultima_muda, PACK_SHRINK);
@@ -250,8 +258,8 @@ JanelaCadastroAnimal::JanelaCadastroAnimal(JanelaPrincipal &jptemp, map<int, Fun
 	entry_nome_cientifico->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeNomeCientifico));
 	entry_tamanho->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeTamanho));
 	entry_dieta->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeDieta));
-	entry_tratador_id->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeTratadorId));
-	entry_veterinario_id->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeVeterinarioId));
+	//entry_tratador_id->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeTratadorId));
+	//entry_veterinario_id->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeVeterinarioId));
 	entry_nome_batismo->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeNomeBatismo));
 	entry_autorizacao_ibama->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeAutorizacaoIbama));
 	entry_nacionalidade->signal_changed().connect(sigc::mem_fun(*this, &JanelaCadastroAnimal::AtualizarIconeNacionalidade));
@@ -277,8 +285,8 @@ JanelaCadastroAnimal::~JanelaCadastroAnimal()
 	delete entry_dieta;
 	delete entry_nome_batismo;
 	delete entry_nacionalidade;
-	delete entry_veterinario_id;
-	delete entry_tratador_id;
+	delete combo_box_veterinario_id;
+	delete combo_box_tratador_id;
 	delete entry_autorizacao_ibama;
 	delete entry_total_de_mudas;
 	delete entry_data_da_ultima_muda;
@@ -333,9 +341,9 @@ void JanelaCadastroAnimal::Run()
 {
 	window->show_all();
 	//Escondendo os widgets que não são pertencentes a classe Amphibia e o ID do veterinario e do tratador.
-	entry_veterinario_id->hide();
+	combo_box_veterinario_id->hide();
 	label_veterinario_id->hide();
-	entry_tratador_id->hide();
+	combo_box_tratador_id->hide();
 	label_tratador_id->hide();
 	entry_nacionalidade->hide();
 	label_nacionalidade->hide();
@@ -385,18 +393,6 @@ void JanelaCadastroAnimal::Cadastrar()
 	{
 		MessageDialog dialog(*window, "Dieta inválido.");
 		dialog.set_secondary_text("Falta preencher a dieta do animal.");
-  		dialog.run();
-	}
-	else if (!valid_tratador_id)
-	{
-		MessageDialog dialog(*window, "ID inválido.");
-		dialog.set_secondary_text("Nenhum ID foi apresentado ou foi encontrado um funcionário com o ID apresentado, funcionários não podem ter IDs iguais.");
-  		dialog.run();
-	}
-	else if (!valid_veterinario_id)
-	{
-		MessageDialog dialog(*window, "ID inválido.");
-		dialog.set_secondary_text("Nenhum ID foi apresentado ou foi encontrado um funcionário com o ID apresentado, funcionários não podem ter IDs iguais.");
   		dialog.run();
 	}
 	else if (!check_button_veterinario_incluso->get_active() &&
@@ -478,8 +474,8 @@ void JanelaCadastroAnimal::Cadastrar()
 		char sexo = radio_button_sexo_m->get_active() ? 'M' : 'F';
 		double tamanho = stod(entry_tamanho->get_text());
 		string dieta = entry_dieta->get_text();
-		Veterinario *veterinario = check_button_veterinario_incluso->get_active() ? dynamic_cast<Veterinario*>((funcionarios->find(stoi(entry_veterinario_id->get_text())))->second) : new Veterinario();
-		Tratador *tratador = check_button_tratador_incluso->get_active() ? dynamic_cast<Tratador*>((funcionarios->find(stoi(entry_tratador_id->get_text())))->second) : new Tratador();
+		Veterinario *veterinario = check_button_veterinario_incluso->get_active() ? dynamic_cast<Veterinario*>((funcionarios->find(stoi(combo_box_veterinario_id->get_active_id())))->second) : new Veterinario();
+		Tratador *tratador = check_button_tratador_incluso->get_active() ? dynamic_cast<Tratador*>((funcionarios->find(stoi(combo_box_tratador_id->get_active_id())))->second) : new Tratador();
 		string nome_batismo = entry_nome_batismo->get_text();
 		string autorizacao_ibama = entry_autorizacao_ibama->get_text();
 		string nacionalidade = radio_button_regiao_nativo->get_active() ? combo_box_uf->get_active_text() : entry_nacionalidade->get_text();
@@ -791,14 +787,12 @@ void JanelaCadastroAnimal::MostrarVeterinario()
 {
 	if(!check_button_veterinario_incluso->get_active())
 	{
-		valid_veterinario_id = true;
-		entry_veterinario_id->hide();
+		combo_box_veterinario_id->hide();
 		label_veterinario_id->hide();
 	}
 	else
 	{
-		valid_veterinario_id = false;
-		entry_veterinario_id->show();
+		combo_box_veterinario_id->show();
 		label_veterinario_id->show();
 	}
 }
@@ -811,14 +805,12 @@ void JanelaCadastroAnimal::MostrarTratador()
 {
 	if(!check_button_tratador_incluso->get_active())
 	{
-		valid_tratador_id = true;
-		entry_tratador_id->hide();
+		combo_box_tratador_id->hide();
 		label_tratador_id->hide();
 	}
 	else
 	{
-		valid_tratador_id = false;
-		entry_tratador_id->show();
+		combo_box_tratador_id->show();
 		label_tratador_id->show();
 	}
 }
@@ -831,13 +823,11 @@ void JanelaCadastroAnimal::MostrarVenenoso()
 {
 	if(!check_button_venenoso->get_active())
 	{
-		valid_tipo_veneno = true;
 		entry_tipo_de_veneno->hide();
 		label_tipo_de_veneno->hide();
 	}
 	else
 	{
-		valid_tipo_veneno = false;
 		entry_tipo_de_veneno->show();
 		label_tipo_de_veneno->show();
 	}
@@ -999,98 +989,6 @@ void JanelaCadastroAnimal::AtualizarIconeDieta()
 	{
 		valid_dieta = true;
 		entry_dieta->set_icon_from_pixbuf(pixbuf_check);
-	}
-}
-
-/**
-* @brief Método que é responsável para atualizar o icone de válido ou inválido do ID do tratador.
-*/
-
-void JanelaCadastroAnimal::AtualizarIconeTratadorId()
-{
-	string temp = entry_tratador_id->get_text();
-	bool is_numeric = true;
-	//Verificado se todos os caracteres são digitos
-	for(unsigned int i = 0; i < temp.size(); i++)
-	{
-		if(!isdigit(temp[i]))
-		{
-			is_numeric = false;
-			break;
-		}
-	}
-	//Se for todos numeros e não estiver vazio
-	if(is_numeric && !temp.empty())
-	{
-		int id = stoi(temp);
-		map<int, Funcionario*>::iterator it = funcionarios->find(id);
-
-		//Caso tenha encontrado algum funcionário com o ID fornecido
-		if(it != funcionarios->end())
-		{
-			valid_tratador_id = true;
-			entry_tratador_id->set_icon_from_pixbuf(pixbuf_check);
-			entry_tratador_id->set_icon_tooltip_text("ID válido");
-		}
-		else
-		{
-			valid_tratador_id = false;
-			entry_tratador_id->set_icon_from_pixbuf(pixbuf_uncheck);
-			entry_tratador_id->set_icon_tooltip_text("Nenhum tratador possui esse ID");
-		}
-	}
-	//Se os dados forem inválidos
-	else
-	{
-		valid_tratador_id = false;
-		entry_tratador_id->set_icon_from_pixbuf(pixbuf_uncheck);
-		entry_tratador_id->set_icon_tooltip_text("ID inválido");
-	}
-}
-
-/**
-* @brief Método que é responsável para atualizar o icone de válido ou inválido do ID do veterinário.
-*/
-
-void JanelaCadastroAnimal::AtualizarIconeVeterinarioId()
-{
-	string temp = entry_veterinario_id->get_text();
-	bool is_numeric = true;
-	//Verificado se todos os caracteres são digitos
-	for(unsigned int i = 0; i < temp.size(); i++)
-	{
-		if(!isdigit(temp[i]))
-		{
-			is_numeric = false;
-			break;
-		}
-	}
-	//Se for todos numeros e não estiver vazio
-	if(is_numeric && !temp.empty())
-	{
-		int id = stoi(temp);
-		map<int, Funcionario*>::iterator it_t = funcionarios->find(id);
-
-		//Caso tenha encontrado algum funcionário com o ID fornecido
-		if(it_t != funcionarios->end())
-		{
-			valid_veterinario_id = true;
-			entry_veterinario_id->set_icon_from_pixbuf(pixbuf_check);
-			entry_veterinario_id->set_icon_tooltip_text("ID válido");
-		}
-		else
-		{
-			valid_veterinario_id = false;
-			entry_veterinario_id->set_icon_from_pixbuf(pixbuf_uncheck);
-			entry_veterinario_id->set_icon_tooltip_text("Nenhum veterinário possui esse ID");
-		}
-	}
-	//Se os dados forem inválidos
-	else
-	{
-		valid_veterinario_id = false;
-		entry_veterinario_id->set_icon_from_pixbuf(pixbuf_uncheck);
-		entry_veterinario_id->set_icon_tooltip_text("ID inválido");
 	}
 }
 
