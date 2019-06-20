@@ -30,12 +30,12 @@ void RemoverAnimal(JanelaPrincipal &janela_principal, map<int, Animal*> &animais
 				if(palavras[palavras.size() - 1].length() == 2)
 				{
 			    	animais.erase(id);
-					//janela_principal.AtualizarLista(2);
+					janela_principal.AtualizarLista(2);
 				}
 			    else
 			    {
 			    	animais.erase(id);
-			    	//janela_principal.AtualizarLista(3);
+			    	janela_principal.AtualizarLista(3);
 			    }
 		    }
 		    if(palavras[1].compare("AVES") == 0)
@@ -43,12 +43,12 @@ void RemoverAnimal(JanelaPrincipal &janela_principal, map<int, Animal*> &animais
 				if(palavras[palavras.size() - 1].length() == 2)
 				{
 			    	animais.erase(id);
-					//janela_principal.AtualizarLista(4);
+					janela_principal.AtualizarLista(4);
 				}
 			    else
 			    {
 			    	animais.erase(id);
-			    	//janela_principal.AtualizarLista(5);
+			    	janela_principal.AtualizarLista(5);
 			    }
 		    }
 		    if(palavras[1].compare("MAMMALIA") == 0)
@@ -56,12 +56,12 @@ void RemoverAnimal(JanelaPrincipal &janela_principal, map<int, Animal*> &animais
 				if(palavras[palavras.size() - 1].length() == 2)
 				{
 			    	animais.erase(id);
-					//janela_principal.AtualizarLista(6);
+					janela_principal.AtualizarLista(6);
 				}
 			    else
 			    {
 			    	animais.erase(id);
-			    	//janela_principal.AtualizarLista(7);
+			    	janela_principal.AtualizarLista(7);
 			    }
 		    }
 		    if(palavras[1].compare("REPTILIA") == 0)
@@ -69,12 +69,12 @@ void RemoverAnimal(JanelaPrincipal &janela_principal, map<int, Animal*> &animais
 				if(palavras[palavras.size() - 1].length() == 2)
 				{
 			    	animais.erase(id);
-					//janela_principal.AtualizarLista(8);
+					janela_principal.AtualizarLista(8);
 				}
 			    else
 			    {
 			    	animais.erase(id);
-			    	//janela_principal.AtualizarLista(9);
+			    	janela_principal.AtualizarLista(9);
 			    }
 		    }
 		}

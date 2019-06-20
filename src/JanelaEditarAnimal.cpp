@@ -813,7 +813,7 @@ void JanelaEditarAnimal::Editar()
 
 						outfile << *temp << endl;
 						animais->insert(pair<int, Animal*>(id, temp));
-						//janela_principal->AtualizarLista(2);
+						janela_principal->AtualizarLista(2);
 						break;
 					}
 					case 1:
@@ -830,7 +830,7 @@ void JanelaEditarAnimal::Editar()
 
 						outfile << *temp << endl;
 						animais->insert(pair<int, Animal*>(id, temp));
-						//janela_principal->AtualizarLista(3);
+						janela_principal->AtualizarLista(3);
 						break;
 					}
 				}
@@ -851,7 +851,7 @@ void JanelaEditarAnimal::Editar()
 
 						outfile << *temp << endl;
 						animais->insert(pair<int, Animal*>(id, temp));
-						//janela_principal->AtualizarLista(4);
+						janela_principal->AtualizarLista(4);
 						break;
 					}
 					case 1:
@@ -864,7 +864,7 @@ void JanelaEditarAnimal::Editar()
 
 						outfile << *temp << endl;
 						animais->insert(pair<int, Animal*>(id, temp));
-						//janela_principal->AtualizarLista(5);
+						janela_principal->AtualizarLista(5);
 						break;
 					}
 				}
@@ -884,7 +884,7 @@ void JanelaEditarAnimal::Editar()
 
 						outfile << *temp << endl;
 						animais->insert(pair<int, Animal*>(id, temp));
-						//janela_principal->AtualizarLista(6);
+						janela_principal->AtualizarLista(6);
 						break;
 					}
 					case 1:
@@ -896,7 +896,7 @@ void JanelaEditarAnimal::Editar()
 
 						outfile << *temp << endl;
 						animais->insert(pair<int, Animal*>(id, temp));
-						//janela_principal->AtualizarLista(7);
+						janela_principal->AtualizarLista(7);
 						break;
 					}
 				}
@@ -917,7 +917,7 @@ void JanelaEditarAnimal::Editar()
 
 						outfile << *temp << endl;
 						animais->insert(pair<int, Animal*>(id, temp));
-						//janela_principal->AtualizarLista(8);
+						janela_principal->AtualizarLista(8);
 						break;
 					}
 					case 1:
@@ -930,7 +930,7 @@ void JanelaEditarAnimal::Editar()
 
 						outfile << *temp << endl;
 						animais->insert(pair<int, Animal*>(id, temp));
-						//janela_principal->AtualizarLista(9);
+						janela_principal->AtualizarLista(9);
 						break;
 					}
 				}
