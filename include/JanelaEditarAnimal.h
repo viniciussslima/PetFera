@@ -54,9 +54,9 @@ class JanelaEditarAnimal
 		Entry *entry_tamanho;
 		Entry *entry_dieta;
 		CheckButton *check_button_veterinario_incluso;
-		Entry *entry_veterinario_id;
+		ComboBoxText *combo_box_veterinario_id;
 		CheckButton *check_button_tratador_incluso;
-		Entry *entry_tratador_id;
+		ComboBoxText *combo_box_tratador_id;
 		Entry *entry_nome_batismo;
 		Entry *entry_autorizacao_ibama;
 		ComboBoxText *combo_box_regiao;
@@ -106,8 +106,6 @@ class JanelaEditarAnimal
 		bool valid_nome_cientifico;
 		bool valid_tamanho;
 		bool valid_dieta;
-		bool valid_tratador_id;
-		bool valid_veterinario_id;
 		bool valid_nome_batismo;
 		bool valid_autorizacao_ibama;
 		bool valid_nacionalidade;
@@ -139,8 +137,6 @@ class JanelaEditarAnimal
 		void AtualizarIconeNomeCientifico();
 		void AtualizarIconeTamanho();
 		void AtualizarIconeDieta();
-		void AtualizarIconeTratadorId();
-		void AtualizarIconeVeterinarioId();
 		void AtualizarIconeNomeBatismo();
 		void AtualizarIconeAutorizacaoIbama();
 		void AtualizarIconeNacionalidade();
