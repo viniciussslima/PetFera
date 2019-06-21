@@ -40,7 +40,7 @@ class Funcionario
 		string get_tipo_sanguineo();
 		char get_rh();
 		string get_especialidade();
-		friend ostream& operator << (ostream& os, const Funcionario& b) {return b.print(os);}
+		friend ostream& operator << (ostream&, const Funcionario&);
 };
 
 #endif

@@ -117,3 +117,8 @@ string Funcionario::get_especialidade()
 {
 	return m_especialidade;
 }
+
+ostream& operator << (ostream& os, const Funcionario& b)
+{
+	return b.print(os);
+}
