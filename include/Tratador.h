@@ -20,18 +20,7 @@ class Tratador : public Funcionario
 {
 	private:
 		int m_nivel_de_seguranca;
-		ostream& print(ostream& os) const 
-		{
-			return os << m_id << ";"
-						<< "TRATADOR" << ";"
-						<< m_nome << ";"
-						<< m_cpf << ";"
-						<< m_idade << ";"
-						<< m_tipo_sanguineo << ";"
-						<< m_fator_rh << ";"
-						<< m_especialidade << ";"
-						<< m_nivel_de_seguranca << ";";
-		}
+		ostream& print(ostream& os) const;
 	public:
 		Tratador(int, string, string,
 	short, string, char,	string, int);

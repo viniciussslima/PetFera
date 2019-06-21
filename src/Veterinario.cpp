@@ -55,6 +55,18 @@ string Veterinario::get_crmv()
 	return m_cmv;
 }
 
+ostream& Veterinario::print(ostream& os) const{
+return os << m_id << ";"
+				<< "VETERINARIO" << ";"
+				<< m_nome << ";"
+				<< m_cpf << ";"
+				<< m_idade << ";"
+				<< m_tipo_sanguineo << ";"
+				<< m_fator_rh << ";"
+				<< m_especialidade << ";"
+				<< m_cmv << ";";
+}
+
 /**
 * @brief Sobrecarga do operador de extração.
 * @param o Parametro do tipo stream que recebe todas as informçãoes do veterinário.

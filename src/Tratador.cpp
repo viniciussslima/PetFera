@@ -55,6 +55,19 @@ int Tratador::get_nivel_de_seguranca()
 	return m_nivel_de_seguranca;
 }
 
+ostream& Tratador::print(ostream& os) const 
+{
+return os << m_id << ";"
+			<< "TRATADOR" << ";"
+			<< m_nome << ";"
+			<< m_cpf << ";"
+			<< m_idade << ";"
+			<< m_tipo_sanguineo << ";"
+			<< m_fator_rh << ";"
+			<< m_especialidade << ";"
+			<< m_nivel_de_seguranca << ";";
+}
+
 /**
 * @brief Sobrecarga do operador de extração.
 * @param o Parametro do tipo stream que recebe todas as informçãoes do tratador.

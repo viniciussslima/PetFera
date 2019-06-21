@@ -20,18 +20,7 @@ class Veterinario : public Funcionario
 {
 	private:
 		string m_cmv;
-		ostream& print(ostream& os) const 
-		{
-			return os << m_id << ";"
-						<< "VETERINARIO" << ";"
-						<< m_nome << ";"
-						<< m_cpf << ";"
-						<< m_idade << ";"
-						<< m_tipo_sanguineo << ";"
-						<< m_fator_rh << ";"
-						<< m_especialidade << ";"
-						<< m_cmv << ";";
-		}
+		ostream& print(ostream& os) const;
 	public:
 		Veterinario();
 		Veterinario(int, string, string,
@@ -40,7 +29,6 @@ class Veterinario : public Funcionario
 		~Veterinario();
 		string get_crmv();
 		friend ostream& operator<<(ostream &, Veterinario);
-	
 };
 
 #endif
