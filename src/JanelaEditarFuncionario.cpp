@@ -56,15 +56,20 @@ JanelaEditarFuncionario::JanelaEditarFuncionario(JanelaPrincipal &jptemp, map<in
 	entry_especialidade = new Entry;
 	entry_crmv = new Entry;
 
-	combo_box_fucao = new ComboBoxText;
-	combo_box_tipo_sanguineo = new ComboBoxText;
-	combo_box_rh = new ComboBoxText;
 	combo_box_nivel_de_seguranca = new ComboBoxText;
+	combo_box_tipo_sanguineo = new ComboBoxText;
+
+	radio_button_veterinario = new RadioButton("Veterinário");
+	radio_button_tratador = new RadioButton("Tratador");
+	radio_button_rh_negativo = new RadioButton("-");
+	radio_button_rh_positivo = new RadioButton("+");
 
 	box_principal = new VBox;
 	box_dados = new HBox;
 	box_esquerda = new VBox(true);
 	box_direita = new VBox(true);
+	box_funcao = new HBox(true);
+	box_rh = new HBox(true);
 
 	label_id = new Label("ID: ");
 	label_id_numero = new Label(to_string(id));
@@ -94,21 +99,18 @@ JanelaEditarFuncionario::JanelaEditarFuncionario(JanelaPrincipal &jptemp, map<in
 	entry_especialidade->set_icon_from_pixbuf(pixbuf_check);
 	entry_crmv->set_icon_from_pixbuf(pixbuf_check);
 
-	combo_box_fucao->append("Veterinario");
-	combo_box_fucao->append("Tratador");
-
 	combo_box_tipo_sanguineo->append("A");
 	combo_box_tipo_sanguineo->append("B");
 	combo_box_tipo_sanguineo->append("AB");
 	combo_box_tipo_sanguineo->append("O");
 
-	combo_box_rh->append("+");
-	combo_box_rh->append("-");
-
 	combo_box_nivel_de_seguranca->append("0");
 	combo_box_nivel_de_seguranca->append("1");
 	combo_box_nivel_de_seguranca->append("2");
 	combo_box_nivel_de_seguranca->set_active(0);
+
+	radio_button_tratador->join_group(*radio_button_veterinario);
+	radio_button_rh_negativo->join_group(*radio_button_rh_positivo);
 
 	box_principal->add(*box_dados);
 	box_principal->pack_start(*button_Editar, PACK_SHRINK);
@@ -127,21 +129,27 @@ JanelaEditarFuncionario::JanelaEditarFuncionario(JanelaPrincipal &jptemp, map<in
 	box_esquerda->add(*label_nivel_de_seguranca);
 	
 	box_direita->pack_start(*label_id_numero, PACK_SHRINK);
-	box_direita->pack_start(*combo_box_fucao, PACK_SHRINK);
+	box_direita->pack_start(*box_funcao, PACK_SHRINK);
 	box_direita->pack_start(*entry_nome_do_funcionario, PACK_SHRINK);
 	box_direita->pack_start(*entry_cpf, PACK_SHRINK);
 	box_direita->pack_start(*entry_idade, PACK_SHRINK);
 	box_direita->pack_start(*combo_box_tipo_sanguineo, PACK_SHRINK);
-	box_direita->pack_start(*combo_box_rh, PACK_SHRINK);
+	box_direita->pack_start(*box_rh, PACK_SHRINK);
 	box_direita->pack_start(*entry_especialidade, PACK_SHRINK);
 	box_direita->pack_start(*entry_crmv, PACK_SHRINK);
 	box_direita->pack_start(*combo_box_nivel_de_seguranca, PACK_SHRINK);
+
+	box_funcao->pack_start(*radio_button_veterinario, PACK_SHRINK);
+	box_funcao->pack_start(*radio_button_tratador, PACK_SHRINK);
+
+	box_rh->pack_start(*radio_button_rh_positivo, PACK_SHRINK);
+	box_rh->pack_start(*radio_button_rh_negativo, PACK_SHRINK);
 
 	SetInformacooes();
 
 	// Conexões dos atributos da classe GTK.
 	button_Editar->signal_clicked().connect(sigc::mem_fun(*this, &JanelaEditarFuncionario::Editar));
-	combo_box_fucao->signal_changed().connect(sigc::mem_fun(*this, &JanelaEditarFuncionario::MudarFuncionario));
+	radio_button_veterinario->signal_toggled().connect(sigc::mem_fun(*this, &JanelaEditarFuncionario::MudarFuncionario));
 	entry_nome_do_funcionario->signal_changed().connect(sigc::mem_fun(*this, &JanelaEditarFuncionario::AtualizarIconeNomeDoFuncionario));
 	entry_idade->signal_changed().connect(sigc::mem_fun(*this, &JanelaEditarFuncionario::AtualizarIconeIdade));
 	entry_cpf->signal_changed().connect(sigc::mem_fun(*this, &JanelaEditarFuncionario::AtualizarIconeCPF));
@@ -161,15 +169,19 @@ JanelaEditarFuncionario::~JanelaEditarFuncionario()
 	delete entry_idade;
 	delete entry_especialidade;
 	delete entry_crmv;
-	delete combo_box_fucao;
+	delete radio_button_veterinario;
+	delete radio_button_tratador;
 	delete combo_box_tipo_sanguineo;
-	delete combo_box_rh;
+	delete radio_button_rh_negativo;
+	delete radio_button_rh_positivo;
 	delete combo_box_nivel_de_seguranca;
 	delete button_Editar;
 	delete box_principal;
 	delete box_dados;
 	delete box_esquerda;
 	delete box_direita;
+	delete box_funcao;
+	delete box_rh;
 	delete label_id;
 	delete label_id_numero;
 	delete label_funcao;
@@ -230,10 +242,10 @@ void JanelaEditarFuncionario::SetInformacooes()
 	switch((it->second)->get_rh())
 	{
 		case '+':
-			combo_box_rh->set_active(0);
+			radio_button_rh_positivo->set_active(true);
 			break;
 		case '-':
-			combo_box_rh->set_active(1);
+			radio_button_rh_negativo->set_active(false);
 			break;
 	}
 
@@ -241,7 +253,7 @@ void JanelaEditarFuncionario::SetInformacooes()
 
 	if (pagina == 0) // Se a pagina é igual a 0, o funcionário escolhido é um tratador.
 	{
-		combo_box_fucao->set_active(1);
+		radio_button_tratador->set_active(true);
 		MudarFuncionario();
 
 		switch(dynamic_cast<Tratador*>(it->second)->get_nivel_de_seguranca())
@@ -260,7 +272,7 @@ void JanelaEditarFuncionario::SetInformacooes()
 	}
 	else // Se a pagina é diferente de 0, o funcionário escolhido é um veteriário.
 	{
-		combo_box_fucao->set_active(0);
+		radio_button_veterinario->set_active(true);
 		MudarFuncionario();
 
 		entry_crmv->set_text(dynamic_cast<Veterinario*>(it->second)->get_crmv());
@@ -276,14 +288,14 @@ void JanelaEditarFuncionario::Editar()
 	// Verificação se todas as informações são validas, caso uma delas não seja
 	// aparecerá uma tela com um aviso informando qual a informação que está incorreta.
 	if(Responsabilidade(*animais, id) && 
-		pagina == 0 && combo_box_fucao->get_active_row_number() == 0)
+		pagina == 0 && radio_button_veterinario->get_active())
 	{
 			MessageDialog dialog(*window, "Erro.");
 			dialog.set_secondary_text("Impossivel mudar a função desse funcionário, pois ele é responsavel por animais.");
   			dialog.run();
 	}
 	else if(Responsabilidade(*animais, id) && 
-		pagina == 1 && combo_box_fucao->get_active_row_number() == 1)
+		pagina == 1 && radio_button_tratador->get_active())
 	{
 			MessageDialog dialog(*window, "Erro.");
 			dialog.set_secondary_text("Impossivel mudar a função desse funcionário, pois ele é responsavel por animais.");
@@ -342,34 +354,26 @@ void JanelaEditarFuncionario::Editar()
 				tipo_sanguineo = "O";
 				break;
 		}
-		switch(combo_box_rh->get_active_row_number())
-		{
-			case 0:
-				rh = '+';
-				break;
-			case 1:
-				rh = '-';
-				break;
-		}
+
+		if(radio_button_rh_positivo->get_active())
+			rh = '+';
+		else
+			rh = '-';
+
 		// Dependendo da função do funcionário a operação é diferente.
-		switch(combo_box_fucao->get_active_row_number())
+		if(radio_button_veterinario->get_active())
 		{
-			case 0:
-			{
-				Funcionario *veterinario = new Veterinario(id, entry_nome_do_funcionario->get_text(), entry_cpf->get_text(), stoi(entry_idade->get_text()), tipo_sanguineo, rh, entry_especialidade->get_text(), entry_crmv->get_text());
-				funcionarios->insert(pair<int, Funcionario*>(id, veterinario));
-				outfile << *veterinario << endl;
-				janela_principal->AtualizarLista(1);
-				break;
-			}
-			case 1:
-			{
-				Funcionario *tratador = new Tratador(id, entry_nome_do_funcionario->get_text(), entry_cpf->get_text(), stoi(entry_idade->get_text()), tipo_sanguineo, rh, entry_especialidade->get_text(), combo_box_nivel_de_seguranca->get_active_row_number());
-				funcionarios->insert(pair<int, Funcionario*>(id, tratador));
-				outfile << *tratador << endl;
-				janela_principal->AtualizarLista(0);
-				break;
-			}
+			Funcionario *veterinario = new Veterinario(id, entry_nome_do_funcionario->get_text(), entry_cpf->get_text(), stoi(entry_idade->get_text()), tipo_sanguineo, rh, entry_especialidade->get_text(), entry_crmv->get_text());
+			funcionarios->insert(pair<int, Funcionario*>(id, veterinario));
+			outfile << *veterinario << endl;
+			janela_principal->AtualizarLista(1);
+		}
+		else
+		{
+			Funcionario *tratador = new Tratador(id, entry_nome_do_funcionario->get_text(), entry_cpf->get_text(), stoi(entry_idade->get_text()), tipo_sanguineo, rh, entry_especialidade->get_text(), combo_box_nivel_de_seguranca->get_active_row_number());
+			funcionarios->insert(pair<int, Funcionario*>(id, tratador));
+			outfile << *tratador << endl;
+			janela_principal->AtualizarLista(0);
 		}
 		window->close();
 	}
@@ -381,31 +385,26 @@ void JanelaEditarFuncionario::Editar()
 
 void JanelaEditarFuncionario::MudarFuncionario()
 {
-	switch(combo_box_fucao->get_active_row_number())
+	if(radio_button_veterinario->get_active())
 	{
-		case 0:
-			{
-			if (pagina == 0)
-			{
-				valid_crmv = false;
-				entry_crmv->set_icon_from_pixbuf(pixbuf_uncheck);
-			}
+		if (pagina == 0)
+		{
+			valid_crmv = false;
+			entry_crmv->set_icon_from_pixbuf(pixbuf_uncheck);
+		}
 
-			combo_box_nivel_de_seguranca->hide();
-			label_nivel_de_seguranca->hide();
-			entry_crmv->show();
-			label_crmv->show();
-			break;
-			}
-		case 1:
-			{
-				valid_crmv = true;
-				combo_box_nivel_de_seguranca->show();
-				label_nivel_de_seguranca->show();
-				entry_crmv->hide();
-				label_crmv->hide();
-				break;
-			}
+		combo_box_nivel_de_seguranca->hide();
+		label_nivel_de_seguranca->hide();
+		entry_crmv->show();
+		label_crmv->show();
+	}
+	else
+	{
+		valid_crmv = true;
+		combo_box_nivel_de_seguranca->show();
+		label_nivel_de_seguranca->show();
+		entry_crmv->hide();
+		label_crmv->hide();
 	}
 }
 

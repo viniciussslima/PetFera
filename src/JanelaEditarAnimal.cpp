@@ -71,8 +71,6 @@ JanelaEditarAnimal::JanelaEditarAnimal(JanelaPrincipal &jptemp, map<int, Funcion
 	combo_box_tratador_id = new ComboBoxText;
 	combo_box_uf = new ComboBoxText;
 	combo_box_classe = new ComboBoxText;
-	combo_box_sexo = new ComboBoxText;
-	combo_box_regiao = new ComboBoxText;
 
 	check_button_veterinario_incluso = new CheckButton;
 	check_button_tratador_incluso = new CheckButton;
@@ -85,10 +83,17 @@ JanelaEditarAnimal::JanelaEditarAnimal(JanelaPrincipal &jptemp, map<int, Funcion
 	check_button_venenoso = new CheckButton;
 	entry_tipo_de_veneno = new Entry;
 
+	radio_button_sexo_m = new RadioButton("Masculino");
+	radio_button_sexo_f = new RadioButton("Feminino");
+	radio_button_regiao_nativo = new RadioButton("Nativo");
+	radio_button_regiao_exotico = new RadioButton("Exótico");
+
 	box_principal = new VBox;
 	box_dados = new HBox;
 	box_esquerda = new VBox(true);
 	box_direita = new VBox(true);
+	box_sexo = new HBox(true);
+	box_regiao = new HBox(true);
 
 	label_id = new Label("ID: ");
 	label_id_numero = new Label(to_string(id));
@@ -143,9 +148,6 @@ JanelaEditarAnimal::JanelaEditarAnimal(JanelaPrincipal &jptemp, map<int, Funcion
 	combo_box_classe->append("Mammalia");
 	combo_box_classe->append("Reptilia");
 
-	combo_box_sexo->append("Masculino");
-	combo_box_sexo->append("Feminino");
-
 	for(map<int, Funcionario*>::iterator it = funcionarios->begin(); it != funcionarios->end(); it++)
 	{
 		if (dynamic_cast<Tratador*>(it->second) == NULL)
@@ -159,9 +161,6 @@ JanelaEditarAnimal::JanelaEditarAnimal(JanelaPrincipal &jptemp, map<int, Funcion
 	}
 	combo_box_tratador_id->set_active(0);
 	combo_box_veterinario_id->set_active(0);
-
-	combo_box_regiao->append("Brasileiro");
-	combo_box_regiao->append("Outra Nacionalidade");
 
 	combo_box_uf->set_wrap_width(27);
 
@@ -193,6 +192,9 @@ JanelaEditarAnimal::JanelaEditarAnimal(JanelaPrincipal &jptemp, map<int, Funcion
 	combo_box_uf->append("SE");
 	combo_box_uf->append("TO");
 	combo_box_uf->set_active(0);
+
+	radio_button_sexo_f->join_group(*radio_button_sexo_m);
+	radio_button_regiao_exotico->join_group(*radio_button_regiao_nativo);
 
 	box_principal->add(*box_dados);
 	box_principal->pack_start(*button_editar, PACK_SHRINK);
@@ -227,7 +229,7 @@ JanelaEditarAnimal::JanelaEditarAnimal(JanelaPrincipal &jptemp, map<int, Funcion
 	box_direita->pack_start(*label_id_numero, PACK_SHRINK);
 	box_direita->pack_start(*combo_box_classe, PACK_SHRINK);
 	box_direita->pack_start(*entry_nome_cientifico, PACK_SHRINK);
-	box_direita->pack_start(*combo_box_sexo, PACK_SHRINK);
+	box_direita->pack_start(*box_sexo, PACK_SHRINK);
 	box_direita->pack_start(*entry_tamanho, PACK_SHRINK);
 	box_direita->pack_start(*entry_dieta, PACK_SHRINK);
 	box_direita->pack_start(*check_button_veterinario_incluso, PACK_SHRINK);
@@ -243,17 +245,22 @@ JanelaEditarAnimal::JanelaEditarAnimal(JanelaPrincipal &jptemp, map<int, Funcion
 	box_direita->pack_start(*check_button_venenoso, PACK_SHRINK);
 	box_direita->pack_start(*entry_tipo_de_veneno, PACK_SHRINK);
 	box_direita->pack_start(*entry_autorizacao_ibama, PACK_SHRINK);
-	box_direita->pack_start(*combo_box_regiao, PACK_SHRINK);
+	box_direita->pack_start(*box_regiao, PACK_SHRINK);
 	box_direita->pack_start(*entry_nacionalidade, PACK_SHRINK);
 	box_direita->pack_start(*combo_box_uf, PACK_SHRINK);
 	box_direita->pack_start(*entry_cidade, PACK_SHRINK);
+
+	box_sexo->pack_start(*radio_button_sexo_m, PACK_SHRINK);
+	box_sexo->pack_start(*radio_button_sexo_f, PACK_SHRINK);
+	box_regiao->pack_start(*radio_button_regiao_nativo, PACK_SHRINK);
+	box_regiao->pack_start(*radio_button_regiao_exotico, PACK_SHRINK);
 
 	SetInformacooes();
 
 	// Conexões dos atributos da classe GTK.
 	button_editar->signal_clicked().connect(sigc::mem_fun(*this, &JanelaEditarAnimal::Editar));
 	combo_box_classe->signal_changed().connect(sigc::mem_fun(*this, &JanelaEditarAnimal::MudarClasse));
-	combo_box_regiao->signal_changed().connect(sigc::mem_fun(*this, &JanelaEditarAnimal::MudarRegiao));
+	radio_button_regiao_nativo->signal_toggled().connect(sigc::mem_fun(*this, &JanelaEditarAnimal::MudarRegiao));
 	check_button_veterinario_incluso->signal_clicked().connect(sigc::mem_fun(*this, &JanelaEditarAnimal::MostrarVeterinario));
 	check_button_tratador_incluso->signal_clicked().connect(sigc::mem_fun(*this, &JanelaEditarAnimal::MostrarTratador));
 	check_button_venenoso->signal_clicked().connect(sigc::mem_fun(*this, &JanelaEditarAnimal::MostrarVenenoso));
@@ -295,8 +302,8 @@ JanelaEditarAnimal::~JanelaEditarAnimal()
 	delete entry_tipo_de_veneno;
 	delete combo_box_uf;
 	delete combo_box_classe;
-	delete combo_box_sexo;
-	delete combo_box_regiao;
+	delete box_sexo;
+	delete box_regiao;
 	delete check_button_veterinario_incluso;
 	delete check_button_tratador_incluso;
 	delete button_editar;
@@ -356,9 +363,9 @@ void JanelaEditarAnimal::SetInformacooes()
 	entry_nome_cientifico->set_text((it->second)->get_nome_cientifico());
 	
 	if ((it->second)->get_sexo() == 'M')
-		combo_box_sexo->set_active(0);
+		radio_button_sexo_m->set_active(true);
 	else
-		combo_box_sexo->set_active(1);
+		radio_button_sexo_f->set_active(true);
 
 	entry_tamanho->set_text(to_string((it->second)->get_tamanho()));
 
@@ -394,7 +401,7 @@ void JanelaEditarAnimal::SetInformacooes()
 
 	if (pagina % 2 == 0)
 	{
-		combo_box_regiao->set_active(0);
+		radio_button_regiao_nativo->set_active(true);
 		MudarRegiao();
 
 		uf = dynamic_cast<AnimalNativo*>(it->second)->get_uf_de_origem();
@@ -510,7 +517,7 @@ void JanelaEditarAnimal::SetInformacooes()
 		else
 			entry_data_da_ultima_muda->set_text(data_da_ultima_muda);
 
-		combo_box_regiao->set_active(1);
+		radio_button_regiao_exotico->set_active(true);
 		MudarRegiao();
 		valid_nacionalidade = true;
 	}
@@ -555,7 +562,7 @@ void JanelaEditarAnimal::SetInformacooes()
 
 		entry_envergadura_das_asas->set_text(to_string(dynamic_cast<Ave*>(it->second)->get_envergadura_das_asas()));
 
-		combo_box_regiao->set_active(1);
+		radio_button_regiao_exotico->set_active(true);
 		MudarRegiao();
 		valid_nacionalidade = true;
 	}
@@ -580,7 +587,7 @@ void JanelaEditarAnimal::SetInformacooes()
 
 		entry_cor_dos_pelos->set_text(dynamic_cast<Mamifero*>(it->second)->get_cor_do_pelo());
 
-		combo_box_regiao->set_active(0);
+		radio_button_regiao_nativo->set_active(true);
 		MudarRegiao();
 	}
 	else if (pagina == 7)  // Se a pagina é igual a 7, o animal escolhido é um mamífero exótico.
@@ -602,7 +609,7 @@ void JanelaEditarAnimal::SetInformacooes()
 
 		entry_cor_dos_pelos->set_text(dynamic_cast<Mamifero*>(it->second)->get_cor_do_pelo());
 
-		combo_box_regiao->set_active(1);
+		radio_button_regiao_exotico->set_active(true);
 		MudarRegiao();
 		valid_nacionalidade = true;
 	}
@@ -666,7 +673,7 @@ void JanelaEditarAnimal::SetInformacooes()
 			MostrarVenenoso();
 		}
 
-		combo_box_regiao->set_active(1);
+		radio_button_regiao_exotico->set_active(true);
 		MudarRegiao();
 		valid_nacionalidade = true;
 	}	
@@ -768,14 +775,14 @@ void JanelaEditarAnimal::Editar()
 		for(unsigned int i = 0; i < classe.length(); i++)
 			classe[i] = toupper(classe[i]);
 		string nome_cientifico = entry_nome_cientifico->get_text();
-		char sexo = combo_box_sexo->get_active_text()[0];
+		char sexo = radio_button_sexo_m->get_active() ? 'M' : 'F';
 		double tamanho = stod(entry_tamanho->get_text());
 		string dieta = entry_dieta->get_text();
 		Veterinario *veterinario = check_button_veterinario_incluso->get_active() ? dynamic_cast<Veterinario*>((funcionarios->find(stoi(combo_box_veterinario_id->get_active_id())))->second) : new Veterinario();
 		Tratador *tratador = check_button_tratador_incluso->get_active() ? dynamic_cast<Tratador*>((funcionarios->find(stoi(combo_box_tratador_id->get_active_id())))->second) : new Tratador();
 		string nome_batismo = entry_nome_batismo->get_text();
 		string autorizacao_ibama = entry_autorizacao_ibama->get_text();
-		string nacionalidade = combo_box_regiao->get_active_row_number() == 0 ? combo_box_uf->get_active_text() : entry_nacionalidade->get_text();
+		string nacionalidade = radio_button_regiao_nativo->get_active() ? combo_box_uf->get_active_text() : entry_nacionalidade->get_text();
 
 		ofstream outfile;
 		outfile.open("Dados/animais.csv", ios::app);
@@ -786,142 +793,122 @@ void JanelaEditarAnimal::Editar()
 			case 0:
 			{
 				// Anfíbio
-				switch(combo_box_regiao->get_active_row_number())
+				if(radio_button_regiao_nativo->get_active())
 				{
-					case 0:
-					{
-						vector<int> data;
-						string data_string = entry_data_da_ultima_muda->get_text();
-						data = Separador_data(data_string);
-						date data_date(data[0], data[1], data[2]);
+					vector<int> data;
+					string data_string = entry_data_da_ultima_muda->get_text();
+					data = Separador_data(data_string);
+					date data_date(data[0], data[1], data[2]);
 
-						Animal *temp = new AnfibioNativo(id, classe, nome_cientifico, sexo, 
-							tamanho, dieta, *veterinario, *tratador, 
-							nome_batismo, stoi(entry_total_de_mudas->get_text()), 
-							data_date, autorizacao_ibama, nacionalidade);
+					Animal *temp = new AnfibioNativo(id, classe, nome_cientifico, sexo, 
+						tamanho, dieta, *veterinario, *tratador, 
+						nome_batismo, stoi(entry_total_de_mudas->get_text()), 
+						data_date, autorizacao_ibama, nacionalidade);
 
-						outfile << *temp << endl;
-						animais->insert(pair<int, Animal*>(id, temp));
-						janela_principal->AtualizarLista(2);
-						break;
-					}
-					case 1:
-					{
-						vector<int> data;
-						string data_string = entry_data_da_ultima_muda->get_text();
-						data = Separador_data(data_string);
-						date data_date(data[0], data[1], data[2]);
+					outfile << *temp << endl;
+					animais->insert(pair<int, Animal*>(id, temp));
+					janela_principal->AtualizarLista(2);
+				}
+				else
+				{
+					vector<int> data;
+					string data_string = entry_data_da_ultima_muda->get_text();
+					data = Separador_data(data_string);
+					date data_date(data[0], data[1], data[2]);
 
-						Animal *temp = new AnfibioExotico(id, classe, nome_cientifico, sexo,
-							tamanho, dieta, *veterinario, *tratador, 
-							nome_batismo, stoi(entry_total_de_mudas->get_text()),
-							data_date, autorizacao_ibama, nacionalidade, entry_cidade->get_text());
+					Animal *temp = new AnfibioExotico(id, classe, nome_cientifico, sexo,
+						tamanho, dieta, *veterinario, *tratador, 
+						nome_batismo, stoi(entry_total_de_mudas->get_text()),
+						data_date, autorizacao_ibama, nacionalidade, entry_cidade->get_text());
 
-						outfile << *temp << endl;
-						animais->insert(pair<int, Animal*>(id, temp));
-						janela_principal->AtualizarLista(3);
-						break;
-					}
+					outfile << *temp << endl;
+					animais->insert(pair<int, Animal*>(id, temp));
+					janela_principal->AtualizarLista(3);
 				}
 				break;
 			}
 			case 1:
 			{
 				// Aves
-				switch(combo_box_regiao->get_active_row_number())
+				if(radio_button_regiao_nativo->get_active())
 				{
-					case 0:
-					{
-						Animal *temp = new AveNativo(id, classe, nome_cientifico, sexo, 
-							tamanho, dieta, *veterinario, *tratador, 
-							nome_batismo, stod(entry_tamanho_do_bico->get_text()), 
-							stod(entry_envergadura_das_asas->get_text()), 
-							autorizacao_ibama, nacionalidade);
+					Animal *temp = new AveNativo(id, classe, nome_cientifico, sexo, 
+						tamanho, dieta, *veterinario, *tratador, 
+						nome_batismo, stod(entry_tamanho_do_bico->get_text()), 
+						stod(entry_envergadura_das_asas->get_text()), 
+						autorizacao_ibama, nacionalidade);
 
-						outfile << *temp << endl;
-						animais->insert(pair<int, Animal*>(id, temp));
-						janela_principal->AtualizarLista(4);
-						break;
-					}
-					case 1:
-					{
-						Animal *temp = new AveExotico(id, classe, nome_cientifico, sexo, 
-							tamanho, dieta, *veterinario, *tratador, 
-							nome_batismo, stod(entry_tamanho_do_bico->get_text()), 
-							stod(entry_envergadura_das_asas->get_text()), 
-							autorizacao_ibama, nacionalidade, entry_cidade->get_text());
+					outfile << *temp << endl;
+					animais->insert(pair<int, Animal*>(id, temp));
+					janela_principal->AtualizarLista(4);
+				}
+				else
+				{
+					Animal *temp = new AveExotico(id, classe, nome_cientifico, sexo, 
+						tamanho, dieta, *veterinario, *tratador, 
+						nome_batismo, stod(entry_tamanho_do_bico->get_text()), 
+						stod(entry_envergadura_das_asas->get_text()), 
+						autorizacao_ibama, nacionalidade, entry_cidade->get_text());
 
-						outfile << *temp << endl;
-						animais->insert(pair<int, Animal*>(id, temp));
-						janela_principal->AtualizarLista(5);
-						break;
-					}
+					outfile << *temp << endl;
+					animais->insert(pair<int, Animal*>(id, temp));
+					janela_principal->AtualizarLista(5);
 				}
 				break;
 			}
 			case 2:
 			{
 				// Mamífero
-				switch(combo_box_regiao->get_active_row_number())
+				if(radio_button_regiao_nativo->get_active())
 				{
-					case 0:
-					{
-						Animal *temp = new MamiferoNativo(id, classe, nome_cientifico, sexo, 
-							tamanho, dieta, *veterinario, *tratador, 
-							nome_batismo, entry_cor_dos_pelos->get_text(), 
-							autorizacao_ibama, nacionalidade);
+					Animal *temp = new MamiferoNativo(id, classe, nome_cientifico, sexo, 
+						tamanho, dieta, *veterinario, *tratador, 
+						nome_batismo, entry_cor_dos_pelos->get_text(), 
+						autorizacao_ibama, nacionalidade);
 
-						outfile << *temp << endl;
-						animais->insert(pair<int, Animal*>(id, temp));
-						janela_principal->AtualizarLista(6);
-						break;
-					}
-					case 1:
-					{
-						Animal *temp = new MamiferoExotico(id, classe, nome_cientifico, sexo, 
-							tamanho, dieta, *veterinario, *tratador, 
-							nome_batismo, entry_cor_dos_pelos->get_text(), 
-							autorizacao_ibama, nacionalidade, entry_cidade->get_text());
+					outfile << *temp << endl;
+					animais->insert(pair<int, Animal*>(id, temp));
+					janela_principal->AtualizarLista(6);
+				}
+				else
+				{
+					Animal *temp = new MamiferoExotico(id, classe, nome_cientifico, sexo, 
+						tamanho, dieta, *veterinario, *tratador, 
+						nome_batismo, entry_cor_dos_pelos->get_text(), 
+						autorizacao_ibama, nacionalidade, entry_cidade->get_text());
 
-						outfile << *temp << endl;
-						animais->insert(pair<int, Animal*>(id, temp));
-						janela_principal->AtualizarLista(7);
-						break;
-					}
+					outfile << *temp << endl;
+					animais->insert(pair<int, Animal*>(id, temp));
+					janela_principal->AtualizarLista(7);
 				}
 				break;
 			}
 			case 3:
 			{
 				// Réptil
-				switch(combo_box_regiao->get_active_row_number())
+				if(radio_button_regiao_nativo->get_active())
 				{
-					case 0:
-					{
-						Animal *temp = new ReptilNativo(id, classe, nome_cientifico, sexo, 
-							tamanho, dieta, *veterinario, *tratador, 
-							nome_batismo, check_button_venenoso->get_active(), 
-							entry_tipo_de_veneno->get_text(), autorizacao_ibama, 
-							nacionalidade);
+					Animal *temp = new ReptilNativo(id, classe, nome_cientifico, sexo, 
+						tamanho, dieta, *veterinario, *tratador, 
+						nome_batismo, check_button_venenoso->get_active(), 
+						entry_tipo_de_veneno->get_text(), autorizacao_ibama, 
+						nacionalidade);
 
-						outfile << *temp << endl;
-						animais->insert(pair<int, Animal*>(id, temp));
-						janela_principal->AtualizarLista(8);
-						break;
-					}
-					case 1:
-					{
-						Animal *temp = new ReptilExotico(id, classe, nome_cientifico, sexo, 
-							tamanho, dieta, *veterinario, *tratador, nome_batismo, 
-							check_button_venenoso->get_active(), 
-							entry_tipo_de_veneno->get_text(), autorizacao_ibama, 
-							nacionalidade, entry_cidade->get_text());
+					outfile << *temp << endl;
+					animais->insert(pair<int, Animal*>(id, temp));
+					janela_principal->AtualizarLista(8);
+				}
+				else
+				{
+					Animal *temp = new ReptilExotico(id, classe, nome_cientifico, sexo, 
+						tamanho, dieta, *veterinario, *tratador, nome_batismo, 
+						check_button_venenoso->get_active(), 
+						entry_tipo_de_veneno->get_text(), autorizacao_ibama, 
+						nacionalidade, entry_cidade->get_text());
 
-						outfile << *temp << endl;
-						animais->insert(pair<int, Animal*>(id, temp));
-						janela_principal->AtualizarLista(9);
-						break;
-					}
+					outfile << *temp << endl;
+					animais->insert(pair<int, Animal*>(id, temp));
+					janela_principal->AtualizarLista(9);
 				}
 				break;
 			}
@@ -1045,30 +1032,30 @@ void JanelaEditarAnimal::MudarClasse()
 
 void JanelaEditarAnimal::MudarRegiao()
 {
-	switch(combo_box_regiao->get_active_row_number())
+	if(radio_button_regiao_nativo->get_active())
 	{
-		case 0: // Caso o aniaml seja nativo.
-			valid_nacionalidade = true;
-			valid_cidade = true;
-			combo_box_uf->show();
-			label_uf->show();
-			entry_nacionalidade->hide();
-			label_nacionalidade->hide();
-			entry_cidade->hide();
-			label_cidade->hide();
-			break;
-		case 1: // Caso o animal seja exótico.
-			valid_nacionalidade = false;
-			entry_nacionalidade->set_icon_from_pixbuf(pixbuf_uncheck);
-			valid_cidade = false;
-			entry_cidade->set_icon_from_pixbuf(pixbuf_uncheck);
-			combo_box_uf->hide();
-			label_uf->hide();
-			entry_nacionalidade->show();
-			label_nacionalidade->show();
-			entry_cidade->show();
-			label_cidade->show();
-			break;
+		// Caso o animal seja nativo.
+		valid_nacionalidade = true;
+		valid_cidade = true;
+		combo_box_uf->show();
+		label_uf->show();
+		entry_nacionalidade->hide();
+		label_nacionalidade->hide();
+		entry_cidade->hide();
+		label_cidade->hide();
+	}
+	else
+	{
+		valid_nacionalidade = false;
+		entry_nacionalidade->set_icon_from_pixbuf(pixbuf_uncheck);
+		valid_cidade = false;
+		entry_cidade->set_icon_from_pixbuf(pixbuf_uncheck);
+		combo_box_uf->hide();
+		label_uf->hide();
+		entry_nacionalidade->show();
+		label_nacionalidade->show();
+		entry_cidade->show();
+		label_cidade->show();
 	}
 }
 

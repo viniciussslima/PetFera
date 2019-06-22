@@ -47,10 +47,13 @@ class JanelaEditarAnimal
 		HBox *box_dados;
 		VBox *box_esquerda;
 		VBox *box_direita;
+		HBox *box_sexo;
+		HBox *box_regiao;
 
 		ComboBoxText *combo_box_classe;
 		Entry *entry_nome_cientifico;
-		ComboBoxText *combo_box_sexo;
+		RadioButton *radio_button_sexo_m;
+		RadioButton *radio_button_sexo_f;
 		Entry *entry_tamanho;
 		Entry *entry_dieta;
 		CheckButton *check_button_veterinario_incluso;
@@ -59,7 +62,8 @@ class JanelaEditarAnimal
 		ComboBoxText *combo_box_tratador_id;
 		Entry *entry_nome_batismo;
 		Entry *entry_autorizacao_ibama;
-		ComboBoxText *combo_box_regiao;
+		RadioButton *radio_button_regiao_nativo;
+		RadioButton *radio_button_regiao_exotico;
 		Entry *entry_nacionalidade;
 		ComboBoxText *combo_box_uf;
 		Entry *entry_cidade;
