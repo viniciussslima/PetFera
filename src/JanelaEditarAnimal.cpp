@@ -462,9 +462,16 @@ void JanelaEditarAnimal::SetInformacooes()
 	}
 	else
 	{
+		radio_button_regiao_exotico->set_active(true);
+		MudarRegiao();
+
 		entry_nacionalidade->set_text(dynamic_cast<AnimalExotico*>(it->second)->get_pais_de_origem());
+		entry_nacionalidade->set_icon_from_pixbuf(pixbuf_check);
+		valid_nacionalidade = true;
 
 		entry_cidade->set_text(dynamic_cast<AnimalExotico*>(it->second)->get_cidade_de_origem());
+		entry_cidade->set_icon_from_pixbuf(pixbuf_check);
+		valid_cidade = true;
 	}
 
 	if (pagina == 2) // Se a pagina é igual a 2, o animal escolhido é um anfíbio nativo.
@@ -489,9 +496,14 @@ void JanelaEditarAnimal::SetInformacooes()
 		data_da_ultima_muda = dynamic_cast<Anfibio*>(it->second)->get_data_da_ultima_muda();
 		
 		if (data_da_ultima_muda.compare("Sem data") == 0)
+		{
+			label_data_da_ultima_muda->hide();
 			entry_data_da_ultima_muda->hide();
+		}
 		else
+		{
 			entry_data_da_ultima_muda->set_text(data_da_ultima_muda);
+		}
 	}
 	else if (pagina == 3) // Se a pagina é igual a 3, o animal escolhido é um anfibío exótico.
 	{
@@ -516,10 +528,6 @@ void JanelaEditarAnimal::SetInformacooes()
 			entry_data_da_ultima_muda->hide();
 		else
 			entry_data_da_ultima_muda->set_text(data_da_ultima_muda);
-
-		radio_button_regiao_exotico->set_active(true);
-		MudarRegiao();
-		valid_nacionalidade = true;
 	}
 	else if (pagina == 4)  // Se a pagina é igual a 4, o animal escolhido é uma ave nativa.
 	{
@@ -563,8 +571,6 @@ void JanelaEditarAnimal::SetInformacooes()
 		entry_envergadura_das_asas->set_text(to_string(dynamic_cast<Ave*>(it->second)->get_envergadura_das_asas()));
 
 		radio_button_regiao_exotico->set_active(true);
-		MudarRegiao();
-		valid_nacionalidade = true;
 	}
 	else if (pagina == 6)  // Se a pagina é igual a 6, o animal escolhido é um mamífero nativo.
 	{
@@ -586,9 +592,6 @@ void JanelaEditarAnimal::SetInformacooes()
 		combo_box_classe->set_active(2);
 
 		entry_cor_dos_pelos->set_text(dynamic_cast<Mamifero*>(it->second)->get_cor_do_pelo());
-
-		radio_button_regiao_nativo->set_active(true);
-		MudarRegiao();
 	}
 	else if (pagina == 7)  // Se a pagina é igual a 7, o animal escolhido é um mamífero exótico.
 	{
@@ -608,10 +611,6 @@ void JanelaEditarAnimal::SetInformacooes()
 		combo_box_classe->set_active(2);
 
 		entry_cor_dos_pelos->set_text(dynamic_cast<Mamifero*>(it->second)->get_cor_do_pelo());
-
-		radio_button_regiao_exotico->set_active(true);
-		MudarRegiao();
-		valid_nacionalidade = true;
 	}
 	else if (pagina == 8) // Se a pagina é igual a 8, o animal escolhido é um reptil exótico.
 	{
@@ -672,10 +671,6 @@ void JanelaEditarAnimal::SetInformacooes()
 			entry_tipo_de_veneno->set_icon_from_pixbuf(pixbuf_uncheck);
 			MostrarVenenoso();
 		}
-
-		radio_button_regiao_exotico->set_active(true);
-		MudarRegiao();
-		valid_nacionalidade = true;
 	}	
 }
 
@@ -783,7 +778,6 @@ void JanelaEditarAnimal::Editar()
 		string nome_batismo = entry_nome_batismo->get_text();
 		string autorizacao_ibama = entry_autorizacao_ibama->get_text();
 		string nacionalidade = radio_button_regiao_nativo->get_active() ? combo_box_uf->get_active_text() : entry_nacionalidade->get_text();
-
 		ofstream outfile;
 		outfile.open("Dados/animais.csv", ios::app);
 
@@ -795,10 +789,20 @@ void JanelaEditarAnimal::Editar()
 				// Anfíbio
 				if(radio_button_regiao_nativo->get_active())
 				{
-					vector<int> data;
-					string data_string = entry_data_da_ultima_muda->get_text();
-					data = Separador_data(data_string);
-					date data_date(data[0], data[1], data[2]);
+					date data_date;
+					if (stoi(entry_total_de_mudas->get_text()) != 0)
+					{
+						vector<int> data;
+						string data_string = entry_data_da_ultima_muda->get_text();
+						data = Separador_data(data_string);
+						date data_date_temp(data[0], data[1], data[2]);
+						data_date = data_date_temp;
+					}
+					else
+					{
+						date data_date_temp(0, 0, 0);
+						data_date = data_date_temp;
+					}
 
 					Animal *temp = new AnfibioNativo(id, classe, nome_cientifico, sexo, 
 						tamanho, dieta, *veterinario, *tratador, 
@@ -811,10 +815,20 @@ void JanelaEditarAnimal::Editar()
 				}
 				else
 				{
-					vector<int> data;
-					string data_string = entry_data_da_ultima_muda->get_text();
-					data = Separador_data(data_string);
-					date data_date(data[0], data[1], data[2]);
+					date data_date;
+					if (stoi(entry_total_de_mudas->get_text()) != 0)
+					{
+						vector<int> data;
+						string data_string = entry_data_da_ultima_muda->get_text();
+						data = Separador_data(data_string);
+						date data_date_temp(data[0], data[1], data[2]);
+						data_date = data_date_temp;
+					}
+					else
+					{
+						date data_date_temp(0, 0, 0);
+						data_date = data_date_temp;
+					}
 
 					Animal *temp = new AnfibioExotico(id, classe, nome_cientifico, sexo,
 						tamanho, dieta, *veterinario, *tratador, 
@@ -1363,6 +1377,7 @@ void JanelaEditarAnimal::AtualizarIconeTotalDeMudas()
 		entry_total_de_mudas->set_icon_from_pixbuf(pixbuf_check);
 		label_data_da_ultima_muda->show();
 		entry_data_da_ultima_muda->show();
+		AtualizarIconeDataDaUltimaMuda();
 
 	}
 }
@@ -1376,6 +1391,24 @@ void JanelaEditarAnimal::AtualizarIconeDataDaUltimaMuda()
 	string temp1;
 	vector <int> data;
 	date data_da_ultima_muda;
+	// Caso o total de mudas for igual a 0 não existe uma última data.
+	if (stoi(entry_total_de_mudas->get_text()) == 0)
+	{
+		temp1 = entry_data_da_ultima_muda->get_text();
+		if (temp1.empty())
+		{
+			valid_data_da_ultima_muda = true;
+			entry_data_da_ultima_muda->set_icon_from_pixbuf(pixbuf_check);
+		}
+		else
+		{
+			valid_data_da_ultima_muda = false;
+			entry_data_da_ultima_muda->set_icon_from_pixbuf(pixbuf_uncheck);
+			entry_data_da_ultima_muda->set_icon_tooltip_text("Data Inválida");
+		}
+		return;
+	}
+	//Tentando pegar a data
 	try
 	{
 		temp1 = entry_data_da_ultima_muda->get_text();
@@ -1383,19 +1416,20 @@ void JanelaEditarAnimal::AtualizarIconeDataDaUltimaMuda()
 		date temp2(data[0], data[1], data[2]);
 		data_da_ultima_muda = temp2;
 	}
-	catch(exception &ex) // Caso não seja possivel converter a data digitada para o tipo date.
+	catch(exception &ex)
 	{
 		valid_data_da_ultima_muda = false;
 		entry_data_da_ultima_muda->set_icon_from_pixbuf(pixbuf_uncheck);
 		entry_data_da_ultima_muda->set_icon_tooltip_text("Data Inválida");
 		return;
 	}
-	if (data_da_ultima_muda.valid()) // Caso a data seja válida.
+	//Se a data for válida
+	if (data_da_ultima_muda.valid())
 	{
 		valid_data_da_ultima_muda = true;
 		entry_data_da_ultima_muda->set_icon_from_pixbuf(pixbuf_check);
 	}
-	else // Caso a data não seja válida (Ex: 01/13/2019).
+	else
 	{
 		valid_data_da_ultima_muda = false;
 		entry_data_da_ultima_muda->set_icon_from_pixbuf(pixbuf_uncheck);
