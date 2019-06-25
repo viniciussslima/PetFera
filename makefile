@@ -3,7 +3,8 @@ SRCDIR = src/
 BUILDDIR = build/
 BINDIR = bin/
 CC = g++
-PROG = $(BINDIR)PetFera
+PROG_PETFERA = $(BINDIR)PetFera
+PROG_EXPORTAR = $(BINDIR)Exportar
 CPPFLAGSGTK = `pkg-config --cflags gtkmm-3.0` -g -O0 -Wall -std=c++11 -I$(INCLUDEDIR)
 CPPFLAGS = -g -O0 -Wall -std=c++11 -I$(INCLUDEDIR)
 LDFLAGS = `pkg-config --libs gtkmm-3.0`
@@ -20,8 +21,20 @@ $(BUILDDIR)Ave.o $(BUILDDIR)AveNativo.o $(BUILDDIR)AveExotico.o \
 $(BUILDDIR)AnimalSilvestre.o $(BUILDDIR)AnimalNativo.o $(BUILDDIR)AnimalExotico.o \
 $(BUILDDIR)Separador.o
 
-$(PROG): folder $(OBJS)
-	$(CC) -o $(PROG) $(OBJS) $(LDFLAGS)
+OBJS_EXPORTAR = $(BUILDDIR)date.o \
+$(BUILDDIR)Funcionario.o $(BUILDDIR)Veterinario.o $(BUILDDIR)Tratador.o \
+$(BUILDDIR)Animal.o \
+$(BUILDDIR)Anfibio.o $(BUILDDIR)AnfibioNativo.o $(BUILDDIR)AnfibioExotico.o \
+$(BUILDDIR)Mamifero.o $(BUILDDIR)MamiferoNativo.o $(BUILDDIR)MamiferoExotico.o \
+$(BUILDDIR)Reptil.o $(BUILDDIR)ReptilNativo.o $(BUILDDIR)ReptilExotico.o \
+$(BUILDDIR)Ave.o $(BUILDDIR)AveNativo.o $(BUILDDIR)AveExotico.o \
+$(BUILDDIR)AnimalSilvestre.o $(BUILDDIR)AnimalNativo.o $(BUILDDIR)AnimalExotico.o \
+$(BUILDDIR)Separador.o $(BUILDDIR)Exportar.o
+
+$(PROG_PETFERA): folder $(OBJS)
+	$(CC) -o $(PROG_PETFERA) $(OBJS) $(LDFLAGS)
+$(PROG_EXPORTAR):
+	$(CC) -o $(PROG_EXPORTAR) $(OBJS) $(LDFLAGS)
 folder :
 	mkdir -p $(BINDIR)
 	mkdir -p $(BUILDDIR)
@@ -88,12 +101,14 @@ $(BUILDDIR)AnimalExotico.o : $(INCLUDEDIR)AnimalExotico.h
 	$(CC) $(CPPFLAGS) -c $(SRCDIR)AnimalExotico.cpp -o $@
 $(BUILDDIR)Separador.o : $(INCLUDEDIR)Separador.h
 	$(CC) $(CPPFLAGS) -c $(SRCDIR)Separador.cpp -o $@
+$(BUILDDIR)Exportar.o : $(INCLUDEDIR)Exportar.h
+	$(CC) $(CPPFLAGS) -c $(SRCDIR)Exportar.cpp -o $@
 clean :
 	rm -f core $(OBJS)
 cleanall : clean
-	rm -f core $(PROG)
+	rm -f core $(PROG_PETFERA)
 run :
-	./$(PROG)
+	./$(PROG_PETFERA)
 gdb:
-	gdb $(PROG)	
-remake: cleanall $(PROG)
+	gdb $(PROG_PETFERA)	
+remake: cleanall $(PROG_PETFERA)
