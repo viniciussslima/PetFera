@@ -165,8 +165,9 @@ map<int, Animal*> Carregar()
 int main(int argc, char const *argv[])
 {
 	map<int, Animal*> animais_filtrados = Carregar();
-	string classe, veterinario_id, tratador_id;
-	for(int i = 0; i < argc; i++)
+	string classe;
+	int veterinario_id, tratador_id;
+	for(int i = 0; i < argc; i +=2)
 	{
 		if(strcmp(argv[i], "-c") == 0)
 		{
@@ -178,15 +179,25 @@ int main(int argc, char const *argv[])
 					animais_filtrados.erase(it);
 			}
 		}
-		if(strcmp(argv[i], "-v") == 0)
+		else if(strcmp(argv[i], "-v") == 0)
 		{
-			veterinario_id = argv[i + 1];
+			veterinario_id = stoi(argv[i + 1]);
 
+			for(map<int, Animal*>::iterator it = animais_filtrados.begin(); it != animais_filtrados.end(); it++)
+			{
+				if(it->second->get_veterinario_id() != veterinario_id)
+					animais_filtrados.erase(it);
+			}
 		}
-		if(strcmp(argv[i], "-t") == 0)
+		else if(strcmp(argv[i], "-t") == 0)
 		{
-			tratador_id = argv[i + 1];
+			tratador_id = stoi(argv[i + 1]);
 
+			for(map<int, Animal*>::iterator it = animais_filtrados.begin(); it != animais_filtrados.end(); it++)
+			{
+				if(it->second->get_tratador_id() != tratador_id)
+					animais_filtrados.erase(it);
+			}
 		}
 	}
 	return 0;
