@@ -552,7 +552,7 @@ void JanelaCadastroAnimal::Cadastrar()
 						stod(entry_envergadura_das_asas->get_text()), 
 						autorizacao_ibama, nacionalidade);
 
-					outfile << temp << endl;
+					outfile << *temp << endl;
 					animais->insert(pair<int, Animal*>(id, temp));
 					janela_principal->AtualizarLista(4);
 				}
