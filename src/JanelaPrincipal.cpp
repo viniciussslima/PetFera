@@ -83,10 +83,10 @@ JanelaPrincipal::JanelaPrincipal():ModelColumnsTratador(), ModelColumnsVeterinar
 			char sexo = palavras[3][0];
 			double tamanho = stod(palavras[4]);
 			string dieta = palavras[5];
-			Veterinario *veterinario;
+			Veterinario *veterinario = new Veterinario;
 			if (stoi(palavras[6]) != 0)
 				veterinario = dynamic_cast<Veterinario*>(funcionarios.find(stoi(palavras[6]))->second);
-			Tratador *tratador;
+			Tratador *tratador = new Tratador;
 			if (stoi(palavras[7]) != 0)
 				tratador = dynamic_cast<Tratador*>(funcionarios.find(stoi(palavras[7]))->second);
 			string nome_batismo = palavras[8];
