@@ -9,7 +9,7 @@ map<int, Animal*> Carregar()
 
 	ifstream funcionarios_csv("Dados/funcionarios.csv");
 	ifstream animais_csv("Dados/animais.csv");
-
+	//Carregando os dados dos funcionários
 	if(funcionarios_csv.is_open())
 	{
 		string linha;
@@ -59,10 +59,10 @@ map<int, Animal*> Carregar()
 			char sexo = palavras[3][0];
 			double tamanho = stod(palavras[4]);
 			string dieta = palavras[5];
-			Veterinario *veterinario;
+			Veterinario *veterinario = new Veterinario;
 			if (stoi(palavras[6]) != 0)
 				veterinario = dynamic_cast<Veterinario*>(funcionarios.find(stoi(palavras[6]))->second);
-			Tratador *tratador;
+			Tratador *tratador = new Tratador;
 			if (stoi(palavras[7]) != 0)
 				tratador = dynamic_cast<Tratador*>(funcionarios.find(stoi(palavras[7]))->second);
 			string nome_batismo = palavras[8];
@@ -158,6 +158,9 @@ map<int, Animal*> Carregar()
 		    }
 		}
 	}
+	animais_csv.close();
+	funcionarios_csv.close();
+
 
 	return animais;
 }
@@ -167,11 +170,13 @@ int main(int argc, char const *argv[])
 	map<int, Animal*> animais_filtrados = Carregar();
 	string classe;
 	int veterinario_id, tratador_id;
-	for(int i = 0; i < argc; i +=2)
+	for(int i = 0; i < argc; i++)
 	{
 		if(strcmp(argv[i], "-c") == 0)
 		{
 			classe = argv[i + 1];
+			for (unsigned int i = 0; i < classe.length(); i++)
+				classe[i] = toupper(classe[i]);
 
 			for(map<int, Animal*>::iterator it = animais_filtrados.begin(); it != animais_filtrados.end(); it++)
 			{
@@ -199,6 +204,12 @@ int main(int argc, char const *argv[])
 					animais_filtrados.erase(it);
 			}
 		}
+	}
+	ofstream output;
+	output.open(argc[argv-1]);
+	for(map<int, Animal*>::iterator it = animais_filtrados.begin(); it != animais_filtrados.end(); it++)
+	{
+		output << *(it->second) << endl;
 	}
 	return 0;
 }
