@@ -33,8 +33,8 @@ $(BUILDDIR)Separador.o $(BUILDDIR)Exportar.o
 
 $(PROG_PETFERA): folder $(OBJS)
 	$(CC) -o $(PROG_PETFERA) $(OBJS) $(LDFLAGS)
-$(PROG_EXPORTAR):
-	$(CC) -o $(PROG_EXPORTAR) $(OBJS) $(LDFLAGS)
+$(PROG_EXPORTAR): $(OBJS_EXPORTAR)
+	$(CC) -o $(PROG_EXPORTAR) $(OBJS_EXPORTAR) $(LDFLAGS)
 folder :
 	mkdir -p $(BINDIR)
 	mkdir -p $(BUILDDIR)
@@ -105,8 +105,10 @@ $(BUILDDIR)Exportar.o : $(INCLUDEDIR)Exportar.h
 	$(CC) $(CPPFLAGS) -c $(SRCDIR)Exportar.cpp -o $@
 clean :
 	rm -f core $(OBJS)
+	rm -f core $(OBJS_EXPORTAR)
 cleanall : clean
 	rm -f core $(PROG_PETFERA)
+	rm -f core $(PROG_EXPORTAR)
 run :
 	./$(PROG_PETFERA)
 gdb:
