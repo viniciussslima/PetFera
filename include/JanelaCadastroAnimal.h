@@ -14,26 +14,11 @@
 #include <string>
 #include <fstream>
 #include <exception>
-
 #include <gtkmm.h>
 
+#include "PetFera.so"
 #include "JanelaPrincipal.h"
 #include "Separador.h"
-
-#include "Veterinario.h"
-#include "Tratador.h"
-
-#include "AnfibioExotico.h"
-#include "AnfibioNativo.h"
-
-#include "AveExotico.h"
-#include "AveNativo.h"
-
-#include "MamiferoExotico.h"
-#include "MamiferoNativo.h"
-
-#include "ReptilExotico.h"
-#include "ReptilNativo.h"
 
 using namespace Gtk;
 using namespace std;

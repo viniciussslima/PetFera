@@ -16,11 +16,8 @@
 #include <exception>
 #include <gtkmm.h>
 
+#include "PetFera.so"
 #include "JanelaPrincipal.h"
-
-#include "Funcionario.h"
-#include "Animal.h"
-
 #include "Separador.h"
 
 using namespace Gtk;

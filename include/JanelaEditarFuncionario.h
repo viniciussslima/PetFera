@@ -16,9 +16,7 @@
 #include <map>
 #include <gtkmm.h>
 
-#include "Funcionario.h"
-#include "Veterinario.h"
-#include "Tratador.h"
+#include "PetFera.so"
 #include "JanelaPrincipal.h"
 #include "Separador.h"
 #include "Responsabilidade.h"
