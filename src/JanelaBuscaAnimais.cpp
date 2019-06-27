@@ -294,11 +294,7 @@ void JanelaBuscaAnimais::ProcurarAnimalPorFuncionario()
 			if ((it->second)->get_tratador_id() == id && (it->second)->get_classe().compare("Amphibia") == 0)
 			{
 				tipo = true;
-				try
-				{
-					dynamic_cast<AnimalExotico*>(it->second)->get_pais_de_origem();
-				}
-				catch(exception &ex)
+				if (dynamic_cast<AnimalExotico*>(it->second) != NULL)
 				{
 					tipo = false;
 				}
@@ -365,11 +361,7 @@ void JanelaBuscaAnimais::ProcurarAnimalPorFuncionario()
 			else if ((it->second)->get_tratador_id() == id && (it->second)->get_classe().compare("Aves") == 0)
 			{
 				tipo = true;
-				try
-				{
-					dynamic_cast<AnimalExotico*>(it->second)->get_pais_de_origem();
-				}
-				catch(exception &ex)
+				if (dynamic_cast<AnimalExotico*>(it->second) != NULL)
 				{
 					tipo = false;
 				}
@@ -437,11 +429,7 @@ void JanelaBuscaAnimais::ProcurarAnimalPorFuncionario()
 			else if ((it->second)->get_tratador_id() == id)
 			{
 				tipo = true;
-				try
-				{
-					dynamic_cast<AnimalExotico*>(it->second)->get_pais_de_origem();
-				}
-				catch(exception &ex)
+				if (dynamic_cast<AnimalExotico*>(it->second) != NULL)
 				{
 					tipo = false;
 				}
@@ -507,11 +495,7 @@ void JanelaBuscaAnimais::ProcurarAnimalPorFuncionario()
 			else if ((it->second)->get_tratador_id() == id && (it->second)->get_classe().compare("Reptilia") == 0)
 			{
 				tipo = true;
-				try
-				{
-					dynamic_cast<AnimalExotico*>(it->second)->get_pais_de_origem();
-				}
-				catch(exception &ex)
+				if (dynamic_cast<AnimalExotico*>(it->second) != NULL)
 				{
 					tipo = false;
 				}
@@ -581,11 +565,7 @@ void JanelaBuscaAnimais::ProcurarAnimalPorFuncionario()
 			if ((it->second)->get_veterinario_id() == id && (it->second)->get_classe().compare("Amphibia") == 0)
 			{
 				tipo = true;
-				try
-				{
-					dynamic_cast<AnimalExotico*>(it->second)->get_pais_de_origem();
-				}
-				catch(exception &ex)
+				if (dynamic_cast<AnimalExotico*>(it->second) != NULL)
 				{
 					tipo = false;
 				}
@@ -652,11 +632,7 @@ void JanelaBuscaAnimais::ProcurarAnimalPorFuncionario()
 			else if ((it->second)->get_veterinario_id() == id && (it->second)->get_classe().compare("Aves") == 0)
 			{
 				tipo = true;
-				try
-				{
-					dynamic_cast<AnimalExotico*>(it->second)->get_pais_de_origem();
-				}
-				catch(exception &ex)
+				if (dynamic_cast<AnimalExotico*>(it->second) != NULL)
 				{
 					tipo = false;
 				}
@@ -723,11 +699,7 @@ void JanelaBuscaAnimais::ProcurarAnimalPorFuncionario()
 			else if ((it->second)->get_veterinario_id() == id && (it->second)->get_classe().compare("Mammalia") == 0)
 			{
 				tipo = true;
-				try
-				{
-					dynamic_cast<AnimalExotico*>(it->second)->get_pais_de_origem();
-				}
-				catch(exception &ex)
+				if (dynamic_cast<AnimalExotico*>(it->second) != NULL)
 				{
 					tipo = false;
 				}
@@ -792,11 +764,7 @@ void JanelaBuscaAnimais::ProcurarAnimalPorFuncionario()
 			else if ((it->second)->get_veterinario_id() == id && (it->second)->get_classe().compare("Reptilia") == 0)
 			{
 				tipo = true;
-				try
-				{
-					dynamic_cast<AnimalExotico*>(it->second)->get_pais_de_origem();
-				}
-				catch(exception &ex)
+				if (dynamic_cast<AnimalExotico*>(it->second) != NULL)
 				{
 					tipo = false;
 				}
