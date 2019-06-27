@@ -19,6 +19,10 @@ Caso não tenha, acesse:	https://www.gtkmm.org/pt_BR/download.html
 
 	make
 
+### Para recompilar:
+
+	make remake
+
 ### Para limpar os arquivos auxiliares:
 
     make clean
@@ -27,9 +31,12 @@ Caso não tenha, acesse:	https://www.gtkmm.org/pt_BR/download.html
 
     make cleanall
     
-### Para rodar(após compilar):
+### Para rodar o PetFera(após compilar):
     make run
-    
+
+### Para Exportar informações:
+    ./bin/exportar -c <classe> -v <ID do veterinario> -t <ID do tratador>
+
 ### Para gerar a documentação Doxygen:
     doxygen
     
