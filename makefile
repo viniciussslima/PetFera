@@ -5,27 +5,18 @@ BINDIR = bin/
 LIBDIR = lib/
 CC = g++
 PROG_PETFERA = $(BINDIR)PetFera
-PROG_EXPORTAR = $(BINDIR)Exportar
+PROG_EXPORTAR = $(BINDIR)exportar
 PROG_BIBLIOTECA = $(LIBDIR)PetFera.so
-CPPFLAGSGTK = `pkg-config --cflags gtkmm-3.0` -g -O0 -Wall -std=c++11 -I$(INCLUDEDIR)
-CPPFLAGS = -g -O0 -Wall -std=c++11 -I$(INCLUDEDIR)
+CPPFLAGSGTK = `pkg-config --cflags gtkmm-3.0` -Wall -std=c++11 -I$(INCLUDEDIR)
+CPPFLAGS = -Wall -std=c++11 -I$(INCLUDEDIR)
 LDFLAGS = `pkg-config --libs gtkmm-3.0` $(PROG_BIBLIOTECA)
 
 OBJS = $(BUILDDIR)main.o $(BUILDDIR)JanelaPrincipal.o $(BUILDDIR)JanelaCadastroFuncionario.o \
 $(BUILDDIR)JanelaCadastroAnimal.o $(BUILDDIR)RemoverFuncionario.o $(BUILDDIR)RemoverAnimal.o\
 $(BUILDDIR)JanelaEditarFuncionario.o $(BUILDDIR)JanelaEditarAnimal.o $(BUILDDIR)JanelaBuscaAnimais.o \
-$(BUILDDIR)Responsabilidade.o $(BUILDDIR)date.o \
-$(BUILDDIR)Separador.o
+$(BUILDDIR)Responsabilidade.o $(BUILDDIR)Separador.o
 
-OBJS_EXPORTAR = $(BUILDDIR)date.o \
-$(BUILDDIR)Funcionario.o $(BUILDDIR)Veterinario.o $(BUILDDIR)Tratador.o \
-$(BUILDDIR)Animal.o \
-$(BUILDDIR)Anfibio.o $(BUILDDIR)AnfibioNativo.o $(BUILDDIR)AnfibioExotico.o \
-$(BUILDDIR)Mamifero.o $(BUILDDIR)MamiferoNativo.o $(BUILDDIR)MamiferoExotico.o \
-$(BUILDDIR)Reptil.o $(BUILDDIR)ReptilNativo.o $(BUILDDIR)ReptilExotico.o \
-$(BUILDDIR)Ave.o $(BUILDDIR)AveNativo.o $(BUILDDIR)AveExotico.o \
-$(BUILDDIR)AnimalSilvestre.o $(BUILDDIR)AnimalNativo.o $(BUILDDIR)AnimalExotico.o \
-$(BUILDDIR)Separador.o $(BUILDDIR)Exportar.o
+OBJS_EXPORTAR = $(BUILDDIR)Separador.o $(BUILDDIR)Exportar.o
 
 OBJS_BIBLIOTECA = $(BUILDDIR)Funcionario.o $(BUILDDIR)Veterinario.o $(BUILDDIR)Tratador.o \
 $(BUILDDIR)Animal.o \
@@ -34,6 +25,9 @@ $(BUILDDIR)Mamifero.o $(BUILDDIR)MamiferoNativo.o $(BUILDDIR)MamiferoExotico.o \
 $(BUILDDIR)Reptil.o $(BUILDDIR)ReptilNativo.o $(BUILDDIR)ReptilExotico.o \
 $(BUILDDIR)Ave.o $(BUILDDIR)AveNativo.o $(BUILDDIR)AveExotico.o \
 $(BUILDDIR)AnimalSilvestre.o $(BUILDDIR)AnimalNativo.o $(BUILDDIR)AnimalExotico.o \
+$(BUILDDIR)date.o \
+
+default: $(PROG_BIBLIOTECA) $(PROG_PETFERA) $(PROG_EXPORTAR)
 
 $(PROG_BIBLIOTECA): folder $(OBJS_BIBLIOTECA)
 	$(CC) -shared -o $(PROG_BIBLIOTECA) $(OBJS_BIBLIOTECA)
@@ -116,13 +110,12 @@ $(BUILDDIR)Exportar.o : $(INCLUDEDIR)Exportar.h
 	$(CC) $(CPPFLAGS) -c $(SRCDIR)Exportar.cpp -o $@
 clean :
 	rm -f core $(OBJS)
+	rm -f core $(OBJS_BIBLIOTECA)
 	rm -f core $(OBJS_EXPORTAR)
 cleanall : clean
 	rm -f core $(PROG_PETFERA)
 	rm -f core $(PROG_EXPORTAR)
 	rm -f core $(PROG_BIBLIOTECA)
-run :
+run:
 	./$(PROG_PETFERA)
-gdb:
-	gdb $(PROG_PETFERA)	
-remake: cleanall $(PROG_PETFERA)
+remake: cleanall default
