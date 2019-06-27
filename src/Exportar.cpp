@@ -161,7 +161,6 @@ map<int, Animal*> Carregar()
 	animais_csv.close();
 	funcionarios_csv.close();
 
-
 	return animais;
 }
 
@@ -169,14 +168,34 @@ int main(int argc, char const *argv[])
 {
 	map<int, Animal*> animais_filtrados = Carregar();
 	string classe;
-	int veterinario_id, tratador_id;
-	for(int i = 0; i < argc; i++)
+	int veterinario_id, tratador_id, contador;
+	if (argc == 1)
 	{
+		cout << "Digite o nome do aquivo para qual vai ser exportatado" << endl;
+		return 0;
+	}
+	for(int i = 1; i < argc; i += 2)
+	{
+		contador = 0;
 		if(strcmp(argv[i], "-c") == 0)
 		{
+			if((i+1) >= argc)
+			{
+				cout << "Digite uma especie após o -c" << endl;
+				cout << "Exportação falhou" << endl;
+				return 0;
+			}
 			classe = argv[i + 1];
+
 			for (unsigned int i = 0; i < classe.length(); i++)
 				classe[i] = toupper(classe[i]);
+			if (classe.compare("AVES") != 0 && classe.compare("MAMMALIA") != 0 &&
+				classe.compare("AMPHIBIA") != 0 && classe.compare("REPTILIA") != 0)
+			{
+				cout << "Digite uma especie após o -c" << endl;
+				cout << "Exportação falhou" << endl;
+				return 0;
+			}
 
 			for(map<int, Animal*>::iterator it = animais_filtrados.begin(); it != animais_filtrados.end(); it++)
 			{
@@ -186,30 +205,74 @@ int main(int argc, char const *argv[])
 		}
 		else if(strcmp(argv[i], "-v") == 0)
 		{
-			veterinario_id = stoi(argv[i + 1]);
-
+			try
+			{
+				veterinario_id = stoi(argv[i + 1]);
+			}
+			catch(exception &ex)
+			{
+				cerr << "Digite o id de um veterinario após o -v" << endl;
+				cerr << "Exportação falhou" << endl;
+				return 0;
+			}
 			for(map<int, Animal*>::iterator it = animais_filtrados.begin(); it != animais_filtrados.end(); it++)
 			{
 				if(it->second->get_veterinario_id() != veterinario_id)
+				{
 					animais_filtrados.erase(it);
+					contador++;
+				}
+			}
+			if (contador != 0)
+			{
+				cout << "Veterinario não cadastrado" << endl;
+				return 0;
 			}
 		}
 		else if(strcmp(argv[i], "-t") == 0)
 		{
-			tratador_id = stoi(argv[i + 1]);
+			try
+			{
+				tratador_id = stoi(argv[i + 1]);
+			}
+			catch(exception &ex)
+			{
+				cerr << "Digite o id de um tratador após o -t" << endl;
+				cerr << "Exportação falhou" << endl;
+				return 0;
+			}
 
 			for(map<int, Animal*>::iterator it = animais_filtrados.begin(); it != animais_filtrados.end(); it++)
 			{
 				if(it->second->get_tratador_id() != tratador_id)
+				{
 					animais_filtrados.erase(it);
+					contador++;
+				}
 			}
+
+			if (contador != 0)
+			{
+				cout << "Tratador não cadastrado" << endl;
+				return 0;
+			}
+		}
+		else
+		{
+			cout << "Ultilize os parametros:" << endl
+				<< "-c para escolher uma classe" << endl
+				<< "-v para escolher um veterinario" << endl
+				<< "-t para escolher um tratador" << endl;
+			return 0;
 		}
 	}
 	ofstream output;
-	output.open(argc[argv-1]);
+	output.open(argv[argc-1]);
 	for(map<int, Animal*>::iterator it = animais_filtrados.begin(); it != animais_filtrados.end(); it++)
 	{
 		output << *(it->second) << endl;
 	}
+	output.close();
+	cout << "A exportação foi bem sucedida" << endl;
 	return 0;
 }

@@ -5,6 +5,7 @@
 #include <fstream>
 #include <map>
 #include <cstring>
+#include <exception>
 
 #include "Separador.h"
 #include "date.h"
