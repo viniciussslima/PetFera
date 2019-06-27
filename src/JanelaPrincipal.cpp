@@ -560,6 +560,13 @@ void JanelaPrincipal::BotaoRemover()
 						RemoverFuncionario(*this, funcionarios, id);
 					}
 				}
+				else
+				{
+					MessageDialog dialog(*window, "Não é possivel remover esse funcionario ");
+					dialog.set_secondary_text("Esse funcionario é responsavel por algum animal");
+					dialog.run();
+				}
+
 			}
 			else // Caso uma linha não tenha sido selecionada.
 			{
@@ -575,7 +582,7 @@ void JanelaPrincipal::BotaoRemover()
 			Gtk::TreeModel::Row row = *selectedRow;
 			if (row != NULL) // Caso uma linha tenha sido selecionada.
 			{
-				id = row.get_value(model_columns_veterinario.col_id);	
+				id = row.get_value(model_columns_veterinario.col_id);
 				if(!Responsabilidade(animais, id))
 				{
 					MessageDialog confirmacao(*window, "Tem certeza que quer remover esse funcionário? ");
@@ -585,6 +592,12 @@ void JanelaPrincipal::BotaoRemover()
 					{
 						RemoverFuncionario(*this, funcionarios, id);
 					}
+				}
+				else
+				{
+					MessageDialog dialog(*window, "Não é possivel remover esse funcionario ");
+					dialog.set_secondary_text("Esse funcionario é responsavel por algum animal");
+					dialog.run();
 				}
 			}
 			else // Caso uma linha não tenha sido selecionada.
