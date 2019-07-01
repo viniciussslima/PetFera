@@ -168,15 +168,14 @@ int main(int argc, char const *argv[])
 {
 	map<int, Animal*> animais_filtrados = Carregar();
 	string classe;
-	int veterinario_id, tratador_id, contador;
+	int veterinario_id, tratador_id;
 	if (argc == 1)
 	{
 		cout << "Digite o nome do aquivo para qual vai ser exportatado" << endl;
 		return 0;
 	}
-	for(int i = 1; i < argc; i += 2)
+	for(int i = 1; i < argc - 1; i += 2)
 	{
-		contador = 0;
 		if(strcmp(argv[i], "-c") == 0)
 		{
 			if((i+1) >= argc)
@@ -220,10 +219,9 @@ int main(int argc, char const *argv[])
 				if(it->second->get_veterinario_id() != veterinario_id)
 				{
 					animais_filtrados.erase(it);
-					contador++;
 				}
 			}
-			if (contador != 0)
+			if (animais_filtrados.empty())
 			{
 				cout << "Veterinario não cadastrado" << endl;
 				return 0;
@@ -247,11 +245,10 @@ int main(int argc, char const *argv[])
 				if(it->second->get_tratador_id() != tratador_id)
 				{
 					animais_filtrados.erase(it);
-					contador++;
 				}
 			}
 
-			if (contador != 0)
+			if (animais_filtrados.empty())
 			{
 				cout << "Tratador não cadastrado" << endl;
 				return 0;
@@ -265,6 +262,12 @@ int main(int argc, char const *argv[])
 				<< "-t para escolher um tratador" << endl;
 			return 0;
 		}
+	}
+	if (animais_filtrados.empty())
+	{
+		cout << "Nenhum animal cadastrado contém as infomações passadas" << endl;
+		cout << "Exportação falhou" << endl;
+		return 0;
 	}
 	ofstream output;
 	output.open(argv[argc-1]);
